@@ -1,0 +1,19 @@
+ncmpcpp_directory                = "~/.config/ncmpcpp"
+
+mpd_host                         = "htpc"
+
+startup_screen                   = "2"
+titles_visibility                = "no"
+display_screens_numbers_on_start = "no"
+enable_window_title              = "yes"
+header_visibility                = "no"
+
+song_list_format                 = "$6 » $9%f"
+now_playing_prefix               = "$3"
+now_playing_suffix               = "$9"
+progressbar_look                 = "»»="
+
+colors_enabled                   = "yes"
+main_window_color                = "cyan"
+main_window_highlight_color      = "blue"
+progressbar_color                = "magenta"

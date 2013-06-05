@@ -1,0 +1,40 @@
+# Nice looking ps1 prompt (that tells me what system im on)
+PS1='[\[\e[0;31m\]$(hostname)/\[\e[0m\]\[\e[0;34m\]${PWD##*/}/\[\e[0m\]]> '
+
+# bash options
+shopt -s cdspell        # autocorrects cd misspellings
+shopt -s checkwinsize   # update the value of LINES and COLUMNS after each command if altered
+shopt -s cmdhist        # save multi-line commands in history as single line
+shopt -s dotglob        # include dotfiles in pathname expansion
+shopt -s expand_aliases # expand aliases
+shopt -s extglob        # enable extended pattern-matching features
+shopt -s nocaseglob     # pathname expansion will be treated as case-insensitive
+shopt -s histreedit     # Add failed commands to the bash history
+shopt -s autocd         # Autocd
+
+export HISTSIZE=1000
+export HISTCONTROL=ignorespace:erasedups
+export EDITOR=vim
+export PAGER=less
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+source ~/.config/bash/aliases
+
+# Setup dircolors
+eval $(dircolors ~/.config/dircolors)
+
+# Man page coloring
+man()
+{
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+}

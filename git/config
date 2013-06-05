@@ -1,0 +1,29 @@
+[user]
+	name = Evan Purkhiser
+	email = evanpurkhiser@gmail.com
+[core]
+	autocrlf = false
+	excludesfile = ~/.config/git/ignore
+
+[alias]
+	st = status -sb
+	ci = commit -v
+	br = branch
+	co = checkout
+	ls = log --date=short --pretty=format:'%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(magenta)%d %C(white)%s'
+
+[diff]
+	tool = vimdiff
+
+[apply]
+    whitespace = strip
+
+[color]
+	ui = true
+
+[rerere]
+	enabled = 1
+[push]
+	default = upstream
+[url "git://github.com/"]
+	insteadOf = gh:

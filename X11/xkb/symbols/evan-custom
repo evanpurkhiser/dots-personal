@@ -1,0 +1,15 @@
+default
+partial alphanumeric_keys modifier_keys
+xkb_symbols "evan-custom" {
+  include "us"
+
+  # Capslock should be Super_L
+  include "capslock(super)"
+
+  # Forward and back on numpad 1 and 3
+  key <KP1> { [ XF86_Back    ] };
+  key <KP3> { [ XF86_Forward ] };
+
+  # Voice PTT on numpad 2
+  key <KP2> { [ XF86_Send ] };
+};

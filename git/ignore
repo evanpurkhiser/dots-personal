@@ -1,0 +1,6 @@
+# SublimeText project files
+*.sublime-project
+*.sublime-workspace
+
+# SASS cache files
+*.sass-cache

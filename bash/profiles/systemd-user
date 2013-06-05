@@ -1,0 +1,57 @@
+export PATH=$HOME/bin:$PATH
+
+# XDG directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export  XDG_CACHE_HOME="$HOME/.cache"
+export   XDG_DATA_HOME="$HOME/.local/share"
+
+# Configuration file locations
+export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
+export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
+export   GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+export    MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
+export    VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
+export         INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
+export         VIMINIT='let $MYVIMRC="$HOME/.config/vim/vimrc" | source $MYVIMRC'
+
+# History file locations
+export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
+export   LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+export       HISTFILE="$XDG_CACHE_HOME/bash_history"
+
+# Set the session bus socket address
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/dbus/user_bus_socket"
+
+# Set the session ssh-agent socket path
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+
+# ------------------------------------------------------------------------------
+
+# If systemd --user isn't running then start it up
+if ! systemctl --user &> /dev/null
+then
+	mkdir -p "$XDG_RUNTIME_DIR/systemd"
+
+	# Double-fork the systemd process. This is done by executing a
+	# sub-shell (using ()) to ensure we're not the process leader, and
+	# then starting systemd using setsid to detach it from the
+	# controlling tty. Finally & to fork again to the background
+	(setsid /usr/lib/systemd/systemd --user --log-target=journal &)
+
+	# Wait for the systemd private user socket to be created
+	inotifywait -t 10 -e create "$XDG_RUNTIME_DIR/systemd" &> /dev/null
+fi
+
+# If we're logging in from VT1 then start the graphical target
+if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target
+then
+	systemctl --user set-environment DISPLAY=:0
+	systemctl --user start graphical.target
+	clear
+	logout
+
+# If we're logging in from elsewhere just start the console target
+else
+	systemctl --user start console.target
+	source .bashrc
+fi
