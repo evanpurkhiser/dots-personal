@@ -21,6 +21,9 @@ load-module module-default-device-restore
 ### connected to dies, similar for sources
 load-module module-rescue-streams
 
+### Load remote sink on HTPC
+load-module module-tunnel-sink server=192.168.1.101
+
 ### Make sure we always have a sink around, even if it is a null sink.
 load-module module-always-sink
 
