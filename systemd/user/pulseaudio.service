@@ -1,0 +1,10 @@
+[Unit]
+Description=Pulseaudio Server
+Documentation=man:pulseaudio(1)
+Requires=dbus.service
+
+[Service]
+ExecStart=/usr/bin/pulseaudio
+
+[Install]
+WantedBy=console.target

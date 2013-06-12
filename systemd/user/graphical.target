@@ -1,0 +1,5 @@
+[Unit]
+Description=Graphical session
+Requires=console.target
+Requires=xorg.target
+Wants=wm.service

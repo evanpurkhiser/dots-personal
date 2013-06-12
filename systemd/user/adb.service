@@ -1,0 +1,13 @@
+[Unit]
+Description=Android Debug Bridge
+Documentation=http://developer.android.com/tools/help/adb.html
+
+[Service]
+# This is a bit of a hack to tell ADB to look it's keys under the
+# user cache directory, instead of in the users home.
+# See: https://github.com/android/platform_system_core/blob/master/adb/adb_auth_host.c#L274
+Environment=HOME=%h/.cache
+ExecStart=/opt/android-sdk/platform-tools/adb fork-server server
+
+[Install]
+WantedBy=console.target

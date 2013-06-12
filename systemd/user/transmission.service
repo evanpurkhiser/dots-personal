@@ -1,0 +1,9 @@
+[Unit]
+Description=Transmission Bit Torrent Daemon
+Documentation=man:transmission-daemon(1)
+
+[Service]
+ExecStart=/usr/bin/transmission-daemon --foreground
+
+[Install]
+WantedBy=console.target

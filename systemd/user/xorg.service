@@ -1,0 +1,7 @@
+[Unit]
+Description=Xorg Server Instance
+Documentation=man:xorg(1)
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/xorg-launch-helper ${DISPLAY} -nolisten tcp vt4

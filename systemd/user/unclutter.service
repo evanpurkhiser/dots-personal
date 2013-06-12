@@ -1,0 +1,12 @@
+[Unit]
+Description=Unclutter
+Documentation=man:unclutter(1)
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+ExecStart=/usr/bin/unclutter
+
+[Install]
+WantedBy=graphical.target
+
