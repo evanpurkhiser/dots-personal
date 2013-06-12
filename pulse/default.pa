@@ -44,8 +44,4 @@ load-module module-filter-heuristics
 load-module module-filter-apply
 
 ### Load DBus protocol
-.ifexists module-dbus-protocol.so
 load-module module-dbus-protocol
-.endif
-
-load-module module-switch-on-port-available
