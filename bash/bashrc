@@ -20,10 +20,10 @@ export PAGER=less
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-source ~/.config/bash/aliases
+source "$XDG_CONFIG_HOME/bash/aliases"
 
 # Setup dircolors
-eval $(dircolors ~/.config/dircolors)
+eval $(dircolors "$XDG_CONFIG_HOME/bash/dircolors")
 
 # Man page coloring
 man()
