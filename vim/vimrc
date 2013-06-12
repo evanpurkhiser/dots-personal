@@ -1,0 +1,33 @@
+" General configurations
+" nocompatible must be the first config option
+set nocompatible
+set showmatch
+set nohls
+set incsearch
+set nowrap
+set number
+
+" Tabs configurations
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
+
+filetype indent plugin on
+
+" Sudo write
+cmap w!! %!sudo tee > /dev/null %
+
+syntax on
+
+" Turn off annoying backup files
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Follow XDG directory specifications
+set directory=$XDG_CACHE_HOME/vim
+set viminfo+=n$XDG_CACHE_HOME/viminfo
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
