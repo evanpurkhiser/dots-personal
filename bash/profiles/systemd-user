@@ -56,7 +56,6 @@ fi
 if [[ $target == "graphical" ]]
 then
 	clear
-	echo "Bringing up graphical target...\n"
 	logout
 fi
 
