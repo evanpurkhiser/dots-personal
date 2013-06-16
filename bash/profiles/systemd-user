@@ -29,31 +29,36 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
 
 # ------------------------------------------------------------------------------
 
-# If systemd --user isn't running then start it up
+# Default systemd to the console target
+target="console"
+
+# If we're logging in from VT1 start the graphical target
+if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target &> /dev/null
+then
+	target="graphical"
+	export DISPLAY=:0
+fi
+
+# Bring up systemd --user to the specified target
 if ! systemctl --user &> /dev/null
 then
-	mkdir -p "$XDG_RUNTIME_DIR/systemd"
-
 	# Double-fork the systemd process. This is done by executing a
 	# sub-shell (using ()) to ensure we're not the process leader, and
 	# then starting systemd using setsid to detach it from the
 	# controlling tty. Finally & to fork again to the background
-	(setsid /usr/lib/systemd/systemd --user --log-target=journal &)
-
-	# Wait for the systemd private user socket to be created
-	inotifywait -t 10 -e create "$XDG_RUNTIME_DIR/systemd" &> /dev/null
-fi
-
-# If we're logging in from VT1 then start the graphical target
-if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target
-then
-	systemctl --user set-environment DISPLAY=:0
-	systemctl --user start graphical.target
-	clear
-	logout
-
-# If we're logging in from elsewhere just start the console target
+	(setsid /usr/lib/systemd/systemd --user --log-target=journal --unit=${target}.target &)
 else
-	systemctl --user start console.target
-	source .bashrc
+	# Systemd is already active, start the target
+	systemctl --user start ${target}.target &
 fi
+
+# Logout of the terminal if we're starting the graphical target
+if [[ $target == "graphical" ]]
+then
+	clear
+	echo "Bringing up graphical target...\n"
+	logout
+fi
+
+# Source the bashrc if we're starting an interactive environment
+source "$HOME/.bashrc"
