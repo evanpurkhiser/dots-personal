@@ -49,7 +49,7 @@ then
 	(setsid /usr/lib/systemd/systemd --user --log-target=journal --unit=${target}.target &)
 else
 	# Systemd is already active, start the target
-	systemctl --user start ${target}.target &
+	(systemctl --user start ${target}.target &)
 fi
 
 # Logout of the terminal if we're starting the graphical target
