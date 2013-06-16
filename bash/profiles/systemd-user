@@ -51,11 +51,13 @@ then
 	(setsid /usr/lib/systemd/systemd --user --log-target=journal --unit=${target}.target &)
 else
 	# Systemd is already active, start the target
-	(systemctl --user start ${target}.target &)
+	(setsid systemctl --user start ${target}.target &)
 fi
 
+clear
+
 # Logout of the terminal if we're starting the graphical target
-[[ $target == "graphical" ]] && clear && logout
+[[ $target == "graphical" ]] && logout
 
 # Source the bashrc if we're starting an interactive environment
 source "$HOME/.bashrc"
