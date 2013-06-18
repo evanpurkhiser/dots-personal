@@ -54,8 +54,6 @@ else
 	(setsid systemctl --user start ${target}.target &)
 fi
 
-clear
-
 # Logout of the terminal if we're starting the graphical target
 [[ $target == "graphical" ]] && logout
 
