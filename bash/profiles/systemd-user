@@ -55,7 +55,7 @@ else
 fi
 
 # Logout of the terminal if we're starting the graphical target
-[[ $target == "graphical" ]] && logout
+[[ $target == "graphical" ]] && sleep 1 && logout
 
 # Source the bashrc if we're starting an interactive environment
 source "$HOME/.bashrc"
