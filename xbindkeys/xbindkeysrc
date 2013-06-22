@@ -25,6 +25,9 @@
 "chromium"
   Mod4 + F
 
+"chromium --incognito"
+  Mod4 + Shift + F
+
 "mangler"
   Mod4 + V
 
