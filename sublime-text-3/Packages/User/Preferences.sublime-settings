@@ -19,5 +19,6 @@
 	"show_tab_close_buttons": false,
 	"theme": "Soda Dark.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
+	"update_check": false,
 	"word_wrap": false
 }
