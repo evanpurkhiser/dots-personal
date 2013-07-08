@@ -23,6 +23,7 @@
     "lpd-enabled": false, 
     "message-level": 2, 
     "peer-congestion-algorithm": "", 
+    "peer-id-ttl-hours": 6,
     "peer-limit-global": 240, 
     "peer-limit-per-torrent": 60, 
     "peer-port": 51413, 
