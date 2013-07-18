@@ -30,6 +30,9 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/dbus/user_bus_socket
 # Set the session ssh-agent socket path
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
 
+# Put chromiums cache in /tmp for better performance
+export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/chrome-cache --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so"
+
 # Set the dsiplay address
 export DISPLAY=:0
 
