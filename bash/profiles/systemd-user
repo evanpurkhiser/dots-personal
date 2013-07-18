@@ -21,6 +21,9 @@ export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
 export   LESSHISTFILE="$XDG_CACHE_HOME/less_history"
 export       HISTFILE="$XDG_CACHE_HOME/bash_history"
 
+# OpenGL NVIDIA shader cache directory
+export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME"
+
 # Set the session bus socket address
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/dbus/user_bus_socket"
 
