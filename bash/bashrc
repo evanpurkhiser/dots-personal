@@ -8,7 +8,6 @@ shopt -s cmdhist        # save multi-line commands in history as single line
 shopt -s dotglob        # include dotfiles in pathname expansion
 shopt -s expand_aliases # expand aliases
 shopt -s extglob        # enable extended pattern-matching features
-shopt -s nocaseglob     # pathname expansion will be treated as case-insensitive
 shopt -s histreedit     # Add failed commands to the bash history
 shopt -s autocd         # Autocd
 
