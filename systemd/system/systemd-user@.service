@@ -1,0 +1,10 @@
+[Unit]
+Description=Systemd --user instance for %I
+Documentation=man:systemd
+
+[Service]
+User=%I
+ExecStart=/usr/lib/systemd/systemd --user --log-target=journal
+
+[Install]
+WantedBy=multi-user.target
