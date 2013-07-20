@@ -1,6 +1,7 @@
 {
 	"color_scheme": "Packages/Tomorrow Color Schemes/Tomorrow-Night.tmTheme",
 	"drag_text": false,
+	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
 	"fold_buttons": false,
 	"font_size": 10,
