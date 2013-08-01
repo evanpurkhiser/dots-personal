@@ -12,6 +12,7 @@ shopt -s histreedit     # Add failed commands to the bash history
 shopt -s autocd         # Autocd
 
 export HISTSIZE=1000
+export HISTFILE="$XDG_CACHE_HOME/bash_history"
 export HISTCONTROL=ignorespace:erasedups
 export EDITOR=vim
 export PAGER=less

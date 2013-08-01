@@ -1,67 +1,24 @@
 #!/bin/bash
 
-export PATH=$HOME/bin:$PATH
+source $HOME/.config/bash/environment
 
-# XDG directories
-export XDG_CONFIG_HOME="$HOME/.config"
-export  XDG_CACHE_HOME="$HOME/.cache"
-export   XDG_DATA_HOME="$HOME/.local/share"
-
-# Configuration file locations
-export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
-export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
-export   GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
-export    MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
-export    VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
-export         INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
-export         VIMINIT='let $MYVIMRC="$HOME/.config/vim/vimrc" | source $MYVIMRC'
-
-# History file locations
-export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
-export   LESSHISTFILE="$XDG_CACHE_HOME/less_history"
-export       HISTFILE="$XDG_CACHE_HOME/bash_history"
-
-# OpenGL NVIDIA shader cache directory
-export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME"
-
-# Set the session bus socket address
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/dbus/user_bus_socket"
-
-# Set the session ssh-agent socket path
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
-
-# Put chromiums cache in /tmp for better performance
-export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/chrome-cache --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so"
-
-# Set the dsiplay address
-export DISPLAY=:0
-
-# ------------------------------------------------------------------------------
-
-# Default systemd to the console target
-target="console"
-
-# If we're logging in from VT1 start the graphical target
-if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target &> /dev/null
+if systemctl -q is-active systemd-user@evan
 then
-	target="graphical"
+	# Default systemd to the console target
+	target="console"
+
+	# If we're logging in from VT1 start the graphical target
+	if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target &> /dev/null
+	then
+		target="graphical"
+		systemctl --user set-environment DISPLAY=:0
+	fi
+
+	# Bring up systemd --user to the specified target
+	systemctl --user start ${target}.target
+
+	# Exit the VT
+	[[ $target == "graphical" ]] && clear && logout
 fi
 
-# Bring up systemd --user to the specified target
-if ! systemctl --user &> /dev/null
-then
-	# Double-fork the systemd process. This is done by executing a
-	# sub-shell (using ()) to ensure we're not the process leader, and
-	# then starting systemd using setsid to detach it from the
-	# controlling tty. Finally & to fork again to the background
-	(setsid /usr/lib/systemd/systemd --user --log-target=journal --unit=${target}.target &)
-else
-	# Systemd is already active, start the target
-	(setsid systemctl --user start ${target}.target &)
-fi
-
-# Logout of the terminal if we're starting the graphical target
-[[ $target == "graphical" ]] && sleep 1 && logout
-
-# Source the bashrc if we're starting an interactive environment
 source "$HOME/.bashrc"
