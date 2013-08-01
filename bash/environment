@@ -1,0 +1,34 @@
+#!/bin/bash
+
+export PATH="$HOME/bin:$PATH"
+export SHELL="/bin/bash"
+
+# Put the dbus session socket in the runtime directory
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/dbus/user_bus_socket"
+
+# XDG directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export  XDG_CACHE_HOME="$HOME/.cache"
+export   XDG_DATA_HOME="$HOME/.local/share"
+
+# Configuration file locations
+export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
+export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
+export   GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+export    MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
+export    VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
+export         INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
+export         VIMINIT='let $MYVIMRC="$HOME/.config/vim/vimrc" | source $MYVIMRC'
+
+# History file locations
+export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
+export   LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+
+# OpenGL NVIDIA shader cache directory
+export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME"
+
+# Set the session ssh-agent socket path
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+
+# Put chromiums cache in /tmp for better performance
+export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/chrome-cache --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so"
