@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $HOME/.config/bash/environment
+source "$HOME/.config/bash/environment"
 
 if systemctl -q is-active systemd-user@evan
 then
