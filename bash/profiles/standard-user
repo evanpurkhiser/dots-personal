@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source "$HOME/.config/bash/environment"
+source "$HOME/.bashrc"
