@@ -23,7 +23,12 @@
 
 [rerere]
 	enabled = 1
+
 [push]
 	default = upstream
+
 [url "git://github.com/"]
 	insteadOf = gh:
+
+[github]
+	user = EvanPurkhiser
