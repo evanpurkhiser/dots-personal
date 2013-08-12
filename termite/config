@@ -27,7 +27,9 @@ browser = chromium
 [colors]
 foreground =   #c5c8c6
 background =   #1d1f21
-cursor     =   #aeafad
+cursor     =   #888888
+
+highlight = #575A5D
 
 # Grey / Black
 color0     =   #565856
