@@ -9,6 +9,7 @@ allow_bold = false
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
+size_hints = false
 font = Monospace 11
 scrollback_lines = 1000
 search_wrap = true
