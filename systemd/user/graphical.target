@@ -1,5 +1,5 @@
 [Unit]
 Description=Graphical session
-Requires=console.target
-Requires=xorg.target
+BindsTo=xorg.service
+Wants=console.target
 Wants=wm.service
