@@ -1,10 +1,6 @@
 #!/bin/bash
 
-export PATH="$HOME/bin:$PATH"
-export SHELL="/bin/bash"
-
-# Put the dbus session socket in the runtime directory
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/dbus/user_bus_socket"
+export PATH="$HOME/.local/bin:$PATH"
 
 # XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
