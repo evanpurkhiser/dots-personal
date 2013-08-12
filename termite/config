@@ -19,7 +19,7 @@ icon_name = utilities-terminal
 cursor_blink = off
 
 # "block", "underline" or "ibeam"
-cursor_shape = underline
+cursor_shape = block
 
 # $BROWSER is used by default
 browser = chromium
