@@ -1,0 +1,15 @@
+[Unit]
+Description=XBMC Media Center
+Documentation=http://xbmc.org
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+ExecStart=/usr/lib/xbmc/xbmc.bin
+Restart=always
+
+# We don't want MPC playing any music when XBMC is started
+ExecStartPre=-/usr/bin/mpc stop
+
+[Install]
+WantedBy=graphical.target
