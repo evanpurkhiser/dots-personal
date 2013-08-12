@@ -1,3 +1,1 @@
-[Unit]
-Description=Default user target
-Requires=dbus.service
+/usr/lib/systemd/user/base.target
