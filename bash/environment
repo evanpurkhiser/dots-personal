@@ -7,24 +7,26 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export  XDG_CACHE_HOME="$HOME/.cache"
 export   XDG_DATA_HOME="$HOME/.local/share"
 
+# Set path to inputrc configuration
+export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
+
+# Set the session ssh-agent socket path (If it's not set)
+[ -z "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+
 # Configuration file locations
-export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
-export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
-export   GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
-export    MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
-export    VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
-export         INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
-export         VIMINIT='let $MYVIMRC="$HOME/.config/vim/vimrc" | source $MYVIMRC'
+hash gimp       2>/dev/null && export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
+hash virtualbox 2>/dev/null && export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
+[ -e /etc/gtk-2.0/gtkrc ]   && export   GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+hash mplayer    2>/dev/null && export    MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
+hash vagrant    2>/dev/null && export    VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant"
+hash vim        2>/dev/null && export         VIMINIT='let $MYVIMRC="$HOME/.config/vim/vimrc" | source $MYVIMRC'
 
 # History file locations
-export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
-export   LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+hash mysql 2>/dev/null && export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
+hash less  2>/dev/null && export   LESSHISTFILE="$XDG_CACHE_HOME/less_history"
 
 # OpenGL NVIDIA shader cache directory
-export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME"
-
-# Set the session ssh-agent socket path
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+[ -e /usr/lib/modprobe.d/nvidia.conf ] && export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME"
 
 # Put chromiums cache in /tmp for better performance
-export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/chrome-cache --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so"
+hash chromium 2>/dev/null && export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/chrome-cache --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so"
