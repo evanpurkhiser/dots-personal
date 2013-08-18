@@ -3,6 +3,7 @@ Description=Transmission Bit Torrent Daemon
 Documentation=man:transmission-daemon(1)
 
 [Service]
+Type=notify
 ExecStart=/usr/bin/transmission-daemon --foreground
 
 [Install]
