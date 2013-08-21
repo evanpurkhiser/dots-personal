@@ -1,0 +1,30 @@
+# Tab controls on mouse-numpad
+@KP_{Left,Begin,Right}
+	xdotool key Control+{Shift+Tab,w,Tab}
+
+# Music controls on mouse-numpad
+KP_{Home,Up,Prior}
+	mpc --host HTPC {prev,toggle,next}
+
+# HDMI Switcher controls on F9-12
+mod4 + F{9,10,11,12}
+	irsend -a htpc SEND_ONCE Monoprice_5557_HDMI_Switch KEY_{1,2,3,4}
+
+# TV Power on F8
+mod4 + F8
+	irsend -a htpc SEND_ONCE lg_mkj36998126 power
+
+# General keybindings
+mod4 + Return
+	termite
+
+mod4 + e ; {f, v, w}
+	{chromium, mangler, subl3}
+
+mod4 + p
+	adb shell input keyevent 26
+
+mod4 + BackSpace
+	sleep 0.5; xset dpms force off
+
+
