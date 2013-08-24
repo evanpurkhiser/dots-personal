@@ -43,7 +43,7 @@ set list
 set listchars-=eol
 
 " Setup color schemes
-colorscheme hybrid
+silent! colorscheme hybrid
 set background=dark
 
 " Display the 
