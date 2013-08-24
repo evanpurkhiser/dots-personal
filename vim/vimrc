@@ -1,33 +1,75 @@
-" General configurations
-" nocompatible must be the first config option
 set nocompatible
-set showmatch
-set nohls
-set incsearch
+
+" Follow XDG directory specifications
+let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+set directory=$XDG_CACHE_HOME/vim
+set viminfo+=n$XDG_CACHE_HOME/viminfo
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$XDG_CONFIG_HOME/vim/bundle/vundle
+
+" Load in vundle
+filetype off
+call vundle#rc("$XDG_CONFIG_HOME/vim/bundle")
+
+" Let vundle manage itself
+Bundle 'gmarik/vundle'
+
+" Enable sensible options that should always be set
+Bundle 'tpope/vim-sensible'
+
+" Load Vundles
+Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'w0ng/vim-hybrid'
+Bundle 'godlygeek/tabular'
+Bundle 'vim-scripts/AutoComplPop'
+Bundle 'ervandew/supertab'
+
+
+" Don't wrap visually wrap lines
 set nowrap
+
+" Show line numbers
 set number
+
+" Don't show mode (--INSERT--, etc)
+set noshowmode
+
+" Ignore cache type files
+set wildignore+=*/cache/*,*.sassc
+
+" Show some nonprintable characters
+set list
+set listchars-=eol
+
+" Setup color schemes
+colorscheme hybrid
+set background=dark
+
+" Display the 
+set cursorline
 
 " Tabs configurations
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
-set autoindent
 set smartindent
-
-filetype indent plugin on
-
-" Sudo write
-cmap w!! %!sudo tee > /dev/null %
-
-syntax on
 
 " Turn off annoying backup files
 set nobackup
 set nowritebackup
 set noswapfile
 
-" Follow XDG directory specifications
-set directory=$XDG_CACHE_HOME/vim
-set viminfo+=n$XDG_CACHE_HOME/viminfo
-set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+" Be a little more leniant about case sensitivity
+set ignorecase
+set infercase
+set smartcase
+
+" Add a way to write a file as sudo
+cmap w!! w !sudo tee > /dev/null %
+
+" Remap Ctrl+C to be the same as escape without telling us to use :q to quit
+nnoremap <C-c> <silent> <ESC>
+
+" Enable spell checking on git commits
+au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
