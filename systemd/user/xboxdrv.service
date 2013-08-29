@@ -1,0 +1,10 @@
+[Unit]
+Description="Userspace Xbox controller driver"
+Documentation=man:xboxdrv(1)
+
+[Service]
+BusName=org.seul.Xboxdrv
+ExecStart=/usr/bin/xboxdrv --daemon -c ${XDG_CONFIG_HOME}/xboxdrv/xboxdrv
+
+[Install]
+WantedBy=console.target
