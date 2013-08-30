@@ -24,6 +24,7 @@ Bundle 'w0ng/vim-hybrid'
 Bundle 'godlygeek/tabular'
 Bundle 'vim-scripts/AutoComplPop'
 Bundle 'ervandew/supertab'
+Bundle 'juvenn/mustache.vim'
 
 
 " Don't wrap visually wrap lines
