@@ -1,0 +1,12 @@
+[Unit]
+Description=Xresource merger
+Documentation=man:xmonad(1)
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/xrdb -merge "${XDG_CONFIG_HOME}/xresources/Xresources"
+
+[Install]
+WantedBy=graphical.target
