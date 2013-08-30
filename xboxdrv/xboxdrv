@@ -1,11 +1,10 @@
 [xboxdrv]
 device-name="Controller (Xbox 360 Wireless Receiver for Windows)"
-trigger-as-zaxis=true
 silent=true
 toggle=void
 led=0
+trigger-as-zaxis=true
 
-# XBMC button map
 [ui-buttonmap]
 guide=exec:/home/evan/.config/xboxdrv/toggle-mode.sh:1
 
@@ -13,7 +12,6 @@ guide=exec:/home/evan/.config/xboxdrv/toggle-mode.sh:1
 -lt=lt
 -rt=rt
 
-# --------------------------
 # Command mode configuration
 [xboxdrv]
 next=true
@@ -38,4 +36,3 @@ start=exec:/usr/bin/irsend:SEND_ONCE:lg_mkj36998126:power
 
 # Desktop monitor power toggle
 back=exec:/home/evan/.local/bin/desktopctl:display-off
-
