@@ -32,7 +32,7 @@ du=exec:/usr/bin/irsend:SEND_ONCE:Monoprice_5557_HDMI_Switch:KEY_POWER
 dd=exec:/usr/bin/irsend:SEND_ONCE:Monoprice_5557_HDMI_Switch:KEY_3
 
 # TV Toggle on start
-start=exec:/usr/bin/irsend:SEND_ONCE:lg_mkj36998126:power
+a=exec:/usr/bin/irsend:SEND_ONCE:lg_mkj36998126:power
 
 # Desktop monitor power toggle
-back=exec:/home/evan/.local/bin/desktopctl:display-off
+b=exec:/usr/bin/ssh:desktop:/home/evan/.local/bin/monitor:toggle
