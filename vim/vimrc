@@ -18,7 +18,7 @@ Bundle 'tpope/vim-sensible'
 
 " Load Vundles
 Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'itchyny/lightline.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'godlygeek/tabular'
