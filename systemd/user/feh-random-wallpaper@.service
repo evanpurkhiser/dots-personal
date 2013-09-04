@@ -1,7 +1,7 @@
 [Unit]
 Description=Sets a random wallpaper using feh
 BindsTo=xorg.service
-Requires=xorg.service
+After=xorg.service
 
 [Service]
 Type=oneshot
