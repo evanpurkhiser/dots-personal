@@ -1,0 +1,10 @@
+[Unit]
+Description=Compton Compositing Manager
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+ExecStart=/usr/bin/compton --config "${XDG_CONFIG_HOME}/compton/compton.conf"
+
+[Install]
+WantedBy=graphical.target
