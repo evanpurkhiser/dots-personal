@@ -6,11 +6,15 @@
 KP_{Home,Up,Prior}
 	mpc --host HTPC {prev,toggle,next}
 
-# TV Power on F8
+mod4 + m; {Left,t,Right}
+	mpc --host htpc {prev,toggle,next}
+
+
+# TV power room automation
 mod4 + a; t
 	irsend -a htpc SEND_ONCE lg_mkj36998126 power
 
-# HDMI Switcher controls on F9-12
+# HDMI Switcher controls
 mod4 + a; s; {1,2,3,4,Left,Right,p}
 	irsend -a htpc SEND_ONCE Monoprice_5557_HDMI_Switch KEY_{1,2,3,4,PREVIOUS,NEXT,POWER}
 
