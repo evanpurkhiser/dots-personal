@@ -14,6 +14,13 @@ mod4 + a; t
 mod4 + a; s; {1,2,3,4,Left,Right,p}
 	irsend -a htpc SEND_ONCE Monoprice_5557_HDMI_Switch KEY_{1,2,3,4,PREVIOUS,NEXT,POWER}
 
+# Monitor display controls
+mod4 + d; p
+	monitor toggle
+
+mod4 + d; t
+	tv-toggle
+
 # General keybindings
 mod4 + Return
 	termite
@@ -24,7 +31,5 @@ mod4 + e ; {f, v, w}
 mod4 + p
 	adb shell input keyevent 26
 
-mod4 + BackSpace
-	sleep 0.5; xset dpms force off
 
 
