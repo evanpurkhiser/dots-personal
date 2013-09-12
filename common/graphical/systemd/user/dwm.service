@@ -1,6 +1,6 @@
 [Unit]
-Description=Awesome Window Manager
-Documentation=man:awesome(1)
+Description=Dynamic Window Manager
+Documentation=man:dwm(1)
 BindsTo=xorg.service
 After=xorg.service
 
