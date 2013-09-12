@@ -1,0 +1,23 @@
+#!/bin/bash
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# XDG directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export  XDG_CACHE_HOME="$HOME/.cache"
+export   XDG_DATA_HOME="$HOME/.local/share"
+
+# Set path to inputrc configuration
+export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
+
+# Set the session ssh-agent socket path (If it's not set)
+[ -z "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+
+# Specify vimrc path
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+
+# Look for terminfo files under data
+[ -d "$XDG_DATA_HOME/terminfo" ] && export TERMINFO="$XDG_DATA_HOME/terminfo"
+
+# Less history file location
+export LESSHISTFILE="$XDG_CACHE_HOME/less_history"

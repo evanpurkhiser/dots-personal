@@ -18,6 +18,3 @@ alias ls='LC_COLLATE=C ls --group-directories-first --color=auto --classify -h'
 
 # Server the current directory over port 8000 using pythong
 alias serve='python3 -m http.server'
-
-# Alias xdg-open to be just open
-alias open='xdg-open'
