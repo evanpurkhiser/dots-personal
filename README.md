@@ -56,6 +56,34 @@ will automagically be appended to the `base/bash/bashrc` file upon installation.
 
 Shebangs will be removed from the first line of the file being appended.
 
+#### Extending with explicit append points
+
+If a configuration file isn't procedural (in that you can't just append more
+configuration options to the end) such as a XML or JSON file, then you will need
+to use 'explicit append points'. This allows you to tell installer where to
+insert a subsequent configuration file contents.
+
+There are two types of explicit append points: default and named.
+
+##### default append points
+
+One 'default' append point may be defined per configuration file. This is the
+point where subsequent configuration files will be inserted into the file.
+
+The default append point is denoted by a `!!@@` with no trailing characters.
+
+##### named append points
+
+One or more 'named' append points may be defined per configuration file. This
+allows you to include multiple subsequent configuration files into the file.
+
+The named append point is denoted by a `!!@@` followed by a name. That same name
+should be appended to the subsequent configuration file names prefixed with a dot.
+
+For example, if you have a `bashrc` file that includes a `!!@@aliases` then the
+subsiquent file that would be inserted at that append point would have the file
+name `bashrc.aliases`.
+
 ### Overriding
 
 You can completely override a configuration file included in a previous group.
