@@ -100,8 +100,3 @@ and then to copy the files into the `$XDG_CONFIG_HOME` directory.
 
 An additional `after-install` script may be included in each configuration group
 directory to be run after installing the configuration files.
-
-## Problems and Concerns
-
- * How to handle extending files where the contents cannot just be appended to
-   the end, for example XML or JSON configuration files.
