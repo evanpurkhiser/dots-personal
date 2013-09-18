@@ -8,6 +8,12 @@ dotfiles installed on my Desktop, HTPC, or Netbook.
 
 All configurations will be installed into the `$XDG_CONFIG_HOME` directory.
 
+If you have configuration files that absolutely **must** be placed in the
+`$HOME` directory (i.e. you cannot override the configuration path with an
+enviroment variable) then the configuration file/directory should be symlinked
+from the `$XDG_CONFIG_HOME` to where it needs to be in `$HOME`. See the
+Installation section for how to do this using `after-install` scripts.
+
 ## Configuration groups
 
 ### `base`
