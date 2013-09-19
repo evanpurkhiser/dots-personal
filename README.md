@@ -97,7 +97,7 @@ This is similar to extending a configuration file as described in the previous
 section, however the file will simply replace the file specified in the
 environment group.
 
-Enable overriding for a file by appending `.ovrd` to the filename.
+Enable overriding for a file by appending `.override` to the filename.
 
 ## Installation
 
