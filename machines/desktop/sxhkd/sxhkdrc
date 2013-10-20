@@ -9,6 +9,8 @@ KP_{Home,Up,Prior}
 mod4 + m; {Left,t,Right}
 	mpc --host htpc {prev,toggle,next}
 
+mod4 + m; s
+	di-mpd-dmenu
 
 # TV power room automation
 mod4 + a; t
