@@ -73,3 +73,6 @@ nnoremap <C-c> <silent> <ESC>
 
 " Enable spell checking on git commits
 au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
+
+" md files should be markdown files
+au BufNewFile,BufRead *.md set filetype=markdown
