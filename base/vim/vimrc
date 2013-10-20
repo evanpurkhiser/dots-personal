@@ -47,9 +47,6 @@ set listchars-=eol
 
 " Setup color schemes
 silent! colorscheme hybrid
-set background=dark
-
-" Display the 
 set cursorline
 
 " Tabs configurations
