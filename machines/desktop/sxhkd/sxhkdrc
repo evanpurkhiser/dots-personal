@@ -4,10 +4,10 @@
 
 # Music controls on mouse-numpad
 KP_{Home,Up,Prior}
-	mpc --host HTPC {prev,toggle,next}
+	mpc {prev,toggle,next}
 
-mod4 + m; {Left,t,Right}
-	mpc --host htpc {prev,toggle,next}
+mod4 + m; {h,t,l}
+	mpc {prev,toggle,next}
 
 mod4 + m; s
 	di-mpd-dmenu
