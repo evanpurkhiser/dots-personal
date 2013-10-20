@@ -25,7 +25,9 @@ Bundle 'godlygeek/tabular'
 Bundle 'vim-scripts/AutoComplPop'
 Bundle 'ervandew/supertab'
 Bundle 'juvenn/mustache.vim'
-
+Bundle 'ciaranm/detectindent'
+Bundle 'tpope/vim-rsi.git'
+Bundle 'tpope/vim-surround'
 
 " Don't wrap visually wrap lines
 set nowrap
