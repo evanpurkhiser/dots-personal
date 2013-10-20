@@ -38,4 +38,5 @@ mod4 + p
 	adb shell input keyevent 26
 
 
-
+# BSPWM key bindings
+!!@@bspwm
