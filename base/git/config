@@ -28,7 +28,7 @@
 [push]
 	default = upstream
 
-[url "git://github.com/"]
+[url "git@github.com:"]
 	insteadOf = gh:
 
 [github]
