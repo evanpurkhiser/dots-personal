@@ -4,7 +4,7 @@
 # Nice looking ps1 prompt (that tells me what system im on)
 PS1='[\[\e[0;31m\]$(hostname)/\[\e[0m\]\[\e[0;34m\]${PWD##*/}/\[\e[0m\]]> '
 
-# bash options
+# Bash options
 shopt -s cdspell        # autocorrects cd misspellings
 shopt -s checkwinsize   # update the value of LINES and COLUMNS after each command if altered
 shopt -s cmdhist        # save multi-line commands in history as single line
@@ -20,10 +20,13 @@ export HISTCONTROL=ignorespace:erasedups
 export EDITOR=vim
 export PAGER=less
 
-# make less more friendly for non-text input files, see lesspipe(1)
+# Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 source "$XDG_CONFIG_HOME/bash/aliases"
+
+# Source in all completions
+for f in $XDG_CONFIG_HOME/bash/completion.d/*; do source "$f"; done
 
 # Setup dircolors
 eval $(dircolors "$XDG_CONFIG_HOME/bash/dircolors")
