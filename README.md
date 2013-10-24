@@ -35,6 +35,12 @@ doesn't necessarily have a graphical environment, but is still a physically
 accessible workstation. A good example here is pulseaduio, which can be used
 without a display server running.
 
+### `common/develop`
+
+This configuration group should include configuration files that are used with
+development tools. For example, mysql is a development tool that may be used
+on various machines (servers, workstations, etc).
+
 ### `machines/*`
 
 All machine configuration groups should include configuration files that are
