@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Mysql history location
+hash mysql 2>/dev/null && export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
+
