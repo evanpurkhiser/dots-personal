@@ -1,0 +1,7 @@
+Host *
+  IdentityFile ~/.ssh/id_rsa
+  ServerAliveInterval 60
+  ForwardAgent yes
+
+Host *.cs.uakron.edu
+  User emp36
