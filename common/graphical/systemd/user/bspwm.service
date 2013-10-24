@@ -1,0 +1,11 @@
+[Unit]
+Description=Binary Space Partitioned Window Manager
+Documentation=man:bspwm(1)
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+ExecStart=/usr/bin/bspwm
+
+[Install]
+Alias=wm.service
