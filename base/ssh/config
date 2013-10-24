@@ -1,6 +1,7 @@
 Host *
   IdentityFile ~/.ssh/id_rsa
   ServerAliveInterval 60
+  TCPKeepAlive yes
   ForwardAgent yes
 
 Host *.cs.uakron.edu
