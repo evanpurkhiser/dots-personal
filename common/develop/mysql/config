@@ -1,0 +1,3 @@
+[mysql]
+pager  = grcat ~/.config/mysql/grcat | less -niSFXR
+sigint-ignore
