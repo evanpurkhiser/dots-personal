@@ -12,7 +12,6 @@ bspc config border_width              4
 bspc config window_gap                10
 bspc config borderless_monocle        true
 bspc config gapless_monocle           true
-bspc config pointer_follows_monitor   true
 bspc config auto_cancel               true
 
 # Set the root cursor
