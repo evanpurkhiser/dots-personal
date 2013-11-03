@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Setup monitor names
+bspc monitor DVI-I-1 left
+bspc monitor HDMI-0 right
+
 FIRST_DESK=1
 REMAINING_DESKS="$(seq 2 9) 0"
 bspc desktop Desktop01 -n $FIRST_DESK
