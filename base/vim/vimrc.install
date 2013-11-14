@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Clone vundle into the directory if it's not already
+if [[ ! -e bundle/vundle/.git ]]
+then
+	mkdir -p bundle
+	rm -rf bundle/vundle
+	git clone https://github.com/gmarik/vundle.git bundle/vundle
+fi
+
+vim +BundleInstall +qall
