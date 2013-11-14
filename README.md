@@ -12,7 +12,7 @@ If you have configuration files that absolutely **must** be placed in the
 `$HOME` directory (i.e. you cannot override the configuration path with an
 enviroment variable) then the configuration file/directory should be symlinked
 from the `$XDG_CONFIG_HOME` to where it needs to be in `$HOME`. See the
-Installation section for how to do this using `after-install` scripts.
+Installation section for how to do this using `.install` scripts.
 
 ## Configuration groups
 
@@ -105,10 +105,18 @@ environment group.
 
 Enable overriding for a file by appending `.override` to the filename.
 
-## Installation
+## Installation Scripts
 
-An installation script will be included to specify environment groups to install
-and then to copy the files into the `$XDG_CONFIG_HOME` directory.
+For each configuration file you may also include a `.install` script. This file
+will be executed when the specific configuration file has been installed. If the
+destination file has not been changed from the compiled file then the install
+script will not be executed.
 
-An additional `after-install` script may be included in each configuration group
-directory to be run after installing the configuration files.
+The installation scripts will be executed with the destination directory as the
+current working directory. In order for the scripts to be executed, they must
+be executable and include a shebang.
+
+For example: We have a `base/vim/vimrc` configuration file. We could also
+include a `base/vim/vimrc.install` file that executes some commands whne the
+vimrc file is installed. The script will be executed with the
+`$XDG_CONFIG_HOME/vim/` as the working directory.
