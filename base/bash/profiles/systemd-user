@@ -2,7 +2,7 @@
 
 source "$HOME/.config/bash/environment"
 
-if systemctl -q is-active user-session@evan
+if systemctl -q is-active user-session@$USER
 then
 	# Default systemd to the console target
 	target="console"
