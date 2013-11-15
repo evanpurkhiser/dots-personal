@@ -2,12 +2,14 @@
 
 source $DOTS_SOURCE/base/bash/environment
 
+echo -e "\033[0;32m==>\033[0m Installing vim Bundles with vundle..."
+
 # Clone vundle into the directory if it's not already
 if [[ ! -e bundle/vundle/.git ]]
 then
 	mkdir -p bundle
 	rm -rf bundle/vundle
-	git clone https://github.com/gmarik/vundle.git bundle/vundle
+	git clone --quiet https://github.com/gmarik/vundle.git bundle/vundle
 fi
 
 vim +BundleInstall +qall
