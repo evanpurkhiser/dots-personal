@@ -2,10 +2,7 @@
 @KP_{Left,Begin,Right}
 	xdotool key Control+{Shift+Tab,w,Tab}
 
-# Music controls on mouse-numpad
-KP_{Home,Up,Prior}
-	mpc {prev,toggle,next}
-
+# Music controls
 mod4 + m; {h,t,l}
 	mpc {prev,toggle,next}
 
