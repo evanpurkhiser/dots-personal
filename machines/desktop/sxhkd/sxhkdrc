@@ -34,6 +34,9 @@ mod4 + e ; {f, v, w}
 mod4 + p
 	adb shell input keyevent 26
 
+mod4 + r
+	dmenu_run -b
+
 # Reset headset volume
 # This is mostely useful for just after the google-hangouts plugin changes it...
 mod4 + v

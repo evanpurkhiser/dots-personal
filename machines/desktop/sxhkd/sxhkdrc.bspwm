@@ -69,7 +69,3 @@ mod4 + backslash
 
 mod4 + o
 	bspc window -m next && bspc monitor -f next
-
-mod4 + r
-	dmenu_run -b
-
