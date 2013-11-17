@@ -1,9 +1,21 @@
-# SublimeText project files
-*.sublime-project
-*.sublime-workspace
-
-# SASS cache files
+# Compiled files
 *.sass-cache
-
-# Igore class files
 *.class
+*.o
+*.so
+
+# Pacakges
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# OS Generated files
+.DS_Store
+.DS_Store?
+._*
+.Trashes
