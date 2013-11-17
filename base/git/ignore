@@ -4,3 +4,6 @@
 
 # SASS cache files
 *.sass-cache
+
+# Igore class files
+*.class
