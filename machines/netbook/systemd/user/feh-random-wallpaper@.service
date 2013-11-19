@@ -1,0 +1,11 @@
+[Unit]
+Description=Sets a random wallpaper using feh
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c "feh --no-fehbg --bg-fill `find %I -type f | shuf -n1`"
+
+[Install]
+WantedBy=graphical.target
