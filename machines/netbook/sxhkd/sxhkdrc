@@ -1,0 +1,12 @@
+# General keybindings
+mod4 + Return
+	urxvtc
+
+mod4 + backslash
+	chromium
+
+mod4 + b
+	systemctl --user start feh-random-wallpaper@wallpapers
+
+# BSPWM key bindings
+!!@@bspwm
