@@ -1,0 +1,12 @@
+[Unit]
+Description=urxvt daemon
+Documentation=man:urxvtd
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+ExecStart=/usr/bin/urxvtd
+Restart=always
+
+[Install]
+WantedBy=graphical.target
