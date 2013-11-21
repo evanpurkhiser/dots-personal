@@ -25,22 +25,11 @@ export PAGER=less
 
 source "$XDG_CONFIG_HOME/bash/aliases"
 
+# Source all extra functions
+for f in $XDG_CONFIG_HOME/bash/functions.d/*; do source "$f"; done
+
 # Source in all completions
 for f in $XDG_CONFIG_HOME/bash/completion.d/*; do source "$f"; done
 
 # Setup dircolors
 eval $(dircolors "$XDG_CONFIG_HOME/bash/dircolors")
-
-# Man page coloring
-man()
-{
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-			man "$@"
-}
