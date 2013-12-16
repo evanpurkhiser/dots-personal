@@ -14,7 +14,7 @@
 if [[ ! -d "$HOME/.local/lib/dots" ]]
 then
 	echo -e "\033[0;32m==>\033[0m Installing dots managment utility"
-	git clone https://github.com/EvanPurkhiser/dots "$HOME/.local/lib/dots"
+	git clone -q https://github.com/EvanPurkhiser/dots "$HOME/.local/lib/dots"
 fi
 
 # Setup the environment for the new dots repository
