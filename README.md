@@ -1,10 +1,10 @@
 ## Evan Purkhiser's Configuration files
 
-These are my personal configuration files for my various machines. Configuration
-files are grouped into different 'configuration' groups that allow for specific
-installations based on the type of machine the dot files are being installed on.
-For example, the dot files installed for a server would be different than the
-dotfiles installed on my Desktop, HTPC, or Netbook.
+These are my personal configuration files for my various machines.
+Configuration files are grouped into different 'configuration' groups that
+allow for specific installations based on the type of machine the dotfiles are
+being installed on.  For example, the dotfiles installed for a server would be
+different than the dotfiles installed on my Desktop, HTPC, or Netbook.
 
 These dotfiles are managed using the `dots` [dotfile managment
 utility](https://github.com/EvanPurkhiser/dots).
