@@ -6,7 +6,7 @@ installations based on the type of machine the dot files are being installed on.
 For example, the dot files installed for a server would be different than the
 dotfiles installed on my Desktop, HTPC, or Netbook.
 
-These dotfiles are managed using the [`dots` dotfile managment
+These dotfiles are managed using the `dots` [dotfile managment
 utility](https://github.com/EvanPurkhiser/dots).
 
 ## Configuration groups
