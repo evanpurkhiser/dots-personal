@@ -1,4 +1,5 @@
 #!/bin/bash
 
-# Follow XDG Base Directory spec for XBMC cache
+# Follow XDG Base Directory spec for XBMC
+export XBMC_USER_HOME="$XDG_DATA_HOME/xbmc"
 export XBMC_TEMP="$XDG_CACHE_HOME/xbmc"
