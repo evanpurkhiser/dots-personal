@@ -7,7 +7,7 @@ mod4 + m; {h,t,l}
 	mpc {prev,toggle,next}
 
 mod4 + m; s
-	di-mpd-dmenu
+	dmenu_di.fm
 
 # TV power room automation
 mod4 + a; t
