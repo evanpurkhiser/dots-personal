@@ -29,7 +29,7 @@ mod4 + Return
 	termite
 
 mod4 + BackSpace
-	mpc stop; monitor off
+	sleep 0.1; mpc stop; monitor off
 
 mod4 + e ; {f, v, w}
 	{chromium, mangler, subl3}
