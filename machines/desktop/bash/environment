@@ -3,6 +3,15 @@
 # Set the bspwm socket location
 hash bspwm 2>/dev/null && export BSPWM_SOCKET="$XDG_RUNTIME_DIR/bswpm-socket"
 
+# Always install ruby gems local to the user
+if hash gem 2>/dev/null
+then
+	export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
+	export GEM_HOME="$HOME/.local/lib/ruby/gems/$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')"
+	export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
+	export PATH="$PATH:$GEM_HOME/bin"
+fi
+
 # Specify many application config paths
 hash gimp       2>/dev/null && export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
 hash virtualbox 2>/dev/null && export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
