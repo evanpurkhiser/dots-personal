@@ -8,7 +8,7 @@ load-module module-card-restore
 ### Automatically load driver modules depending on the hardware available
 load-module module-udev-detect
 
-# Load native unix protocol
+### Load native unix protocol
 load-module module-native-protocol-unix
 
 ### Automatically restore the default sink/source when changed by the user
