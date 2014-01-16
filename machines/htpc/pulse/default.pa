@@ -27,9 +27,6 @@ load-module module-always-sink
 ### Honour intended role device property
 load-module module-intended-roles
 
-### Automatically suspend sinks/sources that become idle for too long
-load-module module-suspend-on-idle
-
 ### Cork music/video streams when a phone stream is active
 load-module module-role-cork
 
