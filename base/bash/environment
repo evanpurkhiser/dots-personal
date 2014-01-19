@@ -19,5 +19,8 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 # Look for terminfo files under data
 [ -d "$XDG_DATA_HOME/terminfo" ] && export TERMINFO="$XDG_DATA_HOME/terminfo"
 
+# GNU PGP configuration directory
+hash gpg 2> /dev/null && export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+
 # Less history file location
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
