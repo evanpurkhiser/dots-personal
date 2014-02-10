@@ -19,3 +19,8 @@
 .DS_Store?
 ._*
 .Trashes
+
+# Other things
+.bundle
+tmp/
+bin/
