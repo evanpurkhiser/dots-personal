@@ -22,5 +22,6 @@
 
 # Other things
 .bundle
+.vagrant
 tmp/
 bin/
