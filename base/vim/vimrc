@@ -76,3 +76,4 @@ au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
 
 " md files should be markdown files
 au BufNewFile,BufRead *.md set filetype=markdown
+au BufRead,BufNewFile Vagrantfile set filetype=ruby
