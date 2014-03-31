@@ -1,5 +1,6 @@
 # Compiled files
 *.sass-cache
+*.cache
 *.class
 *.o
 *.so
