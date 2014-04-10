@@ -1,2 +1,3 @@
 msgmodule
+msglevel=cache=warn:ffmpeg/demuxer=error
 no-joystick
