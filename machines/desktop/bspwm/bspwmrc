@@ -24,3 +24,6 @@ xsetroot -cursor_name left_ptr
 
 # Adopt any ophan windows
 bspc control --adopt-orphans
+
+# Always float chrome chat windows
+bspc rule -a crx_nckgahadagoaajjgafhacjanaoiihapd floating=on
