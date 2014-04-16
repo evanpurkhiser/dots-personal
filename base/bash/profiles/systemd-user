@@ -2,22 +2,19 @@
 
 source "$HOME/.config/bash/environment"
 
-if systemctl -q is-active user-session@$USER
+# Default systemd to the console target
+target="console"
+
+# If we're logging in from VT1 start the graphical target
+if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target &> /dev/null
 then
-	# Default systemd to the console target
-	target="console"
-
-	# If we're logging in from VT1 start the graphical target
-	if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target &> /dev/null
-	then
-		target="graphical"
-	fi
-
-	# Bring up systemd --user to the specified target
-	systemctl --user start ${target}.target
-
-	# Exit the VT
-	[[ $target == "graphical" ]] && clear && logout
+	target="graphical"
 fi
+
+# Bring up systemd --user to the specified target
+systemctl --user import-environment
+systemctl --user start ${target}.target
+
+[[ $target == "graphical" ]] && clear && exec sleep infinity
 
 source "$HOME/.bashrc"
