@@ -2,6 +2,9 @@
 
 source "$HOME/.config/bash/environment"
 
+# Populate systemd environment
+systemctl --user import-environment
+
 # Default systemd to the console target
 target="console"
 
@@ -11,10 +14,14 @@ then
 	target="graphical"
 fi
 
+# Prompt to unlock ssh-key
+systemctl --user start ssh-agent
+ssh-add
+
 # Bring up systemd --user to the specified target
-systemctl --user import-environment
 systemctl --user start ${target}.target
 
+# Keep the session alive with minimal memory consumption
 [[ $target == "graphical" ]] && clear && exec sleep infinity
 
 source "$HOME/.bashrc"
