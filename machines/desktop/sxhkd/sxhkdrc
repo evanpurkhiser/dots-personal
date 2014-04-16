@@ -26,13 +26,16 @@ mod4 + d; t
 
 # General keybindings
 mod4 + Return
-	termite
+	systemd-run --user termite
+
+mod4 + e; {f, v}
+	systemd-run --user {chromium, mangler, /opt/sublime_text_3/sublime_text}
+
+mod4 + e; w
+	systemd-run --user --service-type=forking subl3
 
 mod4 + BackSpace
 	sleep 0.1; mpc stop; monitor off
-
-mod4 + e ; {f, v, w}
-	{chromium, mangler, subl3}
 
 mod4 + p
 	adb shell input keyevent 26
