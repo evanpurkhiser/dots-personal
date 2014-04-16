@@ -25,4 +25,3 @@
 .bundle
 .vagrant
 tmp/
-bin/
