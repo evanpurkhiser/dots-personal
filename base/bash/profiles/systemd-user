@@ -2,8 +2,8 @@
 
 source "$HOME/.config/bash/environment"
 
-# Populate systemd environment
-systemctl --user import-environment
+# Import environment on local login
+[ -n "$XDG_VTNR" ] && systemctl --user import-environment
 
 # Default systemd to the console target
 target="console"
