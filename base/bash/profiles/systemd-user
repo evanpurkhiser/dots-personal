@@ -5,6 +5,9 @@ source "$HOME/.config/bash/environment"
 # Import environment on local login
 [ -n "$XDG_VTNR" ] && systemctl --user import-environment
 
+# Decrypt SSH keys on local login
+[ -n "$XDG_VTNR" ] && systemctl --user start ssh-agent && ssh-add
+
 # Default systemd to the console target
 target="console"
 
@@ -13,10 +16,6 @@ if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target &> /
 then
 	target="graphical"
 fi
-
-# Prompt to unlock ssh-key
-systemctl --user start ssh-agent
-ssh-add
 
 # Bring up systemd --user to the specified target
 systemctl --user start ${target}.target
