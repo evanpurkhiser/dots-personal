@@ -11,11 +11,11 @@ alias la='ls -lA'     # detailed file list with hidden files
 alias svim='sudo vim' # lazy
 
 # Better LS sorting
-#  - Sort by the croatian langauge (special characters first)
-#  - Colorize the lsit
+#  - Sort by the croatian language (special characters first)
+#  - Colorize the list
 #  - Classify files (such as executables with a *)
 #  - always show sizes in human readable formats
 alias ls='LC_COLLATE=C ls --group-directories-first --color=auto --classify -h'
 
-# Server the current directory over port 8000 using pythong
+# Server the current directory over port 8000 using python
 alias serve='python3 -m http.server'
