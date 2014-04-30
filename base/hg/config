@@ -1,2 +1,10 @@
 [ui]
 username = Evan Purkhiser <evanpurkhiser@gmail.com>
+
+[extensions]
+record=
+color=
+pager=
+
+[pager]
+pager = LESS='FRX' less
