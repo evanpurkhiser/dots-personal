@@ -28,5 +28,8 @@ hash berks 2>/dev/null && export BERKSHELF_PATH="$XDG_DATA_HOME/berkshelf"
 # Put chromiums cache in /tmp for better performance
 hash chromium 2>/dev/null && export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/chrome-cache --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so"
 
+# By default have beets look at my DJ collection
+export BEETSDIR=/mnt/Evan-P-Music/organization/beets/
+
 # MPD runs on my default, this makes other mpd related things more portable
 export MPD_HOST=htpc
