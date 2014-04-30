@@ -2,3 +2,6 @@
 
 # Pull GTK2 RC files from the standard config location, similar to gtk-3.0
 [ -e /etc/gtk-2.0 ] && export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+
+# Forces QT to use GTK icons
+export DESKTOP_SESSION=gnome
