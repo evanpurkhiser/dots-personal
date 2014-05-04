@@ -5,6 +5,7 @@ username = Evan Purkhiser <evanpurkhiser@gmail.com>
 record=
 color=
 pager=
+shelve=
 
 [pager]
 pager = LESS='FRX' less
