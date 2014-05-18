@@ -4,6 +4,7 @@
 *.class
 *.o
 *.so
+*.pyc
 
 # Pacakges
 *.7z
