@@ -2,7 +2,7 @@
 [ -z "$PS1" ] && return
 
 # Nice looking ps1 prompt (that tells me what system im on)
-PS1='[\[\e[0;31m\]$(hostname)/\[\e[0m\]\[\e[0;34m\]${PWD##*/}/\[\e[0m\]]> '
+PS1='[\[\e[0;31m\]\h/\[\e[0m\]\[\e[0;34m\]${PWD##*/}/\[\e[0m\]]> '
 
 # Bash options
 shopt -s cdspell        # autocorrects cd misspellings
