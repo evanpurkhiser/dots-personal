@@ -8,7 +8,7 @@ alias du='du -h'      # human-readable sizes
 alias free='free -m'  # show sizes in MB
 alias ll='ls -l'      # detailed file list
 alias la='ls -lA'     # detailed file list with hidden files
-alias svim='sudo vim' # lazy
+alias svim='sudo -e'  # edit protected files with the editor
 
 # Better LS sorting
 #  - Sort by the croatian language (special characters first)
