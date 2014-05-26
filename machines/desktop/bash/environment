@@ -12,6 +12,13 @@ then
 	export PATH="$PATH:$GEM_HOME/bin"
 fi
 
+# nodejs's NPM tool configuration
+if hash npm 2>/dev/null
+then
+	export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+	export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
+fi
+
 # Specify many application config paths
 hash gimp       2>/dev/null && export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
 hash virtualbox 2>/dev/null && export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
