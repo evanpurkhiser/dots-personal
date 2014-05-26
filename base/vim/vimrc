@@ -28,6 +28,7 @@ Bundle 'juvenn/mustache.vim'
 Bundle 'ciaranm/detectindent'
 Bundle 'tpope/vim-rsi.git'
 Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/nginx.vim'
 
 " Don't wrap visually wrap lines
 set nowrap
@@ -80,3 +81,4 @@ au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
 " md files should be markdown files
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile Vagrantfile set filetype=ruby
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* set filetype=nginx
