@@ -71,6 +71,9 @@ cmap w!! w !sudo tee > /dev/null %
 " Remap Ctrl+C to be the same as escape without telling us to use :q to quit
 nnoremap <C-c> <silent> <ESC>
 
+" Audo detect indent for all files
+:autocmd BufReadPost * :DetectIndent
+
 " Enable spell checking on git commits
 au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
 
