@@ -1,5 +1,4 @@
 email  = evanpurkhiser@gmail.com
-global = true
 prefix = /home/evan/.local/lib/nodejs
 cache  = /home/evan/.cache/npm
 tmp    = /tmp
