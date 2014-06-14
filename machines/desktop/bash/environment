@@ -20,10 +20,11 @@ then
 fi
 
 # Specify many application config paths
-hash gimp       2>/dev/null && export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
-hash virtualbox 2>/dev/null && export  VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
-hash mplayer    2>/dev/null && export    MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
-hash mpv        2>/dev/null && export        MPV_HOME="$XDG_CONFIG_HOME/mpv"
+hash http       2>/dev/null && export HTTPIE_CONFIG_DIR="$XDG_CONFIG_HOME/httpie"
+hash gimp       2>/dev/null && export   GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.8"
+hash virtualbox 2>/dev/null && export    VBOX_USER_HOME="$XDG_CONFIG_HOME/virtualbox"
+hash mplayer    2>/dev/null && export      MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
+hash mpv        2>/dev/null && export          MPV_HOME="$XDG_CONFIG_HOME/mpv"
 
 # Specify many application data paths
 hash vagrant 2>/dev/null && export   VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
