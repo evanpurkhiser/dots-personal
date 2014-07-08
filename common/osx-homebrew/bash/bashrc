@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Use bash completion
+source "$(brew --prefix)/etc/bash_completion"
