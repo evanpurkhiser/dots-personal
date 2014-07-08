@@ -50,6 +50,9 @@ set listchars-=eol
 silent! colorscheme hybrid
 set cursorline
 
+" Hide netrw banner
+let g:netrw_banner=0
+
 " Tabs configurations
 set noexpandtab
 set tabstop=4
