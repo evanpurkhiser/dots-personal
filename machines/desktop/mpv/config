@@ -1,4 +1,4 @@
-msgmodule
-msglevel=cache=warn:ffmpeg/demuxer=error
-no-joystick
+msg-module
+msg-level=cache=warn:ffmpeg/demuxer=error
+no-input-joystick
 no-osc
