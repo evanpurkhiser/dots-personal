@@ -1,0 +1,12 @@
+[Unit]
+Description=Xcape Super_L to Escape mapping
+Documentation=man:xcape
+BindsTo=xorg.service
+After=xorg.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/xcape -e 'Super_L=Escape'
+
+[Install]
+WantedBy=graphical.target
