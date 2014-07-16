@@ -6,7 +6,7 @@ After=xorg.service
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/xcape -e 'Super_L=Escape'
+ExecStart=/usr/bin/xcape -t 300 -e 'Super_L=Escape'
 
 [Install]
 WantedBy=graphical.target
