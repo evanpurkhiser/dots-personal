@@ -17,7 +17,7 @@ export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
 [ -z "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
 
 # Specify vimrc path
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/config.vim" | source $MYVIMRC'
 
 # Look for terminfo files under data
 [ -d "$XDG_DATA_HOME/terminfo" ] && export TERMINFO="$XDG_DATA_HOME/terminfo"
