@@ -23,7 +23,7 @@ Bundle 'tommcdo/vim-exchange'
 " Adds the :DetectIndent command to set tabbing configuration
 Bundle 'ciaranm/detectindent'
 
-" Automatically enable 'paste' when pasting from a suppering terminal
+" Automatically enable 'paste' when pasting from a supporting terminal
 " http://www.xfree86.org/current/ctlseqs.html#Bracketed Paste Mode
 Bundle 'ConradIrwin/vim-bracketed-paste'
 
