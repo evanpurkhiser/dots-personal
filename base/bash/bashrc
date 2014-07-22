@@ -14,6 +14,12 @@ shopt -s extglob        # enable extended pattern-matching features
 shopt -s histreedit     # Add failed commands to the bash history
 shopt -s autocd         # Autocd
 
+# Disable flow-control
+stty stop ''
+stty start ''
+stty -ixon
+stty -ixoff
+
 export HISTSIZE=1000
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
 export HISTCONTROL=ignorespace:erasedups
