@@ -32,4 +32,4 @@ let g:netrw_banner=0
 let g:netrw_dirhistmax = 0
 
 " Enable spell checking on git commits
-au BufRead COMMIT_EDITMSG setlocal spell
+autocmd BufRead COMMIT_EDITMSG setlocal spell
