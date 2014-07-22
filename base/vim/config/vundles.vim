@@ -17,11 +17,11 @@ Bundle 'tpope/vim-rsi.git'
 " Mappings for surrounding text
 Bundle 'tpope/vim-surround'
 
+" Automagically detect the indenting style in the file
+Bundle 'tpope/vim-sleuth'
+
 " Exchange two sections of text with ease (cxi)
 Bundle 'tommcdo/vim-exchange'
-
-" Adds the :DetectIndent command to set tabbing configuration
-Bundle 'ciaranm/detectindent'
 
 " Automatically enable 'paste' when pasting from a supporting terminal
 " http://www.xfree86.org/current/ctlseqs.html#Bracketed Paste Mode

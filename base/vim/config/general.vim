@@ -20,10 +20,7 @@ set autochdir  " Always stay in the working directory of the open file
 set nobackup nowritebackup noswapfile
 
 " Tab configurations
-" By default use spaces instead of tabs. But also attempt to detect
-" indentation using the DetectIndent plugin
 set smartindent expandtab tabstop=4 shiftwidth=4
-autocmd BufReadPost * :DetectIndent
 
 " Ignore cache type files
 set wildignore+=*/cache/*,*.sassc
