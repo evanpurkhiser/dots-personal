@@ -14,6 +14,7 @@ set list       " Show non-printable characters
 set hlsearch   " Highlight searched text
 set ignorecase " Ignore case when searching
 set smartcase  " Don't ignore case when using uppercase in a search
+set autochdir  " Always stay in the working directory of the open file
 
 " Disable backup files
 set nobackup nowritebackup noswapfile
