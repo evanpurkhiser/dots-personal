@@ -33,8 +33,3 @@ let g:netrw_dirhistmax = 0
 
 " Enable spell checking on git commits
 autocmd BufRead COMMIT_EDITMSG setlocal spell
-
-" Quit once all buffers have been closed and we're on the empty buffer
-autocmd BufDelete *
-    \ if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-    \ && empty(bufname('$')) | quit | endif

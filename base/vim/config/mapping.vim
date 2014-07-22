@@ -10,3 +10,8 @@ nnoremap <C-c> <silent> <ESC>
 
 " Disable EX mode
 map Q <Nop>
+
+""" Buffer Managment
+nnoremap <silent>       <Tab>   :bnext<CR>
+nnoremap <silent>       <S-Tab> :bprev<CR>
+nnoremap <expr><silent> <C-q>   NoBuffersOpen() ? ':quit<CR>' : ':confirm bdelete<CR>'
