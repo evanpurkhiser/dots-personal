@@ -1,7 +1,7 @@
-"\e[A": history-search-backward
-"\e[B": history-search-forward
-
 set mark-symlinked-directories on
 set completion-ignore-case on
 set expand-tilde on
 set echo-control-characters off
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
