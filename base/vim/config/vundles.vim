@@ -39,9 +39,6 @@ Bundle 'bling/vim-bufferline'
 " Prettier status line
 Bundle 'bling/vim-airline'
 
-" Use <tab> to do completion
-Bundle 'ervandew/supertab'
-
 " Color schemes
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'w0ng/vim-hybrid'
