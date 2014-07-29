@@ -25,9 +25,17 @@ set smartindent expandtab tabstop=4 shiftwidth=4
 " Ignore cache type files
 set wildignore+=*/cache/*,*.sassc
 
-" netrw: Hide banner and dsable history file
-let g:netrw_banner=0
-let g:netrw_dirhistmax = 0
+" netrw plugin configuration
+let g:netrw_banner = 0     " Don't show help banner
+let g:netrw_dirhistmax = 0 " Don't write history file
+
+" airline plugin configuration
+let g:airline_left_sep = ''       " Hide separators
+let g:airline_right_sep = ''      " -
+let g:airline_detect_modified = 0 " Don't change color for modified files
+
+" bufferline plugin configuration
+let g:bufferline_echo = 0 " Don't echo buffer list to command line
 
 " Enable spell checking on git commits
 autocmd BufRead COMMIT_EDITMSG setlocal spell
