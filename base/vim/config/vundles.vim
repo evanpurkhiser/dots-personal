@@ -33,6 +33,9 @@ Bundle 'kien/ctrlp.vim'
 " Makes alignment a breeze (:Tab)
 Bundle 'godlygeek/tabular'
 
+" List buffers in the status line
+Bundle 'bling/vim-bufferline'
+
 " Prettier status line
 Bundle 'bling/vim-airline'
 
