@@ -1,9 +1,6 @@
 # Do nothing if not running interactively
 [ -z "$PS1" ] && return
 
-# Nice looking ps1 prompt (that tells me what system im on)
-PS1='[\[\e[0;31m\]\h/\[\e[0m\]\[\e[0;34m\]${PWD##*/}/\[\e[0m\]]> '
-
 # Bash options
 shopt -s cdspell        # autocorrects cd misspellings
 shopt -s checkwinsize   # update the value of LINES and COLUMNS after each command if altered
@@ -29,6 +26,7 @@ export PAGER=less
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+source "$XDG_CONFIG_HOME/bash/prompt"
 source "$XDG_CONFIG_HOME/bash/aliases"
 
 # Source all extra functions
