@@ -3,5 +3,5 @@
 # Include brew binaries
 export PATH="$(brew --prefix)/bin:$PATH"
 
-# Include GNU coreutil overrides when running interactively
-[ -n "$PS1" ] && export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+# Include gnu coreutils override bin
+export PATH="$HOME/.local/lib/gnu-override/bin:$PATH"

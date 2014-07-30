@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Link safe (ish) GNU coreutils into a
+GNU_OVERRIDE_DIR="$HOME/.local/lib/gnu-override/bin"
+GNU_BIN_DIR="$(brew --prefix coreutils)/libexec/gnubin"
+
+mkdir -p "$GNU_OVERRIDE_DIR"
+cd  "$GNU_OVERRIDE_DIR"
+
+ln -fs "$GNU_BIN_DIR/ls"
+ln -fs "$GNU_BIN_DIR/dircolors"
