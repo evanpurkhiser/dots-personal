@@ -1,3 +1,4 @@
 #!/bin/bash
 
+mkdir -p $HOME/.ssh
 ln -sf $XDG_CONFIG_HOME/ssh/config $HOME/.ssh/
