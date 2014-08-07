@@ -10,3 +10,4 @@ runtime config/vundles.vim
 runtime config/utility.vim
 runtime config/general.vim
 runtime config/mapping.vim
+runtime config/filetypes.vim
