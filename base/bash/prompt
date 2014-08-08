@@ -1,4 +1,22 @@
 #!/bin/bash
 
-# Nice looking ps1 prompt (that tells me what system im on)
-PS1='[\[\e[0;31m\]\h/\[\e[0m\]\[\e[0;34m\]${PWD##*/}/\[\e[0m\]]> '
+function __prompt_indicator()
+{
+	local status=$?
+	local color=31
+
+	[[ $status == 0 ]]   && color=97 # no error on exit
+	[[ $status == 127 ]] && color=97 # invalid command
+	[[ $status == 146 ]] && color=97 # paused service
+	[[ $status == 130 ]] && color=97 # terminated
+
+	echo -n "\e[${color}m⏤⏤  \e[0m"
+}
+
+function __prompt_generate()
+{
+	__prompt_indicator
+	echo -n "\e[34m${PWD##*/}\e[97m on \e[35m\h \e[97m›\e[0m "
+}
+
+PROMPT_COMMAND='PS1="$(__prompt_generate)"'
