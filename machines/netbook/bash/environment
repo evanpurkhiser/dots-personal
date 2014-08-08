@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Put urxvtd socket in the users runtime directory
-export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd"
