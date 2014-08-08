@@ -3,6 +3,3 @@ Host *
   ServerAliveInterval 60
   TCPKeepAlive yes
   ForwardAgent yes
-
-Host *.cs.uakron.edu
-  User emp36
