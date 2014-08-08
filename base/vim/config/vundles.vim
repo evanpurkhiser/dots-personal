@@ -39,6 +39,9 @@ Bundle 'bling/vim-bufferline'
 " Prettier status line
 Bundle 'bling/vim-airline'
 
+" Better tab completion
+Bundle 'ervandew/supertab'
+
 " Close matching pairs automagically with a few other neat features
 Bundle 'Raimondi/delimitMate'
 
