@@ -37,5 +37,12 @@ let g:airline_detect_modified = 0 " Don't change color for modified files
 " bufferline plugin configuration
 let g:bufferline_echo = 0 " Don't echo buffer list to command line
 
+" automagically expand newlines in paired items
+" See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
+let delimitMate_expand_cr = 1
+
+" automagically add semicolons when closing parenthesis
+autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
+
 " Enable spell checking on git commits
 autocmd BufRead COMMIT_EDITMSG setlocal spell

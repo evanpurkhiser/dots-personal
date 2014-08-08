@@ -39,6 +39,9 @@ Bundle 'bling/vim-bufferline'
 " Prettier status line
 Bundle 'bling/vim-airline'
 
+" Close matching pairs automagically with a few other neat features
+Bundle 'Raimondi/delimitMate'
+
 " Color schemes
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'w0ng/vim-hybrid'
