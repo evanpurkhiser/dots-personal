@@ -1,6 +1,16 @@
 #!/bin/bash
 
+cd ..
 source $DOTS_SOURCE/base/bash/environment
+
+# Clone vundle into the directory if it's not already
+if [[ ! -e bundle/vundle/.git ]]
+then
+	echo -e "\033[0;32m==>\033[0m Installing Vundle"
+	mkdir -p bundle
+	rm -rf bundle/vundle
+	git clone --quiet https://github.com/gmarik/vundle.git bundle/vundle
+fi
 
 echo -e "\033[0;32m==>\033[0m Installing vim bundles with Vundle..."
 vim +BundleInstall +qall 2&> /dev/null
