@@ -25,6 +25,9 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/config.vim" | source $MYVIMRC
 # GNU PGP configuration directory
 hash gpg 2> /dev/null && export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 
+# Ack configuration
+hash ack 2> /dev/null && export ACKRC="$XDG_CONFIG_HOME/ack/ackrc"
+
 # Mercurial configuration file
 hash hg 2> /dev/null && export HGRCPATH="$XDG_CONFIG_HOME/hg/config"
 
