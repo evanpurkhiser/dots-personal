@@ -52,3 +52,4 @@ Bundle 'w0ng/vim-hybrid'
 " Syntax highlighting
 Bundle 'vim-scripts/nginx.vim'
 Bundle 'juvenn/mustache.vim'
+Bundle 'evidens/vim-twig'
