@@ -26,10 +26,15 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/config.vim" | source $MYVIMRC
 hash gpg 2> /dev/null && export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 
 # Ack configuration
-hash ack 2> /dev/null && export ACKRC="$XDG_CONFIG_HOME/ack/ackrc"
+if hash ack 2> /dev/null
+then
+    export ACKRC="$XDG_CONFIG_HOME/ack/ackrc"
+    export ACK_PAGER_COLOR="less -x4SRFX"
+fi
 
 # Mercurial configuration file
 hash hg 2> /dev/null && export HGRCPATH="$XDG_CONFIG_HOME/hg/config"
 
 # Less history file location
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+
