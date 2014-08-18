@@ -31,7 +31,7 @@ Bundle 'ConradIrwin/vim-bracketed-paste'
 Bundle 'ervandew/supertab'
 
 " Fuzzy file / buffer / mru finder
-Bundle 'kien/ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
 
 " Makes alignment a breeze (:Tab)
 Bundle 'godlygeek/tabular'
