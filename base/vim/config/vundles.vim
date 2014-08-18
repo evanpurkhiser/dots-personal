@@ -27,6 +27,9 @@ Bundle 'tommcdo/vim-exchange'
 " http://www.xfree86.org/current/ctlseqs.html#Bracketed Paste Mode
 Bundle 'ConradIrwin/vim-bracketed-paste'
 
+" Do completion with <Tab> instead of <C-P>
+Bundle 'ervandew/supertab'
+
 " Fuzzy file / buffer / mru finder
 Bundle 'kien/ctrlp.vim'
 
@@ -38,9 +41,6 @@ Bundle 'bling/vim-bufferline'
 
 " Prettier status line
 Bundle 'bling/vim-airline'
-
-" Better tab completion
-Bundle 'ervandew/supertab'
 
 " Close matching pairs automagically with a few other neat features
 Bundle 'Raimondi/delimitMate'
