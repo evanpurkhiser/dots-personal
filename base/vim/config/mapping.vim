@@ -15,3 +15,11 @@ map Q <Nop>
 nnoremap <silent>       <Tab>   :bnext<CR>
 nnoremap <silent>       <S-Tab> :bprev<CR>
 nnoremap <expr><silent> <C-q>   ':confirm '.(NoBuffersOpen() ? 'quit' : 'bdelete').'<CR>'
+
+""" Tabularizatins
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a> :Tabularize /=><CR>
+vmap <Leader>a> :Tabularize /=><CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
