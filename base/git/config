@@ -2,6 +2,13 @@
 	autocrlf = false
 	excludesfile = ~/.config/git/ignore
 
+[user]
+	name = Evan Purkhiser
+	email = evanpurkhiser@gmail.com
+
+[github]
+	user = EvanPurkhiser
+
 [alias]
 	st = status -sb
 	ci = commit -v
@@ -29,6 +36,3 @@
 
 [url "git@github.com:"]
 	insteadOf = gh:
-
-[include]
-    path = identity
