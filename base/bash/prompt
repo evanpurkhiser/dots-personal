@@ -1,22 +1,3 @@
 #!/bin/bash
 
-function __prompt_indicator()
-{
-	local status=$?
-	local color=31
-
-	[[ $status == 0 ]]   && color=97 # no error on exit
-	[[ $status == 127 ]] && color=97 # invalid command
-	[[ $status == 146 ]] && color=97 # paused service
-	[[ $status == 130 ]] && color=97 # terminated
-
-	echo -n "\e[${color}m⏤⏤  \e[0m"
-}
-
-function __prompt_generate()
-{
-	__prompt_indicator
-	echo -n "\e[34m${PWD##*/}\e[97m on \e[35m\h \e[97m›\e[0m "
-}
-
-PROMPT_COMMAND='PS1="$(__prompt_generate)"'
+PS1='\[\e[0;34m\]${PWD##*/}\[\e[0;97m\] on \[\e[0;35m\]\h \[\e[0;97m\]›\[\e[0m\] '
