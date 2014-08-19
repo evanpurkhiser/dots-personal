@@ -31,7 +31,7 @@ Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'ervandew/supertab'
 
 " Fuzzy file / buffer / mru finder
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'wincent/Command-T'
 
 " Makes alignment a breeze (:Tab)
 Plugin 'godlygeek/tabular'
