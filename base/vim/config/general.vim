@@ -46,3 +46,6 @@ autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
 
 " Enable spell checking on git commits
 autocmd BufRead COMMIT_EDITMSG setlocal spell
+
+" Open help windows on the right in a vertial split
+autocmd FileType help wincmd L
