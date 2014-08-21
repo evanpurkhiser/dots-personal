@@ -41,6 +41,10 @@ let g:bufferline_echo = 0 " Don't echo buffer list to command line
 " See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
 let g:delimitMate_expand_cr = 1
 
+" Configure Command-T
+let g:CommandTMatchWindowReverse = 1
+highlight! link CommandTCharMatched Error
+
 " automagically add semicolons when closing parenthesis
 autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
 
