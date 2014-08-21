@@ -3,7 +3,9 @@
 " vim-sensible takes care of most of the really common configuration changes
 " for us. These configurations are more personal and to my liking.
 
-colorscheme hybrid
+let base16colorspace=256
+set background=dark
+colorscheme base16-default
 
 set number     " Show line numbers
 set nowrap     " Don't visually wrap lines

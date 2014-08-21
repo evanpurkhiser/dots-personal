@@ -48,6 +48,7 @@ Plugin 'Raimondi/delimitMate'
 " Color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'w0ng/vim-hybrid'
+Plugin 'chriskempson/base16-vim'
 
 " Syntax highlighting
 Plugin 'vim-scripts/nginx.vim'
