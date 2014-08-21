@@ -39,7 +39,7 @@ let g:bufferline_echo = 0 " Don't echo buffer list to command line
 
 " automagically expand newlines in paired items
 " See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
-let delimitMate_expand_cr = 1
+let g:delimitMate_expand_cr = 1
 
 " automagically add semicolons when closing parenthesis
 autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
