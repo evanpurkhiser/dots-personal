@@ -6,7 +6,8 @@
 cmap w!! w !sudo tee > /dev/null %
 
 " Remap Ctrl+C to be the same as escape without telling us to use :q to quit
-nnoremap <C-c> <silent> <ESC>
+nnoremap  <C-c> <NOP>
+nnoremap r<C-c> <NOP>
 
 " Disable EX mode
 map Q <Nop>
