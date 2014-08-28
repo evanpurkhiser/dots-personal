@@ -45,6 +45,7 @@ let g:delimitMate_expand_cr = 1
 
 " Configure Command-T
 let g:CommandTMatchWindowReverse = 1
+let g:CommandTSmartCase = 0
 highlight! link CommandTCharMatched Error
 
 " automagically add semicolons when closing parenthesis
