@@ -50,11 +50,12 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'chriskempson/base16-vim'
 
-" Syntax highlighting
+" Syntax aware
 Plugin 'vim-scripts/nginx.vim'
 Plugin 'juvenn/mustache.vim'
 Plugin 'evidens/vim-twig'
 Plugin 'StanAngeloff/php.vim'
+Plugin '2072/PHP-Indenting-for-VIm'
 
 " Syntax checking
 Plugin 'scrooloose/syntastic'
