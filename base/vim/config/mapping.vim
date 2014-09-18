@@ -32,5 +32,7 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(st
 vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
+nnoremap <C-s> :write<CR>
+
 " Repeat the lmast executed macro
 nnoremap , @@
