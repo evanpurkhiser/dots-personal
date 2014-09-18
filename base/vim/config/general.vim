@@ -5,7 +5,7 @@
 
 let base16colorspace=256
 set background=dark
-colorscheme base16-default
+silent! colorscheme base16-default
 
 set number     " Show line numbers
 set nowrap     " Don't visually wrap lines
