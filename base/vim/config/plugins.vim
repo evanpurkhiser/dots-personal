@@ -2,7 +2,7 @@
 
 let g:plug_window = 'enew'
 
-call plug#begin(expand("$XDG_CONFIG_HOME/vim/plugged"))
+call plug#begin("$XDG_CONFIG_HOME/vim/plugged")
 
 " Sensible options that should always be set
 Plug 'tpope/vim-sensible'
