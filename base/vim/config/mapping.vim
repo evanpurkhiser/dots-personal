@@ -28,6 +28,16 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 " Don't move on *
 nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
 
+" Search for selected text
+vnoremap <silent> * :<C-U>
+    \let old_reg=getreg('"')<Bar>
+    \let old_regtype=getregtype('"')<Bar>
+    \let stay_star_view = winsaveview()<CR>
+    \gvy/<C-R><C-R>=substitute(
+    \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+    \gV:call setreg('"', old_reg, old_regtype)<CR>
+    \:call winrestview(stay_star_view)<CR>
+
 " Source line and selection in vim
 vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
