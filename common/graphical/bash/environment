@@ -5,3 +5,8 @@
 
 # Forces QT to use GTK icons
 export DESKTOP_SESSION=gnome
+
+# Fix xdg-open so that it thinks were in a generic desktop environment,
+# skipping autodetection which will incorrectly detect gnome due to the
+# DESKTOP_SESSIOn configuration above.
+export DE=generic
