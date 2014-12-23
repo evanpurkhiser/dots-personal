@@ -1,34 +1,34 @@
 [core]
-	autocrlf = false
-	excludesfile = ~/.config/git/ignore
+  autocrlf = false
+  excludesfile = ~/.config/git/ignore
 
 [alias]
-	st = status -sb
-	ci = commit -v
-	co = checkout
-	ls = log --date=short --pretty=ls
+  st = status -sb
+  ci = commit -v
+  co = checkout
+  ls = log --date=short --pretty=ls
 
 [pretty]
-	ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(magenta)%d %C(white)%s
+  ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(magenta)%d %C(white)%s
 
 [diff]
-	tool = vimdiff
-	algorithm = patience
+  tool = vimdiff
+  algorithm = patience
 
 [apply]
     whitespace = strip
 
 [color]
-	ui = true
+  ui = true
 
 [rerere]
-	enabled = 1
+  enabled = 1
 
 [push]
-	default = upstream
+  default = upstream
 
 [url "git@github.com:"]
-	insteadOf = gh:
+  insteadOf = gh:
 
 [include]
-    path = user
+  path = user

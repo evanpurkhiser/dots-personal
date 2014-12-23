@@ -6,17 +6,17 @@ hash bspwm 2>/dev/null && export BSPWM_SOCKET="$XDG_RUNTIME_DIR/bswpm-socket"
 # Always install ruby gems local to the user
 if hash gem 2>/dev/null
 then
-	export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
-	export GEM_HOME="$HOME/.local/lib/ruby/gems/$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')"
-	export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
-	export PATH="$PATH:$GEM_HOME/bin"
+    export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
+    export GEM_HOME="$HOME/.local/lib/ruby/gems/$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')"
+    export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
+    export PATH="$PATH:$GEM_HOME/bin"
 fi
 
 # nodejs's NPM tool configuration
 if hash npm 2>/dev/null
 then
-	export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-	export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
+    export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+    export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 fi
 
 # Specify many application config paths

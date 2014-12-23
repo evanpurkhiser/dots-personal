@@ -37,4 +37,3 @@ hash hg 2> /dev/null && export HGRCPATH="$XDG_CONFIG_HOME/hg/config"
 
 # Less history file location
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
-

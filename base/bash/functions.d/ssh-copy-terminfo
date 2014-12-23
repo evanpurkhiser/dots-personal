@@ -3,23 +3,23 @@
 # Copy the current terminfo file to a remote host
 ssh-copy-terminfo()
 {
-	local termpath="share/terminfo/$(echo "$TERM" | cut -c1)"
-	local terminfo="$termpath/$TERM"
+    local termpath="share/terminfo/$(echo "$TERM" | cut -c1)"
+    local terminfo="$termpath/$TERM"
 
-	for host in $@
-	do
-		local ssh_sock="$XDG_CACHE_HOME/ssh-copy-terminfo-$host"
+    for host in $@
+    do
+        local ssh_sock="$XDG_CACHE_HOME/ssh-copy-terminfo-$host"
 
-		# Open a master SSH connection
-		ssh -nNf -o ControlMaster=yes -o ControlPath="$ssh_sock" $host
+        # Open a master SSH connection
+        ssh -nNf -o ControlMaster=yes -o ControlPath="$ssh_sock" $host
 
-		# Create the terminfo directory and copy the terminfo file
-		ssh -o ControlPath="$ssh_sock" $host mkdir -p ".local/$termpath"
-		scp -o ControlPath="$ssh_sock" "/usr/$terminfo" $host:.local/$terminfo
+        # Create the terminfo directory and copy the terminfo file
+        ssh -o ControlPath="$ssh_sock" $host mkdir -p ".local/$termpath"
+        scp -o ControlPath="$ssh_sock" "/usr/$terminfo" $host:.local/$terminfo
 
-		# Close the connection
-		ssh -O exit -o ControlPath="$ssh_sock" $host 2> /dev/null
-	done
+        # Close the connection
+        ssh -O exit -o ControlPath="$ssh_sock" $host 2> /dev/null
+    done
 }
 
 complete -F _known_hosts ssh-copy-terminfo

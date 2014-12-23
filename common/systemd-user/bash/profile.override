@@ -14,7 +14,7 @@ target="console"
 # If we're logging in from VT1 start the graphical target
 if [[ $XDG_VTNR == 1 ]] && ! systemctl --user -q is-active graphical.target &> /dev/null
 then
-	target="graphical"
+    target="graphical"
 fi
 
 # Bring up systemd --user to the specified target
