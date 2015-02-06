@@ -22,7 +22,7 @@
   ui = true
 
 [rerere]
-  enabled = 1
+  enabled = true
 
 [rebase]
   autosquash = true
