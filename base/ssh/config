@@ -3,3 +3,6 @@ Host *
   ServerAliveInterval 60
   TCPKeepAlive yes
   ForwardAgent yes
+
+Host *.codemobs.com
+  IdentityFile ~/.ssh/id_rsa.codemobs
