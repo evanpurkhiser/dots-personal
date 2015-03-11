@@ -49,6 +49,7 @@ highlight! link CommandTCharMatched Error
 
 " Vim indent line configuration
 let g:indentLine_char = '│'
+let g:indentLine_color_term = 0
 
 " automagically add semicolons when closing parenthesis
 autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
