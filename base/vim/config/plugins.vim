@@ -41,6 +41,8 @@ Plug 'bling/vim-airline'
 " Close matching pairs automagically with a few other neat features
 Plug 'Raimondi/delimitMate'
 
+Plug 'Yggdroot/indentLine'
+
 " Color schemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'w0ng/vim-hybrid'

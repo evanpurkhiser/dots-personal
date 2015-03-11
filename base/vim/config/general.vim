@@ -47,6 +47,9 @@ let g:CommandTMatchWindowReverse = 1
 let g:CommandTSmartCase = 0
 highlight! link CommandTCharMatched Error
 
+" Vim indent line configuration
+let g:indentLine_char = '│'
+
 " automagically add semicolons when closing parenthesis
 autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
 
