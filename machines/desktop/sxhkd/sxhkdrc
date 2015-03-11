@@ -15,6 +15,15 @@ mod4 + p
 mod4 + r
   dmenu_run -b
 
+Print
+  escrotum -s "$HOME/scratch/%Y-%m-%d-%H:%M-screenshot.png"
+
+ctrl + Print
+  escrotum -Cs
+
+alt + Print
+  escrotum -s /tmp/ss.png && imgur /tmp/ss.png | xcmenu -ci && rm /tmp/ss.png
+
 # Reset headset volume
 # This is mostely useful for just after the google-hangouts plugin changes it...
 mod4 + v
