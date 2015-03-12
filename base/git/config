@@ -3,10 +3,11 @@
   excludesfile = ~/.config/git/ignore
 
 [alias]
-  st = status -sb
-  ci = commit -v
-  co = checkout
-  ls = log --date=short --pretty=ls
+  st  = status -sb
+  ci  = commit -v
+  co  = checkout
+  ls  = log --date=short --pretty=ls
+  rma = !git ls-files --deleted -z | xargs -0 -r git rm
 
 [pretty]
   ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(magenta)%d %C(white)%s
