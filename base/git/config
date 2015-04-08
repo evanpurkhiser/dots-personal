@@ -10,7 +10,7 @@
   rma = !git ls-files --deleted -z | xargs -0 -r git rm
 
 [pretty]
-  ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(magenta)%d %C(white)%s
+  ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(auto)%d %C(white)%s
 
 [diff]
   tool = vimdiff
