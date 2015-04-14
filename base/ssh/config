@@ -4,6 +4,9 @@ Host *
   TCPKeepAlive yes
   ForwardAgent yes
 
+  # Port 2224 is used for clipboard forwarding
+  RemoteForward 2224 localhost:2224
+
 # My remote server 'hyperion' proxies port 22 to my IPv6 only home server.
 # SSH for this machine is instead exposed on port 2222.
 Host hyperion.evanpurkhiser.com
