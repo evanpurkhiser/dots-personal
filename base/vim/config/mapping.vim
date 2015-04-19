@@ -43,8 +43,8 @@ vnoremap <silent> * :<C-U>
     \:call winrestview(stay_star_view)<CR>
 
 " Source line and selection in vim
-vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
-nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
+vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection'<CR>
+nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line'<CR>
 
 " Smart save: Attempt to use SudoWrite if the file isn't writeable
 nnoremap <expr> <C-s>
