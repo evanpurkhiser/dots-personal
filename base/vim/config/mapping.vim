@@ -9,6 +9,11 @@ command SudoWrite
   \ :execute ':silent write !sudo tee % > /dev/null'<Bar>
   \ :execute v:shell_error == 0 ? ':edit!' : ''
 
+" Smart save: Attempt to use SudoWrite if the file isn't writeable
+nnoremap <expr> <C-s>
+  \ expand('%') != '' && !filewritable(expand('%')) ?
+  \ ':SudoWrite<CR>' : ':write<CR>'
+
 " Remap Ctrl+C to be the same as escape without telling us to use :q to quit
 nnoremap  <C-c> <NOP>
 nnoremap r<C-c> <NOP>
@@ -47,11 +52,6 @@ vnoremap <silent> * :<C-U>
 " Source line and selection in vim
 vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection'<CR>
 nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line'<CR>
-
-" Smart save: Attempt to use SudoWrite if the file isn't writeable
-nnoremap <expr> <C-s>
-  \ expand('%') != '' && !filewritable(expand('%')) ?
-  \ ':SudoWrite<CR>' : ':write<CR>'
 
 " Repeat the lmast executed macro
 nnoremap , @@
