@@ -1,8 +1,0 @@
-[Unit]
-Description=Xorg Server Instance
-Documentation=man:xorg(1)
-
-[Service]
-Type=forking
-ExecStartPre=/usr/bin/systemctl --user set-environment DISPLAY=:0
-ExecStart=/usr/bin/x-daemon ${DISPLAY} -nolisten tcp vt${XDG_VTNR}

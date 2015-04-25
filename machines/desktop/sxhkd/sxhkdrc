@@ -4,10 +4,10 @@
 
 # General keybindings
 mod4 + Return
-  systemd-run --user termite
+  termite
 
 mod4 + e; {f, m}
-  systemd-run --user {chromium, mumble}
+  {chromium, mumble}
 
 mod4 + p
   adb shell input keyevent 26

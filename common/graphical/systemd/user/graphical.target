@@ -1,5 +1,0 @@
-[Unit]
-Description=Graphical session
-BindsTo=xorg.service
-Wants=console.target
-Wants=wm.service

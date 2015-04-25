@@ -10,4 +10,4 @@ Environment=HOME=%h/.cache
 ExecStart=/opt/android-sdk/platform-tools/adb fork-server server
 
 [Install]
-WantedBy=console.target
+WantedBy=default.target
