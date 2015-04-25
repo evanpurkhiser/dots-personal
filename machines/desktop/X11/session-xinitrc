@@ -1,0 +1,25 @@
+#!/usr/bin/sh
+# Start programs for an X session
+
+fork() { (setsid "$@" & )}
+
+# Restore wallpaper
+fork /usr/bin/nitrogen --restore
+
+# Intercept capslock to send escape on non-chord press
+fork /usr/bin/xcape
+
+# Hide the mouse during typing
+fork /usr/bin/unclutter
+
+# X11 windowing compositor
+fork /usr/bin/compton --config "${XDG_CONFIG_HOME}/compton/compton.conf"
+
+# Clipboard management
+fork /usr/bin/xcmenu
+
+# Global hotkeys
+fork /usr/bin/sxhkd
+
+# Window managment
+exec /usr/bin/bspwm

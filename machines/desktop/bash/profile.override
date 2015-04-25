@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source "$HOME/.config/bash/environment"
+source <(envoy -pd)
+
+if [[ $XDG_VTNR == 1 ]]
+then
+    envoy -a $HOME/.ssh/{,codemobs.}id_rsa
+
+    exec subreaper $HOME/.config/X11/session-init
+fi
+
+source "$HOME/.config/bash/bashrc"
