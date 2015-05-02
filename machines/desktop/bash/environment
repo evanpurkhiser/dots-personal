@@ -28,7 +28,7 @@ hash mpv        2>/dev/null && export          MPV_HOME="$XDG_CONFIG_HOME/mpv"
 
 # Specify many application data paths
 hash vagrant 2>/dev/null && export   VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
-hash berks 2>/dev/null && export BERKSHELF_PATH="$XDG_DATA_HOME/berkshelf"
+hash berks   2>/dev/null && export BERKSHELF_PATH="$XDG_DATA_HOME/berkshelf"
 
 # OpenGL NVIDIA shader cache directory
 [ -e /usr/lib/modprobe.d/nvidia.conf ] && export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME"
