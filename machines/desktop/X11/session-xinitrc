@@ -6,9 +6,6 @@ fork() { (setsid "$@" & )}
 # Restore wallpaper
 fork /usr/bin/nitrogen --restore
 
-# Intercept capslock to send escape on non-chord press
-fork /usr/bin/xcape
-
 # Hide the mouse during typing
 fork /usr/bin/unclutter
 
