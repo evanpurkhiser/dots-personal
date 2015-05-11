@@ -1,43 +1,43 @@
-mod4 + alt + Escape
+super + alt + Escape
   bspc quit
 
-mod4 + w
+super + w
   bspc window -c
 
-mod4 + t
+super + t
   bspc desktop -l next
 
-mod4 + b
+super + b
   bspc desktop -B
 
-mod4 + {s,f}
+super + {s,f}
   bspc window -t {floating,fullscreen}
 
-mod4 + {grave,Tab}
+super + {grave,Tab}
   bspc {window,desktop} -f last
 
-mod4 + apostrophe
+super + apostrophe
   bspc window -s last
 
-mod4 + y
+super + y
   bspc window -w last.manual
 
-mod4 + {_,shift + }{Left,Down,Up,Right}
+super + {_,shift + }{Left,Down,Up,Right}
   bspc window -{f,s} {left,down,up,right}
 
-mod4 + {_,shift + }c
+super + {_,shift + }c
   bspc window -f {next,prev}
 
-mod4 + {comma,period}
+super + {comma,period}
   bspc desktop -C {backward,forward}
 
-mod4 + bracket{left,right}
+super + bracket{left,right}
   bspc desktop -f {prev,next}
 
-mod4 + ctrl + {Left,Down,Up,Right}
+super + ctrl + {Left,Down,Up,Right}
   bspc window -p {left,down,up,right}
 
-mod4 + ctrl + {_,shift + }space
+super + ctrl + {_,shift + }space
   bspc {window -p cancel,desktop -c}
 
 super + alt + {h,j,k,l}
@@ -46,26 +46,26 @@ super + alt + {h,j,k,l}
 super + alt + shift + {h,j,k,l}
   bspc window -e {right -10,up +10,down -10,left +10}
 
-mod4 + ctrl + {1-9}
+super + ctrl + {1-9}
   bspc window -r 0.{1-9}
 
-mod4 + {_,shift + }{1-9,0}
+super + {_,shift + }{1-9,0}
   bspc {desktop -f,window -d} {1-9,0}
 
 ~button1
   bspc pointer -g focus
 
-mod4 + button{1-3}
+super + button{1-3}
   bspc pointer -g {move,resize_side,resize_corner}
 
-mod4 + !button{1-3}
+super + !button{1-3}
   bspc pointer -t %i %i
 
-mod4 + Delete
+super + Delete
   bspc control --toggle-visibility
 
-mod4 + backslash
+super + backslash
   bspc monitor -f next
 
-mod4 + o
+super + o
   bspc window -m next -f

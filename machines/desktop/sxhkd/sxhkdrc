@@ -3,16 +3,16 @@
   xdotool key Control+{Shift+Tab,w,Tab}
 
 # General keybindings
-mod4 + Return
+super + Return
   termite
 
-mod4 + e; {f, m}
+super + e; {f, m}
   {chromium, mumble}
 
-mod4 + p
+super + p
   adb shell input keyevent 26
 
-mod4 + r
+super + r
   dmenu_run -b
 
 Print
@@ -26,7 +26,7 @@ alt + Print
 
 # Reset headset volume
 # This is mostely useful for just after the google-hangouts plugin changes it...
-mod4 + v
+super + v
   pactl set-source-volume alsa_input.usb-Sennheiser_Communications_Sennheiser_USB_Headset-00-Headset.analog-mono 32768
 
 # BSPWM key bindings
