@@ -5,7 +5,7 @@ source <(envoy -pd)
 
 if [[ $XDG_VTNR == 1 ]]
 then
-    envoy -a $HOME/.ssh/{,codemobs.}id_rsa
+    envoy -l > /dev/null || envoy -a $HOME/.ssh/{,codemobs.}id_rsa
 
     exec subreaper $HOME/.config/X11/session-init
 fi
