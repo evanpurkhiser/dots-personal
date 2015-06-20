@@ -51,6 +51,9 @@ highlight! link CommandTCharMatched Error
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
 
+" Load snippets directory
+let g:UltiSnipsSnippetDirectories=["UtiSnips", "snips"]
+
 " automagically add semicolons when closing parenthesis
 autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
 

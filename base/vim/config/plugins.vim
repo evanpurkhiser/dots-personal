@@ -26,6 +26,10 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 " Do completion with <Tab> instead of <C-P>
 Plug 'ervandew/supertab'
 
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 " Fuzzy file / buffer / mru finder
 Plug 'wincent/Command-T', { 'do': 'cd ruby/command-t && ruby extconf.rb && make' }
 
