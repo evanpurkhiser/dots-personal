@@ -4,6 +4,7 @@ Host *
   TCPKeepAlive yes
   ForwardAgent yes
 
+Match user="!git"
   # Port 2224 is used for clipboard forwarding
   RemoteForward 2224 localhost:2224
 
