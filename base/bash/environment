@@ -42,6 +42,9 @@ then
     export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 fi
 
+# Go is always local to the user
+hash go 2>/dev/null && export GOPATH="$HOME/.local/lib/go"
+
 hash pass    2>/dev/null && export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 hash vagrant 2>/dev/null && export       VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 hash gpg     2>/dev/null && export          GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
