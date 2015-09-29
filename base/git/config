@@ -27,6 +27,7 @@
 
 [rebase]
   autosquash = true
+  autostash = true
 
 [push]
   default = upstream
