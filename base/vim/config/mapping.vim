@@ -34,6 +34,11 @@ vmap <Leader>a> :Tabularize /=><CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 
+" Quick system copy and paste
+nmap <Leader>y "+y
+nmap <Leader>Y "+Y
+vmap <Leader>y "+y
+
 " Don't move on *
 nnoremap <silent> *
   \ :let stay_star_view = winsaveview()<CR>*
