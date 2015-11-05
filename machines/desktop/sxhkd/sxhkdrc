@@ -15,8 +15,6 @@ super + p
 super + r
   dmenu_run -b
 
-Print
-  escrotum -s "$HOME/scratch/%Y-%m-%d-%H:%M-screenshot.png"
 
 super + shift + s
   maim -slc '0,0,0,0.15' --format png /dev/stdout | xclip -t image/png -selection clipboard -i
