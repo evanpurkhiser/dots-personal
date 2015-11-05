@@ -18,11 +18,11 @@ super + r
 Print
   escrotum -s "$HOME/scratch/%Y-%m-%d-%H:%M-screenshot.png"
 
-ctrl + Print
-  escrotum -Cs
+super + shift + s
+  maim -slc '0,0,0,0.15' --format png /dev/stdout | xclip -t image/png -selection clipboard -i
 
-alt + Print
-  escrotum -s /tmp/ss.png && imgur /tmp/ss.png | xcmenu -ci && rm /tmp/ss.png
+super + shift + alt + s
+  maim -slc '0,0,0,0.15' $HOME/scratch/$(date +%F-%T).png
 
 # Reset headset volume
 # This is mostely useful for just after the google-hangouts plugin changes it...
