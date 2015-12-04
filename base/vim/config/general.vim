@@ -51,8 +51,15 @@ highlight! link CommandTCharMatched Error
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
 
+" Don't rebuild go projects with syntastic
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+
 " Load snippets directory
 let g:UltiSnipsSnippetDirectories=["UtiSnips", "snips"]
+
+" Supertab should use context for completion
+" Allows supertab to work with go-completion and ultisnip
+let g:SuperTabDefaultCompletionType = "context"
 
 " automagically add semicolons when closing parenthesis
 autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"

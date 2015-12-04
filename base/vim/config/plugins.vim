@@ -59,6 +59,9 @@ Plug 'evidens/vim-twig'
 Plug 'StanAngeloff/php.vim'
 Plug '2072/PHP-Indenting-for-VIm'
 
+" Go awareness
+Plug 'fatih/vim-go'
+
 " ReStructured text table helper
 Plug 'nvie/vim-rst-tables', { 'do': 'python build.py' }
 
