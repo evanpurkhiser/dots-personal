@@ -68,4 +68,7 @@ Plug 'nvie/vim-rst-tables', { 'do': 'python build.py' }
 " Syntax checking
 Plug 'scrooloose/syntastic'
 
+" Full project text search
+Plug 'mileszs/ack.vim'
+
 call plug#end()
