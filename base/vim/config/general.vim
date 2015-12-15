@@ -31,9 +31,10 @@ let g:netrw_banner = 0     " Don't show help banner
 let g:netrw_dirhistmax = 0 " Don't write history file
 
 " airline plugin configuration
-let g:airline_left_sep = ''       " Hide separators
-let g:airline_right_sep = ''      " -
-let g:airline_detect_modified = 0 " Don't change color for modified files
+let g:airline_left_sep = ''                    " Hide separators
+let g:airline_right_sep = ''                   " -
+let g:airline_detect_modified = 0              " Don't change color for modified files
+let g:airline#extensions#syntastic#enabled = 0 " No syntastic
 
 " bufferline plugin configuration
 let g:bufferline_echo = 0 " Don't echo buffer list to command line
