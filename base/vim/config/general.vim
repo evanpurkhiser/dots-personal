@@ -17,6 +17,9 @@ set ignorecase " Ignore case when searching
 set smartcase  " Don't ignore case when using uppercase in a search
 set autochdir  " Always stay in the working directory of the open file
 
+" Spelling should be done at the toplevel (non-syntax text is checked)
+syntax spell toplevel
+
 " Disable backup files
 set nobackup nowritebackup noswapfile
 
