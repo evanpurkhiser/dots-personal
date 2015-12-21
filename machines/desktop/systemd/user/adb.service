@@ -7,7 +7,8 @@ Documentation=http://developer.android.com/tools/help/adb.html
 # user cache directory, instead of in the users home.
 # See: https://github.com/android/platform_system_core/blob/4f71319df011d796a60a43fc1bc68e16fbf7d321/adb/adb_auth_host.cpp#L329-L330
 Environment=HOME=%h/.cache
-ExecStart=/opt/android-sdk/platform-tools/adb fork-server server
+Type=forking
+ExecStart=/opt/android-sdk/platform-tools/adb start-server
 
 [Install]
 WantedBy=default.target
