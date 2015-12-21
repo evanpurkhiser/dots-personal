@@ -22,5 +22,5 @@ xsetroot -cursor_name left_ptr
 bspc control --adopt-orphans
 
 # Always float chrome chat windows
-bspc rule -a crx_nckgahadagoaajjgafhacjanaoiihapd floating=on
-bspc rule -a mpv floating=on
+bspc rule -a crx_nckgahadagoaajjgafhacjanaoiihapd state=floating
+bspc rule -a mpv state=floating
