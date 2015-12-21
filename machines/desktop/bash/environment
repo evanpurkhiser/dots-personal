@@ -23,5 +23,8 @@ hash chromium 2>/dev/null && export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/c
 # MPD runs on my default, this makes other mpd related things more portable
 export MPD_HOST=htpc
 
+# Use gnupgp ssh socket
+export SSH_AUTH_SOCK="$GNUPGHOME/S.gpg-agent.ssh"
+
 # Add scripts directory
 export PATH="$HOME/.local/lib/scripts:$PATH"
