@@ -11,7 +11,9 @@ super + b
   bspc desktop -B
 
 super + {s,f}
-  bspc window -t {floating,fullscreen}
+  state={floating,fullscreen}; \
+  bspc query -W -w "focused.$\{state\}" && state=tiled; \
+  bspc window -t "$state"
 
 super + {grave,Tab}
   bspc {window,desktop} -f last
