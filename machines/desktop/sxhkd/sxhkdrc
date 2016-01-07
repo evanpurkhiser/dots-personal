@@ -19,6 +19,7 @@ super + l
   passmenu -l 6 -z -h 10 -w 300 -x 810 -y 100 -b
 
 super + shift + s
+  echo '' | xclip -selection clipboard -i; \
   maim -slc '0,0,0,0.15' --format png /dev/stdout | xclip -t image/png -selection clipboard -i
 
 super + shift + alt + s
