@@ -3,20 +3,20 @@
 alias sudo="sudo -E " # carry over bashrc to sudo commands
 alias cp="cp -i"      # confirm before overwriting something
 alias mv="mv -i"      # confirm before overwriting something
-alias df='df -h'      # human-readable sizes
-alias du='du -h'      # human-readable sizes
-alias free='free -m'  # show sizes in MB
-alias ll='ls -l'      # detailed file list
-alias la='ls -lA'     # detailed file list with hidden files
-alias svim='sudo vim' # edit protected files with vim
-alias vi='vim'        # honestly, this is just nice
+alias df="df -h"      # human-readable sizes
+alias du="du -h"      # human-readable sizes
+alias free="free -m"  # show sizes in MB
+alias ll="ls -l"      # detailed file list
+alias la="ls -lA"     # detailed file list with hidden files
+alias svim="sudo vim" # edit protected files with vim
+alias vi="vim"        # honestly, this is just nice
 
 # Better LS sorting
 #  - Sort by the croatian language (special characters first)
 #  - Colorize the list
 #  - Classify files (such as executables with a *)
 #  - always show sizes in human readable formats
-alias ls='LC_COLLATE=C ls --group-directories-first --color=auto --classify -h'
+alias ls="LC_COLLATE=C ls --group-directories-first --color=auto --classify -h"
 
 # Server the current directory over port 8000 using python
-alias serve='python3 -m http.server'
+alias serve="python3 -m http.server"
