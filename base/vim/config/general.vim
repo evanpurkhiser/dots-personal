@@ -38,6 +38,12 @@ let g:airline_right_sep = ''                   " -
 let g:airline_detect_modified = 0              " Don't change color for modified files
 let g:airline#extensions#syntastic#enabled = 0 " No syntastic
 
+let g:airline_section_y = ""      " Hide file format / encoding
+let g:airline_section_z = "%3p%%" " Only show scroll percentage
+
+" Shorter airline whitespace warning message
+let g:airline#extensions#whitespace#trailing_format = 'ws:%s'
+
 " bufferline plugin configuration
 let g:bufferline_echo = 0 " Don't echo buffer list to command line
 
