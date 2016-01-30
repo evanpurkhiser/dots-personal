@@ -60,6 +60,7 @@ Plug 'evidens/vim-twig'
 Plug 'StanAngeloff/php.vim'
 Plug '2072/PHP-Indenting-for-VIm'
 Plug 'pearofducks/ansible-vim'
+Plug 'tmux-plugins/vim-tmux'
 
 " Go awareness
 Plug 'fatih/vim-go'
