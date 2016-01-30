@@ -45,7 +45,8 @@ let g:airline_section_z = "%3p%%" " Only show scroll percentage
 let g:airline#extensions#whitespace#trailing_format = 'ws:%s'
 
 " bufferline plugin configuration
-let g:bufferline_echo = 0 " Don't echo buffer list to command line
+let g:bufferline_echo = 0       " Don't echo buffer list to command line
+let g:bufferline_show_bufnr = 0 " Don't show buffer number
 
 " automagically expand newlines in paired items
 " See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
