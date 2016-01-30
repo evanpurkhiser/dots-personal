@@ -59,6 +59,7 @@ Plug 'juvenn/mustache.vim'
 Plug 'evidens/vim-twig'
 Plug 'StanAngeloff/php.vim'
 Plug '2072/PHP-Indenting-for-VIm'
+Plug 'pearofducks/ansible-vim'
 
 " Go awareness
 Plug 'fatih/vim-go'
