@@ -2,7 +2,7 @@
 
 source "$HOME/.config/bash/environment"
 
-if [[ $XDG_VTNR == 1 ]]
+if [[ $XDG_VTNR == 1 && ! $TMUX ]]
 then
     exec subreaper $HOME/.config/X11/session-init
 fi
