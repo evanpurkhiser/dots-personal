@@ -40,7 +40,8 @@ Plug 'godlygeek/tabular'
 Plug 'bling/vim-bufferline'
 
 " Prettier status line
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Close matching pairs automagically with a few other neat features
 Plug 'Raimondi/delimitMate'
