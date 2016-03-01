@@ -46,6 +46,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Close matching pairs automagically with a few other neat features
 Plug 'Raimondi/delimitMate'
 
+" Show vertical lines for tab alignment
 Plug 'Yggdroot/indentLine'
 
 " Color schemes
