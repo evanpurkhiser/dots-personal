@@ -12,7 +12,7 @@ alias svim="sudo vim" # edit protected files with vim
 alias vi="vim"        # honestly, this is just nice
 
 # Better LS sorting
-#  - Sort by the croatian language (special characters first)
+#  - Collate listings so dot files are listed first
 #  - Colorize the list
 #  - Classify files (such as executables with a *)
 #  - always show sizes in human readable formats
