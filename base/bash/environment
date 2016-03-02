@@ -42,8 +42,8 @@ then
     export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 fi
 
-# Go is always local to the user
-if hash go 2>/dev/null
+# Don't overrwrite an already configured GOPATH
+if hash go 2>/dev/null && [[ ! -v GOPATH ]]
 then
     export GOPATH="$HOME/.local/lib/go"
     export PATH="$PATH:$GOPATH/bin"
