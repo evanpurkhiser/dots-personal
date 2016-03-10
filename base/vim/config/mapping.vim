@@ -60,3 +60,6 @@ nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line'<CR>
 
 " Repeat the lmast executed macro
 nnoremap , @@
+
+" NERDTree pane control
+nnoremap <C-t> :NERDTreeToggle<CR>

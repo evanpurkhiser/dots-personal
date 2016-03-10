@@ -70,6 +70,9 @@ Plug 'fatih/vim-go'
 " ReStructured text table helper
 Plug 'nvie/vim-rst-tables', { 'do': 'python build.py' }
 
+" File browsing
+Plug 'scrooloose/nerdtree'
+
 " Syntax checking
 Plug 'scrooloose/syntastic'
 
