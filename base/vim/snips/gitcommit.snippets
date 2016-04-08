@@ -7,3 +7,8 @@ snippet jiran "Jira None"
 Jira: ${1:none}
 Reviewer: ${2:none}
 endsnippet
+
+# This should be moved into the work-specific group
+snippet "[A-Z]+-[0-9]+" "Jira Link" r
+[`!p snip.rv = match.group(0)`](https://ellation.atlassian.net/browse/`!p snip.rv = match.group(0)`)
+endsnippet
