@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source $DOTS_SOURCE/base/bash/environment
+
+# Compile the keyfile
+hash less 2>/dev/null && lesskey -o keyfile.bin keyfile

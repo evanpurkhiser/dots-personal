@@ -55,8 +55,9 @@ hash vagrant 2>/dev/null && export       VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 hash gpg     2>/dev/null && export          GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 hash hg      2>/dev/null && export           HGRCPATH="$XDG_CONFIG_HOME/hg/config"
 
-# Less history file location
+# Less history file and key file
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+export LESSKEY="$XDG_CONFIG_HOME/less/keyfile.bin"
 
 # Don't add quotes when using ls
 export QUOTING_STYLE="literal"
