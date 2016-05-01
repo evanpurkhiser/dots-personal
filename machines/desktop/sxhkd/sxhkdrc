@@ -28,10 +28,5 @@ super + shift + alt + s
 super + Escape
   systemctl suspend
 
-# Reset headset volume
-# This is mostely useful for just after the google-hangouts plugin changes it...
-super + v
-  pactl set-source-volume alsa_input.usb-Sennheiser_Communications_Sennheiser_USB_Headset-00-Headset.analog-mono 32768
-
 # BSPWM key bindings
 !!@@bspwm
