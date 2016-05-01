@@ -25,7 +25,7 @@ super + shift + s
 super + shift + alt + s
   maim -slc '0,0,0,0.15' $HOME/scratch/$(date +%F-%T).png
 
-super + Pause
+super + Escape
   systemctl suspend
 
 # Reset headset volume
