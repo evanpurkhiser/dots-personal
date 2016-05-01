@@ -14,7 +14,7 @@ bspc config normal_border_color       "#5E7175"
 bspc config focused_border_color      "#37BF8D"
 
 # Setup destkops
-bspc monitor ^1 -d $(seq 1 9)
+bspc monitor ^1 -d $(seq 1 5)
 bspc monitor ^2 -d $(seq 1 2)
 
 # Set the root cursor
