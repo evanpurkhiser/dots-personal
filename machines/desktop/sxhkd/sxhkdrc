@@ -15,7 +15,7 @@ super + p
 super + r
   dmenu_run -b
 
-super + l
+super + semicolon
   passmenu -l 6 -z -h 10 -w 300 -x 810 -y 100 -b
 
 super + shift + s
