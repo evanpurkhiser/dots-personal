@@ -2,6 +2,7 @@ set mark-symlinked-directories on
 set completion-ignore-case on
 set expand-tilde on
 set echo-control-characters off
+set colored-stats on
 
 # Use arrow keys for history search
 "\e[A": history-search-backward
