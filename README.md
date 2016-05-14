@@ -25,15 +25,9 @@ This configuration group should include configuration files used when the
 machine has a graphical environment (xorg display server). For example, this
 should include gtk configurations and base window manager configurations.
 
-### `common/develop`
-
-This configuration group should include configuration files that are used with
-development tools. For example, mysql is a development tool that may be used
-on various machines (servers, workstations, etc).
-
 ### `common/*`
 
-All other common groups should be self descriptive. Generally, a common group
+Other common groups should be self descriptive. Generally, a common group
 can be use for a specific application that could be used with different
 machiens.
 
