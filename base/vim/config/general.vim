@@ -67,9 +67,10 @@ let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " Load snippets directory
 let g:UltiSnipsSnippetDirectories=["UtiSnips", "snips"]
 
-" Supertab should use context for completion
-" Allows supertab to work with go-completion and ultisnip
-let g:SuperTabDefaultCompletionType = "context"
+let g:UltiSnipsExpandTrigger = "<c-f>"
+
+" Don't autoselect the first entry when doing completion
+set completeopt=longest,menuone
 
 " automagically add semicolons when closing parenthesis
 autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"

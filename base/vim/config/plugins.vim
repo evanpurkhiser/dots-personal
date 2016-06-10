@@ -23,8 +23,8 @@ Plug 'tommcdo/vim-exchange'
 " http://www.xfree86.org/current/ctlseqs.html#Bracketed Paste Mode
 Plug 'ConradIrwin/vim-bracketed-paste'
 
-" Do completion with <Tab> instead of <C-P>
-Plug 'ervandew/supertab'
+" Amazing completion
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 " Snippets
 Plug 'SirVer/ultisnips'
