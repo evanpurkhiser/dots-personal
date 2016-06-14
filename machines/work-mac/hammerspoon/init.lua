@@ -44,7 +44,13 @@ hs.hotkey.bind(super, "\\", function()
     wf:setSortOrder(hs.window.filter.sortByFocusedLast)
 
     window = wf:getWindows()[1]
+    window:focus()
+    hs.mouse.setAbsolutePosition(window:frame().center)
+end)
 
+-- Navigate to slack
+hs.hotkey.bind(super, "s", function()
+    window = hs.window.filter.new('Slack'):getWindows()[1]
     window:focus()
     hs.mouse.setAbsolutePosition(window:frame().center)
 end)
