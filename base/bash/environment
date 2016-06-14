@@ -43,7 +43,7 @@ then
 fi
 
 # Don't overrwrite an already configured GOPATH
-if hash go 2>/dev/null && [[ ! -v GOPATH ]]
+if hash go 2>/dev/null && [ ! -n "${GOPATH+1}" ]
 then
     export GOPATH="$HOME/.local/lib/go"
     export PATH="$PATH:$GOPATH/bin"
