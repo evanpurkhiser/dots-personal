@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source $DOTS_SOURCE/base/bash/environment
+
+# See: https://github.com/Hammerspoon/hammerspoon/pull/582
+defaults write org.hammerspoon.Hammerspoon MJConfigFile "$XDG_CONFIG_HOME/hammerspoon/init.lua"
