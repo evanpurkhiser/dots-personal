@@ -64,6 +64,9 @@ let g:indentLine_color_term = 0
 " Don't rebuild go projects with syntastic
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
+" Godef is much faster than guru ATM
+let g:go_def_mode = 'godef'
+
 " Load snippets directory
 let g:UltiSnipsSnippetDirectories=["UtiSnips", "snips"]
 
