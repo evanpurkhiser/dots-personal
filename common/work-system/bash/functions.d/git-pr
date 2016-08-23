@@ -36,5 +36,5 @@ git-pr()
     fi
 
     git push origin ${1-@}:refs/heads/${branch}
-    hub pull-request -fh ${branch} ${assignees} | tee | nc localhost 2224
+    hub pull-request ${assignees} -fh ${branch}
 }
