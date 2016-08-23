@@ -13,7 +13,7 @@ git-pr()
 
     # Use the commit message as a branch name if no ticket number
     # Remove special characters and use dashes for spaces
-    if [[ $branch == "none" ]]
+    if [[ $branch == "none" || $branch == "" ]]
     then
         branch=$(git show -q --format=%s | sed -re 's/[^0-9a-zA-Z ]//g;s/ /-/g' | tr -dc '[:print:]')
     fi
