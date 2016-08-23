@@ -23,6 +23,18 @@ git-pr()
 
     echo "Opening pull-request from remote branch ${branch}"
 
+    # Determine assignees from Reviewer tag
+    local user_map_file=${GIT_PR_USERMAP-$XDG_CONFIG_HOME/git/pr-usermap}
+    local assignees=""
+
+    if [ -e "${user_map_file}" ]
+    then
+        local reviewers=$(git show -q --format=%b | grep ^Reviewer | sed -re 's/^.+: (.+)/\1/g;s/ ?//g')
+        local mapping="$(sed -re 's|([^ ]+) (.+)|s/\1/\2/g|g' "$user_map_file")"
+
+        assignees="-a $(echo "$reviewers" | sed -re "$mapping")"
+    fi
+
     git push origin ${1-@}:refs/heads/${branch}
-    hub pull-request -fh ${branch} -a ${} | tee | nc localhost 2224
+    hub pull-request -fh ${branch} ${assignees} | tee | nc localhost 2224
 }
