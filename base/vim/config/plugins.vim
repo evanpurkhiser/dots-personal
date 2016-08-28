@@ -31,7 +31,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Fuzzy file / buffer / mru finder
-Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
 " Makes alignment a breeze (:Tab)
