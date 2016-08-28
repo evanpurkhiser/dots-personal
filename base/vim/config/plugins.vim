@@ -31,7 +31,8 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Fuzzy file / buffer / mru finder
-Plug 'wincent/Command-T', { 'do': 'cd ruby/command-t && ruby extconf.rb && make' }
+Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Makes alignment a breeze (:Tab)
 Plug 'godlygeek/tabular'

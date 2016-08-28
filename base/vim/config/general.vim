@@ -52,11 +52,6 @@ let g:bufferline_show_bufnr = 0 " Don't show buffer number
 " See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
 let g:delimitMate_expand_cr = 1
 
-" Configure Command-T
-let g:CommandTMatchWindowReverse = 1
-let g:CommandTSmartCase = 0
-highlight! link CommandTCharMatched Error
-
 " Vim indent line configuration
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
