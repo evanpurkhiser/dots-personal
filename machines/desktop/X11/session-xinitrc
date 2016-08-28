@@ -12,6 +12,9 @@ fork /usr/bin/unclutter
 # X11 windowing compositor
 fork /usr/bin/compton --config "${XDG_CONFIG_HOME}/compton/compton.conf"
 
+# Easy on the eyes
+fork redshift
+
 # Clipboard management
 fork /usr/bin/xcmenu
 
