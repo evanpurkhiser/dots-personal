@@ -19,7 +19,9 @@ fork redshift
 fork /usr/bin/xcmenu
 
 # Global hotkeys
-fork /usr/bin/sxhkd
+fork /usr/bin/sxhkd \
+ -c ${XDG_CONFIG_HOME}/sxhkd/common.sxhkdrc \
+ -c ${XDG_CONFIG_HOME}/sxhkd/bspwm.sxhkdrc
 
 # Window managment
 exec /usr/bin/bspwm

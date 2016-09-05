@@ -27,6 +27,3 @@ super + shift + alt + s
 
 super + Escape
   systemctl suspend
-
-# BSPWM key bindings
-!!@@bspwm
