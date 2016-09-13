@@ -56,6 +56,10 @@ let g:delimitMate_expand_cr = 1
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
 
+" Better list characters
+highlight SpecialKey ctermbg=8 ctermfg=2
+set lcs=tab:\›\ ,trail:-
+
 " Don't rebuild go projects with syntastic
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
