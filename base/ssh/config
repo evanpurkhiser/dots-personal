@@ -4,20 +4,21 @@ Host *
   TCPKeepAlive yes
   ForwardAgent yes
 
-Match user="!git"
-  # Port 2224 is used for clipboard forwarding
-  RemoteForward 2224 localhost:2224
-
   # My username is evan in most places
   User evan
 
   # CVE-0216-0777
   UseRoaming no
 
+Match user="!git"
+  # Port 2224 is used for clipboard forwarding
+  RemoteForward 2224 localhost:2224
+
 # My remote server 'hyperion' proxies port 22 to my IPv6 only home server.
 # SSH for this machine is instead exposed on port 2222.
 Host hyperion.evanpurkhiser.com
   Port 2222
 
-Host *.codemobs.com
-  IdentityFile ~/.ssh/id_rsa.codemobs
+# I am epurkhiser at work
+Host *.codemobs.com *.crunchydev.com *.crunchyroll.com
+  User epurkhiser
