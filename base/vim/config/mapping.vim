@@ -11,7 +11,7 @@ command SudoWrite
 
 " Smart save: Attempt to use SudoWrite if the file isn't writeable
 nnoremap <expr> <C-s>
-  \ expand('%') != '' && !filewritable(expand('%')) ?
+  \ expand('%') != '' && getfperm(expand('%')) != '' && !filewritable(expand('%')) ?
   \ ':SudoWrite<CR>' : ':write<CR>'
 
 " Remap Ctrl+C to be the same as escape without telling us to use :q to quit
