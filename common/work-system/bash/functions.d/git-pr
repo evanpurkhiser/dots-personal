@@ -34,7 +34,10 @@ git-pr()
         local reviewers=$(git show -q --format=%b $head | grep ^Reviewer | sed -re 's/^.+: (.+)/\1/g;s/ ?//g')
         local mapping="$(sed -re 's|([^ ]+) (.+)|s/\1/\2/g|g' "$user_map_file")"
 
-        assignees="-a $(echo "$reviewers" | sed -re "$mapping")"
+        if [[ $reviewers != "pending" ]]
+        then
+            assignees="-a $(echo "$reviewers" | sed -re "$mapping")"
+        fi
     fi
 
     git push origin ${head}:refs/heads/${branch}
