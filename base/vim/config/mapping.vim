@@ -14,9 +14,12 @@ nnoremap <expr> <C-s>
   \ expand('%') != '' && getfperm(expand('%')) != '' && !filewritable(expand('%')) ?
   \ ':SudoWrite<CR>' : ':write<CR>'
 
-" Remap Ctrl+C to be the same as escape without telling us to use :q to quit
-nnoremap  <C-c> <NOP>
+" Remap Ctrl+C to be the same as escape without telling us to use :q to quit.
+" the 'r' command is special cased to a NOP.
 nnoremap r<C-c> <NOP>
+nnoremap  <C-c> <NOP>
+inoremap  <C-c> <Esc>
+nnoremap  <C-c> <Esc>
 
 " Disable EX mode
 map Q <Nop>
