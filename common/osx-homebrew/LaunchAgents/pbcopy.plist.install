@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source $DOTS_SOURCE/base/bash/environment
+
+ln -sf $XDG_CONFIG_HOME/LaunchAgents/pbcopy.plist $HOME/Library/LaunchAgents/
+launchctl load $HOME/Library/LaunchAgents/pbcopy.plist
