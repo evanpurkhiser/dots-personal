@@ -49,6 +49,12 @@ then
     export PATH="$PATH:$GOPATH/bin"
 fi
 
+if hash aws 2>/dev/null
+then
+    export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+    export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
+fi
+
 hash pass    2>/dev/null && export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store/"
 hash ansible 2>/dev/null && export     ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config"
 hash vagrant 2>/dev/null && export       VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
