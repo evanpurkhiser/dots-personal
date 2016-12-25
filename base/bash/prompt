@@ -1,3 +1,13 @@
 #!/bin/bash
 
-PS1='\[\e[0;34m\]${PWD##*/}\[\e[0;97m\] on \[\e[0;35m\]\h \[\e[0;97m\]›\[\e[0m\] '
+function prompt_command()
+{
+  local short_pwd="${PWD##*/}"
+  local attr=" "
+
+  [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] && attr="${attr}\e[33m⚡ "
+
+  PS1="\e[34m${short_pwd:-/}\e[97m on \e[35m\h${attr}\e[97m›\e[0m "
+}
+
+PROMPT_COMMAND=prompt_command
