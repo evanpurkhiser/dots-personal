@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# Open a PR from the current commit
+
+git rev-parse || return 1
+
+head="${1-@}"
+
+# Use the ticket number if possible as the branch name
+branch=$(git show -q --format=%b $head \
+    | grep ^Jira \
+    | sed -re 's/^Jira: (.+)/\1/g;s/, ?/-/g' \
+    | tr -dc '[:print:]')
+
+# Use the commit message as a branch name if no ticket number
+# Remove special characters and use dashes for spaces
+if [[ $branch == "none" || $branch == "" ]]
+then
+    branch=$(git show -q --format=%s $head | sed -re 's/[^0-9a-zA-Z ]//g;s/ /-/g' | tr -dc '[:print:]')
+fi
+
+# Branch name should be all lowercase
+branch=$(echo $branch | perl -ne 'print lc')
+
+echo "Opening pull-request from remote branch ${branch}"
+
+# Determine assignees from Reviewer tag
+user_map_file=${GIT_PR_USERMAP-$XDG_CONFIG_HOME/git/pr-usermap}
+assignees=""
+
+if [ -e "${user_map_file}" ]
+then
+    reviewers=$(git show -q --format=%b $head | grep ^Reviewer | sed -re 's/^.+: (.+)/\1/g;s/ ?//g')
+    mapping="$(sed -re 's|([^ ]+) (.+)|s/\1/\2/g|g' "$user_map_file")"
+
+    if [[ $reviewers != "pending" ]]
+    then
+        assignees="-a $(echo "$reviewers" | sed -re "$mapping")"
+    fi
+fi
+
+git push origin ${head}:refs/heads/${branch}
+hub pull-request ${assignees} -fh ${branch}
