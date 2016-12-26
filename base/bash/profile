@@ -4,7 +4,7 @@
 hash tmux 2>/dev/null \
   && [[ ! $TERM =~ screen ]] \
   && [ -z "$TMUX" ] \
-  && exec tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf"
+  && exec tmux -f "$HOME/.config/tmux/tmux.conf"
 
 source "$HOME/.config/bash/environment"
 source "$HOME/.bashrc"
