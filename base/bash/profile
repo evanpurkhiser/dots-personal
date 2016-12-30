@@ -1,10 +1,4 @@
 #!/bin/bash
 
-# Autostart tmux if available
-hash tmux 2>/dev/null \
-  && [[ ! $TERM =~ screen ]] \
-  && [ -z "$TMUX" ] \
-  && exec tmux -f "$HOME/.config/tmux/tmux.conf"
-
 source "$HOME/.config/bash/environment"
 source "$HOME/.bashrc"

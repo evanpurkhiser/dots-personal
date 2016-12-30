@@ -1,6 +1,12 @@
 # Do nothing if not running interactively
 [ -z "$PS1" ] && return
 
+# Autostart tmux if available
+hash tmux 2>/dev/null \
+  && [[ ! $TERM =~ screen ]] \
+  && [ -z "$TMUX" ] \
+  && exec tmux -f "$HOME/.config/tmux/tmux.conf"
+
 # Bash options
 shopt -s cdspell        # autocorrects cd misspellings
 shopt -s checkwinsize   # update the value of LINES and COLUMNS after each command if altered
