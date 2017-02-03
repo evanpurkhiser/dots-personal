@@ -14,7 +14,7 @@ super + {_,shift + }c
 
 # Cycle desktop focus
 super + bracket{left,right}
-  bspc desktop --focus {prev,next}
+  bspc desktop --focus {prev,next}.local
 
 # Cycle monitor focus
 super + backslash
