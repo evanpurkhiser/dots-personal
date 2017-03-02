@@ -28,6 +28,9 @@ set smartindent expandtab tabstop=4 shiftwidth=4
 " Ignore cache type files
 set wildignore+=*/cache/*,*.sassc
 
+" Clear the background of the sign column (guter)
+highlight clear SignColumn
+
 " netrw plugin configuration
 let g:netrw_banner = 0     " Don't show help banner
 let g:netrw_dirhistmax = 0 " Don't write history file
@@ -60,8 +63,22 @@ let g:indentLine_color_term = 0
 highlight SpecialKey ctermbg=8 ctermfg=2
 set lcs=tab:\›\ ,trail:-
 
+" Error checking
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " Don't rebuild go projects with syntastic
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+
+" Better syntastic symbols
+let g:syntastic_error_symbol = '✕'
+let g:syntastic_warning_symbol = '✕'
+let g:syntastic_style_error_symbol = '✕'
+let g:syntastic_style_warning_symbol = '✕'
+
+" Use eslint for javascript
+let g:syntastic_javascript_checkers = ['eslint']
 
 " Godef is much faster than guru ATM
 let g:go_def_mode = 'godef'
