@@ -34,8 +34,8 @@ nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a> :Tabularize /=><CR>
 vmap <Leader>a> :Tabularize /=><CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a: :Tabularize /^[^:]*:\zs/l0r1<CR>
+vmap <Leader>a: :Tabularize /^[^:]*:\zs/l0r1<CR>
 
 " Quick system copy and paste
 nmap <Leader>y "+y
