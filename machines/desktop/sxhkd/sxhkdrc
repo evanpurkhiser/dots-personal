@@ -26,4 +26,7 @@ super + shift + alt + s
   maim -slc '0,0,0,0.15' $HOME/scratch/$(date +%F-%T).png
 
 super + Escape
-  systemctl suspend
+  lights standby && systemctl suspend
+
+super + a; super + {a,s,b,q}
+  lights scene {relaxed,pre-sleep,home,none}
