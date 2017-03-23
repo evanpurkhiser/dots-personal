@@ -6,3 +6,8 @@ then
     tmux set -g default-command "tmux rename-window 'bash'; reattach-to-user-namespace -l $SHELL"
     tmux bind -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
 fi
+
+if [ "$(uname)" == "Linux" ] && hash xcmenu 2>/dev/null
+then
+    tmux bind -t vi-copy Enter copy-pipe "xcmenu -ci"
+fi
