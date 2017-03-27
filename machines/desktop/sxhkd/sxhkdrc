@@ -20,10 +20,10 @@ super + semicolon
 
 super + shift + s
   echo '' | xclip -selection clipboard -i; \
-  maim -slc '0,0,0,0.15' --format png /dev/stdout | xclip -t image/png -selection clipboard -i
+  maim -s -l -b0 -c '0,0,0,0.3' --format=png /dev/stdout | xclip -t image/png -selection clipboard -i
 
 super + shift + alt + s
-  maim -slc '0,0,0,0.15' $HOME/scratch/$(date +%F-%T).png
+  maim -s -l -b0 -c '0,0,0,0.3' $HOME/scratch/$(date +%F-%T).png
 
 super + Escape
   lights standby && systemctl suspend
