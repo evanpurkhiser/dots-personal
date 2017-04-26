@@ -24,7 +24,7 @@ hash chromium 2>/dev/null && export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp/c
 export MPD_HOST=htpc
 
 # Use gnupgp ssh socket
-export SSH_AUTH_SOCK="$GNUPGHOME/S.gpg-agent.ssh"
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 # Add scripts directory
 export PATH="$HOME/.local/lib/scripts:$PATH"
