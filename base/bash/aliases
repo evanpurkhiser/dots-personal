@@ -10,6 +10,7 @@ alias ll="ls -l"      # detailed file list
 alias la="ls -lA"     # detailed file list with hidden files
 alias svim="sudo vim" # edit protected files with vim
 alias vi="vim"        # honestly, this is just nice
+alias wh="which -aS"  # Informative version of which
 
 # Better LS sorting
 #  - Collate listings so dot files are listed first
