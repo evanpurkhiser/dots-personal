@@ -26,6 +26,7 @@
 .bundle
 .vagrant
 .idea
+.tern-project
 tmp/
 node_modules/
 bower_components/
