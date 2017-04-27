@@ -7,6 +7,7 @@
   ci  = commit -v
   co  = checkout
   ls  = log --date=short --pretty=ls
+  rbm = rebase -i origin/master
   rma = !git ls-files --deleted -z | xargs -0 -r git rm
 
 [pretty]
