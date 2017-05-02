@@ -60,7 +60,7 @@ let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
 
 " Better list characters
-highlight SpecialKey ctermbg=8 ctermfg=2
+highlight SpecialKey ctermbg=8 ctermfg=10
 set lcs=tab:\›\ ,trail:-
 
 " Error checking
