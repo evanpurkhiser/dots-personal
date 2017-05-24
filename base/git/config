@@ -16,6 +16,7 @@
 [diff]
   tool = vimdiff
   algorithm = patience
+  indentHeuristic = on
 
 [apply]
     whitespace = strip
