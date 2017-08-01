@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Open a PR from the current commit
+
+git rev-parse || return 1
+
+head="${1-@}"
+
+# Use the commit message as a branch name
+branch=$(git show -q --format=%s $head | sed -re 's/[^0-9a-zA-Z ]//g;s/ /-/g' | tr -dc '[:print:]')
+
+# Branch name should be all lowercase
+branch=$(echo $branch | perl -ne 'print lc')
+
+echo "Opening pull-request from remote branch ${branch}"
+
+git push origin ${head}:refs/heads/${branch}
+hub pull-request -fh ${branch}
