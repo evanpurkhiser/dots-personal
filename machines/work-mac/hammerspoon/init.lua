@@ -67,3 +67,7 @@ end
 hs.hotkey.bind(super, "s", toggleWindowFocus("Slack"))
 hs.hotkey.bind(super, "w", toggleWindowFocus("Terminal"))
 hs.hotkey.bind(super, "e", toggleWindowFocus("Google Chrome"))
+
+hs.hotkey.bind(super, "`", function()
+    hs.execute("pmset displaysleepnow")
+end)
