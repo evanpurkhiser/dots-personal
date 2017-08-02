@@ -48,9 +48,22 @@ hs.hotkey.bind(super, "\\", function()
     hs.mouse.setAbsolutePosition(window:frame().center)
 end)
 
--- Navigate to slack
-hs.hotkey.bind(super, "s", function()
-    window = hs.window.filter.new('Slack'):getWindows()[1]
-    window:focus()
-    hs.mouse.setAbsolutePosition(window:frame().center)
-end)
+-- Window focus toggling
+windowHistory = nil
+
+function toggleWindowFocus(windowName)
+    return function()
+        window = hs.window.filter.new(windowName):getWindows()[1]
+        if hs.window.focusedWindow() == window then
+            window = windowHistory
+        end
+
+        windowHistory = hs.window.focusedWindow()
+        hs.mouse.setAbsolutePosition(window:frame().center)
+        window:focus()
+    end
+end
+
+hs.hotkey.bind(super, "s", toggleWindowFocus("Slack"))
+hs.hotkey.bind(super, "w", toggleWindowFocus("Terminal"))
+hs.hotkey.bind(super, "e", toggleWindowFocus("Google Chrome"))
