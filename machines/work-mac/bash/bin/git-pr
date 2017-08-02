@@ -7,7 +7,7 @@ git rev-parse || return 1
 head="${1-@}"
 
 # Use the commit message as a branch name
-branch=$(git show -q --format=%s $head | sed -re 's/[^0-9a-zA-Z ]//g;s/ /-/g' | tr -dc '[:print:]')
+branch=$(git show -q --format=%s $head | sed -E 's/[^0-9a-zA-Z ]//g;s/ /-/g' | tr -dc '[:print:]')
 
 # Branch name should be all lowercase
 branch=$(echo $branch | perl -ne 'print lc')
