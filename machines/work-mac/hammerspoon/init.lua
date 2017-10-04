@@ -1,17 +1,5 @@
 super = {"cmd", "ctrl", "shift", "alt"}
 
--- Media volume
-hs.hotkey.bind(super, "-", function()
-    output = hs.audiodevice.defaultOutputDevice()
-    output:setVolume(output:volume() - 1)
-end)
-
-hs.hotkey.bind(super, "=", function()
-    output = hs.audiodevice.defaultOutputDevice()
-    output:setVolume(output:volume() + 1)
-end)
-
-
 -- See https://github.com/Hammerspoon/hammerspoon/issues/595
 windowFilter = hs.window.filter.new():setCurrentSpace(true)
 
@@ -49,24 +37,27 @@ hs.hotkey.bind(super, "\\", function()
 end)
 
 -- Window focus toggling
-windowHistory = nil
-
 function toggleWindowFocus(windowName)
     return function()
         window = hs.window.filter.new(windowName):getWindows()[1]
-        if hs.window.focusedWindow() == window then
-            window = windowHistory
-        end
 
-        windowHistory = hs.window.focusedWindow()
         hs.mouse.setAbsolutePosition(window:frame().center)
         window:focus()
     end
 end
 
 hs.hotkey.bind(super, "s", toggleWindowFocus("Slack"))
-hs.hotkey.bind(super, "w", toggleWindowFocus("Terminal"))
-hs.hotkey.bind(super, "e", toggleWindowFocus("Google Chrome"))
+hs.hotkey.bind(super, "d", toggleWindowFocus("Terminal"))
+hs.hotkey.bind(super, "f", toggleWindowFocus("Google Chrome"))
+
+-- Terminal sizing
+hs.hotkey.bind(super, "t", function()
+    window = hs.window.filter.new('Terminal'):getWindows()[1]
+    size = window:size()
+
+    size.w = size.w == 845 and 1770 or 845
+    window:setSize(size)
+end)
 
 hs.hotkey.bind(super, "`", function()
     hs.execute("pmset displaysleepnow")
