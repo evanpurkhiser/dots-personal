@@ -21,3 +21,5 @@ alias ls="LC_COLLATE=C ls --group-directories-first --color=auto --classify -h"
 
 # Server the current directory over port 8000 using python
 alias serve="python3 -m http.server"
+
+alias ack='echo no use ripgrep instead'
