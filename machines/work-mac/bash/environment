@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export SENTRY_CONF="$XDG_CONFIG_HOME/sentry"
