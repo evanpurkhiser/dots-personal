@@ -35,7 +35,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
 
 " Close matching pairs automagically with a few other neat features
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 
 " Adds argument text objects
 Plug 'b4winckler/vim-angry'
