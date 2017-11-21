@@ -41,7 +41,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'b4winckler/vim-angry'
 
 " Full project text search
-Plug 'mileszs/ack.vim'
+Plug 'jremmen/vim-ripgrep'
 
 " Show vertical lines for tab alignment
 Plug 'Yggdroot/indentLine'
