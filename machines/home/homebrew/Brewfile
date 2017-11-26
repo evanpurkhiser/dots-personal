@@ -1,0 +1,7 @@
+brew "ansible"
+brew "tremc"
+brew "transmission"
+brew "rclone"
+brew "mosquitto"
+brew "libkeyfinder"
+brew "keyfinder-cli"
