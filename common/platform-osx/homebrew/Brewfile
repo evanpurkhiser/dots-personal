@@ -1,5 +1,14 @@
 tap "evanpurkhiser/personal"
 
+cask "google-chrome"
+cask "1password"
+cask "goofy"
+cask "hammerspoon"
+cask "karabiner-elements"
+cask "slack"
+cask "vlc"
+cask "kap"
+
 brew "bash"
 brew "bash-completion"
 brew "coreutils"
