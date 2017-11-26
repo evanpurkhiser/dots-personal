@@ -1,3 +1,0 @@
-#!/usr/bin/sh
-
-exec /usr/bin/xinit $HOME/.config/X11/session-xinitrc -- /usr/bin/X :0 vt$XDG_VTNR &> $XDG_CACHE_HOME/xorg.log

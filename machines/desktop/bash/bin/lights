@@ -1,8 +1,0 @@
-#!/usr/bin/sh
-
-[ -z $1 ] && echo "Usage: $0 [scene|standby] [scene-name]" && exit 1
-
-case $1 in
-  scene)   curl -X PUT 192.168.1.103/automation-api/select-scene -d scene=$2;;
-  standby) curl -X POST 192.168.1.103/automation-api/desktop-standby;;
-esac

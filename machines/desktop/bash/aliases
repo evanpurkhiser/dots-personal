@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Look for weechat configuration in the right place
-alias weechat="weechat --dir $XDG_CONFIG_HOME/weechat/"
