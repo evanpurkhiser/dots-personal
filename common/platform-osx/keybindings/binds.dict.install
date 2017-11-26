@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source $DOTS_SOURCE/base/bash/environment
+
+ln -sf $XDG_CONFIG_HOME/keybindings/binds.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
