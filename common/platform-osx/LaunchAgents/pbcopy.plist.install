@@ -2,5 +2,6 @@
 
 source $DOTS_SOURCE/base/bash/environment
 
+mkdir -p $XDG_CONFIG_HOME/LaunchAgents
 ln -sf $XDG_CONFIG_HOME/LaunchAgents/pbcopy.plist $HOME/Library/LaunchAgents/
 launchctl load $HOME/Library/LaunchAgents/pbcopy.plist
