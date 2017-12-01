@@ -76,10 +76,6 @@ custom_cursor_colors: true
 
 # Colors (Solarized Dark)
 colors:
-  cursor:
-    background: '0xff0000'
-
-
   # Default colors
   primary:
     background: '0x002b36'
