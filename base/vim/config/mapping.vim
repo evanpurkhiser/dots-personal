@@ -27,7 +27,7 @@ map Q <Nop>
 """ Buffer Managment
 nnoremap <silent>       <Tab>   :bnext<CR>
 nnoremap <silent>       <S-Tab> :bprev<CR>
-nnoremap <silent><expr> <C-q>   ':confirm '.(NoBuffersOpen() ? 'quit' : 'bdelete').'<CR>'
+nnoremap <silent><expr> <C-q>   ':confirm '.(NoBuffersOpen() ? 'quit' : 'BD').'<CR>'
 
 """ Tabularizatins
 nmap <Leader>a= :Tabularize /=<CR>
