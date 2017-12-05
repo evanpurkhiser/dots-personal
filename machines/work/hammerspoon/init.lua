@@ -47,7 +47,7 @@ function toggleWindowFocus(windowName)
 end
 
 hs.hotkey.bind(super, "s", toggleWindowFocus("Slack"))
-hs.hotkey.bind(super, "d", toggleWindowFocus("Terminal"))
+hs.hotkey.bind(super, "d", toggleWindowFocus("Alacritty"))
 hs.hotkey.bind(super, "f", toggleWindowFocus("Google Chrome"))
 
 -- Terminal sizing
