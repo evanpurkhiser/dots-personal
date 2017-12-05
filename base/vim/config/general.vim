@@ -63,6 +63,10 @@ let g:indentLine_color_term = 0
 highlight SpecialKey ctermbg=8 ctermfg=10
 set lcs=tab:\›\ ,trail:-
 
+" Vertical split coloring
+highlight VertSplit ctermbg=8 ctermfg=black
+set fillchars+=vert:│ 
+
 " Error checking
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
