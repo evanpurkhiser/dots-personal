@@ -10,3 +10,5 @@ Plug 'honza/vim-snippets'
 
 " Syntax checking
 Plug 'scrooloose/syntastic'
+
+Plug 'Vimjas/vim-python-pep8-indent'
