@@ -5,7 +5,7 @@
 hash tmux 2>/dev/null \
   && [[ ! $TERM =~ screen ]] \
   && [ -z "$TMUX" ] \
-  && exec tmux -f "$HOME/.config/tmux/tmux.conf"
+  && exec tmux -f "$HOME/.config/tmux/tmux.conf" attach
 
 # Bash options
 shopt -s cdspell        # autocorrects cd misspellings
