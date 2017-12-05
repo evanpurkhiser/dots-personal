@@ -15,4 +15,4 @@ branch=$(echo $branch | perl -ne 'print lc')
 echo "Opening pull-request from remote branch ${branch}"
 
 git push origin ${head}:refs/heads/${branch}
-hub pull-request -fh ${branch} | tee /dev/tty | xargs open
+hub pull-request -o -fh ${branch}
