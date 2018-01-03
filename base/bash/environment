@@ -49,6 +49,12 @@ then
     export PATH="$PATH:$GOPATH/bin"
 fi
 
+# Disable python bytecode generation
+if hash python 2>/dev/null
+then
+    export PYTHONDONTWRITEBYTECODE=1
+fi
+
 if hash aws 2>/dev/null
 then
     export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
