@@ -47,9 +47,19 @@ let g:airline_section_z = "%2c% %3p%%" " Only show scroll percentage
 " Shorter airline whitespace warning message
 let g:airline#extensions#whitespace#trailing_format = 'ws:%s'
 
-" bufferline plugin configuration
-let g:bufferline_echo = 0       " Don't echo buffer list to command line
-let g:bufferline_show_bufnr = 0 " Don't show buffer number
+" Vim airline tabline config
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+
+highlight airline_tab ctermbg=8 ctermfg=12
+highlight airline_tabsel ctermbg=8 ctermfg=12
 
 " automagically expand newlines in paired items
 " See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline

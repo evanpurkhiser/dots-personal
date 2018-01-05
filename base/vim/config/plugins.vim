@@ -31,9 +31,6 @@ Plug 'godlygeek/tabular'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" List buffers in the status line
-Plug 'bling/vim-bufferline'
-
 " Helper for closing a buffer without closing the split
 Plug 'qpkorr/vim-bufkill'
 
