@@ -72,4 +72,4 @@ nnoremap , @@
 nnoremap <C-t> :NERDTreeToggle<CR>
 
 " Use YCM for gd (experimental)
-nnoremap gd :YcmCompleter GoToDefinition
+nnoremap gd :YcmCompleter GoToDefinition<CR>
