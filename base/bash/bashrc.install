@@ -13,3 +13,7 @@ rm -f $HOME/.bashrc \
 # Link bashrc / profile
 ln -sf $XDG_CONFIG_HOME/bash/bashrc $HOME/.bashrc
 ln -sf $XDG_CONFIG_HOME/bash/profile $HOME/.profile
+
+# Ensure cache and data directory is setup
+mkdir -p $XDG_CACHE_HOME
+mkdir -p $XDG_DATA_HOME
