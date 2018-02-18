@@ -35,6 +35,12 @@ then
     export PATH="$PATH:$GEM_HOME/bin"
 fi
 
+# Cocopods
+if hash pod 2>/dev/null
+then
+    export CP_HOME_DIR="$XDG_DATA_HOME/cocoapods"
+fi
+
 # nodejs's NPM tool configuration
 if hash npm 2>/dev/null
 then
