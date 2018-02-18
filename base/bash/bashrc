@@ -15,7 +15,7 @@ shopt -s dotglob        # include dotfiles in pathname expansion
 shopt -s expand_aliases # expand aliases
 shopt -s extglob        # enable extended pattern-matching features
 shopt -s histreedit     # Add failed commands to the bash history
-shopt -s histappend     # Ensure history is appended
+shopt -s histappend     # Append bash history, don't overwrite
 shopt -s autocd
 
 # Disable flow-control
@@ -24,10 +24,11 @@ stty start ''
 stty -ixon
 stty -ixoff
 
+# Attempt to keep an unlimitedly large history
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
-export HISTSIZE=""
-export HISTFILESIZE=50000
-export PROMPT_COMMAND='history -a'
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=
+export HISTFILESIZE=
 
 export EDITOR=vim
 export PAGER=less
