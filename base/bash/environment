@@ -45,6 +45,7 @@ fi
 if hash npm 2>/dev/null
 then
     export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+    export NPM_CONFIG_DEVDIR="$XDG_CACHE_HOME/node-gyp"
     export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 fi
 
