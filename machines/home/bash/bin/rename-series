@@ -1,0 +1,100 @@
+#!/usr/bin/env ruby
+#
+# A small helper utility for renaming downloaded Anime and TV series.
+#
+# This script offers two strategies for file renaming.
+#
+#  1. Determine the episode number from the list of file names based on
+#     patterns of incrementing numbers.
+#
+#  2. Restart ordering at some starting episode number and order based on the
+#     sorted order of the files.
+#
+
+require 'optparse'
+require 'ostruct'
+require 'io/console'
+
+# Format the episode filename
+def format_episode(season, episode, original_file)
+    'S%d_E%02d%s' % [season, episode, File.extname(original_file)]
+end
+
+# Naively determine episode numbers.
+#
+# Sort a file list and increment a start number for each file.
+def fill_episode_numbers(files, start)
+    files.zip(start.to_i..(files.length + start.to_i - 1)).to_h
+end
+
+# Determine the episode number for a set of file names.
+#
+# The number is determined for each file by looking at the list of sorted file
+# names, finding all numbers in each file name, and finding the list of
+# numbers. This is then mapped against each file name.
+#
+# This will fail if some files contain more numbers than others.
+def find_episode_numbers(files)
+    numbers = files.sort.map { |f| f.scan(/[0-9]+/).map(&:to_i) }
+
+    # Ensure all arrays are equal in size to for transpose to be a success. We
+    # are making the assumption here that there will not be any strange numbers
+    # *before* the episode number.
+    size = numbers.map(&:length).max
+    numbers.map! { |n| n + Array.new(size - n.length, 0) }
+
+    # Find the consecutive array. These are the episode numbers
+    ordered = numbers.transpose.select do |items|
+        items.each_cons(2).all? { |a,b| a < b }
+    end
+
+    files.zip(ordered.flatten).to_h
+end
+
+# Renaming strategies
+strategies = {
+    :link   => { :message => 'Linking Files..',  :func => File.method(:link) },
+    :rename => { :message => 'Renaming Files..', :func => File.method(:rename) },
+}
+
+# Setup option handling
+options = OpenStruct.new
+
+options.no_confirm = false
+options.strategy   = :rename
+options.season     = 1
+options.restart_at = nil
+
+OptionParser.new do |opts|
+    opts.on('-n', '--no-confirm')      { |n| options.no_confirm = true }
+    opts.on('-l', '--link-files')      { |l| options.strategy = :link }
+    opts.on('-s', '--season [SEASON]') { |s| options.season = s }
+    opts.on('-r', '--restart [START]') { |r| options.restart_at = r }
+
+    opts.on('-h', '--help') { |r| puts opts; exit }
+end.parse!
+
+# Choose episode numbering determiner
+if options.restart_at
+    episode_map = fill_episode_numbers(ARGV, options.restart_at)
+else
+    episode_map = find_episode_numbers(ARGV)
+end
+
+file_names = episode_map.map { |f,e| format_episode options.season, e, f }
+rename_map = episode_map.keys.zip(file_names).to_h
+
+abort('No files to rename.') if rename_map.empty?
+
+# Output rename map
+rename_map.each { |o,n| print o, ' → ', n, "\n"  }
+puts
+
+puts 'Continue [Y/n]?'
+exit unless ['y', ''].include? STDIN.getch.chomp.downcase
+
+strategy = strategies[options.strategy]
+
+puts strategy[:message]
+
+rename_map.each { |o,n| strategy[:func].call o, n }
