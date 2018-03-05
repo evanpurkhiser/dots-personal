@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm $HOME/Library/Application\ Support/Dock/desktoppicture.db
+killall Dock
