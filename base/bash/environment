@@ -68,6 +68,13 @@ then
     export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 fi
 
+if hash pod 2>/dev/null
+then
+    export CP_HOME_DIR="$XDG_CONFIG_HOME/cocopods"
+    export CP_REPOS_DIR="$XDG_DATA_HOME/cocopods/repos"
+    export CP_TEMPLATES_DIR="$XDG_DATA_HOME/cocopods/templates"
+fi
+
 hash pass    2>/dev/null && export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store/"
 hash ansible 2>/dev/null && export     ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.ini"
 hash vagrant 2>/dev/null && export       VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
