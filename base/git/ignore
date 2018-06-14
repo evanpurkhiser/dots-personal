@@ -27,6 +27,7 @@
 .vagrant
 .idea
 .tern-project
+.importjs.js
 tmp/
 node_modules/
 bower_components/
