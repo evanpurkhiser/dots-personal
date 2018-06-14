@@ -1,3 +1,6 @@
 #!/bin/bash
 
 export SENTRY_CONF="$XDG_CONFIG_HOME/sentry"
+
+# http://docs.celeryproject.org/en/3.1/configuration.html#celery-always-eager
+export CELERY_ALWAYS_EAGER=True
