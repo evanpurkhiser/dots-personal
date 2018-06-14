@@ -34,9 +34,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Helper for closing a buffer without closing the split
 Plug 'qpkorr/vim-bufkill'
 
-" Close matching pairs automagically with a few other neat features
-Plug 'jiangmiao/auto-pairs'
-
 " Adds argument text objects
 Plug 'b4winckler/vim-angry'
 
