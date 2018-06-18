@@ -46,11 +46,13 @@ let g:netrw_dirhistmax = 0 " Don't write history file
 " ----------------------------
 let g:airline_left_sep = ''                    " Hide separators
 let g:airline_right_sep = ''                   " -
-let g:airline_detect_modified = 0              " Don't change color for modified files
 let g:airline#extensions#syntastic#enabled = 0 " No syntastic
 
 let g:airline_section_y = ""           " Hide file format / encoding
 let g:airline_section_z = "%2c% %3p%%" " Only show scroll percentage
+
+" Remove the modified indicator from the file
+call airline#parts#define_raw('file', '%f')
 
 " Shorter airline whitespace warning message
 let g:airline#extensions#whitespace#trailing_format = 'ws:%s'
@@ -73,7 +75,8 @@ autocmd User AirlineAfterInit
   \ highlight airline_tabfill ctermbg=0 ctermfg=7 |
   \ highlight airline_tabhid ctermbg=0 ctermfg=10 |
   \ highlight airline_tab ctermbg=8 ctermfg=14    |
-  \ highlight airline_tabsel ctermbg=9 ctermfg=15
+  \ highlight airline_tabsel ctermbg=15 ctermfg=0 |
+  \ highlight airline_tabmod ctermbg=1 ctermfg=7
 
 " Vim indent line configuration
 " -----------------------------
