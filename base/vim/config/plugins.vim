@@ -16,6 +16,12 @@ Plug 'tpope/vim-sleuth'
 " Mappings for surrounding text
 Plug 'tpope/vim-surround'
 
+" Mappings for commenting
+Plug 'tpope/vim-commentary'
+
+" Automagically root
+Plug 'airblade/vim-rooter'
+
 " Automatically enable 'paste' when pasting from a supporting terminal
 " http://www.xfree86.org/current/ctlseqs.html#Bracketed Paste Mode
 Plug 'ConradIrwin/vim-bracketed-paste'
@@ -47,12 +53,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'altercation/vim-colors-solarized'
 
 " Syntax aware
-Plug 'vim-scripts/nginx.vim'
-Plug 'StanAngeloff/php.vim'
-Plug '2072/PHP-Indenting-for-VIm'
-Plug 'pearofducks/ansible-vim'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'saltstack/salt-vim'
+Plug 'sheerun/vim-polyglot'
 
 " File browsing
 Plug 'scrooloose/nerdtree'

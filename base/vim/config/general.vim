@@ -6,6 +6,10 @@
 set background=dark
 silent! colorscheme solarized
 
+" Vertical split coloring
+highlight VertSplit ctermbg=8 ctermfg=black
+set fillchars+=vert:│
+
 set number     " Show line numbers
 set nowrap     " Don't visually wrap lines
 set noshowmode " Don't show mode (--INSERT--, etc)
@@ -19,6 +23,9 @@ set smartcase  " Don't ignore case when using uppercase in a search
 " Spelling should be done at the toplevel (non-syntax text is checked)
 syntax spell toplevel
 
+" Enable spell checking on git commits
+autocmd BufRead COMMIT_EDITMSG setlocal spell
+
 " Disable backup files
 set nobackup nowritebackup noswapfile
 
@@ -31,41 +38,45 @@ set wildignore+=*/cache/*,*.sassc
 " Clear the background of the sign column (guter)
 highlight clear SignColumn
 
-" netrw plugin configuration
+" netrw configuration
 let g:netrw_banner = 0     " Don't show help banner
 let g:netrw_dirhistmax = 0 " Don't write history file
 
-" airline plugin configuration
+" Airline plugin configuration
+" ----------------------------
 let g:airline_left_sep = ''                    " Hide separators
 let g:airline_right_sep = ''                   " -
 let g:airline_detect_modified = 0              " Don't change color for modified files
 let g:airline#extensions#syntastic#enabled = 0 " No syntastic
 
-let g:airline_section_y = ""      " Hide file format / encoding
+let g:airline_section_y = ""           " Hide file format / encoding
 let g:airline_section_z = "%2c% %3p%%" " Only show scroll percentage
 
 " Shorter airline whitespace warning message
 let g:airline#extensions#whitespace#trailing_format = 'ws:%s'
 
 " Vim airline tabline config
+" --------------------------
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
-highlight airline_tab ctermbg=8 ctermfg=12
-highlight airline_tabsel ctermbg=8 ctermfg=12
-
-" automagically expand newlines in paired items
-" See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
-let g:delimitMate_expand_cr = 1
+autocmd User AirlineAfterInit
+  \ highlight airline_tabfill ctermbg=0 ctermfg=7 |
+  \ highlight airline_tabhid ctermbg=0 ctermfg=10 |
+  \ highlight airline_tab ctermbg=8 ctermfg=14    |
+  \ highlight airline_tabsel ctermbg=9 ctermfg=15
 
 " Vim indent line configuration
+" -----------------------------
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
 
@@ -73,26 +84,8 @@ let g:indentLine_color_term = 0
 highlight SpecialKey ctermbg=8 ctermfg=10
 set lcs=tab:\›\ ,trail:-
 
-" Vertical split coloring
-highlight VertSplit ctermbg=8 ctermfg=black
-set fillchars+=vert:│ 
-
-" Error checking
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Don't rebuild go projects with syntastic
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-
-" Better syntastic symbols
-let g:syntastic_error_symbol = '✕'
-let g:syntastic_warning_symbol = '✕'
-let g:syntastic_style_error_symbol = '✕'
-let g:syntastic_style_warning_symbol = '✕'
-
-" Use eslint for javascript
-let g:syntastic_javascript_checkers = ['eslint']
+" Disable vim-rooter echoing
+let g:rooter_silent_chdir = 1
 
 " Godef is much faster than guru ATM
 let g:go_def_mode = 'godef'
@@ -102,14 +95,11 @@ let g:UltiSnipsSnippetDirectories=["UtiSnips", "snips"]
 
 let g:UltiSnipsExpandTrigger = "<c-f>"
 
+" Do not create mappings for buffer killing
+let g:BufKillCreateMappings = 0
+
 " Don't autoselect the first entry when doing completion
 set completeopt=longest,menuone
-
-" automagically add semicolons when closing parenthesis
-autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
-
-" Enable spell checking on git commits
-autocmd BufRead COMMIT_EDITMSG setlocal spell
 
 " Open help windows on the right in a vertial split
 autocmd FileType help wincmd L

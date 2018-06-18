@@ -25,9 +25,9 @@ nnoremap  <C-c> <Esc>
 map Q <Nop>
 
 """ Buffer Managment
-nnoremap <silent>       <Tab>   :bnext<CR>
-nnoremap <silent>       <S-Tab> :bprev<CR>
-nnoremap <silent><expr> <C-q>   ':confirm '.(NoBuffersOpen() ? 'quit' : 'BD').'<CR>'
+nnoremap <silent>       <C-]>  :bnext<CR>
+nnoremap <silent>       <C-[>  :bprev<CR>
+nnoremap <silent><expr> <C-q> ':confirm '.(NoBuffersOpen() ? 'quit' : 'BD').'<CR>'
 
 """ Tabularizatins
 nmap <Leader>a= :Tabularize /=<CR>
@@ -43,8 +43,10 @@ nmap <Leader>Y "+Y
 vmap <Leader>y "+y
 
 " fzf
-nmap <Leader>t  :Files<CR>
-nmap <Leader>gt :GFiles<CR>
+nmap <Leader><C-p>    :Files<CR>
+nmap <Leader>p        :GFiles<CR>
+nmap <Leader>b        :Buffers<CR>
+nmap <Leader><Leader> :Commands<CR>
 
 " Don't move on *
 nnoremap <silent> *
@@ -70,6 +72,3 @@ nnoremap , @@
 
 " NERDTree pane control
 nnoremap <C-t> :NERDTreeToggle<CR>
-
-" Use YCM for gd (experimental)
-nnoremap gd :YcmCompleter GoToDefinition<CR>
