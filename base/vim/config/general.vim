@@ -83,6 +83,16 @@ autocmd User AirlineAfterInit
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
 
+" Deoplete and language server completeion
+" ----------------------------------------
+let g:deoplete#enable_at_startup = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
+    \ }
+
 " Better list characters
 highlight SpecialKey ctermbg=8 ctermfg=10
 set lcs=tab:\›\ ,trail:-

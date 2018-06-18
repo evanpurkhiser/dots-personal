@@ -1,14 +1,11 @@
-" Amazing completion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" High quality async completion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" Go awareness
-Plug 'fatih/vim-go'
+" Language completion
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
-" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" Syntax checking
-Plug 'scrooloose/syntastic'
-
-Plug 'Vimjas/vim-python-pep8-indent'
+" Linting support
+Plug 'neomake/neomake'

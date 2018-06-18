@@ -81,3 +81,14 @@ nnoremap , @@
 
 " NERDTree pane control
 nnoremap <C-t> :NERDTreeToggle<CR>
+
+" Language server bindings
+nnoremap <silent>gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+
+" deoplete tab-complete
+inoremap <expr><Tab>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : ""
+inoremap <expr><C-h>   deoplete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>    deoplete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><CR>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
