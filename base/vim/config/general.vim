@@ -22,7 +22,7 @@ set smartcase  " Don't ignore case when using uppercase in a search
 
 " Remove o option from format options (o caused issuing o/O on a comment line
 " to start a new comment line, undesired by me)
-set formatoptions=jcrql
+set formatoptions-=o
 
 " Don't autoselect the first entry when doing completion
 set completeopt=longest,menuone
