@@ -13,5 +13,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': join(language_client_install, ' && '),
     \ }
 
-" Linting support
+" Linting + Fixing support
 Plug 'neomake/neomake'
+Plug 'sbdchd/neoformat'

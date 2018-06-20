@@ -127,3 +127,13 @@ autocmd FileType help wincmd L
 
 " Quit when nerdtree is the very last buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quit | endif
+
+" Neoformat configuration
+" -----------------------
+
+" format on save.
+" Silence E790: https://vi.stackexchange.com/a/13401/1787
+augroup fmt
+  autocmd!
+  au BufWritePre * try | undojoin | catch /^Vim\%((\a\+)\)\=:E790/ | finally | Neoformat | endtry
+augroup END
