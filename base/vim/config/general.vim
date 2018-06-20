@@ -20,6 +20,8 @@ set hlsearch   " Highlight searched text
 set ignorecase " Ignore case when searching
 set smartcase  " Don't ignore case when using uppercase in a search
 
+set formatoptions=jcrql
+
 " Spelling should be done at the toplevel (non-syntax text is checked)
 syntax spell toplevel
 
