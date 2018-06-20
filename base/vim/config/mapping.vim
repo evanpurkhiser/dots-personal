@@ -57,6 +57,9 @@ nmap <Leader>y "+y
 nmap <Leader>Y "+Y
 vmap <Leader>y "+y
 
+" Remove space
+nmap <Leader>ds dipO<Esc>
+
 " Don't move on *
 nnoremap <silent> *
   \ :let stay_star_view = winsaveview()<CR>*
