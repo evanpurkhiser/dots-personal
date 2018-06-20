@@ -20,13 +20,12 @@ set hlsearch   " Highlight searched text
 set ignorecase " Ignore case when searching
 set smartcase  " Don't ignore case when using uppercase in a search
 
+" Remove o option from format options (o caused issuing o/O on a comment line
+" to start a new comment line, undesired by me)
 set formatoptions=jcrql
 
-" Spelling should be done at the toplevel (non-syntax text is checked)
-syntax spell toplevel
-
-" Enable spell checking on git commits
-autocmd BufRead COMMIT_EDITMSG setlocal spell
+" Don't autoselect the first entry when doing completion
+set completeopt=longest,menuone
 
 " Disable backup files
 set nobackup nowritebackup noswapfile
@@ -36,6 +35,16 @@ set smartindent expandtab tabstop=4 shiftwidth=4
 
 " Ignore cache type files
 set wildignore+=*/cache/*,*.sassc
+
+" Better list characters
+set lcs=tab:\›\ ,trail:-
+highlight SpecialKey ctermbg=8 ctermfg=10
+
+" Enable spell checking on git commits
+autocmd BufRead COMMIT_EDITMSG setlocal spell
+
+" Spelling should be done at the toplevel (non-syntax text is checked)
+syntax spell toplevel
 
 " Clear the background of the sign column (guter)
 highlight clear SignColumn
@@ -74,11 +83,11 @@ let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
 autocmd User AirlineAfterInit
-  \ highlight airline_tabfill ctermbg=0 ctermfg=7 |
-  \ highlight airline_tabhid ctermbg=0 ctermfg=10 |
-  \ highlight airline_tab ctermbg=8 ctermfg=14    |
-  \ highlight airline_tabsel ctermbg=15 ctermfg=0 |
-  \ highlight airline_tabmod ctermbg=1 ctermfg=7
+  \ highlight airline_tabfill ctermbg=0 ctermfg=7  |
+  \ highlight airline_tabhid  ctermbg=0 ctermfg=10 |
+  \ highlight airline_tab     ctermbg=8 ctermfg=14 |
+  \ highlight airline_tabsel  ctermbg=15 ctermfg=0 |
+  \ highlight airline_tabmod  ctermbg=1 ctermfg=7
 
 " Vim indent line configuration
 " -----------------------------
@@ -104,26 +113,14 @@ if  s:lc_debug
   call deoplete#enable_logging("INFO", expand('deoplete.log'))
 endif
 
-" Better list characters
-highlight SpecialKey ctermbg=8 ctermfg=10
-set lcs=tab:\›\ ,trail:-
-
 " Disable vim-rooter echoing
 let g:rooter_silent_chdir = 1
 
 " Godef is much faster than guru ATM
 let g:go_def_mode = 'godef'
 
-" Load snippets directory
-let g:UltiSnipsSnippetDirectories=["UtiSnips", "snips"]
-
-let g:UltiSnipsExpandTrigger = "<c-f>"
-
 " Do not create mappings for buffer killing
 let g:BufKillCreateMappings = 0
-
-" Don't autoselect the first entry when doing completion
-set completeopt=longest,menuone
 
 " Open help windows on the right in a vertial split
 autocmd FileType help wincmd L
