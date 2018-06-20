@@ -93,6 +93,15 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ }
 
+" Deoplete / completion debugging
+let s:lc_debug = 0
+if  s:lc_debug
+  let g:LanguageClient_loggingLevel = 'INFO'
+  let g:LanguageClient_loggingFile  = expand('~/LanguageClient.log')
+  let g:LanguageClient_serverStderr = expand('~/LanguageServer.log')
+  call deoplete#enable_logging("INFO", expand('deoplete.log'))
+endif
+
 " Better list characters
 highlight SpecialKey ctermbg=8 ctermfg=10
 set lcs=tab:\›\ ,trail:-
