@@ -40,6 +40,7 @@ export EDITOR=$(hash nvim && echo 'nvim' || echo 'vim')
 
 source "$XDG_CONFIG_HOME/bash/prompt"
 source "$XDG_CONFIG_HOME/bash/aliases"
+source "$XDG_CONFIG_HOME/bash/fzf"
 
 # Source all extra functions
 for f in $XDG_CONFIG_HOME/bash/functions.d/*; do source "$f"; done

@@ -1,0 +1,4 @@
+[ ! -d $HOME/.local/lib/fzf ] && return
+
+source $HOME/.local/lib/fzf/shell/completion.bash
+source $HOME/.local/lib/fzf/shell/key-bindings.bash
