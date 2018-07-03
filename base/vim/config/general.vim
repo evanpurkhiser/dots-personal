@@ -83,11 +83,11 @@ let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
 autocmd User AirlineAfterInit
-  \ highlight airline_tabfill ctermbg=0 ctermfg=7  |
-  \ highlight airline_tabhid  ctermbg=0 ctermfg=10 |
-  \ highlight airline_tab     ctermbg=8 ctermfg=14 |
-  \ highlight airline_tabsel  ctermbg=15 ctermfg=0 |
-  \ highlight airline_tabmod  ctermbg=1 ctermfg=7
+      \ highlight airline_tabfill ctermbg=0 ctermfg=7  |
+      \ highlight airline_tabhid  ctermbg=0 ctermfg=10 |
+      \ highlight airline_tab     ctermbg=8 ctermfg=14 |
+      \ highlight airline_tabsel  ctermbg=15 ctermfg=0 |
+      \ highlight airline_tabmod  ctermbg=1 ctermfg=7
 
 " Vim indent line configuration
 " -----------------------------
@@ -98,11 +98,12 @@ let g:indentLine_color_term = 0
 " ----------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls'],
-    \ }
+      \ 'rust':           ['rustup', 'run', 'nightly', 'rls'],
+      \ 'javascript':     ['javascript-typescript-stdio'],
+      \ 'javascript.jsx': ['javascript-typescript-stdio'],
+      \ 'python':         ['pyls'],
+      \ 'go':             ['go-langserver'],
+      \ }
 
 " Deoplete / completion debugging
 let s:lc_debug = 0
