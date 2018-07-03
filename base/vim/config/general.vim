@@ -128,6 +128,9 @@ autocmd FileType help wincmd L
 
 " Neoformat configuration
 " -----------------------
+let g:neoformat_run_all_formatters = 1
+let g:neoformat_enabled_python = ['autopep8', 'isort']
+let g:neoformat_enabled_javascript = ['eslint', 'prettier']
 let g:neoformat_enabled_yaml = []
 
 " format on save.
