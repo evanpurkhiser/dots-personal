@@ -125,9 +125,6 @@ let g:BufKillCreateMappings = 0
 " Open help windows on the right in a vertial split
 autocmd FileType help wincmd L
 
-" Quit when nerdtree is the very last buffer
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quit | endif
-
 " Neoformat configuration
 " -----------------------
 

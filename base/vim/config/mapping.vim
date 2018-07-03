@@ -2,13 +2,6 @@
 "
 " My personal mappings for various commands and key combinations
 
-" Write files as the root user
-" This command will automatically reload the file if the sudo-write was
-" successfull - Which is nice as it avoids the reload prompt.
-command SudoWrite
-  \ :execute ':silent write !sudo tee % > /dev/null'<Bar>
-  \ :execute v:shell_error == 0 ? ':edit!' : ''
-
 " Smart save: Attempt to use SudoWrite if the file isn't writeable
 nnoremap <expr> <C-s>
   \ expand('%') != '' && getfperm(expand('%')) != '' && !filewritable(expand('%')) ?
@@ -81,9 +74,6 @@ nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line'<CR>
 
 " Repeat the lmast executed macro
 nnoremap , @@
-
-" NERDTree pane control
-nnoremap <C-t> :NERDTreeToggle<CR>
 
 " Language server bindings
 nnoremap <silent>gd :call LanguageClient#textDocument_definition()<CR>

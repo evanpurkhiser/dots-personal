@@ -19,6 +19,9 @@ Plug 'tpope/vim-surround'
 " Mappings for commenting
 Plug 'tpope/vim-commentary'
 
+" UNIX style helpers
+Plug 'tpope/vim-eunuch'
+
 " Automagically root
 Plug 'airblade/vim-rooter'
 
@@ -54,9 +57,6 @@ Plug 'altercation/vim-colors-solarized'
 
 " Syntax aware
 Plug 'sheerun/vim-polyglot'
-
-" File browsing
-Plug 'scrooloose/nerdtree'
 
 " Load other plugins
 for plugin in split(globpath("$XDG_CONFIG_HOME/vim/config/plugins.d", "*.vim"), '\n')
