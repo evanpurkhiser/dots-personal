@@ -128,6 +128,7 @@ autocmd FileType help wincmd L
 
 " Neoformat configuration
 " -----------------------
+let g:neoformat_enabled_yaml = []
 
 " format on save.
 " Silence E790: https://vi.stackexchange.com/a/13401/1787
