@@ -76,12 +76,16 @@ nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line'<CR>
 nnoremap , @@
 
 " Language server bindings
-nnoremap <silent>gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+if match(&runtimepath, 'LanguageClient') != -1
+  nnoremap <silent>gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+endif
 
 " deoplete tab-complete
-inoremap <expr><Tab>   pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : ""
-inoremap <expr><C-h>   deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>    deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><CR>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+if match(&runtimepath, 'deoplete.nvim') != -1
+  inoremap <expr><Tab>   pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : ""
+  inoremap <expr><C-h>   deoplete#mappings#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS>    deoplete#mappings#smart_close_popup()."\<C-h>"
+  inoremap <expr><CR>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
