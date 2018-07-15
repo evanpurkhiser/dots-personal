@@ -33,7 +33,7 @@ export HISTFILESIZE=
 export PAGER=less
 
 # Use neovim if available
-export EDITOR=$(hash nvim && echo 'nvim' || echo 'vim')
+export EDITOR=$(hash nvim 2>/dev/null && echo 'nvim' || echo 'vim')
 
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
