@@ -126,6 +126,19 @@ let g:BufKillCreateMappings = 0
 " Open help windows on the right in a vertial split
 autocmd FileType help wincmd L
 
+" Neomake configuration
+call neomake#configure#automake('nrwi', 500)
+
+let g:neomake_error_sign   = {'text': '-', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_info_sign    = {'text': '-', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_warning_sign = {'text': '-', 'texthl': 'NeomakeWarningSign'}
+let g:neomake_message_sign = {'text': '-', 'texthl': 'NeomakeMessageSign'}
+
+hi NeomakeErrorSign   ctermfg=01 ctermbg=01
+hi NeomakeWarningSign ctermfg=03 ctermbg=03
+hi NeomakeInfoSign    ctermfg=04 ctermbg=04
+hi NeomakeMessageSign ctermfg=07 ctermbg=07
+
 " Neoformat configuration
 " -----------------------
 let g:neoformat_run_all_formatters = 1
