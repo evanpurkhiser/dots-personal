@@ -114,6 +114,9 @@ let g:LanguageClient_serverCommands = {
       \ 'go':             ['go-langserver'],
       \ }
 
+" Neomake will handle linting
+let g:LanguageClient_diagnosticsEnable = 0
+
 " Deoplete / completion debugging
 let s:lc_debug = 0
 if  s:lc_debug
