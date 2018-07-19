@@ -82,12 +82,21 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
-autocmd User AirlineAfterInit
-      \ highlight airline_tabfill ctermbg=0 ctermfg=7  |
-      \ highlight airline_tabhid  ctermbg=0 ctermfg=10 |
-      \ highlight airline_tab     ctermbg=8 ctermfg=14 |
-      \ highlight airline_tabsel  ctermbg=15 ctermfg=0 |
-      \ highlight airline_tabmod  ctermbg=1 ctermfg=7
+" Override some solairzed them settings
+let g:airline_solarized_dark_inactive_border = 1
+
+silent! call airline#themes#solarized#refresh()
+let g:airline#themes#mine#palette = get(g:, 'airline#themes#solarized#palette', {})
+
+let g:airline#themes#mine#palette.tabline = {
+      \ 'airline_tabfill': ['', '', 07, 00],
+      \ 'airline_tabhid':  ['', '', 10, 00],
+      \ 'airline_tab':     ['', '', 14, 08],
+      \ 'airline_tabsel':  ['', '', 00, 15],
+      \ 'airline_tabmod':  ['', '', 07, 01],
+      \ }
+
+let g:airline_theme = 'mine'
 
 " Vim indent line configuration
 " -----------------------------
