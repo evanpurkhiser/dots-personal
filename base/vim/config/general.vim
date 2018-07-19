@@ -82,7 +82,7 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
-" Override some solairzed them settings
+" Override some solarized theme settings
 let g:airline_solarized_dark_inactive_border = 1
 
 silent! call airline#themes#solarized#refresh()
