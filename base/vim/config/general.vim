@@ -63,7 +63,7 @@ let g:airline_section_y = ""           " Hide file format / encoding
 let g:airline_section_z = "%2c% %3p%%" " Only show scroll percentage
 
 " Remove the modified indicator from the file
-call airline#parts#define_raw('file', '%f')
+silent! call airline#parts#define_raw('file', '%f')
 
 " Shorter airline whitespace warning message
 let g:airline#extensions#whitespace#trailing_format = 'ws:%s'
@@ -127,7 +127,8 @@ let g:BufKillCreateMappings = 0
 autocmd FileType help wincmd L
 
 " Neomake configuration
-call neomake#configure#automake('nrwi', 500)
+" ---------------------
+silent! call neomake#configure#automake('nrwi', 500)
 
 let g:neomake_error_sign   = {'text': '-', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_info_sign    = {'text': '-', 'texthl': 'NeomakeInfoSign'}
