@@ -19,6 +19,7 @@ set list       " Show non-printable characters
 set hlsearch   " Highlight searched text
 set ignorecase " Ignore case when searching
 set smartcase  " Don't ignore case when using uppercase in a search
+set confirm    " Ask for confirmation when closing unsaved files
 
 " Remove o option from format options (o caused issuing o/O on a comment line
 " to start a new comment line, undesired by me)
@@ -102,6 +103,11 @@ let g:airline_theme = 'mine'
 " -----------------------------
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 0
+
+" Bufkill configuration
+" ---------------------
+let g:BufKillActionWhenBufferDisplayedInAnotherWindow = 'kill'
+let g:BufKillCreateMappings = 0
 
 " Deoplete and language server completeion
 " ----------------------------------------
