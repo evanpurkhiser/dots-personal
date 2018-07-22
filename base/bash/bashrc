@@ -43,10 +43,10 @@ source "$XDG_CONFIG_HOME/bash/aliases"
 source "$XDG_CONFIG_HOME/bash/fzf"
 
 # Source all extra functions
-for f in $XDG_CONFIG_HOME/bash/functions.d/*; do source "$f"; done
+for f in "$XDG_CONFIG_HOME/bash/functions.d/"*; do source "$f"; done
 
 # Source completions for the dots utility
 source "$HOME/.local/lib/dots/contrib/bash_completion"
 
 # Setup dircolors
-eval $(dircolors "$XDG_CONFIG_HOME/bash/dircolors")
+eval "$(dircolors "$XDG_CONFIG_HOME/bash/dircolors")"

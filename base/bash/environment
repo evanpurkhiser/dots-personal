@@ -75,7 +75,7 @@ then
     export CP_TEMPLATES_DIR="$XDG_DATA_HOME/cocopods/templates"
 fi
 
-if hash $XDG_DATA_HOME/cargo/bin/rustc 2>/dev/null
+if hash "$XDG_DATA_HOME/cargo/bin/rustc" 2>/dev/null
 then
     export CARGO_HOME="$XDG_DATA_HOME/cargo"
     export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
@@ -96,7 +96,7 @@ export LESSKEY="$XDG_CONFIG_HOME/less/keyfile.bin"
 export QUOTING_STYLE="literal"
 
 # Include environment configurations from DATA_HOME
-if [ -d $XDG_DATA_HOME/environment.d ]
+if [ -d "$XDG_DATA_HOME/environment.d" ]
 then
-    for f in $XDG_DATA_HOME/environment.d/*; do source "$f"; done
+    for f in "$XDG_DATA_HOME/environment.d/"*; do source "$f"; done
 fi

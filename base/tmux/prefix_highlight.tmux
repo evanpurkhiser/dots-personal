@@ -2,7 +2,7 @@
 
 set -e
 
-option="\#{prefix_highlight}"
+option="\\#{prefix_highlight}"
 prefix_text="^B"
 copy_text="COPY"
 
