@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export SENTRY_CONF="$XDG_CONFIG_HOME/sentry"
 export SENTRY_SKIP_FORCE_PATCH=1

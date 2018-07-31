@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copy the current terminfo file to a remote host
 ssh-copy-terminfo()

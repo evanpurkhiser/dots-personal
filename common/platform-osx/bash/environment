@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Include brew binaries
 export PATH="$(brew --prefix)/bin:$PATH"

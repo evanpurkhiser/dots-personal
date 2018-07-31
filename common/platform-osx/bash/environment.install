@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Link safe (ish) GNU coreutils into the path
 GNU_OVERRIDE_DIR="$HOME/.local/lib/gnu-override/bin"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 [ ! -d "$HOME/.local/lib/fzf" ] && return
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias sudo="sudo -E " # carry over environment to sudo commands
 alias cp="cp -i"      # confirm before overwriting something
