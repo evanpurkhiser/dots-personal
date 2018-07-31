@@ -2,7 +2,7 @@
 
 let g:plug_window = 'enew'
 
-call plug#begin("$XDG_CONFIG_HOME/vim/plugged")
+call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
 
 " Sensible options that should always be set
 Plug 'tpope/vim-sensible'
@@ -59,7 +59,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'sheerun/vim-polyglot'
 
 " Load other plugins
-for plugin in split(globpath("$XDG_CONFIG_HOME/vim/config/plugins.d", "*.vim"), '\n')
+for plugin in split(globpath('$XDG_CONFIG_HOME/vim/config/plugins.d', '*.vim'), '\n')
     execute('source '.plugin)
 endfor
 

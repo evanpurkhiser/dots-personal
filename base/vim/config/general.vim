@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " General vim configurations
 "
 " vim-sensible takes care of most of the really common configuration changes
@@ -38,11 +40,14 @@ set smartindent expandtab tabstop=4 shiftwidth=4
 set wildignore+=*/cache/*,*.sassc
 
 " Better list characters
-set lcs=tab:\›\ ,trail:-
+set listchars=tab:\›\ ,trail:-
 highlight SpecialKey ctermbg=8 ctermfg=10
 
 " Enable spell checking on git commits
-autocmd BufRead COMMIT_EDITMSG setlocal spell
+augroup commit_sp
+  au!
+  au BufRead COMMIT_EDITMSG setlocal spell
+augroup END
 
 " Spelling should be done at the toplevel (non-syntax text is checked)
 syntax spell toplevel
@@ -60,8 +65,8 @@ let g:airline_left_sep = ''                    " Hide separators
 let g:airline_right_sep = ''                   " -
 let g:airline#extensions#syntastic#enabled = 0 " No syntastic
 
-let g:airline_section_y = ""           " Hide file format / encoding
-let g:airline_section_z = "%2c% %3p%%" " Only show scroll percentage
+let g:airline_section_y = ''           " Hide file format / encoding
+let g:airline_section_z = '%2c% %3p%%' " Only show scroll percentage
 
 " Remove the modified indicator from the file
 silent! call airline#parts#define_raw('file', '%f')
@@ -129,7 +134,7 @@ if  s:lc_debug
   let g:LanguageClient_loggingLevel = 'INFO'
   let g:LanguageClient_loggingFile  = expand('~/LanguageClient.log')
   let g:LanguageClient_serverStderr = expand('~/LanguageServer.log')
-  call deoplete#enable_logging("INFO", expand('deoplete.log'))
+  call deoplete#enable_logging('INFO', expand('deoplete.log'))
 endif
 
 " Disable vim-rooter echoing
@@ -142,7 +147,10 @@ let g:go_def_mode = 'godef'
 let g:BufKillCreateMappings = 0
 
 " Open help windows on the right in a vertial split
-autocmd FileType help wincmd L
+augroup help_win
+  au!
+  au FileType help wincmd L
+augroup END
 
 " Neomake configuration
 " ---------------------
@@ -168,6 +176,6 @@ let g:neoformat_enabled_yaml = []
 " format on save.
 " Silence E790: https://vi.stackexchange.com/a/13401/1787
 augroup fmt
-  autocmd!
+  au!
   au BufWritePre * try | undojoin | catch /^Vim\%((\a\+)\)\=:E790/ | finally | Neoformat | endtry
 augroup END
