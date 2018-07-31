@@ -2,21 +2,21 @@
 
 ansible_key="$HOME/.ssh/id_ed25519.ansible"
 
-if ! grep "$(cat ${ansible_key}.pub)" <(ssh-add -L) &>/dev/null
+if ! grep "$(cat "${ansible_key}.pub")" <(ssh-add -L) &>/dev/null
 then
-    ssh-add -k ${ansible_key}
+    ssh-add -k "${ansible_key}"
 fi
 
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 
 if [[ $1 != "" ]]
 then
-    echo -e "\e[0;37m[$1] Updating system\e[0m"
+    echo -e "\\e[0;37m[$1] Updating system\\e[0m"
 fi
 
 case $1 in
 server|htpc)
-    ssh -t root@$1 "pacman -Syu"
+    ssh -t "root@$1" "pacman -Syu"
     ;;
 macbook)
     brew upgrade

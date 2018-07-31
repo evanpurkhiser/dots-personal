@@ -17,6 +17,7 @@ export PATH="$HOME/.local/bin:$XDG_CONFIG_HOME/bash/bin:$PATH"
 export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
 
 # Specify vimrc path
+# shellcheck disable=SC2016
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/config.vim" | source $MYVIMRC'
 
 # Ack configuration
