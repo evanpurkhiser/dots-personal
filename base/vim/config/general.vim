@@ -175,7 +175,9 @@ let g:neoformat_enabled_yaml = []
 
 " format on save.
 " Silence E790: https://vi.stackexchange.com/a/13401/1787
-augroup fmt
-  au!
-  au BufWritePre * try | undojoin | catch /^Vim\%((\a\+)\)\=:E790/ | finally | Neoformat | endtry
-augroup END
+if match(&runtimepath, 'neoformat') != -1
+  augroup fmt
+    au!
+    au BufWritePre * try | undojoin | catch /^Vim\%((\a\+)\)\=:E790/ | finally | Neoformat | endtry
+  augroup END
+endif
