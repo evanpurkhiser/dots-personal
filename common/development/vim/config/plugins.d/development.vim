@@ -1,3 +1,7 @@
+" git(hub) support
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
 " High quality async completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -21,3 +25,9 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 " Linting + Fixing support
 Plug 'neomake/neomake'
 Plug 'sbdchd/neoformat'
+
+" Javascript automagic import support
+Plug 'galooshi/vim-import-js'
+
+" Styled compoennt syntax highlighting
+Plug 'styled-components/vim-styled-components'
