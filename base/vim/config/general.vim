@@ -23,6 +23,9 @@ set ignorecase " Ignore case when searching
 set smartcase  " Don't ignore case when using uppercase in a search
 set confirm    " Ask for confirmation when closing unsaved files
 
+" Incremental scrolling
+set sidescroll=1
+
 " Remove o option from format options (o caused issuing o/O on a comment line
 " to start a new comment line, undesired by me)
 set formatoptions-=o
