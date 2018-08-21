@@ -20,7 +20,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 " Currently there is no language client that supports go-completion. Use
 " deoplete-go for this job. We can still rely on sourcegraph/go-langserver for
 " goto defs etc.
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'zchee/deoplete-go', { 'do': 'make' }
 
 " Linting + Fixing support
 Plug 'neomake/neomake'
@@ -30,4 +30,4 @@ Plug 'sbdchd/neoformat'
 Plug 'galooshi/vim-import-js'
 
 " Styled compoennt syntax highlighting
-Plug 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
