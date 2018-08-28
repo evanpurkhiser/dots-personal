@@ -3,9 +3,6 @@ super = {"cmd", "ctrl", "shift", "alt"}
 -- Hide ugly toolbar
 hs.console.toolbar(nil)
 
--- See https://github.com/Hammerspoon/hammerspoon/issues/595
-windowFilter = hs.window.filter.new():setCurrentSpace(true)
-
 hs.hotkey.bind(super, "\\", function()
     nextScreen = hs.window.focusedWindow():screen():next()
 
