@@ -84,6 +84,7 @@ then
 fi
 
 hash pass    2>/dev/null && export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store/"
+hash httpie  2>/dev/null && export  HTTPIE_CONFIG_DIR="$XDG_CONFIG_HOME/httpie"
 hash ansible 2>/dev/null && export     ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.ini"
 hash vagrant 2>/dev/null && export       VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 hash gpg     2>/dev/null && export          GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
