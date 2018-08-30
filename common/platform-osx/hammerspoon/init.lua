@@ -45,3 +45,10 @@ end)
 hs.hotkey.bind(super, "`", nil, function()
     hs.execute('pmset displaysleepnow')
 end)
+
+-- Navigate to slack
+hs.hotkey.bind(super, "s", function()
+    window = hs.window.filter.new('Slack'):getWindows()[1]
+    window:focus()
+    hs.mouse.setAbsolutePosition(window:frame().center)
+end)
