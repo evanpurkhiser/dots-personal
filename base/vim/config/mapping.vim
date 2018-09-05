@@ -50,6 +50,9 @@ nmap <Leader>y "+y
 nmap <Leader>Y "+Y
 vmap <Leader>y "+y
 
+" Clear search / quickfix
+nnoremap <silent><C-l> :nohlsearch<CR>:cclose<CR>:lclose<CR>
+
 " Remove space
 nmap <Leader>ds dipO<Esc>
 
