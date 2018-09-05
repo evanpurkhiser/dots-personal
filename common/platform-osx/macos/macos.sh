@@ -12,6 +12,9 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true
 chflags hidden ~/Movies
 chflags hidden ~/Pictures
 
+# TODO: Set keybindsings
+# Autohide dock
+
 defaults write com.apple.spotlight orderedItems -array \
   '{"enabled" = 1;"name" = "APPLICATIONS";}' \
   '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
