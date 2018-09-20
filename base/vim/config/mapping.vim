@@ -5,7 +5,7 @@
 " Smart save: Attempt to use SudoWrite if the file isn't writeable
 nnoremap <expr> <C-s>
   \ expand('%') != '' && getfperm(expand('%')) != '' && !filewritable(expand('%')) ?
-  \ ':SudoWrite<CR>' : ':write<CR>'
+  \ ':write suda://%<CR>' : ':write<CR>'
 
 " Remap Ctrl+C to be the same as escape without telling us to use :q to quit.
 " the 'r' command is special cased to a NOP.

@@ -19,8 +19,8 @@ Plug 'tpope/vim-surround'
 " Mappings for commenting
 Plug 'tpope/vim-commentary'
 
-" UNIX style helpers
-Plug 'tpope/vim-eunuch'
+" Sudo write
+Plug 'lambdalisue/suda.vim'
 
 " Automagically root
 Plug 'airblade/vim-rooter'
