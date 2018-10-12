@@ -18,7 +18,7 @@ except subprocess.CalledProcessError:
 
 r = requests.get(
     f'https://api.github.com/repos/{repo}/pulls?sort=created&direction=desc',
-    headers={'Authentication': f'Bearer {hub_token}'}
+    headers={'Authorization': f'token {hub_token}'}
 )
 
 for k, v in [(d['head']['ref'], d['title']) for d in r.json() if d['user']['login'] == 'EvanPurkhiser']:
