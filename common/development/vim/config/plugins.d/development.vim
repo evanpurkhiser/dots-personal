@@ -9,6 +9,7 @@ let language_client_install = [
     \ 'bash install.sh',
     \ 'yarn global add javascript-typescript-langserver',
     \ 'yarn global add bash-language-server',
+    \ 'GO111MODULE=off go get -u github.com/sourcegraph/go-langserver',
     \ 'pip3 install python-language-server']
 
 " Language completion
