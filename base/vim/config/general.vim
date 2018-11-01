@@ -46,6 +46,9 @@ set wildignore+=*/cache/*,*.sassc
 set listchars=tab:\›\ ,trail:-
 highlight SpecialKey ctermbg=8 ctermfg=10
 
+" More in-your-face spelling highlights
+highlight SpellBad cterm=bold ctermfg=7 ctermbg=1
+
 " Enable spell checking on git commits
 augroup commit_sp
   au!
