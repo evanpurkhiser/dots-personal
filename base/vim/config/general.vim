@@ -174,7 +174,15 @@ hi NeomakeMessageSign ctermfg=07 ctermbg=07
 let g:neoformat_run_all_formatters = 1
 let g:neoformat_enabled_python = ['autopep8']
 let g:neoformat_enabled_javascript = ['eslint', 'prettier']
+let g:neoformat_enabled_go = ['gofmt']
 let g:neoformat_enabled_yaml = []
+
+" Use gofmt -s
+let g:neoformat_go_gofmt = {
+      \ 'exe': 'gofmt',
+      \ 'args': ['-s'],
+      \ 'stdin': 1
+      \ }
 
 " format on save.
 " Silence E790: https://vi.stackexchange.com/a/13401/1787
