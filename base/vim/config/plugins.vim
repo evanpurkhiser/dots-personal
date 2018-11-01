@@ -19,6 +19,9 @@ Plug 'tpope/vim-surround'
 " Mappings for commenting
 Plug 'tpope/vim-commentary'
 
+" Generally usefull mappings
+Plug 'tpope/vim-unimpaired'
+
 " Sudo write
 Plug 'lambdalisue/suda.vim'
 
