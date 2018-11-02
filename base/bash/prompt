@@ -8,10 +8,6 @@ function prompt_command()
   [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] && attr="${attr}\\[\\e[33m\\]☳ "
 
   PS1="\\[\\e[34m\\]${short_pwd:-/}\\[\\e[97m\\] on \\[\\e[35m\\]\\h${attr}\\[\\e[97m\\]›\\[\\e[0m\\] "
-
-  history -a
-  history -c
-  history -r
 }
 
 PROMPT_COMMAND=prompt_command
