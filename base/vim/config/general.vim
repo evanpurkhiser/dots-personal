@@ -61,9 +61,9 @@ syntax spell toplevel
 " Clear the background of the sign column (guter)
 highlight clear SignColumn
 
-" netrw configuration
-let g:netrw_banner = 0     " Don't show help banner
-let g:netrw_dirhistmax = 0 " Don't write history file
+" Completely disable netrw
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
 
 " Airline plugin configuration
 " ----------------------------

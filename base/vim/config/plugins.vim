@@ -22,6 +22,9 @@ Plug 'tpope/vim-commentary'
 " Generally usefull mappings
 Plug 'tpope/vim-unimpaired'
 
+" Directory browsing
+Plug 'justinmk/vim-dirvish'
+
 " Sudo write
 Plug 'lambdalisue/suda.vim'
 
