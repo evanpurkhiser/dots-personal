@@ -4,23 +4,13 @@ let g:plug_window = 'enew'
 
 call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
 
-" Sensible options that should always be set
-Plug 'tpope/vim-sensible'
-
-" Map common readline bindings in insert and command mode
-Plug 'tpope/vim-rsi'
-
-" Automagically detect the indenting style in the file
-Plug 'tpope/vim-sleuth'
-
-" Mappings for surrounding text
-Plug 'tpope/vim-surround'
-
-" Mappings for commenting
-Plug 'tpope/vim-commentary'
-
-" Generally usefull mappings
-Plug 'tpope/vim-unimpaired'
+" Lots of good tpope
+Plug 'tpope/vim-sensible'   " Sensible options that should always be set
+Plug 'tpope/vim-rsi'        " Readline bindings in insert and command mode
+Plug 'tpope/vim-sleuth'     " Detect the indenting style in the file
+Plug 'tpope/vim-surround'   " Mappings for surrounding text
+Plug 'tpope/vim-commentary' " Mappings for commenting
+Plug 'tpope/vim-unimpaired' " Generally usefull mappings
 
 " Directory browsing
 Plug 'justinmk/vim-dirvish'
