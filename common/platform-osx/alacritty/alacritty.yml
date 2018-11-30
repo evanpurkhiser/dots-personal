@@ -3,15 +3,9 @@ env:
   TERM: xterm-256color
 
 window:
-  dimensions:
-    columns: 80
-    lines: 24
-
-  padding:
-    x: 1
-    y: 1
-
   decorations: full
+  dimensions:  { columns: 80, lines: 24 }
+  padding:     { x: 1, y: 1 }
 
 tabspaces: 4
 
