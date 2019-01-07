@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# This script should be symlinked to to be used to execute local or global npm
+# packages. Used for packages such as eslint or prettier in development.
+
+prg="$(basename "$0")"
+root="$(
+    while [[ "$PWD" != "/" ]] && [ ! -f "$PWD/node_modules/.bin/$prg" ]; do cd ..; done
+    echo "$PWD"
+)"
+
+run_path="$root/node_modules/.bin/$prg"
+[ -f "$run_path" ] && exec "$run_path" "$@"
+
+exec "$HOME/.local/lib/nodejs/bin/$prg" "$@"
