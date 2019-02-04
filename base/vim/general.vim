@@ -37,7 +37,7 @@ set completeopt=longest,menuone
 set nobackup nowritebackup noswapfile
 
 " Tab configurations
-set smartindent expandtab tabstop=4 shiftwidth=4
+set smartindent expandtab tabstop=2 shiftwidth=2
 
 " Ignore cache type files
 set wildignore+=*/cache/*,*.sassc
