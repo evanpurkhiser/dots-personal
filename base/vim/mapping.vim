@@ -56,7 +56,7 @@ nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
 " Clear search / quickfix
-nnoremap <silent><C-l> :nohlsearch<CR>:cclose<CR>:lclose<CR>
+nnoremap <silent><C-l> :nohlsearch<CR>:cclose<CR>:lclose<CR>:call clearmatches()<CR>
 
 " Remove space
 nmap <Leader>ds dipO<Esc>
