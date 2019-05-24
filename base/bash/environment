@@ -58,10 +58,14 @@ then
     export PATH="$PATH:$GOPATH/bin"
 fi
 
-# Disable python bytecode generation
 if hash python 2>/dev/null
 then
+    # Disable python bytecode generation
     export PYTHONDONTWRITEBYTECODE=1
+
+    # Configure poetry
+    export POETRY_HOME="$HOME/.local/lib/poetry"
+    export PATH="$PATH:$POETRY_HOME/bin"
 fi
 
 if hash aws 2>/dev/null
