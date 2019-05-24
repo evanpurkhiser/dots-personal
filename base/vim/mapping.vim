@@ -50,6 +50,11 @@ nmap <Leader>y "+y
 nmap <Leader>Y "+Y
 vmap <Leader>y "+y
 
+" s for substitute
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
+
 " Clear search / quickfix
 nnoremap <silent><C-l> :nohlsearch<CR>:cclose<CR>:lclose<CR>
 

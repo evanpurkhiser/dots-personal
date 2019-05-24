@@ -42,6 +42,12 @@ Plug 'qpkorr/vim-bufkill'
 " Adds argument text objects
 Plug 'b4winckler/vim-angry'
 
+" Sends all delete operations to the blackhole register
+Plug 'svermeulen/vim-cutlass'
+
+" Adds a range command for swapping with the yanked text
+Plug 'svermeulen/vim-subversive'
+
 " Full project text search
 Plug 'jremmen/vim-ripgrep'
 
