@@ -98,6 +98,9 @@ hash docker  2>/dev/null && export      DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 hash gpg     2>/dev/null && export          GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 hash hg      2>/dev/null && export           HGRCPATH="$XDG_CONFIG_HOME/hg/config"
 
+# Source shellcheck configuration
+hash shellheck 2>/dev/null && source "$XDG_CONFIG_HOME/bash/shellcheck"
+
 # Less history file and key file
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
 export LESSKEY="$XDG_CONFIG_HOME/less/keyfile.bin"
