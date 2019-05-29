@@ -23,69 +23,69 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/config.vim" | source $MYVIMRC
 # Ack configuration
 if hash ack 2>/dev/null
 then
-    export ACKRC="$XDG_CONFIG_HOME/ack/ackrc"
-    export ACK_PAGER_COLOR="less -x4SRFX"
+  export ACKRC="$XDG_CONFIG_HOME/ack/ackrc"
+  export ACK_PAGER_COLOR="less -x4SRFX"
 fi
 
 # Always install ruby gems local to the user
 if hash gem 2>/dev/null
 then
-    export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
-    export GEM_HOME="$HOME/.local/lib/ruby/gems/$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')"
-    export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
-    export PATH="$PATH:$GEM_HOME/bin"
+  export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
+  export GEM_HOME="$HOME/.local/lib/ruby/gems/$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')"
+  export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
+  export PATH="$PATH:$GEM_HOME/bin"
 fi
 
 # Cocopods
 if hash pod 2>/dev/null
 then
-    export CP_HOME_DIR="$XDG_DATA_HOME/cocoapods"
+  export CP_HOME_DIR="$XDG_DATA_HOME/cocoapods"
 fi
 
 # nodejs's NPM tool configuration
 if hash npm 2>/dev/null
 then
-    export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-    export NPM_CONFIG_DEVDIR="$XDG_CACHE_HOME/node-gyp"
-    export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
+  export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+  export NPM_CONFIG_DEVDIR="$XDG_CACHE_HOME/node-gyp"
+  export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 fi
 
 # Don't overrwrite an already configured GOPATH
 if hash go 2>/dev/null && [ -z "${GOPATH+1}" ]
 then
-    export GOPATH="$HOME/.local/lib/go"
-    export GO111MODULE=on
-    export PATH="$PATH:$GOPATH/bin"
+  export GOPATH="$HOME/.local/lib/go"
+  export GO111MODULE=on
+  export PATH="$PATH:$GOPATH/bin"
 fi
 
 if hash python 2>/dev/null
 then
-    # Disable python bytecode generation
-    export PYTHONDONTWRITEBYTECODE=1
+  # Disable python bytecode generation
+  export PYTHONDONTWRITEBYTECODE=1
 
-    # Configure poetry
-    export POETRY_HOME="$HOME/.local/lib/poetry"
-    export PATH="$PATH:$POETRY_HOME/bin"
+  # Configure poetry
+  export POETRY_HOME="$HOME/.local/lib/poetry"
+  export PATH="$PATH:$POETRY_HOME/bin"
 fi
 
 if hash aws 2>/dev/null
 then
-    export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
-    export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
+  export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+  export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 fi
 
 if hash pod 2>/dev/null
 then
-    export CP_HOME_DIR="$XDG_CONFIG_HOME/cocopods"
-    export CP_REPOS_DIR="$XDG_DATA_HOME/cocopods/repos"
-    export CP_TEMPLATES_DIR="$XDG_DATA_HOME/cocopods/templates"
+  export CP_HOME_DIR="$XDG_CONFIG_HOME/cocopods"
+  export CP_REPOS_DIR="$XDG_DATA_HOME/cocopods/repos"
+  export CP_TEMPLATES_DIR="$XDG_DATA_HOME/cocopods/templates"
 fi
 
 if hash "$XDG_DATA_HOME/cargo/bin/rustc" 2>/dev/null
 then
-    export CARGO_HOME="$XDG_DATA_HOME/cargo"
-    export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-    export PATH="$PATH:$CARGO_HOME/bin"
+  export CARGO_HOME="$XDG_DATA_HOME/cargo"
+  export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+  export PATH="$PATH:$CARGO_HOME/bin"
 fi
 
 hash pass    2>/dev/null && export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
@@ -111,5 +111,5 @@ export QUOTING_STYLE="literal"
 # Include environment configurations from DATA_HOME
 if [ -d "$XDG_DATA_HOME/environment.d" ]
 then
-    for f in "$XDG_DATA_HOME/environment.d/"*; do source "$f"; done
+  for f in "$XDG_DATA_HOME/environment.d/"*; do source "$f"; done
 fi

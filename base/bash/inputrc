@@ -13,15 +13,15 @@ set colored-stats on
 
 # Bash specific macros and bindings
 $if bash
-    # Meta+s: prefix the command with sudo
-    "\es": "\C-asudo \C-e"
+  # Meta+s: prefix the command with sudo
+  "\es": "\C-asudo \C-e"
 
-    # Meta+l: pipe the command into less
-    "\el": "\C-e| less"
+  # Meta+l: pipe the command into less
+  "\el": "\C-e| less"
 
-    # Meta+q: quote the current or previous word at the cursor
-    "\eq": "\eb\"\ef\"\C-b"
+  # Meta+q: quote the current or previous word at the cursor
+  "\eq": "\eb\"\ef\"\C-b"
 
-    # Meta-Up: cd ..
-    "\e\e[A": "\C-a\C-kcd ..\n"
+  # Meta-Up: cd ..
+  "\e\e[A": "\C-a\C-kcd ..\n"
 $endif
