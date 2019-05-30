@@ -107,6 +107,7 @@ hash ansible 2>/dev/null && export     ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/
 hash docker  2>/dev/null && export      DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 hash gpg     2>/dev/null && export          GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 hash hg      2>/dev/null && export           HGRCPATH="$XDG_CONFIG_HOME/hg/config"
+hash wget    2>/dev/null && export             WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 hash psql    2>/dev/null && export             PSQLRC="$XDG_CONFIG_HOME/psql/psqlrc"
 
 # Source shellcheck configuration
