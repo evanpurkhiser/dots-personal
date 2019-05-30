@@ -79,6 +79,11 @@ then
   export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 fi
 
+if hash redis-cli 2>/dev/null
+then
+  export REDISCLI_HISTFILE="$XDG_DATA_HOME/rediscli_history"
+fi
+
 if hash pod 2>/dev/null
 then
   export CP_HOME_DIR="$XDG_CONFIG_HOME/cocopods"
