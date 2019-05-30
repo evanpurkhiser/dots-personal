@@ -55,6 +55,9 @@ nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
+" Yank file path
+nmap <silent><Leader>yp :let @+ = expand('%:p')<CR>:echom "Path copied to system clipboard"<CR>
+
 " Clear search / quickfix
 nnoremap <silent><C-l> :nohlsearch<CR>:cclose<CR>:lclose<CR>:call clearmatches()<CR>
 
