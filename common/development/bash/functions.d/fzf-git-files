@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+fzf-git-files-widget() {
+  local selected="$(git status --short | cut -c4- | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf -m "$@" | cut -f1)"
+  READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
+  READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
+}
+
+bind -x '"\C-s": "fzf-git-files-widget"'
