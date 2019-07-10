@@ -8,11 +8,12 @@ vim-singleton()
   # Check if vim is already running
   vim_id="$(jobs | sed -n "/nvim/s/\[\([0-9]\)\]+.*/\1/p")"
 
+  export NVIM_LISTEN_ADDRESS=/tmp/nvim.socket
+
   # No instance of nvim running. Start nvim and provide a server socket address
   # to communicate for future calls to this script.
   if [[ ! "$vim_id" ]]
   then
-    export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
     nvim "$@"
     return 0
   fi
