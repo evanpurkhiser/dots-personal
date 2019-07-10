@@ -52,7 +52,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'Yggdroot/indentLine'
 
 " Color schemes
-Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 
 " Syntax aware
 Plug 'sheerun/vim-polyglot'

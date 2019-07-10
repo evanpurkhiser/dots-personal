@@ -50,7 +50,7 @@ font:
 custom_cursor_colors: true
 
 color_schemes:
-  solarized_dark: &solarized_dark
+  theme_solarized_dark: &theme_solarized_dark
     primary:
       background: '0x002b36'
       foreground: '0x839496'
@@ -73,7 +73,7 @@ color_schemes:
       cyan:    '0x93a1a1'
       white:   '0xfdf6e3'
 
-  gruvbox_dark: &gruvbox_dark
+  theme_gruvbox_dark: &theme_gruvbox_dark
     primary:
       background: '0x282828'
       foreground: '0xebdbb2'
@@ -96,7 +96,7 @@ color_schemes:
       cyan:    '0x8ec07c'
       white:   '0xebdbb2'
 
-colors: *solarized_dark
+colors: *theme_gruvbox_dark
 
 # 0 disables the visual bell
 visual_bell:

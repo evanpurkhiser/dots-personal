@@ -4,9 +4,11 @@ scriptencoding utf-8
 "
 " vim-sensible takes care of most of the really common configuration changes
 " for us. These configurations are more personal and to my liking.
+"
+set termguicolors
 
 set background=dark
-silent! colorscheme solarized
+silent! colorscheme gruvbox
 
 " Vertical split coloring
 highlight VertSplit ctermbg=8 ctermfg=black
@@ -47,7 +49,7 @@ set listchars=tab:\›\ ,trail:-
 highlight SpecialKey ctermbg=8 ctermfg=10
 
 " More in-your-face spelling highlights
-highlight SpellBad cterm=bold ctermfg=7 ctermbg=1
+highlight SpellBad cterm=bold ctermfg=7 ctermbg=5
 
 " Enable spell checking on git commits
 augroup commit_sp
@@ -93,21 +95,8 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
-" Override some solarized theme settings
-let g:airline_solarized_dark_inactive_border = 1
-
-silent! call airline#themes#solarized#refresh()
-let g:airline#themes#mine#palette = get(g:, 'airline#themes#solarized#palette', {})
-
-let g:airline#themes#mine#palette.tabline = {
-      \ 'airline_tabfill': ['', '', 07, 00],
-      \ 'airline_tabhid':  ['', '', 10, 00],
-      \ 'airline_tab':     ['', '', 14, 08],
-      \ 'airline_tabsel':  ['', '', 00, 15],
-      \ 'airline_tabmod':  ['', '', 07, 01],
-      \ }
-
-let g:airline_theme = 'mine'
+" Airline solarized theme settings
+let g:airline_theme = 'gruvbox'
 
 " Vim indent line configuration
 " -----------------------------
@@ -174,10 +163,10 @@ let g:neomake_info_sign    = {'text': '-', 'texthl': 'NeomakeInfoSign'}
 let g:neomake_warning_sign = {'text': '-', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_message_sign = {'text': '-', 'texthl': 'NeomakeMessageSign'}
 
-hi NeomakeErrorSign   ctermfg=01 ctermbg=01
-hi NeomakeWarningSign ctermfg=03 ctermbg=03
-hi NeomakeInfoSign    ctermfg=04 ctermbg=04
-hi NeomakeMessageSign ctermfg=07 ctermbg=07
+hi NeomakeErrorSign   guifg=#cc241d guibg=#cc241d
+hi NeomakeWarningSign guifg=#fabd2f guibg=#fabd2f
+hi NeomakeInfoSign    guifg=#83a598 guibg=#83a598
+hi NeomakeMessageSign guifg=#8ec07c guibg=#8ec07c
 
 " Neoformat configuration
 " -----------------------
