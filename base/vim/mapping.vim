@@ -79,6 +79,9 @@ vnoremap <silent> * :<C-U>
   \ gV:call setreg('"', old_reg, old_regtype)<CR>
   \ :call winrestview(stay_star_view)<CR>
 
+" Search using Rg
+nnoremap <leader>/ :Rg<CR>
+
 " Source line and selection in vim
 vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection'<CR>
 nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line'<CR>
