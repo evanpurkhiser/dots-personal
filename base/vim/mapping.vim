@@ -86,17 +86,27 @@ nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line'<CR>
 " Repeat the lmast executed macro
 nnoremap , @@
 
-" Language server bindings
-if match(&runtimepath, 'LanguageClient') != -1
-  nnoremap <silent>gd :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-endif
-
-" deoplete tab-complete
-if match(&runtimepath, 'deoplete.nvim') != -1
-  inoremap <expr><Tab>   pumvisible() ? "\<C-n>" : "\<TAB>"
-  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : ""
-  inoremap <expr><C-h>   deoplete#mappings#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS>    deoplete#mappings#smart_close_popup()."\<C-h>"
+" coc omnicompletions
+if match(&runtimepath, 'coc.nvim') != -1
+  " Use tab like you would expect
+  inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
   inoremap <expr><CR>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Use <c-space> to trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
+
+  " Remap keys for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
 endif

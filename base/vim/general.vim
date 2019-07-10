@@ -157,6 +157,14 @@ augroup help_win
   au FileType help wincmd L
 augroup END
 
+" coc.nvim configuration
+let g:coc_global_extensions = [
+      \ 'coc-json',
+      \ 'coc-go',
+      \ 'coc-tsserver',
+      \ 'coc-python',
+      \ ]
+
 " Neomake configuration
 " ---------------------
 silent! call neomake#configure#automake('nrwi', 500)
