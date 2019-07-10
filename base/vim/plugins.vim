@@ -58,7 +58,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'sheerun/vim-polyglot'
 
 " Load other plugins
-for plugin in split(globpath('$XDG_CONFIG_HOME/vim/config/plugins.d', '*.vim'), '\n')
+for plugin in split(globpath('$XDG_CONFIG_HOME/vim/plugins.d', '*.vim'), '\n')
     execute('source '.plugin)
 endfor
 
