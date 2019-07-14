@@ -1,0 +1,31 @@
+# Compilation installation path.
+# Supports environment variable expansions using ${VARIBLE}
+install_path: ${HOME}/.config
+
+# The file suffix used for override files
+override_suffix: override
+
+# The file suffix to use for installation files
+install_suffix: install
+
+groups:
+  - base
+  - machines/home
+  - machines/work
+  - common/development
+  - common/platform-osx
+
+# Groups to compile for all profiles
+base_groups: [ base ]
+
+# Configuration profiles. Each configuration profile should map to a list of
+# source paths to compile. Order defines the cascade order.
+profiles:
+  work:
+    - common/platform-osx
+    - common/development
+    - machines/work
+  home:
+    - common/platform-osx
+    - common/development
+    - machines/home
