@@ -2,6 +2,6 @@
 
 source "$DOTS_SOURCE/base/bash/environment"
 
-mkdir  "$HOME/Library/KeyBindings/"
+mkdir -p "$HOME/Library/KeyBindings/"
 ln -sf "$XDG_CONFIG_HOME/keybindings/binds.dict" \
        "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"

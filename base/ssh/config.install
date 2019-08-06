@@ -2,6 +2,9 @@
 
 source "$DOTS_SOURCE/base/bash/environment"
 
+# Both source and target files should be set to 600 permissions. Git does not
+# track permissiosn otherwise so this is a requirement.
+chmod 600 "$DOTS_SOURCE/base/ssh/config" "$XDG_CONFIG_HOME/ssh/config"
+
 mkdir -p "$HOME/.ssh"
 ln -sf "$XDG_CONFIG_HOME/ssh/config" "$HOME/.ssh/"
-chmod 600 "$XDG_CONFIG_HOME/ssh/config"
