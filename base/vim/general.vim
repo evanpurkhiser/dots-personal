@@ -151,6 +151,7 @@ let g:coc_global_extensions = [
       \ 'coc-json',
       \ 'coc-go',
       \ 'coc-tsserver',
+      \ 'coc-eslint',
       \ 'coc-python',
       \ ]
 
