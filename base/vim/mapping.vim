@@ -96,8 +96,8 @@ if match(&runtimepath, 'coc.nvim') != -1
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
     \ coc#refresh()
-  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
-  inoremap <expr><CR>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+  inoremap <expr> <CR>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
   function! s:check_back_space() abort
     let col = col('.') - 1

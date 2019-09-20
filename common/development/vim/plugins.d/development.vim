@@ -2,11 +2,10 @@
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
-" Omnicomplete support
+" Omnicomplete support / diagnostics
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Linting + Fixing support
-Plug 'neomake/neomake'
+" Autosave formatting
 Plug 'sbdchd/neoformat'
 
 " Javascript automagic import support
