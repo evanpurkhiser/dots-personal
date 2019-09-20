@@ -105,11 +105,18 @@ if match(&runtimepath, 'coc.nvim') != -1
   endfunction
 
   " Use <c-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <expr> <C-Space> coc#refresh()
 
   " Remap keys for gotos
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
+
+  " Map for diagnostic errors
+  nmap <silent> <C-p> <Plug>(coc-diagnostic-prev)
+  nmap <silent> <C-n> <Plug>(coc-diagnostic-next)
+
+  " Show signature help when jumping between placeholders
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 endif
