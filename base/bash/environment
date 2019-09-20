@@ -18,7 +18,8 @@ export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
 
 # Specify vimrc path
 # shellcheck disable=SC2016
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/config.vim" | source $MYVIMRC'
+export VIMCONFIG="$XDG_CONFIG_HOME/vim"
+export VIMINIT='let $MYVIMRC="$VIMCONFIG/config.vim" | source $MYVIMRC'
 
 # Ack configuration
 if hash ack 2>/dev/null
