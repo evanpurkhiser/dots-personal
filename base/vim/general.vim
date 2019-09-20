@@ -155,6 +155,16 @@ let g:coc_global_extensions = [
       \ 'coc-python',
       \ ]
 
+hi CocErrorSign   guifg=#cc241d guibg=#cc241d
+hi CocWarningSign guifg=#fabd2f guibg=#fabd2f
+hi CocInfoSign    guifg=#83a598 guibg=#83a598
+hi CocHintSign    guifg=#8ec07c guibg=#8ec07c
+
+hi CocErrorFloat   guifg=#fbf1c7
+hi CocWarningFloat guifg=#fbf1c7
+hi CocInfoFloat    guifg=#fbf1c7
+hi CocHintFloat    guifg=#fbf1c7
+
 " Neomake configuration
 " ---------------------
 silent! call neomake#configure#automake('nrwi', 500)
