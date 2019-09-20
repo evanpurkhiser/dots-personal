@@ -104,19 +104,16 @@ if match(&runtimepath, 'coc.nvim') != -1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  " Use <c-space> to trigger completion.
-  inoremap <expr> <C-Space> coc#refresh()
-
   " Remap keys for gotos
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gr <Plug>(coc-references)
 
-  " Display details of the symbol
-  nmap <silent> <C-i> :call CocActionAsync('doHover')<CR>
+  " Trigger info window
+  nnoremap <silent><cmd> <Space> CocActionAsync('doHover')<CR>
 
-  " Map for diagnostic errors
+  " Diagnostic navigation
   nmap <silent> <C-p> <Plug>(coc-diagnostic-prev)
   nmap <silent> <C-n> <Plug>(coc-diagnostic-next)
 
