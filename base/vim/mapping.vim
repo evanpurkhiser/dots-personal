@@ -111,7 +111,7 @@ if match(&runtimepath, 'coc.nvim') != -1
   nmap <silent> gr <Plug>(coc-references)
 
   " Trigger info window
-  nnoremap <silent><cmd> <Space> CocActionAsync('doHover')<CR>
+  nnoremap <silent> <Space> :call CocActionAsync('doHover')<CR>
 
   " Diagnostic navigation
   nmap <silent> <C-p> <Plug>(coc-diagnostic-prev)
