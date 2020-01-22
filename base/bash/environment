@@ -121,8 +121,9 @@ export LESSKEY="$XDG_CONFIG_HOME/less/keyfile.bin"
 # Don't add quotes when using ls
 export QUOTING_STYLE="literal"
 
-# Stop annoying javascript servers from opening vim (due to react-dev-utils)
-export REACT_EDITOR=false
+# Stop annoying javascript servers from opening vim (due to react-dev-utils).
+# Uses `true` so that react-dev-utils thinks things were successful.
+export REACT_EDITOR=true
 
 # Include environment configurations from DATA_HOME
 if [ -d "$XDG_DATA_HOME/environment.d" ]
