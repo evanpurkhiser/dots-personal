@@ -5,3 +5,6 @@ export SENTRY_SKIP_FORCE_PATCH=1
 
 # http://docs.celeryproject.org/en/3.1/configuration.html#celery-always-eager
 export CELERY_ALWAYS_EAGER=True
+
+# Collect data for @billy
+export SENTRY_INSTRUMENTATION=1
