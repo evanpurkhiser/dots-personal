@@ -16,7 +16,7 @@ fi
 
 case $1 in
 server|htpc)
-    ssh -t "root@$1" "pacman -Syu"
+    ssh -t "root@$1.home.evanpurkhiser.com" "pacman -Syu"
     ;;
 macbook)
     brew upgrade
