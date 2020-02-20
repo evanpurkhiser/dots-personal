@@ -11,6 +11,7 @@ Plug 'tpope/vim-sleuth'     " Detect the indenting style in the file
 Plug 'tpope/vim-surround'   " Mappings for surrounding text
 Plug 'tpope/vim-commentary' " Mappings for commenting
 Plug 'tpope/vim-unimpaired' " Generally usefull mappings
+Plug 'tpope/vim-scriptease' " VimL tools
 
 " Directory browsing
 Plug 'justinmk/vim-dirvish'
