@@ -152,13 +152,14 @@ let g:coc_global_extensions = [
       \ 'coc-go',
       \ 'coc-tsserver',
       \ 'coc-eslint',
+      \ 'coc-stylelint',
       \ 'coc-python',
       \ ]
 
-hi CocErrorSign   guifg=#cc241d guibg=#cc241d
-hi CocWarningSign guifg=#fabd2f guibg=#fabd2f
-hi CocInfoSign    guifg=#83a598 guibg=#83a598
-hi CocHintSign    guifg=#8ec07c guibg=#8ec07c
+hi CocErrorSign   guifg=#FDB3B0 guibg=#cc241d
+hi CocWarningSign guifg=#FFECB9 guibg=#fabd2f
+hi CocInfoSign    guifg=#CFE3DC guibg=#83a598
+hi CocHintSign    guifg=#DCEFD5 guibg=#8ec07c
 
 hi CocErrorFloat   guifg=#fbf1c7
 hi CocWarningFloat guifg=#fbf1c7
@@ -174,10 +175,10 @@ let g:neomake_info_sign    = {'text': '-', 'texthl': 'NeomakeInfoSign'}
 let g:neomake_warning_sign = {'text': '-', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_message_sign = {'text': '-', 'texthl': 'NeomakeMessageSign'}
 
-hi NeomakeErrorSign   guifg=#cc241d guibg=#cc241d
-hi NeomakeWarningSign guifg=#fabd2f guibg=#fabd2f
-hi NeomakeInfoSign    guifg=#83a598 guibg=#83a598
-hi NeomakeMessageSign guifg=#8ec07c guibg=#8ec07c
+hi NeomakeErrorSign   guifg=#FDB3B0 guibg=#cc241d
+hi NeomakeWarningSign guifg=#FFECB9 guibg=#fabd2f
+hi NeomakeInfoSign    guifg=#CFE3DC guibg=#83a598
+hi NeomakeMessageSign guifg=#DCEFD5 guibg=#8ec07c
 
 " Neoformat configuration
 " -----------------------
