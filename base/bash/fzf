@@ -4,3 +4,5 @@
 
 source "$HOME/.local/lib/fzf/shell/completion.bash"
 source "$HOME/.local/lib/fzf/shell/key-bindings.bash"
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
