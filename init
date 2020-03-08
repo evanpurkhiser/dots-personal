@@ -13,5 +13,5 @@ DOTS_RELEASE="master"
 
 DOTS_CLONE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source <(curl --silent --show-error --location \
-    https://github.com/EvanPurkhiser/dots/releases/download/dev-build/bootstrap)
+source /dev/stdin <<<"$(curl --silent --show-error --location \
+    https://github.com/EvanPurkhiser/dots/releases/download/dev-build/bootstrap)"

@@ -1,0 +1,19 @@
+name: check
+on: [ push ]
+
+jobs:
+  check:
+    name: build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        profile: [ home, work ]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dotfiles
+      run: |
+        source ./init
+        dots config use ${{ matrix.profile }}
+        dots config active
+        dots install -v
