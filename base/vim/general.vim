@@ -190,6 +190,20 @@ let g:neoformat_enabled_less = ['prettier']
 let g:neoformat_enabled_markdown = []
 let g:neoformat_enabled_yaml = []
 
+let g:neoformat_javascriptreact_prettier = {
+      \ 'exe': 'prettier',
+      \ 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript'],
+      \ 'stdin': 1
+      \ }
+let g:neoformat_enabled_javascriptreact = ['prettier']
+
+let g:neoformat_typescriptreact_prettier = {
+      \ 'exe': 'prettier',
+      \ 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript'],
+      \ 'stdin': 1
+      \ }
+let g:neoformat_enabled_typescriptreact = ['prettier']
+
 " Use gofmt -s
 let g:neoformat_go_gofmt = {
       \ 'exe': 'gofmt',
