@@ -9,7 +9,7 @@ import requests
 import subprocess
 
 hub_file = os.path.expandvars("$XDG_CONFIG_HOME/hub")
-hub_token = yaml.load(open(hub_file, 'r').read())[
+hub_token = yaml.load(open(hub_file, 'r').read(), Loader=yaml.FullLoader)[
     'github.com'][0]['oauth_token']
 
 try:

@@ -7,7 +7,8 @@ import requests
 import subprocess
 
 hub_file = os.path.expandvars("$XDG_CONFIG_HOME/hub")
-hub_token = yaml.load(open(hub_file, 'r').read())['github.com'][0]['oauth_token']
+hub_token = yaml.load(open(hub_file, 'r').read(), Loader=yaml.FullLoader)[
+    'github.com'][0]['oauth_token']
 
 try:
     repo = subprocess.check_output(['git', 'config', '--get', 'remote.origin.url'], encoding='utf8') \
