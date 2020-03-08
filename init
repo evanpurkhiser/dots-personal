@@ -1,22 +1,17 @@
 #!/usr/bin/env bash
 #
-# Initialize a dotfile repository using the dots manager
-#
-# 1. Create the $HOME/.local/lib directory
-# 2. Clone the dots manager tool into the lib directory
-# 3. Kick off the dots/contrib/initialize script to handle the rest of the setup
-#    of the dotfiles. The DOTS_CLONE_DIR environment will be set for this
+# Initialize a dotfile repository using dots by downloading and executing the
+# bootsrap script.
 #
 # This script must be sourced!
+
 [[ $_ == $0 ]] && echo "Please source me!" && exit 1
 
-# Clone the dots manager utility
-if [[ ! -d "$HOME/.local/lib/dots" ]]
-then
-    echo -e "\033[0;32m==>\033[0m Installing dots managment utility"
-    git clone -q https://github.com/EvanPurkhiser/dots "$HOME/.local/lib/dots"
-fi
+# I am using the latest master builds of dots. See the bootstrap config for
+# details on avaiable version constraints.
+DOTS_RELEASE="master"
 
-# Setup the environment for the new dots repository
 DOTS_CLONE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$HOME/.local/lib/dots/contrib/initialize"
+
+source <(curl --silent --show-error --location \
+    https://github.com/EvanPurkhiser/dots/releases/download/dev-build/bootstrap)
