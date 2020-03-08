@@ -125,6 +125,9 @@ export QUOTING_STYLE="literal"
 # Uses `true` so that react-dev-utils thinks things were successful.
 export REACT_EDITOR=true
 
+# When using direnv, don't warn about slow execution
+export DIRENV_WARN_TIMEOUT=20m
+
 # Include environment configurations from DATA_HOME
 if [ -d "$XDG_DATA_HOME/environment.d" ]
 then
