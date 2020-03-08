@@ -205,3 +205,6 @@ if match(&runtimepath, 'neoformat') != -1
     au BufWritePre * try | undojoin | catch /^Vim\%((\a\+)\)\=:E790/ | finally | Neoformat | endtry
   augroup END
 endif
+
+" Enable color highlighting
+lua require 'colorizer'.setup()

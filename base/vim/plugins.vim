@@ -58,6 +58,9 @@ Plug 'morhetz/gruvbox'
 " Syntax aware
 Plug 'sheerun/vim-polyglot'
 
+" Colors
+Plug 'norcalli/nvim-colorizer.lua'
+
 " Load other plugins
 for plugin in split(globpath('$XDG_CONFIG_HOME/vim/plugins.d', '*.vim'), '\n')
     execute('source '.plugin)
