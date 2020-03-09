@@ -12,7 +12,13 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install dotfiles
+      env:
+        TMP_DOTS: ${{ runner.temp}}/etc
       run: |
+        mkdir -p $TMP_DOTS
+        cp -r . $TMP_DOTS
+        cd $TMP_DOTS
+
         source ./init
         dots config use ${{ matrix.profile }}
         dots config active
