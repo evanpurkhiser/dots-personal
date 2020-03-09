@@ -1,5 +1,8 @@
 ## Evan Purkhiser's Configuration files
 
+[![Build Status](https://github.com/evanpurkhiser/dots-personal/workflows/build/badge.svg)](https://github.com/EvanPurkhiser/dots-personal/actions?query=workflow%3Acheck)
+
+
 These are my personal configuration files for my various machines.
 Configuration files are grouped into different 'configuration' groups that
 allow for specific installations based on the type of machine the dotfiles are
