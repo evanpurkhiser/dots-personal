@@ -46,9 +46,6 @@ Plug 'b4winckler/vim-angry'
 " Adds a range command for swapping with the yanked text
 Plug 'svermeulen/vim-subversive'
 
-" Full project text search
-Plug 'jremmen/vim-ripgrep'
-
 " Show vertical lines for tab alignment
 Plug 'Yggdroot/indentLine'
 
