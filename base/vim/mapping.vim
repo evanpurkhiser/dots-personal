@@ -32,7 +32,11 @@ nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 
-" fzf
+""" Window movment
+nnoremap <Tab> <C-W><C-w>
+nnoremap <S-Tab> <C-W><S-W>
+
+""" fzf
 nmap <Leader><Leader> :GFiles<CR>
 nmap <Leader>p        :Files<CR>
 nmap <Leader>b        :Buffers<CR>
