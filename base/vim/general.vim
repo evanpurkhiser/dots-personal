@@ -223,3 +223,6 @@ endif
 
 " Enable color highlighting
 lua require 'colorizer'.setup()
+
+" Disable fzf preview window
+let g:fzf_preview_window = ''
