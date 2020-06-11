@@ -37,7 +37,7 @@ nnoremap <Tab> <C-W><C-w>
 nnoremap <S-Tab> <C-W><S-W>
 
 """ fzf
-nmap <Leader><Leader> :GFiles<CR>
+nmap <Leader><Leader> :GFiles --exclude-standard --cached --others<CR>
 nmap <Leader>p        :Files<CR>
 nmap <Leader>b        :Buffers<CR>
 
