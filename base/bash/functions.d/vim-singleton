@@ -13,7 +13,7 @@ vim-singleton() {
   # to communicate for future calls to this script.
   if [[ ! "$vim_id" ]]; then
     # Ensure we don't have an invalid socket address
-    rm $NVIM_LISTEN_ADDRESS
+    rm -f $NVIM_LISTEN_ADDRESS
     nvim "$@"
     return 0
   fi
