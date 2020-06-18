@@ -27,9 +27,9 @@ for k, v in [(d['head']['ref'], d['title']) for d in r.json() if d['user']['logi
 EOF
 
 fzf-pr-widget() {
-  local selected="$(python3 -c "$__fzf_pr_script" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf --with-nth=2.. -m "$@" | cut -f1)"
+  local selected="$(PYENV_VERSION=3.7.2 python3 -c "$__fzf_pr_script" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf --with-nth=2.. -m "$@" | cut -f1)"
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
-  READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
+  READLINE_POINT=$((READLINE_POINT + ${#selected}))
 }
 
 bind -x '"\C-g": "fzf-pr-widget"'
