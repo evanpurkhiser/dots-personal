@@ -49,6 +49,9 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
+# Hide colorsnapper from the menubar
+defaults write com.koolesache.ColorSnapper2 showMenubarIcon false
+
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
@@ -57,5 +60,5 @@ for app in \
   "Dock" \
   "Finder" \
   "SystemUIServer"; do
-  killall "${app}" &> /dev/null
+  killall "${app}" &>/dev/null
 done
