@@ -153,7 +153,7 @@ let g:coc_global_extensions = [
       \ 'coc-tsserver',
       \ 'coc-eslint',
       \ 'coc-stylelint',
-      \ 'coc-python',
+      \ 'coc-pyright',
       \ ]
 
 hi CocErrorSign   guifg=#FDB3B0 guibg=#cc241d
