@@ -1,9 +1,7 @@
 {
   "typescript.showUnused": true,
   "diagnostic.enable": true,
-  "python.jediEnabled": true,
-  "python.venvPath": "~/.local/share/virtualenvs",
   "eslint.enable": true,
   "eslint.run": "onType",
-  "python.linting.flake8Enabled": true
+  "python.pythonPath": "${workspaceFolder}/.venv/bin/python"
 }
