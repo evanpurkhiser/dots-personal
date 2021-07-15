@@ -183,7 +183,7 @@ hi NeomakeMessageSign guifg=#DCEFD5 guibg=#8ec07c
 " Neoformat configuration
 " -----------------------
 let g:neoformat_run_all_formatters = 1
-let g:neoformat_enabled_python = ['black']
+let g:neoformat_enabled_python = ['black', 'isort']
 let g:neoformat_enabled_javascript = ['eslint', 'prettier']
 let g:neoformat_enabled_go = ['gofmt']
 let g:neoformat_enabled_json = ['prettier']
