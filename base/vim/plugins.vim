@@ -54,6 +54,7 @@ Plug 'morhetz/gruvbox'
 
 " Syntax aware
 Plug 'sheerun/vim-polyglot'
+Plug 'alunny/pegjs-vim'
 
 " Colors
 Plug 'norcalli/nvim-colorizer.lua'
