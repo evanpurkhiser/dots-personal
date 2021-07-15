@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-function prompt_command()
-{
+function prompt_command() {
   local short_pwd="${PWD##*/}"
   local attr=" "
 

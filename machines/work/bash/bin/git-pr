@@ -60,10 +60,10 @@ branch="evanpurkhiser/$(git show -q --format=%s "$head" | sed -E 's/[^0-9a-zA-Z 
 branch=$(echo "$branch" | perl -ne 'print lc')
 
 # Select assignees
-assignees="$(PYENV_VERSION=3.7.2 python3 -c "$assignees_query" |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf --header='Select Assignees:' --with-nth=2.. -m |
-    cut -f1 |
-    paste -s -d, -)"
+assignees="$(PYTHON_VERSION=3.10 VIRTUAL_ENV= python -c "$assignees_query" |
+  FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf --header='Select Assignees:' --with-nth=2.. -m |
+  cut -f1 |
+  paste -s -d, -)"
 
 echo "Opening pull-request from remote branch ${branch}"
 
