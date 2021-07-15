@@ -113,6 +113,8 @@ if match(&runtimepath, 'coc.nvim') != -1
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> ga <Plug>(coc-codeaction)
+  vmap <silent> ga <Plug>(coc-codeaction-selected)
 
   " Trigger info window
   nnoremap <silent> <Space> :call CocActionAsync('doHover')<CR>
