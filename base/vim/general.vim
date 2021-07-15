@@ -203,6 +203,7 @@ let g:neoformat_typescriptreact_prettier = {
       \ 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript'],
       \ 'stdin': 1
       \ }
+let g:neoformat_enabled_typescript = ['prettier']
 let g:neoformat_enabled_typescriptreact = ['prettier']
 
 " Use gofmt -s
