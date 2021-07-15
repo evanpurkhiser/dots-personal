@@ -1,7 +1,10 @@
 {
   "typescript.showUnused": true,
   "diagnostic.enable": true,
-  "eslint.enable": true,
+  "diagnostic.level": "information",
   "eslint.run": "onType",
-  "python.pythonPath": "${workspaceFolder}/.venv/bin/python"
+  "eslint.autoFixOnSave": true,
+  "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true
 }
