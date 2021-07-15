@@ -12,7 +12,8 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true
 chflags hidden ~/Movies
 chflags hidden ~/Pictures
 
-# TODO: Set keybindsings
+# TODO: Set keybindings
+
 # Autohide dock
 
 defaults write com.apple.spotlight orderedItems -array \
@@ -49,11 +50,18 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
+# Don't play sound effects
+defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -int 0
+
 # Hide colorsnapper from the menubar
 defaults write com.koolesache.ColorSnapper2 showMenubarIcon false
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
+
+# Faster key repeat rate
+defaults write -g InitialKeyRepeat -int 15 # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 0         # normal minimum is 2 (30 ms)
 
 for app in \
   "cfprefsd" \
