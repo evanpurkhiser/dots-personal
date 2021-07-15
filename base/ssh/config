@@ -2,6 +2,8 @@ Host *
   ServerAliveInterval 60
   TCPKeepAlive yes
   ForwardAgent yes
+  AddKeysToAgent yes
+  UseKeychain yes
 
   # My username is evan in most places
   User evan
