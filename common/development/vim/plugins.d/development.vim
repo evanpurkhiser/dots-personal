@@ -8,5 +8,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Autosave formatting
 Plug 'sbdchd/neoformat'
 
+" Graphql syntax
+Plug 'jparise/vim-graphql'
+
 " Styled compoennt syntax highlighting
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
