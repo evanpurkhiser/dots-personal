@@ -21,8 +21,13 @@ export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
 export VIMCONFIG="$XDG_CONFIG_HOME/vim"
 export VIMINIT='let $MYVIMRC="$VIMCONFIG/config.vim" | source $MYVIMRC'
 
-# pyright in vim-coc needs node 14
+# Volta node version + tooling management
 if hash volta 2>/dev/null; then
+  # Volta uses the shim pattern, so must be first
+  export VOLTA_HOME="$HOME/.local/lib/volta"
+  export PATH="$VOLTA_HOME/bin:$PATH"
+
+  # pyright in vim-coc needs node 14
   export COC_NODE_PATH="$(volta run --node 14.8.0 node -p 'process.argv[0]')"
 fi
 
@@ -69,12 +74,18 @@ if hash python 2>/dev/null; then
   # Disable python bytecode generation
   export PYTHONDONTWRITEBYTECODE=1
 
-  # Pyenv should follow XDG
-  export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-
   # Configure poetry
   export POETRY_HOME="$HOME/.local/lib/poetry"
   export PATH="$PATH:$POETRY_HOME/bin"
+fi
+
+# Python version management
+if hash pyenv 2>/dev/null; then
+  # Pyenv uses the shim pattern, so must be first
+  export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  export PATH="$PYENV_ROOT/shims:$PATH"
+  eval "$(pyenv init -)"
 fi
 
 if hash aws 2>/dev/null; then

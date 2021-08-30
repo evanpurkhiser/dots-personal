@@ -6,14 +6,6 @@ export SENTRY_SKIP_FORCE_PATCH=1
 # http://docs.celeryproject.org/en/3.1/configuration.html#celery-always-eager
 export CELERY_ALWAYS_EAGER=True
 
-# Setup volta for javascript managment
-export VOLTA_HOME="$HOME/.local/lib/volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-[ -s "$VOLTA_HOME/load.sh" ] && source "$VOLTA_HOME/load.sh"
-
-# Setup pyenv
-[ -d "$PYENV_ROOT" ] && eval "$(pyenv init -)"
-
 # Collect data for @billy
 export SENTRY_INSTRUMENTATION=1
 
