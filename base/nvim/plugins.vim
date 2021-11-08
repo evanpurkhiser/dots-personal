@@ -2,7 +2,7 @@
 
 let g:plug_window = 'enew'
 
-call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
+call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
 
 " Lots of good tpope
 Plug 'tpope/vim-sensible'   " Sensible options that should always be set
@@ -60,7 +60,7 @@ Plug 'alunny/pegjs-vim'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " Load other plugins
-for plugin in split(globpath('$XDG_CONFIG_HOME/vim/plugins.d', '*.vim'), '\n')
+for plugin in split(globpath('$XDG_CONFIG_HOME/nvim/plugins.d', '*.vim'), '\n')
     execute('source '.plugin)
 endfor
 

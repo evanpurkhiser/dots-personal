@@ -16,11 +16,6 @@ export PATH="$HOME/.local/bin:$XDG_CONFIG_HOME/bash/bin:$PATH"
 # Set path to inputrc configuration
 export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
 
-# Specify vimrc path
-# shellcheck disable=SC2016
-export VIMCONFIG="$XDG_CONFIG_HOME/vim"
-export VIMINIT='let $MYVIMRC="$VIMCONFIG/config.vim" | source $MYVIMRC'
-
 # Volta node version + tooling management
 if hash volta 2>/dev/null; then
   # Volta uses the shim pattern, so must be first
