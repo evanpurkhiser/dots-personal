@@ -9,6 +9,7 @@
   ls  = log --date=short --pretty=ls
   rbm = rebase -i origin/master
   rma = !git ls-files --deleted -z | xargs -0 -r git rm
+  cif = !git commit -v --fixup=$(pt --color select-commit)
 
 [pretty]
   ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(auto)%d %C(normal)%s
