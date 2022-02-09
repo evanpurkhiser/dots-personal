@@ -1,51 +1,7 @@
 scriptencoding utf-8
 
 " General vim configurations
-"
-" vim-sensible takes care of most of the really common configuration changes
-" for us. These configurations are more personal and to my liking.
-"
-set termguicolors
 
-set background=dark
-silent! colorscheme gruvbox
-
-" Vertical split coloring
-highlight VertSplit ctermbg=8 ctermfg=black
-set fillchars+=vert:│
-
-set number     " Show line numbers
-set nowrap     " Don't visually wrap lines
-set noshowmode " Don't show mode (--INSERT--, etc)
-set cursorline " Highlight the current cursor line
-set hidden     " Allow buffer switching without having to save
-set list       " Show non-printable characters
-set hlsearch   " Highlight searched text
-set ignorecase " Ignore case when searching
-set smartcase  " Don't ignore case when using uppercase in a search
-set confirm    " Ask for confirmation when closing unsaved files
-
-" Incremental scrolling
-set sidescroll=1
-
-" Remove o option from format options (o caused issuing o/O on a comment line
-" to start a new comment line, undesired by me)
-set formatoptions-=o
-
-" Don't autoselect the first entry when doing completion
-set completeopt=longest,menuone
-
-" Disable backup files
-set nobackup nowritebackup noswapfile
-
-" Tab configurations
-set smartindent expandtab tabstop=2 shiftwidth=2
-
-" Ignore cache type files
-set wildignore+=*/cache/*,*.sassc
-
-" Better list characters
-set listchars=tab:\›\ ,trail:-
 highlight SpecialKey ctermbg=8 ctermfg=10
 
 " More in-your-face spelling highlights
