@@ -25,6 +25,7 @@ profiles:
     - common/platform-osx
     - common/development
     - machines/work
+    - machines/home
   home:
     - common/platform-osx
     - common/development
