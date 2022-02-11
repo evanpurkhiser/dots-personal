@@ -4,11 +4,11 @@ function prompt_command() {
   local short_pwd="${PWD##*/}"
   local attr=" "
 
-  [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] && attr="${attr}\\[\\e[33m\\]☳ "
+  [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] && attr="${attr}\\[\\e[33m\\] "
 
-  [ -n "$VIRTUAL_ENV" ] && attr="${attr}\\[\\e[32m\\]🐍 "
+  [ -n "$VIRTUAL_ENV" ] && attr="${attr}\\[\\e[32m\\] "
 
-  PS1="\\[\\e[34m\\]${short_pwd:-/}\\[\\e[97m\\] on \\[\\e[35m\\]\\h${attr}\\[\\e[97m\\]›\\[\\e[0m\\] "
+  PS1="\\[\\e[34m\\]${short_pwd:-/}\\[\\e[97m\\] \\[\\e[35m\\]\\h${attr}\\[\\e[97m\\]›\\[\\e[0m\\] "
 }
 
 PROMPT_COMMAND=prompt_command
