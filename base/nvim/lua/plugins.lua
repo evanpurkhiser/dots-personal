@@ -34,10 +34,6 @@ return packer.startup(function(use)
   -- Automagically root
   use({ "airblade/vim-rooter" })
 
-  -- Automatically enable 'paste' when pasting from a supporting terminal
-  -- http://www.xfree86.org/current/ctlseqs.html#Bracketed Paste Mode
-  use({ "ConradIrwin/vim-bracketed-paste" })
-
   -- Fuzzy file / buffer / mru finder
   use({ "junegunn/fzf", dir = "~/.local/lib/fzf", run = "./install --bin" })
 
