@@ -32,7 +32,7 @@ return packer.startup(function(use)
   use({ "lambdalisue/suda.vim" })
 
   -- Automagically root
-  use({ "airblade/vim-rooter" })
+  use({ "ygm2/rooter.nvim" })
 
   -- Fuzzy file / buffer / mru finder
   use({ "junegunn/fzf", dir = "~/.local/lib/fzf", run = "./install --bin" })
