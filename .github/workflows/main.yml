@@ -13,7 +13,7 @@ jobs:
 
     - name: Install dotfiles
       env:
-        TMP_DOTS: ${{ runner.temp}}/etc
+        TMP_DOTS: ${{ runner.temp }}/etc
       run: |
         mkdir -p $TMP_DOTS
         cp -r . $TMP_DOTS
