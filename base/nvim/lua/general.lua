@@ -99,9 +99,6 @@ exec(
 
   " Spelling should be done at the toplevel (non-syntax text is checked)
   syntax spell toplevel
-
-  " Disable fzf preview window
-  let g:fzf_preview_window = ''
   ]],
   false
 )

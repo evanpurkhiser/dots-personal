@@ -43,9 +43,9 @@ nmap({ "<Leader>Y", '"+Y', {} })
 vmap({ "<Leader>y", '"+y', {} })
 
 -- fzf
-nmap({ "<Leader><Leader>", "<cmd>GFiles<CR>", { silent = true } })
-nmap({ "<Leader>p", "<cmd>Files<CR>", { silent = true } })
-nmap({ "<Leader>b", "<cmd>Buffers<CR>", { silent = true } })
+nmap({ "<Leader><Leader>", "<cmd>lua require('fzf-lua').git_files()<CR>" })
+nmap({ "<Leader>p", "<cmd>lua require('fzf-lua').files()<CR>" })
+nmap({ "<Leader>b", "<cmd>lua require('fzf-lua').buffers()<CR>" })
 
 -- Substitute
 nmap({ "s", "<cmd>lua require('substitute').operator()<cr>" })

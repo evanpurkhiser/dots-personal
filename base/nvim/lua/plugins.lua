@@ -42,8 +42,10 @@ return packer.startup(function(use)
   use({ "lambdalisue/suda.vim" })
 
   -- Fuzzy file / buffer / mru finder
-  use({ "junegunn/fzf", dir = "~/.local/lib/fzf", run = "./install --bin" })
-  use({ "junegunn/fzf.vim" })
+  use({
+    "ibhagwan/fzf-lua",
+    requires = { "kyazdani42/nvim-web-devicons" },
+  })
 
   -- Syntax aware
   use({
