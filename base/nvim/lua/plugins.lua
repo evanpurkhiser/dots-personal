@@ -24,6 +24,14 @@ return packer.startup(function(use)
   use({ "tpope/vim-surround" })
   use({ "tpope/vim-commentary" })
   use({ "tpope/vim-unimpaired" })
+  use({ "tpope/vim-fugitive" })
+  use({ "tpope/vim-rhubarb" })
+
+  -- Improve boot-time performance by replacing filetype.vim
+  use({ "nathom/filetype.nvim" })
+
+  -- Automatically set the root directory
+  use({ "ygm2/rooter.nvim" })
 
   -- Directory browsing
   use({ "justinmk/vim-dirvish" })
@@ -31,51 +39,134 @@ return packer.startup(function(use)
   -- Sudo write
   use({ "lambdalisue/suda.vim" })
 
-  -- Automagically root
-  use({ "ygm2/rooter.nvim" })
-
   -- Fuzzy file / buffer / mru finder
   use({ "junegunn/fzf", dir = "~/.local/lib/fzf", run = "./install --bin" })
-
   use({ "junegunn/fzf.vim" })
 
-  -- Prettier status line
-  use({ "vim-airline/vim-airline" })
-  use({ "vim-airline/vim-airline-themes" })
+  -- Syntax aware
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    event = "BufRead",
+    cmd = {
+      "TSInstall",
+      "TSInstallInfo",
+      "TSInstallSync",
+      "TSUninstall",
+      "TSUpdate",
+      "TSUpdateSync",
+      "TSDisableAll",
+      "TSEnableAll",
+    },
+    config = function()
+      require("configs.treesitter").setup()
+    end,
+  })
+
+  -- Colors
+  use({
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("configs.colorizer").setup()
+    end,
+  })
+
+  -- Icons
+  use({
+    "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("configs.icons").setup()
+    end,
+  })
+
+  use({
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require("configs.lualine").setup()
+    end,
+  })
+
+  use({
+    "akinsho/bufferline.nvim",
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require("configs.bufferline").setup()
+    end,
+  })
+
+  -- Show vertical lines for tab alignment
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufRead",
+    config = function()
+      require("configs.indent-blankline").setup()
+    end,
+  })
+
+  -- Snippet engine
+  use({ "L3MON4D3/LuaSnip" })
+
+  -- Utilities for better configuration of the neovim LSP
+  use({
+    "neovim/nvim-lspconfig",
+    event = "BufRead",
+    config = function()
+      require("configs.lsp").setup()
+    end,
+  })
+
+  -- Helper plugin to handle installing LSP servers
+  use({
+    "williamboman/nvim-lsp-installer",
+    event = "BufRead",
+  })
+
+  -- Autocompletion
+  use({
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require("configs.cmp").setup()
+    end,
+  })
+
+  -- Completion source: buffer
+  use({
+    "hrsh7th/cmp-nvim-lsp",
+    after = "nvim-cmp",
+  })
+
+  -- Completion source: buffer
+  use({
+    "hrsh7th/cmp-buffer",
+    after = "nvim-cmp",
+  })
+
+  -- Completion source: snippet
+  use({
+    "saadparwaiz1/cmp_luasnip",
+    after = "nvim-cmp",
+  })
+
+  -- Adds a range command for swapping with the yanked text
+  use({
+    "gbprod/substitute.nvim",
+    config = function()
+      require("configs.substitute").setup()
+    end,
+  })
 
   -- Helper for closing a buffer without closing the split
-  use({ "qpkorr/vim-bufkill" })
+  use({ "moll/vim-bbye" })
 
   -- Adds argument text objects
   use({ "b4winckler/vim-angry" })
 
-  -- Adds a range command for swapping with the yanked text
-  use({ "svermeulen/vim-subversive" })
-
-  -- Show vertical lines for tab alignment
-  use({ "Yggdroot/indentLine" })
-
   -- Color schemes
-  use({ "morhetz/gruvbox" })
-
-  -- Syntax aware
-  use({ "sheerun/vim-polyglot" })
-  use({ "alunny/pegjs-vim" })
-
-  -- Colors
-  use({ "norcalli/nvim-colorizer.lua" })
-
-  use({ "tpope/vim-fugitive" })
-  use({ "tpope/vim-rhubarb" })
-
-  -- Omnicomplete support / diagnostics
-  use({ "neoclide/coc.nvim", branch = "release" })
+  use({ "eddyekofo94/gruvbox-flat.nvim" })
 
   -- Autosave formatting
   use({ "sbdchd/neoformat" })
-
-  -- Graphql syntax
-  use({ "jparise/vim-graphql" })
 
   -- Styled compoennt syntax highlighting
   use({ "styled-components/vim-styled-components", branch = "main" })
