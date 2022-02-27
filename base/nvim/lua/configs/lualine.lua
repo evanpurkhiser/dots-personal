@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  local status_ok, lualine = pcall(require, "lualine")
-  if not status_ok then
+  local lualine = safe_require("lualine")
+  if not lualine then
     return
   end
 

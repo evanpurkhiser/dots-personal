@@ -1,8 +1,8 @@
 M = {}
 
 function M.setup()
-  local status_ok, colorizer = pcall(require, "colorizer")
-  if not status_ok then
+  local colorizer = safe_require("colorizer")
+  if not colorizer then
     return
   end
 

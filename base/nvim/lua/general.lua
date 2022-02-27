@@ -131,11 +131,6 @@ exec(
 
   " Disable fzf preview window
   let g:fzf_preview_window = ''
-
-  " Load other config files
-  for config in split(globpath('$XDG_CONFIG_HOME/nvim/config.d', '*.vim'), '\n')
-      execute('source '.config)
-  endfor
   ]],
   false
 )

@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  local status_ok, bufferline = pcall(require, "bufferline")
-  if not status_ok then
+  local bufferline = safe_require("bufferline")
+  if not bufferline then
     return
   end
 
@@ -19,7 +19,7 @@ function M.setup()
       enforce_regular_tabs = false,
       view = "multiwindow",
       show_buffer_close_icons = false,
-      separator_style = {'', ''},
+      separator_style = { "", "" },
       always_show_bufferline = true,
       diagnostics = false,
     },

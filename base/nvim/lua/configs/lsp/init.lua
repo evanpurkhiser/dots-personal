@@ -1,5 +1,5 @@
-local status_ok, _ = pcall(require, "lspconfig")
-if not status_ok then
+local lspconfig = safe_require("lspconfig")
+if not lspconfig then
   return
 end
 

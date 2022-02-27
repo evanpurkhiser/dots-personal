@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
-  if not status_ok then
+  local lsp_installer = safe_require("nvim-lsp-installer")
+  if not lsp_installer then
     return
   end
 

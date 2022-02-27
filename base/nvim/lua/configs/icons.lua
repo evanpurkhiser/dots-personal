@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  local status_ok, icons = pcall(require, "nvim-web-devicons")
-  if not status_ok then
+  local icons = safe_require("nvim-web-devicons")
+  if not icons then
     return
   end
 
