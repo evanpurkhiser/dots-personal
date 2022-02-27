@@ -100,35 +100,6 @@ exec(
   " Spelling should be done at the toplevel (non-syntax text is checked)
   syntax spell toplevel
 
-  " Neoformat configuration
-  " -----------------------
-  let g:neoformat_run_all_formatters = 1
-  let g:neoformat_enabled_python = ['black', 'isort']
-  let g:neoformat_enabled_javascript = ['prettierd', 'eslint_d']
-  let g:neoformat_enabled_go = ['gofmt']
-  let g:neoformat_enabled_json = ['prettierd', 'eslint_d']
-  let g:neoformat_enabled_less = ['prettierd', 'eslint_d']
-  let g:neoformat_enabled_markdown = []
-  let g:neoformat_enabled_yaml = []
-  let g:neoformat_enabled_lua = ['stylua']
-  let g:neoformat_enabled_javascriptreact = ['prettierd', 'eslint_d']
-  let g:neoformat_enabled_typescript = ['prettierd', 'eslint_d']
-  let g:neoformat_enabled_typescriptreact = ['prettierd', 'eslint_d']
-
-  " Use gofmt -s
-  let g:neoformat_go_gofmt = {
-        \ 'exe': 'gofmt',
-        \ 'args': ['-s'],
-        \ 'stdin': 1
-        \ }
-
-  " format on save.
-  " Silence E790: https://vi.stackexchange.com/a/13401/1787
-  augroup fmt
-    au!
-    au BufWritePre * try | undojoin | catch /^Vim\%((\a\+)\)\=:E790/ | finally | Neoformat | endtry
-  augroup END
-
   " Disable fzf preview window
   let g:fzf_preview_window = ''
   ]],

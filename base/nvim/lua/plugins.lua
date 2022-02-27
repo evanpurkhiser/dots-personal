@@ -19,6 +19,8 @@ local packer = require("packer")
 return packer.startup(function(use)
   use({ "wbthomason/packer.nvim" })
 
+  use({ "nvim-lua/plenary.nvim" })
+
   use({ "tpope/vim-rsi" })
   use({ "tpope/vim-sleuth" })
   use({ "tpope/vim-surround" })
@@ -79,6 +81,7 @@ return packer.startup(function(use)
     end,
   })
 
+  -- Status line
   use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
@@ -87,6 +90,7 @@ return packer.startup(function(use)
     end,
   })
 
+  -- Buffer line
   use({
     "akinsho/bufferline.nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
@@ -120,6 +124,14 @@ return packer.startup(function(use)
   use({
     "williamboman/nvim-lsp-installer",
     event = "BufRead",
+  })
+
+  -- Null language server, provides many formatting built-ins
+  use({
+    "jose-elias-alvarez/null-ls.nvim",
+    config = function()
+      require("configs.null-ls").setup()
+    end,
   })
 
   -- Autocompletion
@@ -164,9 +176,6 @@ return packer.startup(function(use)
 
   -- Color schemes
   use({ "eddyekofo94/gruvbox-flat.nvim" })
-
-  -- Autosave formatting
-  use({ "sbdchd/neoformat" })
 
   -- Styled compoennt syntax highlighting
   use({ "styled-components/vim-styled-components", branch = "main" })
