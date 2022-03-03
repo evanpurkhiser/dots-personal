@@ -5,5 +5,7 @@
 source "$HOME/.local/lib/fzf/shell/completion.bash"
 source "$HOME/.local/lib/fzf/shell/key-bindings.bash"
 
+export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
+
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_CTRL_T_COMMAND="fd --type f --follow --hidden"
