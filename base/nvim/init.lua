@@ -9,6 +9,6 @@ function _G.safe_require(module)
   return result
 end
 
-require("plugins")
-require("general")
-require("mappings")
+require("my.plugins")
+require("my.general")
+require("my.mappings")

@@ -9,7 +9,7 @@ local make_map = function(mode)
 
     -- Support specifying a lua function
     if conf.fn then
-      cmd = string.format('<cmd>lua require("mappings").fn.%s()<CR>', conf.fn)
+      cmd = string.format('<cmd>lua require("my.mappings").fn.%s()<CR>', conf.fn)
     end
 
     if conf.bufnr ~= nil then

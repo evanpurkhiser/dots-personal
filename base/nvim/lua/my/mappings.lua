@@ -1,6 +1,6 @@
 local M = {}
 
-local map = require("utils").map
+local map = require("my.utils").map
 
 local nmap = map.nmap
 local imap = map.imap

@@ -13,5 +13,5 @@ function lspconfig_window.default_opts(opts)
   return win_opts
 end
 
-require("configs.lsp.installer").setup()
-require("configs.lsp.handlers").setup()
+require("my.configs.lsp.installer").setup()
+require("my.configs.lsp.handlers").setup()

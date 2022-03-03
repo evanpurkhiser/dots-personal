@@ -6,7 +6,7 @@ function M.setup()
     return
   end
 
-  local handlers = require("configs.lsp.handlers")
+  local handlers = require("my.configs.lsp.handlers")
 
   lsp_installer.on_server_ready(function(server)
     local opts = server:get_default_options()

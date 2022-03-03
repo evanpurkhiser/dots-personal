@@ -44,7 +44,7 @@ function M.setup()
 end
 
 local function lsp_keymaps(bufnr)
-  local map = require("utils").map
+  local map = require("my.utils").map
 
   map.nmap({
     "gD",
