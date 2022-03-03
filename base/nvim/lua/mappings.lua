@@ -55,9 +55,9 @@ nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
 nmap({ "gb", ":GBrowse<cr>" })
 
 -- Substitute
-nmap({ "s", "<cmd>lua require('substitute').operator()<cr>" })
-nmap({ "ss", "<cmd>lua require('substitute').line()<cr>" })
-nmap({ "S", "<cmd>lua require('substitute').eol()<cr>" })
+nmap({ "s", "<cmd>lua require('substitute').operator()<CR>" })
+nmap({ "ss", "<cmd>lua require('substitute').line()<CR>" })
+nmap({ "S", "<cmd>lua require('substitute').eol()<CR>" })
 
 -- Yank filepath into system clipboard
 nmap({
