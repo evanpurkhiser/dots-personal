@@ -45,6 +45,9 @@ return packer.startup(function(use)
   use({
     "ibhagwan/fzf-lua",
     requires = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require("configs.fzf").setup()
+    end,
   })
 
   -- Syntax aware

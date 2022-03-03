@@ -46,6 +46,13 @@ vmap({ "<Leader>y", '"+y', {} })
 nmap({ "<Leader><Leader>", "<cmd>lua require('fzf-lua').git_files()<CR>" })
 nmap({ "<Leader>p", "<cmd>lua require('fzf-lua').files()<CR>" })
 nmap({ "<Leader>b", "<cmd>lua require('fzf-lua').buffers()<CR>" })
+nmap({ "<Leader>f", "<cmd>lua require('fzf-lua').live_grep_native()<CR>" })
+
+-- Toggle spelling
+nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
+
+-- Git
+nmap({ "gb", ":GBrowse<cr>" })
 
 -- Substitute
 nmap({ "s", "<cmd>lua require('substitute').operator()<cr>" })
