@@ -69,7 +69,7 @@ function M.setup()
     },
     py = {
       icon = "",
-      color = "#a3b8ef",
+      color = "#FFBC06",
       name = "py",
     },
     ["robots.txt"] = {
