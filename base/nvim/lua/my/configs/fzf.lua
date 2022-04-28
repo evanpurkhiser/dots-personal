@@ -65,6 +65,15 @@ function M.setup()
       ["--marker"] = "›",
     },
 
+    actions = {
+      files = {
+        ["default"] = fzf.actions.file_tabedit,
+        ["ctrl-s"] = fzf.actions.file_split,
+        ["ctrl-v"] = fzf.actions.file_vsplit,
+        ["alt-q"] = fzf.actions.file_sel_to_qf,
+      },
+    },
+
     files = { prompt = "files › " },
 
     git = {
