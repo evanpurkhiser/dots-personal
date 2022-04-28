@@ -7,8 +7,8 @@ function M.setup()
   end
 
   colorizer.setup({ "*" }, {
-    RGB = true,
     RRGGBB = true,
+    RGB = false,
     names = false,
     RRGGBBAA = false,
   })
