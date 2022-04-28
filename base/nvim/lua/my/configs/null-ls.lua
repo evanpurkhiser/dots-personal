@@ -24,7 +24,7 @@ function M.setup()
     on_attach = function(client)
       -- Handle format on save if we have an active LSP with buffer formatting
       if client.resolved_capabilities.document_formatting then
-        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync({}, 10000)")
       end
     end,
   })
