@@ -41,6 +41,14 @@ return packer.startup(function(use)
   -- Sudo write
   use({ "lambdalisue/suda.vim" })
 
+  -- Icons
+  use({
+    "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("my.configs.icons").setup()
+    end,
+  })
+
   -- Fuzzy file / buffer / mru finder
   use({
     "ibhagwan/fzf-lua",
@@ -78,14 +86,6 @@ return packer.startup(function(use)
     end,
   })
 
-  -- Icons
-  use({
-    "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("my.configs.icons").setup()
-    end,
-  })
-
   -- Status line
   use({
     "nvim-lualine/lualine.nvim",
@@ -98,6 +98,7 @@ return packer.startup(function(use)
   -- Buffer line
   use({
     "akinsho/bufferline.nvim",
+    tag = "*",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
       require("my.configs.bufferline").setup()
@@ -120,6 +121,12 @@ return packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     event = "BufRead",
+    cmd = {
+      "LspInfo",
+      "LspStart",
+      "LspStop",
+      "LspRestart",
+    },
     config = function()
       require("my.configs.lsp").setup()
     end,
@@ -128,7 +135,17 @@ return packer.startup(function(use)
   -- Helper plugin to handle installing LSP servers
   use({
     "williamboman/nvim-lsp-installer",
+    requires = { "neovim/nvim-lspconfig" },
     event = "BufRead",
+  })
+
+  -- LSP status lines
+  use({
+    "j-hui/fidget.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("fidget").setup()
+    end,
   })
 
   -- Null language server, provides many formatting built-ins
