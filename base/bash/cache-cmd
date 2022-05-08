@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+function cache-cmd() {
+	local cmd_full="$@"
+	local cmd_short="${cmd_full%% *}"
+	local checksum=$(echo "${cmd_full}" | md5)
+
+	local cache_dir="${XDG_CACHE_HOME}/cmd-cache"
+	local cached_cmd="${cache_dir}/${cmd_short}.${checksum}"
+
+	[[ ! -d "${cache_dir}" ]] && mkdir -p "${cache_dir}"
+	[[ ! -f "${cached_cmd}" ]] && eval $cmd_full >"${cached_cmd}"
+
+	cat "${cached_cmd}"
+}

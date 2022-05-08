@@ -5,3 +5,6 @@ export PATH="$PATH:$(brew --prefix)/bin"
 
 # Include gnu coreutils override bin
 export PATH="$HOME/.local/lib/gnu-override/bin:$PATH"
+
+# Avoid brew trying to update during install
+export HOMEBREW_NO_AUTO_UPDATE=1

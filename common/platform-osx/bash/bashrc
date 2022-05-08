@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Use bash completion
-source "$(brew --prefix)/etc/bash_completion"
+progress_timer "load bash-completion" source "$(cache-cmd brew --prefix)/etc/bash_completion"
