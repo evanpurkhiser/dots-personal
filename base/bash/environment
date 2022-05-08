@@ -59,10 +59,12 @@ export PATH="$PATH:$POETRY_HOME/bin"
 
 # Python version management
 # Pyenv uses the shim pattern, so must be first
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH="$PYENV_ROOT/shims:$PATH"
-eval "$(cache-cmd 'pyenv init --no-rehash -')"
+if hash pyenv 2>/dev/null; then
+	export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+	export PATH="$PYENV_ROOT/shims:$PATH"
+	eval "$(cache-cmd 'pyenv init --no-rehash -')"
+fi
 
 # AWS cli
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
