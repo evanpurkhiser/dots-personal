@@ -3,4 +3,6 @@
 source "$DOTS_SOURCE/base/bash/environment"
 
 # Install vim dependnecies
-hash nvim 2>/dev/null && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+if hash nvim 2>/dev/null; then
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+fi
