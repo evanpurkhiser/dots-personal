@@ -38,10 +38,40 @@ grep_ignored.toString = function(self)
   return str
 end
 
+M.winopts_bottom = {
+  height = 0.3,
+  width = 1,
+  row = 1,
+  col = 0,
+  border = { "", "─", "", "", "", "", "", "" },
+  preview = { horizontal = "right:50%" },
+}
+
 function M.setup()
   local fzf = safe_require("fzf-lua")
   if not fzf then
     return
+  end
+
+  -- Improve info / warn / err formatting
+  local fzf_utils = require("fzf-lua.utils")
+
+  fzf_utils.info = function(msg)
+    vim.cmd("echohl Directory")
+    fzf_utils._echo_multiline("[fzf-lua] " .. msg)
+    vim.cmd("echohl None")
+  end
+
+  fzf_utils.warn = function(msg)
+    vim.cmd("echohl WarningMsg")
+    fzf_utils._echo_multiline("[fzf-lua] " .. msg)
+    vim.cmd("echohl None")
+  end
+
+  fzf_utils.err = function(msg)
+    vim.cmd("echohl ErrorMsg")
+    fzf_utils._echo_multiline("[fzf-lua] " .. msg)
+    vim.cmd("echohl None")
   end
 
   fzf.setup({
@@ -67,7 +97,7 @@ function M.setup()
 
     actions = {
       files = {
-        ["default"] = fzf.actions.file_tabedit,
+        ["default"] = fzf.actions.file_edit,
         ["ctrl-s"] = fzf.actions.file_split,
         ["ctrl-v"] = fzf.actions.file_vsplit,
         ["alt-q"] = fzf.actions.file_sel_to_qf,
@@ -88,6 +118,20 @@ function M.setup()
         preview = { layout = "vertical", vertical = "up:30%" },
       },
       rg_opts = fzf.config.globals.grep.rg_opts .. " " .. grep_ignored:toString(),
+    },
+
+    nvim = {
+      command_history = {
+        prompt = "command history › ",
+        winopts = M.winopts_bottom,
+        fzf_opts = {
+          ["--tiebreak"] = "index",
+          ["--layout"] = "default",
+        },
+        actions = {
+          ["default"] = fzf.actions.ex_run,
+        },
+      },
     },
   })
 end

@@ -112,4 +112,48 @@ nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
 -- Repeat the last execuded macro
 nmap({ ",", "@@" })
 
+function M.lsp_mapping(bufnr)
+  local fzf = require("fzf-lua")
+  local fzf_conf = require("my.configs.fzf")
+
+  local function fzf_lsp(name, opts)
+    local fn = fzf[string.format("lsp_%s", name)]
+    return function()
+      fn(opts or { winopts = fzf_conf.winopts_bottom, jump_to_single_result = true })
+    end
+  end
+
+  -- fzf lsp triggers
+  map.nmap({ "gD", bufnr = bufnr, fn = fzf_lsp("declarations") })
+  map.nmap({ "gd", bufnr = bufnr, fn = fzf_lsp("definitions") })
+  map.nmap({ "gr", bufnr = bufnr, fn = fzf_lsp("references") })
+  map.nmap({ "ga", bufnr = bufnr, fn = fzf_lsp("code_actions") })
+  map.nmap({ "gi", bufnr = bufnr, fn = fzf_lsp("implementations") })
+
+  map.nmap({
+    "gs",
+    fzf_lsp(
+      "document_symbols",
+      { winopts = fzf_conf.winopts_bottom, current_buffer_only = true }
+    ),
+    bufnr = bufnr,
+  })
+
+  map.nmap({
+    "<space>",
+    "<cmd>lua vim.lsp.buf.hover()<CR>",
+    bufnr = bufnr,
+  })
+  map.nmap({
+    "<C-p>",
+    '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>',
+    bufnr = bufnr,
+  })
+  map.nmap({
+    "<C-n>",
+    '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>',
+    bufnr = bufnr,
+  })
+end
+
 return M
