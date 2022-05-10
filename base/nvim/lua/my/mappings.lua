@@ -23,10 +23,24 @@ bmap({ "Q", "<Nop>" })
 cmap({ "<C-p>", "<Up>" })
 cmap({ "<C-n>", "<Down>" })
 
+-- Window movement
+nmap({ "<Tab>", "<C-W><C-w>" })
+nmap({ "<S-Tab>", "<C-W><S-W>" })
+
+-- Buffer management
+nmap({ "<C-]>", "<cmd>bnext<CR>" })
+nmap({ "<C-[>", "<cmd>bprev<CR>" })
+
+-- Do not move cursor when using *
+nmap({
+  "*",
+  "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
+})
+
 -- Save with ^s
 nmap({
   "<C-s>",
-  fn = function()
+  function()
     local path = vim.fn.expand("%")
     local perms = vim.fn.getfperm(path)
     local writeable = vim.fn.filewritable(path)
@@ -42,7 +56,7 @@ nmap({
 -- Close buffers / quit with ^q
 nmap({
   "<C-q>",
-  fn = function()
+  function()
     local buffers = {}
 
     -- Get all buffers
@@ -60,20 +74,6 @@ nmap({
       vim.cmd("confirm Bdelete")
     end
   end,
-})
-
--- Window movement
-nmap({ "<Tab>", "<C-W><C-w>" })
-nmap({ "<S-Tab>", "<C-W><S-W>" })
-
--- Buffer management
-nmap({ "<C-]>", "<cmd>bnext<CR>" })
-nmap({ "<C-[>", "<cmd>bprev<CR>" })
-
--- Do not move cursor when using *
-nmap({
-  "*",
-  "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
 })
 
 -- Quick system copy and paste

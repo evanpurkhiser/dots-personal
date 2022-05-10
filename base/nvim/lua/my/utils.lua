@@ -10,9 +10,14 @@ local make_map = function(mode)
   return function(conf)
     local cmd = conf[2]
 
-    -- Support specifying a lua function
+    -- the `fn` conf may be used
     if conf.fn then
-      M.map_fns[map_fn_index] = conf.fn
+      cmd = conf.fn
+    end
+
+    -- Support specifying a lua function
+    if type(cmd) == "function" then
+      M.map_fns[map_fn_index] = cmd
 
       cmd = string.format('<cmd>lua require("my.utils").map_fns[%s]()<CR>', map_fn_index)
       map_fn_index = map_fn_index + 1
