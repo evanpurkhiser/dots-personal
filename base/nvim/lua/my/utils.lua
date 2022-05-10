@@ -2,6 +2,9 @@ local M = {}
 
 local opts = { noremap = true, silent = false }
 
+local map_fn_index = 0
+M.map_fns = {}
+
 -- Produces a function which defines key maps.
 local make_map = function(mode)
   return function(conf)
@@ -9,7 +12,10 @@ local make_map = function(mode)
 
     -- Support specifying a lua function
     if conf.fn then
-      cmd = string.format('<cmd>lua require("my.mappings").fn.%s()<CR>', conf.fn)
+      M.map_fns[map_fn_index] = conf.fn
+
+      cmd = string.format('<cmd>lua require("my.utils").map_fns[%s]()<CR>', map_fn_index)
+      map_fn_index = map_fn_index + 1
     end
 
     if conf.bufnr ~= nil then
