@@ -5,6 +5,7 @@ local map = require("my.utils").map
 local nmap = map.nmap
 local imap = map.imap
 local vmap = map.vmap
+local cmap = map.cmap
 local bmap = map.bmap
 
 -- Remap ^c to be the same as escape without telling us to use :q to quit. the
@@ -16,6 +17,11 @@ imap({ "<C-c>", "<Esc>" })
 
 -- Disable EX mode
 bmap({ "Q", "<Nop>" })
+
+-- Navigate command mode with proper partial-completion matching (the native
+-- c-n c-p bindings don't do this for some reason)
+cmap({ "<C-p>", "<Up>" })
+cmap({ "<C-n>", "<Down>" })
 
 -- Save with ^s
 nmap({ "<C-s>", fn = "save" })

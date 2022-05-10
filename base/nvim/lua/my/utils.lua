@@ -24,6 +24,7 @@ M.map = {
   nmap = make_map("n"),
   imap = make_map("i"),
   vmap = make_map("v"),
+  cmap = make_map("c"),
   bmap = make_map(""),
 }
 
