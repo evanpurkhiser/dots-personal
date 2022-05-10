@@ -1,7 +1,6 @@
 set echo-control-characters off
 
 # Completion
-set show-all-if-ambiguous on
 set completion-ignore-case on
 set expand-tilde on
 set colored-stats on
