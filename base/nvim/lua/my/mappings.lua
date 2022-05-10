@@ -85,7 +85,8 @@ vmap({ "<Leader>y", '"+y', {} })
 nmap({ "<Leader><Leader>", "<cmd>lua require('fzf-lua').git_files()<CR>" })
 nmap({ "<Leader>p", "<cmd>lua require('fzf-lua').files()<CR>" })
 nmap({ "<Leader>b", "<cmd>lua require('fzf-lua').buffers()<CR>" })
-nmap({ "<Leader>f", "<cmd>lua require('fzf-lua').live_grep_native()<CR>" })
+nmap({ "<Leader>f", "<cmd>lua require('fzf-lua').grep_project()<CR>" })
+nmap({ "<Leader>r", "<cmd>lua require('fzf-lua').command_history()<CR>" })
 
 -- Toggle spelling
 nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
