@@ -117,6 +117,9 @@ return packer.startup(function(use)
   -- Snippet engine
   use({ "L3MON4D3/LuaSnip" })
 
+  -- Helper plugin to handle installing LSP servers
+  use({ "williamboman/nvim-lsp-installer" })
+
   -- Utilities for better configuration of the neovim LSP
   use({
     "neovim/nvim-lspconfig",
@@ -130,13 +133,6 @@ return packer.startup(function(use)
     config = function()
       require("my.configs.lsp").setup()
     end,
-  })
-
-  -- Helper plugin to handle installing LSP servers
-  use({
-    "williamboman/nvim-lsp-installer",
-    requires = { "neovim/nvim-lspconfig" },
-    event = "BufRead",
   })
 
   -- LSP status lines
@@ -159,27 +155,14 @@ return packer.startup(function(use)
   -- Autocompletion
   use({
     "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "saadparwaiz1/cmp_luasnip",
+    },
     config = function()
       require("my.configs.cmp").setup()
     end,
-  })
-
-  -- Completion source: buffer
-  use({
-    "hrsh7th/cmp-nvim-lsp",
-    after = "nvim-cmp",
-  })
-
-  -- Completion source: buffer
-  use({
-    "hrsh7th/cmp-buffer",
-    after = "nvim-cmp",
-  })
-
-  -- Completion source: snippet
-  use({
-    "saadparwaiz1/cmp_luasnip",
-    after = "nvim-cmp",
   })
 
   -- Adds a range command for swapping with the yanked text
