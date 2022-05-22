@@ -28,8 +28,12 @@ nmap({ "<Tab>", "<C-W><C-w>" })
 nmap({ "<S-Tab>", "<C-W><S-W>" })
 
 -- Buffer management
+--
+-- XXX: Using `<Esc>` for the previous buffer (which in typical terminals is
+-- outputted for ^[) since for whatever reason, sometimes vim doesn't
+-- understand <C-[>`
 nmap({ "<C-]>", "<cmd>bnext<CR>" })
-nmap({ "<C-[>", "<cmd>bprev<CR>" })
+nmap({ "<Esc>", "<cmd>bprev<CR>" })
 
 -- Do not move cursor when using *
 nmap({
