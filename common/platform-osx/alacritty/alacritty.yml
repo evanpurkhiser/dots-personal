@@ -280,4 +280,7 @@ key_bindings:
   - { key: Key8,     mods: Alt|Shift, chars: "\x1b*"                     } # Alt + *
   - { key: Key3,     mods: Alt|Shift, chars: "\x1b#"                     } # Alt + #
   - { key: Key3,     mods: Alt|Shift, chars: "\x1b#"                     } # Alt + #
-  - { key: Q,        mods: Control,   chars: "\x11"                      } # ctrl-q seems to be temporarily broken
+
+  # Fixes ^Q
+  - { key: Q,        mods: Control,   chars: "\x11"                      }
+
