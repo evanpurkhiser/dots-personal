@@ -118,7 +118,7 @@ return packer.startup(function(use)
   use({
     "L3MON4D3/LuaSnip",
     config = function()
-      require(".configs.luasnip").setup()
+      require("my.configs.luasnip").setup()
     end,
   })
 
