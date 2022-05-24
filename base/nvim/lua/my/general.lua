@@ -1,4 +1,3 @@
-local exec = vim.api.nvim_exec
 local set = vim.opt
 local cmd = vim.cmd
 local g = vim.g
@@ -22,7 +21,7 @@ set.termguicolors = true
 set.background = "dark"
 
 -- Vertical split coloring
-cmd("highlight VertSplit ctermbg=8 ctermfg=black")
+vim.api.nvim_set_hl(0, "VertSplit", { link = "FloatBorder" })
 set.fillchars:append("vert:│")
 
 -- Better list characters
@@ -52,41 +51,33 @@ g.loaded_netrwPlugin = false
 g.loaded_netrwSettngs = false
 g.loaded_netrwFileHandlers = false
 
--- Enable spell check in git commit messages
-exec(
-  [[
-  augroup CommitSpellCheck
-    au!
-    au BufRead COMMIT_EDITMSG setlocal spell
-  augroup END
-  ]],
-  false
-)
+vim.api.nvim_create_autocmd("BufRead", {
+  desc = "Enable spell check in git commit messages",
+  group = vim.api.nvim_create_augroup("CommitSpellCheck", {}),
+  pattern = "COMMIT_EDITMSG",
+  callback = function()
+    set.spell = true
+  end,
+})
 
--- Enable spell check in git commit messages
-exec(
-  [[
-  augroup HelpWindow
-    au!
-    au FileType help wincmd L
-  augroup END
-  ]],
-  false
-)
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight yanked text",
+  group = vim.api.nvim_create_augroup("YankHighlight", {}),
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 800 })
+  end,
+})
 
--- Highlight
-exec(
-  [[
-  augroup YankHighlight
-    au!
-    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=800}
-  augroup end
-  ]],
-  false
-)
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Open help to the right",
+  group = vim.api.nvim_create_augroup("HelpWindow", {}),
+  pattern = "help",
+  command = "wincmd L",
+})
 
 -- Make searches nice and in-your-face
-cmd("highlight! link Search Todo")
+vim.api.nvim_set_hl(0, "Search", { link = "Todo" })
 
 --- Spelling should be done at the toplevel (non-syntax text is checked)
 cmd("syntax spell toplevel")
