@@ -44,18 +44,7 @@ function M.setup()
 end
 
 M.on_attach = function(client, bufnr)
-  if client.name == "tsserver" then
-    client.server_capabilities.documentFormattingProvider = false
-  end
-  if client.name == "jsonls" then
-    client.server_capabilities.documentFormattingProvider = false
-  end
-  if client.name == "html" then
-    client.server_capabilities.documentFormattingProvider = false
-  end
-
   require("my.mappings").lsp_mapping(bufnr)
-  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 end
 
 local capabilities
