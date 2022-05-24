@@ -115,7 +115,15 @@ return packer.startup(function(use)
   })
 
   -- Snippet engine
-  use({ "L3MON4D3/LuaSnip" })
+  use({
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require(".configs.luasnip").setup()
+    end,
+  })
+
+  -- vscode snippets
+  use({ "rafamadriz/friendly-snippets" })
 
   -- Helper plugin to handle installing LSP servers
   use({ "williamboman/nvim-lsp-installer" })
