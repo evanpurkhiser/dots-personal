@@ -1,13 +1,11 @@
 local M = {}
 
-local opts = { noremap = true, silent = false }
-
-local map_fn_index = 0
-M.map_fns = {}
+local default_opts = { noremap = true, silent = false }
 
 -- Produces a function which defines key maps.
 local make_map = function(mode)
   return function(conf)
+    local keybind = conf[1]
     local cmd = conf[2]
 
     -- the `fn` conf may be used
@@ -15,18 +13,18 @@ local make_map = function(mode)
       cmd = conf.fn
     end
 
-    -- Support specifying a lua function
-    if type(cmd) == "function" then
-      M.map_fns[map_fn_index] = cmd
+    local options = conf[3] or default_opts
 
-      cmd = string.format('<cmd>lua require("my.utils").map_fns[%s]()<CR>', map_fn_index)
-      map_fn_index = map_fn_index + 1
+    -- A lua funciton passed as the cmd argument goes into the callback
+    if type(cmd) == "function" then
+      options = vim.tbl_extend("force", options, { callback = cmd })
+      cmd = ""
     end
 
     if conf.bufnr ~= nil then
-      vim.api.nvim_buf_set_keymap(conf.bufnr, mode, conf[1], cmd, conf[3] or opts)
+      vim.api.nvim_buf_set_keymap(conf.bufnr, mode, keybind, cmd, options)
     else
-      vim.api.nvim_set_keymap(mode, conf[1], cmd, conf[3] or opts)
+      vim.api.nvim_set_keymap(mode, keybind, cmd, options)
     end
   end
 end

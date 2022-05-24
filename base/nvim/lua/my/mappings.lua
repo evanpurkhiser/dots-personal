@@ -86,11 +86,13 @@ nmap({ "<Leader>Y", '"+Y', {} })
 vmap({ "<Leader>y", '"+y', {} })
 
 -- fzf
-nmap({ "<Leader><Leader>", "<cmd>lua require('fzf-lua').git_files()<CR>" })
-nmap({ "<Leader>p", "<cmd>lua require('fzf-lua').files()<CR>" })
-nmap({ "<Leader>b", "<cmd>lua require('fzf-lua').buffers()<CR>" })
-nmap({ "<Leader>f", "<cmd>lua require('fzf-lua').grep_project()<CR>" })
-nmap({ "<Leader>r", "<cmd>lua require('fzf-lua').command_history()<CR>" })
+local fzf = require("fzf-lua")
+
+nmap({ "<Leader><Leader>", fzf.git_files })
+nmap({ "<Leader>p", fzf.files })
+nmap({ "<Leader>b", fzf.buffers })
+nmap({ "<Leader>f", fzf.grep_project })
+nmap({ "<Leader>r", fzf.command_history })
 
 -- Toggle spelling
 nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
@@ -101,9 +103,11 @@ nmap({ "gh", ":GBrowse<cr>" })
 vmap({ "gh", ":'<'>GBrowse<cr>" })
 
 -- Substitute
-nmap({ "s", "<cmd>lua require('substitute').operator()<CR>" })
-nmap({ "ss", "<cmd>lua require('substitute').line()<CR>" })
-nmap({ "S", "<cmd>lua require('substitute').eol()<CR>" })
+local substitute = require("substitute")
+
+nmap({ "s", substitute.operator })
+nmap({ "ss", substitute.line })
+nmap({ "S", substitute.eol })
 
 -- Yank filepath into system clipboard
 nmap({
@@ -118,7 +122,6 @@ nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
 nmap({ ",", "@@" })
 
 function M.lsp_mapping(bufnr)
-  local fzf = require("fzf-lua")
   local fzf_conf = require("my.configs.fzf")
 
   local function fzf_lsp(name, opts)
@@ -146,17 +149,25 @@ function M.lsp_mapping(bufnr)
 
   map.nmap({
     "<space>",
-    "<cmd>lua vim.lsp.buf.hover()<CR>",
+    function()
+      vim.lsp.buf.hover()
+    end,
     bufnr = bufnr,
   })
+
   map.nmap({
     "<C-p>",
-    '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>',
+    function()
+      vim.diagnostic.goto_prev({ border = "rounded" })
+    end,
     bufnr = bufnr,
   })
+
   map.nmap({
     "<C-n>",
-    '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>',
+    function()
+      vim.diagnostic.goto_next({ border = "rounded" })
+    end,
     bufnr = bufnr,
   })
 end
