@@ -19,7 +19,6 @@ local packer = require("packer")
 return packer.startup(function(use)
   use({ "wbthomason/packer.nvim" })
 
-  -- General utilities
   use({ "nvim-lua/plenary.nvim" })
 
   use({ "tpope/vim-rsi" })
@@ -46,7 +45,7 @@ return packer.startup(function(use)
   use({
     "kyazdani42/nvim-web-devicons",
     config = function()
-      require(".configs.icons").setup()
+      require("my.configs.icons").setup()
     end,
   })
 
@@ -55,7 +54,7 @@ return packer.startup(function(use)
     "ibhagwan/fzf-lua",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
-      require(".configs.fzf").setup()
+      require("my.configs.fzf").setup()
     end,
   })
 
@@ -75,7 +74,7 @@ return packer.startup(function(use)
       "TSEnableAll",
     },
     config = function()
-      require(".configs.treesitter").setup()
+      require("my.configs.treesitter").setup()
     end,
   })
 
@@ -83,7 +82,7 @@ return packer.startup(function(use)
   use({
     "norcalli/nvim-colorizer.lua",
     config = function()
-      require(".configs.colorizer").setup()
+      require("my.configs.colorizer").setup()
     end,
   })
 
@@ -92,7 +91,7 @@ return packer.startup(function(use)
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
-      require(".configs.lualine").setup()
+      require("my.configs.lualine").setup()
     end,
   })
 
@@ -102,7 +101,7 @@ return packer.startup(function(use)
     tag = "*",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
-      require(".configs.bufferline").setup()
+      require("my.configs.bufferline").setup()
     end,
   })
 
@@ -111,7 +110,7 @@ return packer.startup(function(use)
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     config = function()
-      require(".configs.indent-blankline").setup()
+      require("my.configs.indent-blankline").setup()
     end,
   })
 
@@ -140,7 +139,7 @@ return packer.startup(function(use)
       "LspRestart",
     },
     config = function()
-      require(".configs.lsp").setup()
+      require("my.configs.lsp").setup()
     end,
   })
 
@@ -157,7 +156,7 @@ return packer.startup(function(use)
   use({
     "jose-elias-alvarez/null-ls.nvim",
     config = function()
-      require(".configs.null-ls").setup()
+      require("my.configs.null-ls").setup()
     end,
   })
 
@@ -170,7 +169,7 @@ return packer.startup(function(use)
       "saadparwaiz1/cmp_luasnip",
     },
     config = function()
-      require(".configs.cmp").setup()
+      require("my.configs.cmp").setup()
     end,
   })
 
@@ -178,7 +177,7 @@ return packer.startup(function(use)
   use({
     "gbprod/substitute.nvim",
     config = function()
-      require(".configs.substitute").setup()
+      require("my.configs.substitute").setup()
     end,
   })
 
