@@ -33,7 +33,12 @@ return packer.startup(function(use)
   use({ "nathom/filetype.nvim" })
 
   -- Automatically set the root directory
-  use({ "ygm2/rooter.nvim" })
+  use({
+    "ahmedkhalf/project.nvim",
+    config = function()
+      require("project_nvim").setup()
+    end,
+  })
 
   -- Directory browsing
   use({ "justinmk/vim-dirvish" })
