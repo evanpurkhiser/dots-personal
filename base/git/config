@@ -24,7 +24,7 @@
   skippedCherryPicks = false
 
 [apply]
-    whitespace = strip
+  whitespace = strip
 
 [color]
   ui = true
