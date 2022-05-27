@@ -32,6 +32,14 @@ return packer.startup(function(use)
   -- Improve boot-time performance by replacing filetype.vim
   use({ "nathom/filetype.nvim" })
 
+  -- Automatic pairs
+  use({
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup()
+    end,
+  })
+
   -- Automatically set the root directory
   use({
     "ahmedkhalf/project.nvim",
