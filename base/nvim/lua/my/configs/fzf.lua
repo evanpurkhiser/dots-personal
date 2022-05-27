@@ -128,9 +128,6 @@ function M.setup()
           ["--tiebreak"] = "index",
           ["--layout"] = "default",
         },
-        actions = {
-          ["default"] = fzf.actions.ex_run,
-        },
       },
     },
   })
