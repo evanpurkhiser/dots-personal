@@ -20,6 +20,9 @@
   algorithm = patience
   indentHeuristic = on
 
+[advice]
+  skippedCherryPicks = false
+
 [apply]
     whitespace = strip
 
