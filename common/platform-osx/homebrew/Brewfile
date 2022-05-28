@@ -2,43 +2,57 @@ tap "evanpurkhiser/personal"
 
 cask "google-chrome"
 cask "1password"
-cask "goofy"
 cask "hammerspoon"
 cask "karabiner-elements"
 cask "slack"
 cask "alacritty"
 cask "colorsnapper"
+cask "pixelsnap"
 cask "notion"
 cask "numi"
 cask "figma"
+cask "telegram"
 
+# Basic terminal stuff
 brew "bash"
 brew "bash-completion"
-brew "cmake"
 brew "coreutils"
-brew "direnv"
+brew "font-caskaydia-cove-nerd-font"
+
+# Terminal window managment
+brew "tmux"
+brew "reattach-to-user-namespace"
+
+# Tooling
 brew "entr"
 brew "fd"
 brew "ffmpeg"
-brew "font-caskaydia-cove-nerd-font"
 brew "fzf"
 brew "git"
-brew "go"
 brew "htop"
 brew "imagemagick"
 brew "jq"
-brew "node"
-brew "pyenv"
-brew "python"
-brew "reattach-to-user-namespace"
+brew "neovim"
 brew "ripgrep"
 brew "rsync"
-brew "ruby"
 brew "shfmt"
-brew "sqlite"
-brew "tmux"
 brew "tree"
 brew "unrar"
-brew "vim"
-brew "volta"
 brew "wget"
+
+
+# Languages, runtimes, compilers
+brew "cmake"
+brew "go"
+brew "node"
+brew "python"
+brew "ruby"
+brew "sqlite"
+
+# Dependency managment
+brew "pyenv"
+brew "volta"
+brew "direnv"
+
+# Adjust key repeat rate
+brew "koekeishiya/formulae/krp"
