@@ -97,6 +97,9 @@ nmap({ "<Leader>r", fzf.command_history })
 -- Toggle spelling
 nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
 
+-- Sort visual selection
+vmap({ "<Leader>s", "<cmd>sort<CR>" })
+
 -- Git
 nmap({ "gb", ":Git blame<cr>" })
 nmap({ "gh", ":GBrowse<cr>" })
