@@ -25,8 +25,6 @@ function M.cycleWindowFocus(filterGroup)
     local windows = filterGroup:getWindows(hs.window.filter.sortByFocused)
     local lastWindows = filterGroup:getWindows(hs.window.filter.sortByFocusedLast)
 
-    print("numwidows", #lastWindows)
-
     if #lastWindows == 0 then
       return
     end
