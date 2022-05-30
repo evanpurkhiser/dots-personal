@@ -25,7 +25,7 @@ stty -ixon
 stty -ixoff
 
 # Attempt to keep an unlimitedly large history
-export HISTFILE="$XDG_CACHE_HOME/bash_history"
+export HISTFILE="$XDG_DATA_HOME/bash_history"
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=
 export HISTFILESIZE=

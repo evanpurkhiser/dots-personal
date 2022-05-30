@@ -47,7 +47,7 @@ export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 export BABEL_CACHE_PATH="#XDG_CACHE_HOME/babel.json"
 
 # sqlite history file
-export SQLITE_HISTORY="$XDG_CACHE_HOME/sqlite_history"
+export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 
 # Don't overrwrite an already configured GOPATH
 if [ -z "${GOPATH+1}" ]; then
@@ -102,7 +102,7 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export PSQLRC="$XDG_CONFIG_HOME/psql/psqlrc"
 
 # Less history file and key file
-export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+export LESSHISTFILE="$XDG_DATA_HOME/less_history"
 export LESSKEY="$XDG_CONFIG_HOME/less/keyfile.bin"
 
 # Don't add quotes when using ls
