@@ -43,6 +43,9 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NPM_CONFIG_DEVDIR="$XDG_CACHE_HOME/node-gyp"
 export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 
+# Babel cache
+export BABEL_CACHE_PATH="#XDG_CACHE_HOME/babel.json"
+
 # Don't overrwrite an already configured GOPATH
 if [ -z "${GOPATH+1}" ]; then
 	export GOPATH="$HOME/.local/lib/go"
