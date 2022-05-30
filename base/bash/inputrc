@@ -26,5 +26,5 @@ $if bash
   "\eq": "\eb\"\ef\"\C-b"
 
   # Meta-Up: cd ..
-  "\e\e[A": "\C-a\C-kcd ..\n"
+  "\e[1;3A": "\C-a\C-kcd ..\n"
 $endif
