@@ -5,8 +5,8 @@
 
 prg="$(basename "$0")"
 root="$(
-  while [[ "$PWD" != "/" ]] && [ ! -f "$PWD/node_modules/.bin/$prg" ]; do cd ..; done
-  echo "$PWD"
+	while [[ "$PWD" != "/" ]] && [ ! -f "$PWD/node_modules/.bin/$prg" ]; do cd ..; done
+	echo "$PWD"
 )"
 
 run_path="$root/node_modules/.bin/$prg"

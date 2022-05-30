@@ -13,18 +13,18 @@ set -e
 option="\#{window_flags}"
 
 readarray -t mappings <<-EOM
-s/*//
-s/-//
-s/#//
-s/!//
-s/~/ﱝ/
-s/M//
-s/Z//
+	s/*//
+	s/-//
+	s/#//
+	s/!//
+	s/~/ﱝ/
+	s/M//
+	s/Z//
 EOM
 
 sed_script="$(
-    IFS=';'
-    echo "${mappings[*]}"
+	IFS=';'
+	echo "${mappings[*]}"
 )"
 
 # The extra replacment adds spaces between each character
@@ -32,6 +32,6 @@ formatting_script="sed -e '${sed_script};s/./& /g'"
 flags_value=" #(printf '%%s\n' '#F' | ${formatting_script})"
 
 for setting in window-status-format window-status-current-format; do
-    status_value="$(tmux show-option -gqv ${setting})"
-    tmux set-option -gq $setting "${status_value/$option/$flags_value}"
+	status_value="$(tmux show-option -gqv ${setting})"
+	tmux set-option -gq $setting "${status_value/$option/$flags_value}"
 done

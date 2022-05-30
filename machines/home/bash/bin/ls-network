@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-ssh server.home.evanpurkhiser.com "cat /var/lib/misc/dnsmasq.leases" | sort -k 3,3 -V | awk 'NF{NF--};1'| tail -n+2 | column -t
+ssh server.home.evanpurkhiser.com "cat /var/lib/misc/dnsmasq.leases" | sort -k 3,3 -V | awk 'NF{NF--};1' | tail -n+2 | column -t
