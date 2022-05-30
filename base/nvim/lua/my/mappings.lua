@@ -102,8 +102,8 @@ vmap({ "<Leader>s", "<cmd>sort<CR>" })
 
 -- Git
 nmap({ "gb", ":Git blame<cr>" })
-nmap({ "gh", ":GBrowse<cr>" })
-vmap({ "gh", ":'<'>GBrowse<cr>" })
+nmap({ "gh", ":GBrowse!<cr>" })
+vmap({ "gh", ":'<'>GBrowse!<cr>" })
 
 -- Substitute
 local substitute = require("substitute")
