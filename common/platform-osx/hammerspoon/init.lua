@@ -91,10 +91,13 @@ local mobileSetup = {
   ["Things"] = "880,260/550x630",
 }
 
+local workSetuo = {}
+
 -- Depending on the monitor use different setups
 local windowSetups = {
   ["02F83E40-3490-8049-C3BD-212425835336"] = mobileSetup,
-  ["TODO"] = homeSetup,
+  ["66C32160-EC4F-A66F-45E7-421E0F78E918"] = homeSetup,
+  ["TODO"] = workSetuo,
 }
 
 -- Hotkey to re-align windows
