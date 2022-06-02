@@ -37,6 +37,7 @@ fi
 # Node
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export TS_NODE_HISTORY="$XDG_DATA_HOME"/ts_node_repl_history
+export YARN_RC_FILENAME="$XDG_CONFIG_HOME/yarn/yarnrc"
 
 # NPM tool configuration
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
