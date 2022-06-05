@@ -8,12 +8,11 @@ local make_map = function(mode)
     local keybind = conf[1]
     local cmd = conf[2]
 
-    -- the `fn` conf may be used
-    if conf.fn then
-      cmd = conf.fn
-    end
-
     local options = conf[3] or default_opts
+
+    if conf.desc then
+      options = vim.tbl_extend("force", options, { desc = conf.desc })
+    end
 
     -- A lua funciton passed as the cmd argument goes into the callback
     if type(cmd) == "function" then

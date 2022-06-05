@@ -135,11 +135,11 @@ function M.lsp_mapping(bufnr)
   end
 
   -- fzf lsp triggers
-  map.nmap({ "gD", bufnr = bufnr, fn = fzf_lsp("declarations") })
-  map.nmap({ "gd", bufnr = bufnr, fn = fzf_lsp("definitions") })
-  map.nmap({ "gr", bufnr = bufnr, fn = fzf_lsp("references") })
-  map.nmap({ "ga", bufnr = bufnr, fn = fzf_lsp("code_actions") })
-  map.nmap({ "gi", bufnr = bufnr, fn = fzf_lsp("implementations") })
+  map.nmap({ "gD", fzf_lsp("declarations"), bufnr = bufnr })
+  map.nmap({ "gd", fzf_lsp("definitions"), bufnr = bufnr })
+  map.nmap({ "gr", fzf_lsp("references"), bufnr = bufnr })
+  map.nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
+  map.nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
 
   map.nmap({
     "gs",
