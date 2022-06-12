@@ -101,6 +101,7 @@ export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export HGRCPATH="$XDG_CONFIG_HOME/hg/config"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export PSQLRC="$XDG_CONFIG_HOME/psql/psqlrc"
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/rg/config"
 
 # Less history file and key file
 export LESSHISTFILE="$XDG_DATA_HOME/less_history"
