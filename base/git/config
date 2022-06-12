@@ -42,7 +42,7 @@
 [url "git@github.com:"]
   insteadOf = gh:
 
-[url "git@github.com:EvanPurkhiser/"]
+[url "git@github.com:evanpurkhiser/"]
   insteadOf = me:
 
 [include]
