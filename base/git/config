@@ -3,14 +3,14 @@
   excludesfile = ~/.config/git/ignore
 
 [alias]
-  f   = pull --rebase origin master
+  f   = pull --rebase
   st  = status -sb
   ci  = commit -v
   co  = checkout
   ls  = log --date=short --pretty=ls
-  rbm = rebase -i origin/master
+  rbm = rebase -i
   rma = !git ls-files --deleted -z | xargs -0 -r git rm
-  cif = !git commit -v --fixup=$(pt --color select-commit) && git -c sequence.editor=: rebase -i origin/master
+  cif = !git commit -v --fixup=$(pt --color select-commit) && git -c sequence.editor=: rebase -i
 
 [pretty]
   ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(auto)%d %C(normal)%s
