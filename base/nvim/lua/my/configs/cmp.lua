@@ -11,46 +11,20 @@ function M.setup()
     return
   end
 
+  local lspkind = safe_require("lspkind")
+  if not lspkind then
+    return
+  end
+
   local check_backspace = function()
     local col = vim.fn.col(".") - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
   end
 
-  local kind_icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-  }
-
   cmp.setup({
     formatting = {
       fields = { "kind", "abbr", "menu" },
-      format = function(_, vim_item)
-        vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-        return vim_item
-      end,
+      format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 }),
     },
     snippet = {
       expand = function(args)
@@ -134,6 +108,37 @@ function M.setup()
       }),
     },
   })
+
+  local kindColors = {
+    Text = { link = "Normal" },
+    File = { link = "Normal" },
+    Method = { link = "Function" },
+    Function = { link = "Function" },
+    Folder = { link = "Function" },
+    Constructor = { link = "Keyword" },
+    Class = { link = "Keyword" },
+    Module = { link = "Keyword" },
+    Keyword = { link = "Keyword" },
+    Interface = { link = "Type" },
+    Struct = { link = "Type" },
+    Unit = { link = "String" },
+    Value = { link = "String" },
+    Enum = { link = "String" },
+    EnumMember = { link = "String" },
+    Constant = { link = "Constant" },
+    Snippet = { link = "Whitespace" },
+    Field = { link = "Identifier" },
+    Property = { link = "Identifier" },
+    Variable = { link = "Identifier" },
+    Color = { link = "Type" },
+    Event = { link = "Type" },
+    Operator = { link = "Keyword" },
+  }
+
+  -- Setup kind colors
+  for key, color in pairs(kindColors) do
+    vim.api.nvim_set_hl(0, "CmpItemKind" .. key, color)
+  end
 end
 
 return M

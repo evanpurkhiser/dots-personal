@@ -177,6 +177,7 @@ return packer.startup(function(use)
   use({
     "hrsh7th/nvim-cmp",
     requires = {
+      "onsails/lspkind.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "saadparwaiz1/cmp_luasnip",
