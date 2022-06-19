@@ -1,12 +1,12 @@
 local M = {}
 
-local map = require("my.utils").map
+local utils = require("my.utils")
 
-local nmap = map.nmap
-local imap = map.imap
-local vmap = map.vmap
-local cmap = map.cmap
-local bmap = map.bmap
+local nmap = utils.map.nmap
+local imap = utils.map.imap
+local vmap = utils.map.vmap
+local cmap = utils.map.cmap
+local bmap = utils.map.bmap
 
 -- Remap ^c to be the same as escape without telling us to use :q to quit. the
 -- 'r' command is special cased to a NOP.
@@ -40,6 +40,23 @@ nmap({
   "*",
   "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
 })
+
+-- Visual star, search selected text
+vmap({
+  "*",
+  function()
+    local win = vim.fn.winsaveview()
+    local sel = utils.get_visual_selection()
+
+    sel = vim.fn.escape(sel, "/\\.*$^~[")
+    sel = vim.fn.substitute(sel, "\n", "\\\\_s\\\\+", "g")
+
+    vim.cmd("/" .. sel)
+    vim.fn.winrestview(win)
+  end,
+})
+
+-- Search under cursor
 
 -- Save with ^s
 nmap({
@@ -135,13 +152,13 @@ function M.lsp_mapping(bufnr)
   end
 
   -- fzf lsp triggers
-  map.nmap({ "gD", fzf_lsp("declarations"), bufnr = bufnr })
-  map.nmap({ "gd", fzf_lsp("definitions"), bufnr = bufnr })
-  map.nmap({ "gr", fzf_lsp("references"), bufnr = bufnr })
-  map.nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
-  map.nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
+  nmap({ "gD", fzf_lsp("declarations"), bufnr = bufnr })
+  nmap({ "gd", fzf_lsp("definitions"), bufnr = bufnr })
+  nmap({ "gr", fzf_lsp("references"), bufnr = bufnr })
+  nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
+  nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
 
-  map.nmap({
+  nmap({
     "gs",
     fzf_lsp(
       "document_symbols",
@@ -150,7 +167,7 @@ function M.lsp_mapping(bufnr)
     bufnr = bufnr,
   })
 
-  map.nmap({
+  nmap({
     "<space>",
     function()
       vim.lsp.buf.hover()
@@ -158,7 +175,7 @@ function M.lsp_mapping(bufnr)
     bufnr = bufnr,
   })
 
-  map.nmap({
+  nmap({
     "<C-p>",
     function()
       vim.diagnostic.goto_prev({ border = "rounded" })
@@ -166,7 +183,7 @@ function M.lsp_mapping(bufnr)
     bufnr = bufnr,
   })
 
-  map.nmap({
+  nmap({
     "<C-n>",
     function()
       vim.diagnostic.goto_next({ border = "rounded" })
