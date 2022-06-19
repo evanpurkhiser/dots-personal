@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+query=$(
+	cat <<'END'
+query ($endCursor: String) {
+  viewer {
+    repositories(first: 100, after: $endCursor) {
+      nodes {
+				owner {
+					login
+				}
+        nameWithOwner
+        isArchived
+        defaultBranchRef {
+          target {
+            ... on Commit {
+              statusCheckRollup {
+                state
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+END
+)
+
+jq_query=$(
+	cat <<'END'
+.data.viewer.repositories.nodes[]
+  | select(.isArchived == false)
+  | select(.owner.login == "evanpurkhiser")
+  | select(.defaultBranchRef.target.statusCheckRollup != null) 
+  | {name: .nameWithOwner, status: .defaultBranchRef.target.statusCheckRollup.state} 
+  | (.name + "\t" + (.status|ascii_downcase))
+END
+)
+
+gh api graphql --paginate -f query="$query" |
+	jq -r "$jq_query" |
+	sed "s/success/"$'\033\[32m✓passing\033\[0m/g' |
+	sed "s/failure/"$'\033\[31m×failing\033\[0m/g' |
+	sort |
+	column -t
