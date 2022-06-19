@@ -47,4 +47,17 @@ function M.get_visual_selection()
   return selection
 end
 
+function M.get_buffer_list()
+  local buffers = {}
+
+  for buffer = 1, vim.fn.bufnr("$") do
+    local is_listed = vim.fn.buflisted(buffer) == 1
+    if is_listed then
+      table.insert(buffers, buffer)
+    end
+  end
+
+  return buffers
+end
+
 return M
