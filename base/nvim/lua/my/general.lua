@@ -46,6 +46,9 @@ set.expandtab = true
 set.tabstop = 2
 set.shiftwidth = 2
 
+-- Smaller cmdline
+set.cmdheight = 0
+
 -- Disable netrw
 g.loaded_netrwPlugin = false
 g.loaded_netrwSettngs = false
