@@ -43,7 +43,7 @@ function M.setup()
       select = false,
     },
     experimental = {
-      ghost_text = false,
+      ghost_text = true,
       native_menu = false,
     },
     completion = {
