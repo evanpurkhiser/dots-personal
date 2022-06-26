@@ -196,7 +196,7 @@ return packer.startup(function(use)
   })
 
   -- Helper for closing a buffer without closing the split
-  use({ "moll/vim-bbye" })
+  use({ "famiu/bufdelete.nvim" })
 
   -- Adds argument text objects
   use({ "b4winckler/vim-angry" })
