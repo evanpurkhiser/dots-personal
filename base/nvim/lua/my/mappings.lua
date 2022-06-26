@@ -42,60 +42,70 @@ nmap({
 })
 
 -- Visual star, search selected text
-vmap({
-  "*",
-  function()
-    local win = vim.fn.winsaveview()
-    local sel = utils.get_visual_selection()
+local function visual_star()
+  local win = vim.fn.winsaveview()
+  local sel = utils.get_visual_selection()
 
-    sel = vim.fn.escape(sel, "/\\.*$^~[")
-    sel = vim.fn.substitute(sel, "\n", "\\\\_s\\\\+", "g")
+  sel = vim.fn.escape(sel, "/\\.*$^~[")
+  sel = vim.fn.substitute(sel, "\n", "\\\\_s\\\\+", "g")
 
-    vim.cmd("/" .. sel)
-    vim.fn.winrestview(win)
-  end,
-})
+  vim.cmd("/" .. sel)
+  vim.fn.winrestview(win)
+end
 
--- Search under cursor
+vmap({ "*", visual_star })
 
--- Save with ^s
-nmap({
-  "<C-s>",
-  function()
-    local path = vim.fn.expand("%")
-    local perms = vim.fn.getfperm(path)
-    local writeable = vim.fn.filewritable(path)
+local function save()
+  local path = vim.fn.expand("%")
+  local writeable = vim.fn.filewritable(path) == 1
+  local exists = vim.fn.empty(vim.fn.glob(path)) == 0
 
-    if writeable or path == "" or perms == "" then
-      vim.cmd("write")
-    else
-      vim.cmd("write suda://%")
+  if path == "" then
+    print("Buffer does not have a filename")
+    return false
+  end
+
+  if writeable or not exists then
+    vim.cmd("write")
+  else
+    vim.cmd("write suda://%")
+  end
+
+  return true
+end
+
+nmap({ "<C-s>", save })
+
+local function quit()
+  local buffer_has_changes = vim.fn.getbufinfo("%")[1].changed
+
+  -- Confirm save if we need to save
+  if buffer_has_changes == 1 then
+    local confirm_success, should_save = pcall(function()
+      return vim.fn.confirm("", "Save changes? &Yes\n&No") == 1
+    end)
+
+    if not confirm_success then
+      return
     end
-  end,
-})
 
--- Close buffers / quit with ^q
-nmap({
-  "<C-q>",
-  function()
-    local buffers = {}
-
-    -- Get all buffers
-    for buffer = 1, vim.fn.bufnr("$") do
-      local is_listed = vim.fn.buflisted(buffer) == 1
-      if is_listed then
-        table.insert(buffers, buffer)
-      end
+    -- Try to save. If we fail exit early and do not quit
+    if should_save and not save() then
+      return
     end
+  end
 
-    -- Quit if there is only an empty buffer
-    if #buffers == 1 then
-      vim.cmd("confirm quit")
-    else
-      vim.cmd("confirm Bdelete")
-    end
-  end,
-})
+  -- Check if we're closing a buffer or quitting vim
+  local buffers = utils.get_buffer_list()
+
+  if #buffers == 1 then
+    vim.cmd("quit!")
+  else
+    require("bufdelete").bufdelete(0, true)
+  end
+end
+
+nmap({ "<C-q>", quit })
 
 -- Quick system copy and paste
 nmap({ "<Leader>y", '"+y', {} })
