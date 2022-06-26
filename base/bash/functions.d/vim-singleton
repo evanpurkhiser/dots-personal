@@ -14,21 +14,14 @@ vim-singleton() {
 	if [[ ! "$vim_id" ]]; then
 		# Ensure we don't have an invalid socket address
 		rm -f $NVIM_LISTEN_ADDRESS
-		nvim "$@"
+		nvim --listen $NVIM_LISTEN_ADDRESS "$@"
 		return 0
-	fi
-
-	# We can only open the file in the active vim session with nvr (neovim-remote)
-	if ! nvr --version &>/dev/null; then
-		echo "Refusing to start a new instance of nvim" >&2
-		echo "pip3 install neovim-remote to automatically open files in the existing instance"
-		return 1
 	fi
 
 	# Open file in active vim session. Wrap in a subshell to avoid job control
 	# messages and background the job. nvr will wait until nvim responds, which
 	# will only happen once it's in the forground.
-	(nvr --nostart "$@" &)
+	(nvim --server $NVIM_LISTEN_ADDRESS --remote "$@" &)
 
 	fg "$vim_id"
 }
