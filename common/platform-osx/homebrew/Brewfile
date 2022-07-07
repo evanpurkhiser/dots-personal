@@ -1,16 +1,21 @@
 tap "evanpurkhiser/personal"
 
-cask "google-chrome"
 cask "1password"
-cask "hammerspoon"
-cask "karabiner-elements"
-cask "slack"
 cask "alacritty"
 cask "colorsnapper"
-cask "pixelsnap"
+cask "cron"
+cask "discord"
+cask "figma"
+cask "google-chrome"
+cask "hammerspoon"
+cask "karabiner-elements"
 cask "notion"
 cask "numi"
-cask "figma"
+cask "pixelsnap"
+cask "raycast"
+cask "slack"
+cask "spark"
+cask "tailscale"
 cask "telegram"
 
 # Basic terminal stuff
@@ -39,7 +44,6 @@ brew "shfmt"
 brew "tree"
 brew "unrar"
 brew "wget"
-
 
 # Languages, runtimes, compilers
 brew "cmake"
