@@ -61,11 +61,8 @@ hs.hotkey.bind(
 hs.hotkey.bind(super, "-", function()
   local window = hs.window.focusedWindow()
 
-  local content = string.format(
-    '["%s"] = "%s",',
-    window:application():name(),
-    window:frame().string
-  )
+  local content =
+    string.format('["%s"] = "%s",', window:application():name(), window:frame().string)
 
   hs.pasteboard.setContents(content)
   hs.notify.show("Window Details Copied", "Window name and coordinates copied", "")
@@ -123,10 +120,10 @@ end)
 local function handle1PasswordSSHAuthPromt()
   local lastWindowFocus = nil
 
-  local onePasswordSSHAuthPrompt = hs.window.filter.new(false):setAppFilter(
-    "1Password",
-    { focused = false, allowRoles = "AXDialog" }
-  )
+  local onePasswordSSHAuthPrompt =
+    hs.window.filter
+      .new(false)
+      :setAppFilter("1Password", { focused = false, allowRoles = "AXDialog" })
 
   -- Focus 1Password SSH Auth prompt
   onePasswordSSHAuthPrompt:subscribe(hs.window.filter.windowCreated, function(window)
