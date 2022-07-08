@@ -4,7 +4,6 @@ tap "homebrew/cask-fonts"
 
 cask "1password"
 cask "alacritty"
-cask "colorsnapper"
 cask "cron"
 cask "discord"
 cask "figma"
