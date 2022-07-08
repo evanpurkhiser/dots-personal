@@ -56,6 +56,3 @@ brew "sqlite"
 brew "pyenv"
 brew "volta"
 brew "direnv"
-
-# Adjust key repeat rate
-brew "koekeishiya/formulae/krp"
