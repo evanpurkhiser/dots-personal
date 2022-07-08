@@ -7,7 +7,6 @@ defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.finder ShowPathbar -bool false
 defaults write com.apple.finder ShowSidebar -bool false
 
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
