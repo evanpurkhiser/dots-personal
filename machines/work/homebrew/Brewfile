@@ -1,3 +1,5 @@
 cask "chromedriver"
 cask "docker"
 cask "tableplus"
+
+brew "mkcert"
