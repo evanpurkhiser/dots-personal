@@ -1,7 +1,6 @@
 tap "evanpurkhiser/personal"
 tap "homebrew/cask-fonts"
 
-
 cask "1password"
 cask "alacritty"
 cask "cron"
