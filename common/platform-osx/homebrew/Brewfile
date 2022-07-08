@@ -18,6 +18,7 @@ cask "slack"
 cask "tailscale"
 cask "telegram"
 cask "font-caskaydia-cove-nerd-font"
+cask "cloudflare-warp"
 
 # Basic terminal stuff
 brew "bash"
