@@ -1,4 +1,6 @@
 tap "evanpurkhiser/personal"
+tap "homebrew/cask-fonts"
+
 
 cask "1password"
 cask "alacritty"
@@ -17,12 +19,12 @@ cask "slack"
 cask "spark"
 cask "tailscale"
 cask "telegram"
+cask "font-caskaydia-cove-nerd-font"
 
 # Basic terminal stuff
 brew "bash"
 brew "bash-completion"
 brew "coreutils"
-brew "font-caskaydia-cove-nerd-font"
 
 # Terminal window managment
 brew "tmux"
