@@ -102,10 +102,12 @@ local windowSetups = {
 
 -- Hotkey to re-align windows
 hs.hotkey.bind(super, "=", function()
-  local setup = windowSetups[hs.screen.primaryScreen():getUUID()]
+  local monitorId = hs.screen.primaryScreen():getUUID()
+  local setup = windowSetups[monitorId]
 
   if setup == nil then
     hs.notify.show("Window Setup", "No setup configure for the primary monitor", "")
+    hs.pasteboard.setContents(monitorId)
     return
   end
 
