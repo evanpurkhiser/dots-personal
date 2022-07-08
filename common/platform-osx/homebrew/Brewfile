@@ -43,6 +43,7 @@ brew "rsync"
 brew "shfmt"
 brew "tree"
 brew "wget"
+brew "gh"
 
 # Languages, runtimes, compilers
 brew "cmake"
@@ -56,3 +57,4 @@ brew "sqlite"
 brew "pyenv"
 brew "volta"
 brew "direnv"
+brew "yarn"
