@@ -43,6 +43,9 @@ defaults write com.apple.spotlight orderedItems -array \
 # Wipe all dock icons
 defaults write com.apple.dock persistent-apps -array
 
+# Disable natural scrolling
+defaults write -g com.apple.swipescrolldirection -bool NO
+
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
