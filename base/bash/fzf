@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-[ ! -d "$HOME/.local/lib/fzf" ] && return
+hash fzf 2>/dev/null || return
 
-source "$HOME/.local/lib/fzf/shell/completion.bash"
-source "$HOME/.local/lib/fzf/shell/key-bindings.bash"
+source "$(brew --prefix fzf)/shell/completion.bash"
+source "$(brew --prefix fzf)/shell/key-bindings.bash"
 
 export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
 
