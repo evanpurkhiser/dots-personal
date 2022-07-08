@@ -1,6 +1,8 @@
 defaults write com.apple.dock tilesize -int 24
 defaults write com.apple.dock orientation -string "left"
 defaults write com.apple.dock minimize-to-application -bool true
+defaults write com.apple.dock autohide -bool true
+
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.finder ShowPathbar -bool true
 
@@ -13,8 +15,6 @@ chflags hidden ~/Movies
 chflags hidden ~/Pictures
 
 # TODO: Set keybindings
-
-# Autohide dock
 
 defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
