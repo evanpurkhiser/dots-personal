@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Load homebrew configuration for macos as early as possible
-hash brew 2>/dev/null && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
