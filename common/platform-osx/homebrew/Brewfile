@@ -1,5 +1,6 @@
 tap "evanpurkhiser/personal"
 tap "homebrew/cask-fonts"
+tap "1password/tap"
 
 cask "1password"
 cask "alacritty"
@@ -18,6 +19,7 @@ cask "tailscale"
 cask "telegram"
 cask "font-caskaydia-cove-nerd-font"
 cask "cloudflare-warp"
+cask "1password-cli"
 
 # Basic terminal stuff
 brew "bash"
