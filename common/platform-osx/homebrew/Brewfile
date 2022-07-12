@@ -18,7 +18,6 @@ cask "slack"
 cask "tailscale"
 cask "telegram"
 cask "font-caskaydia-cove-nerd-font"
-cask "cloudflare-warp"
 cask "1password-cli"
 
 # Basic terminal stuff
