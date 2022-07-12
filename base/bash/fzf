@@ -2,8 +2,8 @@
 
 hash fzf 2>/dev/null || return
 
-source "$(brew --prefix fzf)/shell/completion.bash"
-source "$(brew --prefix fzf)/shell/key-bindings.bash"
+source "$(cache-cmd brew --prefix fzf)/shell/completion.bash"
+source "$(cache-cmd brew --prefix fzf)/shell/key-bindings.bash"
 
 export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
 

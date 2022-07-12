@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-# Load homebrew configuration for macos as early as possible
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-
 # XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
 source "$XDG_CONFIG_HOME/bash/cache-cmd"
+
+# Load homebrew configuration for macos as early as possible
+[ -f /opt/homebrew/bin/brew ] && eval "$(cache-cmd /opt/homebrew/bin/brew shellenv)"
 
 # Set the systemd-style DBUS address
 export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
