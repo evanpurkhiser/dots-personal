@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
 # Initialize a dotfile repository using dots by downloading and executing the
-# bootsrap script.
+# bootstrap script.
 #
 # This script must be sourced!
 
 [[ $_ == $0 ]] && echo "Please source me!" && exit 1
 
 # I am using the latest main builds of dots. See the bootstrap config for
-# details on avaiable version constraints.
+# details on available version constraints.
 DOTS_RELEASE="main"
 
 DOTS_CLONE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
