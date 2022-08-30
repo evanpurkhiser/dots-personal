@@ -80,3 +80,7 @@ for app in \
 	"SystemUIServer"; do
 	killall "${app}" &>/dev/null
 done
+
+# Other stuff that needs done
+echo "Set hostname with"
+echo "-> sudo scutil --set HostName <hostname>"
