@@ -12,8 +12,8 @@ local bmap = utils.map.bmap
 -- 'r' command is special cased to a NOP.
 nmap({ "r<C-c>", "<NOP>" })
 nmap({ "<C-c>", "<NOP>" })
-nmap({ "<C-c>", "<Esc>" })
-imap({ "<C-c>", "<Esc>" })
+nmap({ "<C-c>", "<C-[>" })
+imap({ "<C-c>", "<C-[>" })
 
 -- Disable EX mode
 bmap({ "Q", "<Nop>" })
