@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
 
 fzf-git-files-widget() {
-	local selected="$(git status --no-renames --porcelain | awk '{ print $2 }' | sort | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf -m "$@" | cut -f1 | tr '\n' ' ')"
+	local root="$(git rev-parse --show-toplevel)"
+
+	local selected="$(
+		git status --no-renames --porcelain |
+			awk '{ print $2 }' |
+			sort |
+			FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf -m "$@" |
+			cut -f1 |
+			awk -v root="$(git rev-parse --show-toplevel)" '{print root "/" $0}' |
+			relpath |
+			tr '\n' ' '
+	)"
+
 	READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
 	READLINE_POINT=$((READLINE_POINT + ${#selected}))
 }
