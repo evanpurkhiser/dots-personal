@@ -1,0 +1,14 @@
+#!/bin/sh
+
+rsync \
+	--mkpath \
+	--recursive \
+	--times \
+	--progress \
+	--stats \
+	--prune-empty-dirs \
+	--human-readable \
+	--iconv=utf-8-mac,utf-8 \
+	$@ \
+	server.home.evanpurkhiser.com:documents/multimedia/djing/tracks/ \
+	/Users/evan/Music/TracksLocal/
