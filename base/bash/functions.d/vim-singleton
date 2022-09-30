@@ -18,10 +18,17 @@ vim-singleton() {
 		return 0
 	fi
 
-	# Open file in active vim session. Wrap in a subshell to avoid job control
-	# messages and background the job. nvr will wait until nvim responds, which
-	# will only happen once it's in the forground.
-	(nvim --server $NVIM_LISTEN_ADDRESS --remote "$@" &)
+	# Open passed files
+	if [[ "$@" != "" ]]; then
+		# File list must be absolute path, since vims current directory may be
+		# different from where we are in the shell
+		local files="$(realpath "$@")"
+
+		# Open file in active vim session. Wrap in a subshell to avoid job control
+		# messages and background the job. nvr will wait until nvim responds, which
+		# will only happen once it's in the forground.
+		(nvim --server $NVIM_LISTEN_ADDRESS --remote "$files" &)
+	fi
 
 	fg "$vim_id"
 }
