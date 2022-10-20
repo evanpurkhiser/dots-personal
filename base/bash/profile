@@ -1,23 +1,6 @@
 #!/usr/bin/env bash
 
-function progress_timer() {
-	local name="$1"
-	shift
-
-	# Just eval the command for non-interactive shells
-	if [[ $- != *i* ]]; then
-		eval $@
-		return
-	fi
-
-	local start=${EPOCHREALTIME/./}
-	eval $@
-	local end=${EPOCHREALTIME/./}
-
-	local evaltime=$(bc <<<"scale=2; ($end - $start) / 1000")
-
-	echo -e "\e[0;32m ✓\033[0;90m "$name" \e[0;37m${evaltime}ms\e[0m"
-}
+source "$HOME/.config/bash/utils"
 
 progress_timer "load environment" source "$HOME/.config/bash/environment"
 source "$HOME/.bashrc"

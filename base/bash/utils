@@ -1,6 +1,25 @@
 #!/usr/bin/env bash
 
-function cache-cmd() {
+function progress_timer() {
+	local name="$1"
+	shift
+
+	# Just eval the command for non-interactive shells
+	if [[ $- != *i* ]]; then
+		eval $@
+		return
+	fi
+
+	local start=${EPOCHREALTIME/./}
+	eval $@
+	local end=${EPOCHREALTIME/./}
+
+	local evaltime=$(bc <<<"scale=2; ($end - $start) / 1000")
+
+	echo -e "\e[0;32m ✓\033[0;90m "$name" \e[0;37m${evaltime}ms\e[0m"
+}
+
+function cache_cmd() {
 	local cmd_full="$@"
 	local cmd_short="$(basename "${cmd_full%% *}")"
 	local checksum=$(echo "${cmd_full}" | (md5 || md5sum))

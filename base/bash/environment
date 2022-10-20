@@ -5,10 +5,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
-source "$XDG_CONFIG_HOME/bash/cache-cmd"
-
 # Load homebrew configuration for macos as early as possible
-[ -f /opt/homebrew/bin/brew ] && eval "$(cache-cmd /opt/homebrew/bin/brew shellenv)"
+[ -f /opt/homebrew/bin/brew ] && eval "$(cache_cmd /opt/homebrew/bin/brew shellenv)"
 
 # Set the systemd-style DBUS address
 export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
@@ -32,7 +30,7 @@ export ACK_PAGER_COLOR="less -x4SRFX"
 # Always install ruby gems local to the user
 if hash gem 2>/dev/null; then
 	export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
-	export GEM_HOME="$HOME/.local/lib/ruby/gems/$(cache-cmd 'ruby -e "puts RbConfig::CONFIG[\"ruby_version\"]"')"
+	export GEM_HOME="$HOME/.local/lib/ruby/gems/$(cache_cmd 'ruby -e "puts RbConfig::CONFIG[\"ruby_version\"]"')"
 	export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
 	export PATH="$PATH:$GEM_HOME/bin"
 fi
@@ -73,7 +71,7 @@ if hash pyenv 2>/dev/null; then
 	export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 	export PATH="$PYENV_ROOT/bin:$PATH"
 	export PATH="$PYENV_ROOT/shims:$PATH"
-	eval "$(cache-cmd 'pyenv init --no-rehash -')"
+	eval "$(cache_cmd 'pyenv init --no-rehash -')"
 fi
 
 # AWS cli

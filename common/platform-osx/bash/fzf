@@ -2,6 +2,5 @@
 
 hash fzf 2>/dev/null || return
 
-source "$(cache-cmd brew --prefix fzf)/shell/completion.bash"
-source "$(cache-cmd brew --prefix fzf)/shell/key-bindings.bash"
-
+source "$(cache_cmd brew --prefix fzf)/shell/completion.bash"
+source "$(cache_cmd brew --prefix fzf)/shell/key-bindings.bash"

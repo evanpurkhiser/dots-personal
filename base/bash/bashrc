@@ -1,6 +1,8 @@
 # Do nothing if not running interactively
 [ -z "$PS1" ] && return
 
+source "$HOME/.config/bash/utils"
+
 # Autostart tmux if available
 hash tmux 2>/dev/null &&
 	[[ ! $TERM =~ screen ]] &&
