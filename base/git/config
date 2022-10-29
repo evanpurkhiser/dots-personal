@@ -4,11 +4,11 @@
 
 [alias]
   f   = pull --rebase
-  st  = status -sb
-  ci  = commit -v
+  st  = status --short --branch
+  ci  = commit --verbose
   co  = checkout
   ls  = log --date=short --pretty=ls
-  rbm = rebase -i
+  rbm = rebase --interactive
   rma = !git ls-files --deleted -z | xargs -0 -r git rm
   cif = !git commit -v --fixup=$(pt --color select-commit) && git -c sequence.editor=: rebase -i
 
