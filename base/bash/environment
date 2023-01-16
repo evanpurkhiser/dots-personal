@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source "$HOME/.config/bash/utils"
+
 # XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
