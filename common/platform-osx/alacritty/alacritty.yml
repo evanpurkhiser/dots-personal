@@ -3,8 +3,14 @@
 import:
   - ~/.config/alacritty/themes/gruvbox_dark.yml
 
+shell:
+  program: /opt/homebrew/bin/bash
+  args:
+    - --login
+
 env:
   TERM: xterm-256color
+  SHELL: /opt/homebrew/bin/bash
 
 window:
   decorations: full
@@ -73,16 +79,6 @@ hide_cursor_when_typing: true
 
 # Live config reload (changes require restart)
 live_config_reload: true
-
-# Shell
-#
-# You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
-# Entries in shell.args are passed unmodified as arguments to the shell.
-#
-shell:
-  program: /opt/homebrew/bin/bash
-  args:
-    - --login
 
 # Key bindings
 #
