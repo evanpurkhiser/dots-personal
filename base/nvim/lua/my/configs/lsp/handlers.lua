@@ -43,11 +43,6 @@ M.on_attach = function(client, bufnr)
   require("my.mappings").lsp_mapping(bufnr)
 end
 
-local capabilities
-
-capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-
-M.capabilities = capabilities
+M.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 return M
