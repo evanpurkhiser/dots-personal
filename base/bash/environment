@@ -95,6 +95,9 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export PATH="$PATH:$CARGO_HOME/bin"
 
+# Ansible state home
+export ANSIBLE_HOME="$XDG_STATE_HOME/state/ansible"
+
 # Various more config paths
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
