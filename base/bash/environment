@@ -41,8 +41,8 @@ if hash gem 2>/dev/null; then
 fi
 
 # Node
-export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
-export TS_NODE_HISTORY="$XDG_DATA_HOME"/ts_node_repl_history
+export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_repl_history
+export TS_NODE_HISTORY="$XDG_STATE_HOME"/ts_node_repl_history
 export YARN_RC_FILENAME="$XDG_CONFIG_HOME/yarn/yarnrc"
 
 # NPM tool configuration
@@ -54,7 +54,7 @@ export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 export BABEL_CACHE_PATH="#XDG_CACHE_HOME/babel.json"
 
 # sqlite history file
-export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
+export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"
 
 # Don't overrwrite an already configured GOPATH
 if [ -z "${GOPATH+1}" ]; then
@@ -84,7 +84,7 @@ export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 
 # Redis
-export REDISCLI_HISTFILE="$XDG_DATA_HOME/rediscli_history"
+export REDISCLI_HISTFILE="$XDG_STATE_HOME/rediscli_history"
 
 # Cocoapods
 export CP_HOME_DIR="$XDG_CONFIG_HOME/cocopods"
@@ -113,7 +113,7 @@ export PSQLRC="$XDG_CONFIG_HOME/psql/psqlrc"
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/rg/config"
 
 # Less history file and key file
-export LESSHISTFILE="$XDG_DATA_HOME/less_history"
+export LESSHISTFILE="$XDG_STATE_HOME/less_history"
 export LESSKEY="$XDG_CONFIG_HOME/less/keyfile.bin"
 
 # Don't add quotes when using ls
