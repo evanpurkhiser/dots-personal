@@ -12,13 +12,14 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # homebrew sets the shell as a link, which tmux will not be happy about
 export SHELL="$(realpath "$SHELL")"
 
+export PATH="$HOME/.local/bin:$XDG_CONFIG_HOME/bash/bin:$PATH"
+
 # Set the systemd-style DBUS address
 export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
 
-export PATH="$HOME/.local/bin:$XDG_CONFIG_HOME/bash/bin:$PATH"
-
 # Look for terminfo files under data
-[ -d "$XDG_DATA_HOME/terminfo" ] && export TERMINFO="$XDG_DATA_HOME/terminfo"
+export TERMINFO="$XDG_DATA_HOME/terminfo"
+export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 
 # Set path to inputrc configuration
 export INPUTRC="$XDG_CONFIG_HOME/bash/inputrc"
