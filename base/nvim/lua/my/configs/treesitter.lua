@@ -7,7 +7,25 @@ function M.setup()
   end
 
   treesitter.setup({
-    ensure_installed = {},
+    ensure_installed = {
+      "bash",
+      "c",
+      "cpp",
+      "css",
+      "dockerfile",
+      "go",
+      "html",
+      "javascript",
+      "json",
+      "markdown",
+      "php",
+      "python",
+      "regex",
+      "rust",
+      "toml",
+      "tsx",
+      "typescript",
+    },
     sync_install = false,
     ignore_install = {},
     highlight = {
