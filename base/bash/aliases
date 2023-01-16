@@ -6,8 +6,8 @@ alias mv="mv -i"      # confirm before overwriting something
 alias df="df -h"      # human-readable sizes
 alias du="du -h"      # human-readable sizes
 alias free="free -m"  # human-readable sizes
-alias ll="ls -l"      # detailed file list
-alias la="ls -lA"     # detailed file list with hidden files
+alias ll="lsd -l"     # detailed file list
+alias la="lsd -lA"    # detailed file list with hidden files
 alias wh="which -aS"  # Informative version of which
 alias svim="sudo vim" # edit protected files with vim
 
