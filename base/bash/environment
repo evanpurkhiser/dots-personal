@@ -8,6 +8,9 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # Load homebrew configuration for macos as early as possible
 [ -f /opt/homebrew/bin/brew ] && eval "$(cache_cmd /opt/homebrew/bin/brew shellenv)"
 
+# homebrew sets the shell as a link, which tmux will not be happy about
+export SHELL="$(realpath "$SHELL")"
+
 # Set the systemd-style DBUS address
 export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
 
