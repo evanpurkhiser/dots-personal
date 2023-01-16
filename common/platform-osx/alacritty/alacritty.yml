@@ -9,7 +9,8 @@ shell:
     - --login
 
 env:
-  TERM: xterm-256color
+  # alacritty-direct supports direct color indexing
+  TERM: alacritty-direct
   SHELL: /opt/homebrew/bin/bash
 
 window:
