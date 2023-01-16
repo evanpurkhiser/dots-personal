@@ -27,7 +27,6 @@ brew "coreutils"
 
 # Terminal window managment
 brew "tmux"
-brew "reattach-to-user-namespace"
 
 # Tooling
 brew "entr"
