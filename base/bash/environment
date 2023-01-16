@@ -130,6 +130,6 @@ export DIRENV_WARN_TIMEOUT=20m
 source "$XDG_CONFIG_HOME/bash/shellcheck"
 
 # Include environment configurations from DATA_HOME
-# if [ -d "$XDG_DATA_HOME/environment.d" ]; then
-# 	for f in "$XDG_DATA_HOME/environment.d/"*; do source "$f"; done
-# fi
+if [ -d "$XDG_DATA_HOME/environment.d" ]; then
+	for f in "$XDG_DATA_HOME/environment.d/"*; do source "$f"; done
+fi
