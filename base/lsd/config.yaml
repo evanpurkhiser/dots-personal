@@ -83,7 +83,7 @@ permission: octal
 sorting:
   # Specify what to sort by.
   # Possible values: extension, name, time, size, version
-  column: extension
+  column: name
   # Whether to reverse the sorting.
   reverse: false
   # Whether to group directories together and where.
