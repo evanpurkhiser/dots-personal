@@ -25,7 +25,7 @@ color:
   # when specifying <theme-file-name>, lsd will look up theme file
   # XDG Base Directory if relative, e.g. ~/.config/lsd/themes/<theme-file-name>.yaml,
   # The file path if absolute
-  theme: default
+  theme: colors.yaml
 
 # This specifies the date format for the date column. The freeform format
 # accepts a strftime like string.
