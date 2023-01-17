@@ -151,6 +151,9 @@ nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
 -- Repeat the last execuded macro
 nmap({ ",", "@@" })
 
+-- Upload image and insert markdown
+imap({ "<C-v>", require("image-paste").paste_image })
+
 function M.lsp_mapping(bufnr)
   local fzf_conf = require("my.configs.fzf")
 

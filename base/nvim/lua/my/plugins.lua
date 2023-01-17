@@ -195,6 +195,14 @@ return packer.startup(function(use)
     end,
   })
 
+  -- Helper for pasting images from the clipboard
+  use({
+    "evanpurkhiser/image-paste.nvim",
+    config = function()
+      require("image-paste").setup({ imgur_client_id = "77748a048c5f8ce" })
+    end,
+  })
+
   -- Helper for closing a buffer without closing the split
   use({ "famiu/bufdelete.nvim" })
 
