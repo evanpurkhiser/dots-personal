@@ -17,6 +17,7 @@ function M.setup()
       "html",
       "javascript",
       "json",
+      "lua",
       "markdown",
       "php",
       "python",
