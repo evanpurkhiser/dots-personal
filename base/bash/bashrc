@@ -7,8 +7,8 @@ source "$HOME/.config/bash/utils"
 
 # Autostart tmux if available
 hash tmux 2>/dev/null &&
-	[[ ! $TERM =~ screen ]] &&
 	[ -z "$TMUX" ] &&
+	[ -z "$SSH_CLIENT" ] &&
 	exec tmux -f "$HOME/.config/tmux/tmux.conf" attach
 
 # Bash options
