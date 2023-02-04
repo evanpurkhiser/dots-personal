@@ -7,6 +7,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_RUNTIME_DIR="/tmp"
 
 # Load homebrew configuration for macos as early as possible
 [ -f /opt/homebrew/bin/brew ] && eval "$(cache_cmd /opt/homebrew/bin/brew shellenv)"
