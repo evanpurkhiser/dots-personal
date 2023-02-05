@@ -25,6 +25,13 @@ brew "bash"
 brew "bash-completion"
 brew "coreutils"
 
+# Used to allow sudo via touch ID in tmux
+#
+# $ head -2 /etc/pam.d/sudo
+# auth  optional    /opt/homebrew/lib/pam/pam_reattach.so
+# auth  sufficient  pam_tid.so
+brew "pam-reattach"
+
 # Terminal window managment
 brew "tmux"
 
