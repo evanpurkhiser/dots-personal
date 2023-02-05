@@ -29,9 +29,6 @@ return packer.startup(function(use)
   use({ "tpope/vim-fugitive" })
   use({ "tpope/vim-rhubarb" })
 
-  -- Improve boot-time performance by replacing filetype.vim
-  use({ "nathom/filetype.nvim" })
-
   -- Automatic pairs
   use({
     "windwp/nvim-autopairs",
