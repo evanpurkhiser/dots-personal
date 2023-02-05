@@ -16,6 +16,7 @@ function M.setup()
       "go",
       "html",
       "javascript",
+      "jq",
       "json",
       "lua",
       "markdown",
