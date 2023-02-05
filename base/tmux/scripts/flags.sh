@@ -13,13 +13,13 @@ set -e
 option="\#{window_flags}"
 
 readarray -t mappings <<-EOM
-	s/*//
-	s/-//
-	s/#//
-	s/!//
-	s/~/ﱝ/
-	s/M//
-	s/Z//
+	s/*/ /
+	s/-/ /
+	s/#/ /
+	s/!/ /
+	s/~/ﱝ /
+	s/M/ /
+	s/Z/ /
 EOM
 
 sed_script="$(
@@ -28,7 +28,7 @@ sed_script="$(
 )"
 
 # The extra replacment adds spaces between each character
-formatting_script="sed -e '${sed_script};s/./& /g'"
+formatting_script="sed -e '${sed_script}g'"
 flags_value=" #(printf '%%s\n' '#F' | ${formatting_script})"
 
 for setting in window-status-format window-status-current-format; do
