@@ -1,14 +1,14 @@
 user: 230
 group: 187
 permission:
-  read: dark_green
-  write: dark_yellow
-  exec: dark_red
-  exec-sticky: 5
-  no-access: 245
-  octal: 6
-  acl: dark_cyan
-  context: cyan
+  read: 8
+  write: 8
+  exec: 9
+  exec-sticky: 1
+  no-access: 8
+  octal: 8
+  acl: 8
+  context: 8
 date:
   hour-old: 15
   day-old: 7
