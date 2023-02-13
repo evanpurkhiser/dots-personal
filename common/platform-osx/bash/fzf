@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-hash fzf 2>/dev/null || return
-
-source "$(cache_cmd brew --prefix fzf)/shell/completion.bash"
-source "$(cache_cmd brew --prefix fzf)/shell/key-bindings.bash"
+if hash fzf 2>/dev/null; then
+	source "$(cache_cmd brew --prefix fzf)/shell/key-bindings.bash"
+fi
