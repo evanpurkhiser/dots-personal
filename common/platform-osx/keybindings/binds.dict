@@ -10,13 +10,8 @@
   "~b" = "moveWordBackward:"; /* M-b  Move backward word */
   "~t" = "transposeWords:";   /* M-t  Transpose words */
 
-  /* C-x shortcuts */
-  "^x" = {
-    "u"  = "undo:";           /* C-x u    Undo */
-    "k"  = "performClose:";   /* C-x k    Close */
-    "^f" = "openDocument:";   /* C-x C-f  Open (find file) */
-    "^x" = "swapWithMark:";   /* C-x C-x  Swap with mark */
-    "^s" = "saveDocument:";   /* C-x C-s  Save */
-    "^w" = "saveDocumentAs:"; /* C-x C-w  Save as */
-  };
+  /* Disable inserting non breaking spaces. These often will happen
+   * accidentally resulting in confusing looking errors in the terminal
+   */
+  "~ " = ("insertText:", " ");
 }
