@@ -4,14 +4,14 @@ source "$DOTS_SOURCE/base/bash/environment"
 
 # Cleanup home directory
 rm -f "$HOME/.bashrc" \
-      "$HOME/.profile" \
-      "$HOME/.bash_profile" \
-      "$HOME/.bash_history" \
-      "$HOME/.bash_logout" \
-      "$HOME/.bash_login"
+	"$HOME/.profile" \
+	"$HOME/.bash_profile" \
+	"$HOME/.bash_history" \
+	"$HOME/.bash_logout" \
+	"$HOME/.bash_login"
 
 # Link bashrc / profile
-ln -sf "$XDG_CONFIG_HOME/bash/bashrc"  "$HOME/.bashrc"
+ln -sf "$XDG_CONFIG_HOME/bash/bashrc" "$HOME/.bashrc"
 ln -sf "$XDG_CONFIG_HOME/bash/profile" "$HOME/.profile"
 
 # Ensure cache and data directory is setup
