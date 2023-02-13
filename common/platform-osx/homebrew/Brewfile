@@ -22,7 +22,7 @@ cask "1password-cli"
 
 # Basic terminal stuff
 brew "bash"
-brew "bash-completion"
+brew "bash-completion@2"
 brew "coreutils"
 
 # Used to allow sudo via touch ID in tmux

@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
 
 # Use bash completion
-progress_timer "load bash-completion" source "$(cache_cmd brew --prefix)/etc/bash_completion"
+if [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
+	# Do not egar load completions from the compatability directory. This
+	# SIGNIFICANTLY speeds up bash completion loading.
+	#
+	# Instead we rely on the lazy loaded
+	BASH_COMPLETION_COMPAT_DIR=/dev/null
+
+	progress_timer "load bash-completion" source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+fi

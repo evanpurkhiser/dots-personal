@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+source "$DOTS_SOURCE/base/bash/environment"
+
+# MacOS requires manaul configuration of completion files for
+# bash-completion@2
+
+mkdir -p "$XDG_DATA_HOME/bash-completion/completions"
+
+# Link all completion files
+for completion in "$HOMEBREW_PREFIX/etc/bash_completion.d/"*; do
+	ln -sf "$completion" "$XDG_DATA_HOME/bash-completion/completions/"
+done
+
+# Some completions brew installs do not match the name of the program they are
+# installed for, thus bash-completion cannot auto-load them. These are special
+# cases that we'll manually link
+
+ln -sf "$HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash" \
+	"$XDG_DATA_HOME/bash-completion/completions/git"
