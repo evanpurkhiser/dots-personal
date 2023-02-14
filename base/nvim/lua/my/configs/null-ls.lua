@@ -15,13 +15,14 @@ function M.setup()
 
   null_ls.setup({
     sources = {
-      formatting.prettierd,
-      formatting.eslint_d,
       formatting.black,
-      formatting.isort,
+      formatting.eslint_d,
       formatting.gofmt,
-      formatting.stylua,
+      formatting.isort,
+      formatting.prettierd,
+      formatting.rustfmt,
       formatting.shfmt,
+      formatting.stylua,
     },
 
     on_attach = function(client, bufnr)
