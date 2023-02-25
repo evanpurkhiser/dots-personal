@@ -1,0 +1,28 @@
+{
+  viewer {
+    pullRequests(
+      states: OPEN
+      first: 5
+      orderBy: { field: CREATED_AT, direction: DESC }
+    ) {
+      edges {
+        node {
+          id
+          number
+          title
+          createdAt
+          reviewDecision
+          commits(last: 1) {
+            nodes {
+              commit {
+                statusCheckRollup {
+                  state
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

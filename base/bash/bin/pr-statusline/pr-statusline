@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+gh api graphql -F query=@${ROOT}/gh.graphql | jq -r -f ${ROOT}/parser.jq
