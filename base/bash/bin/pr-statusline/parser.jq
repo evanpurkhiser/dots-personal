@@ -21,16 +21,15 @@ def checkMap:
     };
 
 .data.viewer.pullRequests.edges
-    | map(
-        .node |
-        .commits.nodes[].commit.statusCheckRollup.state as $checkState
+    | map(.node
+        | .commits.nodes[].commit.statusCheckRollup.state as $checkState
         | {
             number: .number,
             checkState: $checkState,
             checkColor: checkMap[$checkState // ""],
             review: .reviewDecision,
             reviewIcon: reviewMap[.reviewDecision // ""],
-        }
+          }
         | " #\(.number) \(.checkColor) \(.reviewIcon)"
     )
     | join(" │ ")
