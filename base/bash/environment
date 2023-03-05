@@ -9,6 +9,11 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_RUNTIME_DIR="/tmp"
 
+# Use systemd run directory if available on linux
+if [[ -d "/run/user/$(id -u)" ]]; then
+	export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+fi
+
 # Load homebrew configuration for macos as early as possible
 [ -f /opt/homebrew/bin/brew ] && eval "$(cache_cmd /opt/homebrew/bin/brew shellenv)"
 
