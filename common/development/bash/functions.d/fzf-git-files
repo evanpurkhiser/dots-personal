@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 fzf-git-files-widget() {
+	if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != "true" ]]; then
+		return
+	fi
+
 	local root="$(git rev-parse --show-toplevel)"
 
 	local selected="$(
