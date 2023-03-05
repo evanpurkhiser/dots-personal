@@ -39,10 +39,4 @@ function M.setup()
     vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 end
 
-M.on_attach = function(client, bufnr)
-  require("my.mappings").lsp_mapping(bufnr)
-end
-
-M.capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 return M

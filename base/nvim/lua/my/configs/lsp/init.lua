@@ -1,12 +1,60 @@
 local M = {}
 
 function M.setup()
-  require("my.configs.lsp.installer").setup()
+  local mason = safe_require("mason")
+  if not mason then
+    return
+  end
 
+  local masonLspconfig = safe_require("mason-lspconfig")
+  if not masonLspconfig then
+    return
+  end
+
+  mason.setup()
+
+  masonLspconfig.setup({
+    ensure_installed = {
+      "ansiblels",
+      "bashls",
+      "cssls",
+      "dockerls",
+      "gopls",
+      "jsonls",
+      "lua_ls",
+      "sqlls",
+      "tsserver",
+    },
+  })
+
+  -- Order matters. lspconfig should load after mason-lspconfig
   local lspconfig = safe_require("lspconfig")
   if not lspconfig then
     return
   end
+
+  local on_attach = function(client, bufnr)
+    require("my.mappings").lsp_mapping(bufnr)
+  end
+
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+  masonLspconfig.setup_handlers({
+    -- The first entry (without a key) will be the default handler and will be
+    -- called for each installed server that doesn't have a dedicated handler.
+    function(server_name)
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+        capabilites = capabilities,
+      })
+    end,
+    -- you can provide a dedicated handler for specific servers. For example, a
+    -- handler override for the `rust_analyzer`:
+    --
+    -- ["rust_analyzer"] = function ()
+    --     require("rust-tools").setup {}
+    -- end
+  })
 
   -- Add rounded window borders
   local lspconfig_window = require("lspconfig.ui.windows")

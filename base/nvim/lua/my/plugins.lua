@@ -135,19 +135,14 @@ return packer.startup(function(use)
   -- vscode snippets
   use({ "rafamadriz/friendly-snippets" })
 
-  -- Helper plugin to handle installing LSP servers
-  use({ "williamboman/nvim-lsp-installer" })
+  -- Helper plugins to handle installing LSP servers
+  use({ "williamboman/mason.nvim" })
+  use({ "williamboman/mason-lspconfig.nvim" })
 
   -- Utilities for better configuration of the neovim LSP
   use({
     "neovim/nvim-lspconfig",
-    event = "BufRead",
-    cmd = {
-      "LspInfo",
-      "LspStart",
-      "LspStop",
-      "LspRestart",
-    },
+    after = { "mason.nvim", "mason-lspconfig.nvim" },
     config = function()
       require("my.configs.lsp").setup()
     end,
