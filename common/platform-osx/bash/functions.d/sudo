@@ -1,0 +1,15 @@
+#!/usr/bin/env bash!
+
+# Automatically setup touch ID sudo if it has been removed from /etc/pam.d/sudo
+
+# Nothing to do if both modules are listed
+if grep '(pam_tid.so|pam_reattach.so)' /etc/pam.d/sudo --silent; then
+	exit
+fi
+
+function sudo() {
+	unset -f sudo
+	sudo sed -i '' -e '2s;^;auth       sufficient     pam_tid.so\n;' /etc/pam.d/sudo
+	sudo sed -i '' -e '2s;^;auth       sufficient     /opt/homebrew/lib/pam/pam_reattach.so\n;' /etc/pam.d/sudo
+	sudo "$@"
+}
