@@ -53,27 +53,6 @@ function M.setup()
     return
   end
 
-  -- Improve info / warn / err formatting
-  local fzf_utils = require("fzf-lua.utils")
-
-  fzf_utils.info = function(msg)
-    vim.cmd("echohl Directory")
-    fzf_utils._echo_multiline("[fzf-lua] " .. msg)
-    vim.cmd("echohl None")
-  end
-
-  fzf_utils.warn = function(msg)
-    vim.cmd("echohl WarningMsg")
-    fzf_utils._echo_multiline("[fzf-lua] " .. msg)
-    vim.cmd("echohl None")
-  end
-
-  fzf_utils.err = function(msg)
-    vim.cmd("echohl ErrorMsg")
-    fzf_utils._echo_multiline("[fzf-lua] " .. msg)
-    vim.cmd("echohl None")
-  end
-
   fzf.setup({
     winopts = {
       height = 0.6,
