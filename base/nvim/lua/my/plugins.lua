@@ -153,7 +153,7 @@ return packer.startup(function(use)
     "j-hui/fidget.nvim",
     after = "nvim-lspconfig",
     config = function()
-      require("fidget").setup()
+      require("my.configs.fidget").setup()
     end,
   })
 
