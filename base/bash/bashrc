@@ -55,3 +55,8 @@ eval "$(TERM=xterm-256color dircolors "$XDG_CONFIG_HOME/bash/dircolors/gruvbox")
 
 # Setup direnv if available
 hash direnv 2>/dev/null && eval "$(direnv hook bash)"
+
+# Cache sudo password immeidately when using SSH with pam_ssh_agent
+[ "$SSH_CLIENT" ] &&
+	grep --quiet 'pam_ssh_agent' /etc/pam.d/sudo &&
+	sudo --stdin true </dev/null 2>/dev/null
