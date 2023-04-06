@@ -5,3 +5,6 @@ export PATH="$HOME/.local/lib/gnu-override/bin:$PATH"
 
 # Avoid brew trying to update during install
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Do not do cleanup after installs, we'll manually run this
+export HOMEBREW_NO_INSTALL_CLEANUP=1

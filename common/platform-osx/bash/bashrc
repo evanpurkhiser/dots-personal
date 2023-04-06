@@ -10,3 +10,8 @@ if [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
 
 	progress_timer "load bash-completion" source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
 fi
+
+# Setup homebrew auto update if it isn't already
+if hash brew 2>/dev/null && ! launchctl list | grep -q homebrew-autoupdate; then
+	brew autoupdate start 3600 --cleanup
+fi
