@@ -30,7 +30,7 @@ stty -ixoff
 
 # Attempt to keep an unlimitedly large history
 export HISTFILE="$XDG_STATE_HOME/bash_history"
-export HISTCONTROL=ignoredups:erasedups
+export HISTCONTROL=ignoredups:erasedups:ignorespace
 export HISTSIZE=
 export HISTFILESIZE=
 
