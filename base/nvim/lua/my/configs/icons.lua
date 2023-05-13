@@ -43,7 +43,7 @@ function M.setup()
       name = "kt",
     },
     lock = {
-      icon = "",
+      icon = "󰌾",
       color = "#c4c720",
       name = "lock",
     },
@@ -53,7 +53,7 @@ function M.setup()
       name = "lua",
     },
     mp3 = {
-      icon = "",
+      icon = "󰎆",
       color = "#d39ede",
       name = "mp3",
     },
@@ -73,7 +73,7 @@ function M.setup()
       name = "py",
     },
     ["robots.txt"] = {
-      icon = "ﮧ",
+      icon = "󰚩",
       color = "#abb2bf",
       name = "robots",
     },
@@ -103,7 +103,7 @@ function M.setup()
       name = "rpm",
     },
     vue = {
-      icon = "﵂",
+      icon = "󰡄",
       color = "#7bc99c",
       name = "vue",
     },
@@ -128,7 +128,7 @@ function M.setup()
       name = "zip",
     },
     jsx = {
-      icon = "ﰆ",
+      icon = "󰜈",
       color = "#519ab8",
       name = "jsx",
     },
@@ -138,17 +138,17 @@ function M.setup()
       name = "rs",
     },
     jpg = {
-      icon = "",
+      icon = "󰉏",
       color = "#c882e7",
       name = "jpg",
     },
     png = {
-      icon = "",
+      icon = "󰉏",
       color = "#c882e7",
       name = "png",
     },
     jpeg = {
-      icon = "",
+      icon = "󰉏",
       color = "#c882e7",
       name = "jpeg",
     },
