@@ -4,9 +4,9 @@ def reset: escape + "[0m";
 
 def reviewMap:
     {
-        "APPROVED": "\(escape)[32m\(reset)",
-        "REVIEW_REQUIRED": "\(escape)[33m\(reset)",
-        "CHANGES_REQUESTED": "\(escape)[31m\(reset)",
+        "APPROVED": "\(escape)[32m󰆀\(reset)",
+        "REVIEW_REQUIRED": "\(escape)[33m󰆅\(reset)",
+        "CHANGES_REQUESTED": "\(escape)[31m󰆇\(reset)",
         "": ""
     };
 
