@@ -14,12 +14,12 @@ option="\#{window_flags}"
 
 readarray -t mappings <<-EOM
 	s/*/ /
-	s/-/ /
+	s/-/󰌍 /
 	s/#/ /
-	s/!/ /
-	s/~/ﱝ /
+	s/!/󰂞 /
+	s/~/󰝟 /
 	s/M/ /
-	s/Z/ /
+	s/Z/󰁌 /
 EOM
 
 sed_script="$(
