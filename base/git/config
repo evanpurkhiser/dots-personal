@@ -11,6 +11,7 @@
   rbm = rebase --interactive
   rma = !git ls-files --deleted -z | xargs -0 -r git rm
   cif = !git commit -v --fixup=$(pt --color select-commit) && git -c sequence.editor=: rebase -i
+  s   = !git show $(pt --color select-commit)
 
 [pretty]
   ls = format:%C(cyan)%h %C(red)%ad %C(blue)[%an]%C(auto)%d %C(normal)%s
