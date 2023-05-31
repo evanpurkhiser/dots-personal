@@ -116,39 +116,3 @@ hs.hotkey.bind(super, "=", function()
     end
   end
 end)
-
-local function handle1PasswordSSHAuthPromt()
-  local lastWindowFocus = nil
-
-  local onePasswordSSHAuthPrompt =
-    hs.window.filter
-      .new(false)
-      :setAppFilter("1Password", { focused = false, allowRoles = "AXDialog" })
-
-  -- Focus 1Password SSH Auth prompt
-  onePasswordSSHAuthPrompt:subscribe(hs.window.filter.windowCreated, function(window)
-    -- Extra double check that it's the size of window we expect, so we don't end
-    -- up focusing a 1Password window that isn't the SSAuth prompt.
-    --
-    -- XXX:Just check the width, since the height is variable depending on the text
-    if window:size().w ~= 260 then
-      return
-    end
-
-    -- Track the currently focused window so we can quickly restore once we
-    -- accept the SSH prompt
-    lastWindowFocus = hs.window.focusedWindow()
-
-    window:focus()
-  end)
-
-  -- Return focus to last window before ssh auth promt
-  onePasswordSSHAuthPrompt:subscribe(hs.window.filter.windowDestroyed, function()
-    if lastWindowFocus ~= nil then
-      lastWindowFocus:focus()
-      lastWindowFocus = nil
-    end
-  end)
-end
-
-handle1PasswordSSHAuthPromt()
