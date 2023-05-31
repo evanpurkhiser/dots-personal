@@ -112,15 +112,6 @@ nmap({ "<Leader>y", '"+y', {} })
 nmap({ "<Leader>Y", '"+Y', {} })
 vmap({ "<Leader>y", '"+y', {} })
 
--- fzf
-local fzf = require("fzf-lua")
-
-nmap({ "<Leader><Leader>", fzf.git_files })
-nmap({ "<Leader>p", fzf.files })
-nmap({ "<Leader>b", fzf.buffers })
-nmap({ "<Leader>f", fzf.grep_project })
-nmap({ "<Leader>r", fzf.command_history })
-
 -- Toggle spelling
 nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
 
@@ -131,13 +122,6 @@ vmap({ "<Leader>s", "<cmd>sort<CR>" })
 nmap({ "gb", ":Git blame<cr>" })
 nmap({ "gh", ":GBrowse!<cr>" })
 vmap({ "gh", ":'<'>GBrowse!<cr>" })
-
--- Substitute
-local substitute = require("substitute")
-
-nmap({ "s", substitute.operator })
-nmap({ "ss", substitute.line })
-nmap({ "S", substitute.eol })
 
 -- Yank filepath into system clipboard
 nmap({
@@ -151,8 +135,36 @@ nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
 -- Repeat the last execuded macro
 nmap({ ",", "@@" })
 
+-- fzf
+function M.fzf_mapping()
+  local fzf = require("fzf-lua")
+
+  fzf["grep_project_full"] = function()
+    fzf.grep_project({
+      fzf_opts = { ["--nth"] = "1.." },
+    })
+  end
+
+  nmap({ "<Leader><Leader>", fzf.git_files })
+  nmap({ "<Leader>p", fzf.files })
+  nmap({ "<Leader>b", fzf.buffers })
+  nmap({ "<Leader>f", fzf.grep_project_full })
+  nmap({ "<Leader>r", fzf.command_history })
+end
+
+function M.substitue_mapping()
+  -- Substitute
+  local substitute = require("substitute")
+
+  nmap({ "s", substitute.operator })
+  nmap({ "ss", substitute.line })
+  nmap({ "S", substitute.eol })
+end
+
 -- Upload image and insert markdown
-imap({ "<C-v>", require("image-paste").paste_image })
+function M.image_paste_mapping()
+  imap({ "<C-v>", require("image-paste").paste_image })
+end
 
 function M.lsp_mapping(bufnr)
   local fzf_conf = require("my.configs.fzf")

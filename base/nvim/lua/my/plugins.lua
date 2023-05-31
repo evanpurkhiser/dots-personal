@@ -19,6 +19,16 @@ local packer = require("packer")
 return packer.startup(function(use)
   use({ "wbthomason/packer.nvim" })
 
+  -- Color schemes
+  use({
+    "eddyekofo94/gruvbox-flat.nvim",
+    config = function()
+      -- colorscheme
+      vim.g.gruvbox_flat_style = "dark"
+      vim.cmd("colorscheme gruvbox-flat")
+    end,
+  })
+
   use({ "nvim-lua/plenary.nvim" })
 
   use({ "tpope/vim-rsi" })
@@ -191,7 +201,7 @@ return packer.startup(function(use)
   use({
     "evanpurkhiser/image-paste.nvim",
     config = function()
-      require("image-paste").setup({ imgur_client_id = "77748a048c5f8ce" })
+      require("my.configs.image-paste").setup()
     end,
   })
 
@@ -200,9 +210,6 @@ return packer.startup(function(use)
 
   -- Adds argument text objects
   use({ "b4winckler/vim-angry" })
-
-  -- Color schemes
-  use({ "eddyekofo94/gruvbox-flat.nvim" })
 
   -- Styled compoennt syntax highlighting
   use({ "styled-components/vim-styled-components", branch = "main" })

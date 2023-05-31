@@ -110,6 +110,9 @@ function M.setup()
       },
     },
   })
+
+  -- Load fzf mappings
+  require("my.mappings").fzf_mapping()
 end
 
 return M

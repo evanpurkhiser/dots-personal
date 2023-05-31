@@ -13,10 +13,6 @@ set.ignorecase = true -- Ignore case when searching
 set.smartcase = true -- Don't ignore case when using uppercase in a search
 set.confirm = true -- Ask for confirmation when closing unsaved files
 
--- colorscheme
-cmd("colorscheme gruvbox-flat")
-g.gruvbox_flat_style = "dark"
-
 set.termguicolors = true
 set.background = "dark"
 

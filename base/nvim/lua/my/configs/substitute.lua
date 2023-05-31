@@ -7,6 +7,9 @@ function M.setup()
   end
 
   substitute.setup()
+
+  -- Load mappings
+  require("my.mappings").substitue_mapping()
 end
 
 return M
