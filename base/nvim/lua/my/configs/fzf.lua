@@ -56,7 +56,7 @@ function M.setup()
   fzf.setup({
     winopts = {
       height = 0.6,
-      width = 0.95,
+      width = 0.8,
 
       preview = {
         title = false,
@@ -83,10 +83,16 @@ function M.setup()
       },
     },
 
-    files = { prompt = "files › " },
+    files = {
+      previewer = false,
+      prompt = "files › ",
+    },
 
     git = {
-      files = { prompt = "tree › " },
+      files = {
+        previewer = false,
+        prompt = "tree › ",
+      },
     },
 
     grep = {
