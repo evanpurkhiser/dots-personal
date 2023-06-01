@@ -167,6 +167,7 @@ function M.image_paste_mapping()
 end
 
 function M.lsp_mapping(bufnr)
+  local fzf = require("fzf-lua")
   local fzf_conf = require("my.configs.fzf")
 
   local function fzf_lsp(name, opts)
