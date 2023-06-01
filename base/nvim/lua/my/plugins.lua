@@ -223,9 +223,6 @@ return packer.startup(function(use)
   -- Adds argument text objects
   use({ "b4winckler/vim-angry" })
 
-  -- Styled compoennt syntax highlighting
-  use({ "styled-components/vim-styled-components", branch = "main" })
-
   if should_bootstrap then
     packer.sync()
   end
