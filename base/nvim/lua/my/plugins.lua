@@ -52,6 +52,16 @@ return packer.startup(function(use)
     end,
   })
 
+  -- Automatic html / jsx closing tags
+  use({
+    "windwp/nvim-ts-autotag",
+    after = { "nvim-treesitter" },
+    config = function()
+      print("autotag starting")
+      require("my.configs.autotag").setup()
+    end,
+  })
+
   -- Automatically set the root directory
   use({
     "ahmedkhalf/project.nvim",
