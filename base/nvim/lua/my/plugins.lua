@@ -77,7 +77,6 @@ return packer.startup(function(use)
   -- Fuzzy file / buffer / mru finder
   use({
     "ibhagwan/fzf-lua",
-    requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
       require("my.configs.fzf").setup()
     end,
@@ -114,7 +113,6 @@ return packer.startup(function(use)
   -- Status line
   use({
     "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
       require("my.configs.lualine").setup()
     end,
@@ -124,7 +122,6 @@ return packer.startup(function(use)
   use({
     "akinsho/bufferline.nvim",
     tag = "*",
-    requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
       require("my.configs.bufferline").setup()
     end,
