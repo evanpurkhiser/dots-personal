@@ -41,6 +41,34 @@ nmap({
   "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
 })
 
+-- Quick system copy and paste
+nmap({ "<Leader>y", '"+y', {} })
+nmap({ "<Leader>Y", '"+Y', {} })
+vmap({ "<Leader>y", '"+y', {} })
+
+-- Toggle spelling
+nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
+
+-- Sort visual selection
+vmap({ "<Leader>s", "<cmd>sort<CR>" })
+
+-- Git
+nmap({ "gb", ":Git blame<cr>" })
+nmap({ "gh", ":GBrowse!<cr>" })
+vmap({ "gh", ":'<'>GBrowse!<cr>" })
+
+-- Yank filepath into system clipboard
+nmap({
+  "<Leader>yp",
+  ":let @+ = expand('%:p')<CR>:echom 'Path copied to system clipboard'<CR>",
+})
+
+-- Clear search
+nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
+
+-- Repeat the last execuded macro
+nmap({ ",", "@@" })
+
 -- Visual star, search selected text
 local function visual_star()
   local win = vim.fn.winsaveview()
@@ -106,34 +134,6 @@ local function quit()
 end
 
 nmap({ "<C-q>", quit })
-
--- Quick system copy and paste
-nmap({ "<Leader>y", '"+y', {} })
-nmap({ "<Leader>Y", '"+Y', {} })
-vmap({ "<Leader>y", '"+y', {} })
-
--- Toggle spelling
-nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
-
--- Sort visual selection
-vmap({ "<Leader>s", "<cmd>sort<CR>" })
-
--- Git
-nmap({ "gb", ":Git blame<cr>" })
-nmap({ "gh", ":GBrowse!<cr>" })
-vmap({ "gh", ":'<'>GBrowse!<cr>" })
-
--- Yank filepath into system clipboard
-nmap({
-  "<Leader>yp",
-  ":let @+ = expand('%:p')<CR>:echom 'Path copied to system clipboard'<CR>",
-})
-
--- Clear search
-nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
-
--- Repeat the last execuded macro
-nmap({ ",", "@@" })
 
 -- fzf
 function M.fzf_mapping()
