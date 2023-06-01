@@ -48,10 +48,7 @@ M.winopts_bottom = {
 }
 
 function M.setup()
-  local fzf = safe_require("fzf-lua")
-  if not fzf then
-    return
-  end
+  local fzf = require("fzf-lua")
 
   fzf.setup({
     winopts = {

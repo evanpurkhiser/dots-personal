@@ -1,20 +1,9 @@
 local M = {}
 
 function M.setup()
-  local cmp = safe_require("cmp")
-  if not cmp then
-    return
-  end
-
-  local luasnip = safe_require("luasnip")
-  if not luasnip then
-    return
-  end
-
-  local lspkind = safe_require("lspkind")
-  if not lspkind then
-    return
-  end
+  local cmp = require("cmp")
+  local luasnip = require("luasnip")
+  local lspkind = require("lspkind")
 
   local check_backspace = function()
     local col = vim.fn.col(".") - 1

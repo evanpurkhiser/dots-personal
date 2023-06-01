@@ -1,10 +1,7 @@
 local M = {}
 
 function M.setup()
-  local autotag = safe_require("nvim-autopairs")
-  if not autotag then
-    return
-  end
+  local autotag = require("nvim-autopairs")
 
   autotag.setup()
 end

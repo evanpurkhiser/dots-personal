@@ -1,10 +1,7 @@
 local M = {}
 
 function M.setup()
-  local lualine = safe_require("lualine")
-  if not lualine then
-    return
-  end
+  local lualine = require("lualine")
 
   local function repoName()
     return " " .. vim.fn.getcwd():match("[^/]*$")

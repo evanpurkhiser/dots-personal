@@ -1,10 +1,7 @@
 local M = {}
 
 function M.setup()
-  local imagePaste = safe_require("substitute")
-  if not imagePaste then
-    return
-  end
+  local imagePaste = require("substitute")
 
   imagePaste.setup({ imgur_client_id = "77748a048c5f8ce" })
 

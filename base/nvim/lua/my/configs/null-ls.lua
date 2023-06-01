@@ -4,10 +4,7 @@ local M = {}
 local augroup_formatting = vim.api.nvim_create_augroup("LspFormatting", {})
 
 function M.setup()
-  local null_ls = safe_require("null-ls")
-  if not null_ls then
-    return
-  end
+  local null_ls = require("null-ls")
 
   -- Check supported formatters
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting

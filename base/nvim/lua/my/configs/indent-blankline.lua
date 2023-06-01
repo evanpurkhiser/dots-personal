@@ -3,10 +3,7 @@ M = {}
 local g = vim.g
 
 function M.setup()
-  local indent_blankline = safe_require("indent_blankline")
-  if not indent_blankline then
-    return
-  end
+  local indent_blankline = require("indent_blankline")
 
   g.indent_blankline_show_trailing_blankline_indent = false
   g.indent_blankline_show_first_indent_level = false

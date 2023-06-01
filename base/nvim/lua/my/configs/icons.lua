@@ -1,10 +1,7 @@
 local M = {}
 
 function M.setup()
-  local icons = safe_require("nvim-web-devicons")
-  if not icons then
-    return
-  end
+  local icons = require("nvim-web-devicons")
 
   icons.set_icon({
     c = {

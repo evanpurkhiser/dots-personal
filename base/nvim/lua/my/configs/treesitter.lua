@@ -1,10 +1,7 @@
 local M = {}
 
 function M.setup()
-  local treesitter = safe_require("nvim-treesitter.configs")
-  if not treesitter then
-    return
-  end
+  local treesitter = require("nvim-treesitter.configs")
 
   treesitter.setup({
     ensure_installed = {

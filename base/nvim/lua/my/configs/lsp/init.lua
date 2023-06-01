@@ -1,15 +1,8 @@
 local M = {}
 
 function M.setup()
-  local mason = safe_require("mason")
-  if not mason then
-    return
-  end
-
-  local masonLspconfig = safe_require("mason-lspconfig")
-  if not masonLspconfig then
-    return
-  end
+  local mason = require("mason")
+  local masonLspconfig = require("mason-lspconfig")
 
   mason.setup()
 
@@ -28,10 +21,7 @@ function M.setup()
   })
 
   -- Order matters. lspconfig should load after mason-lspconfig
-  local lspconfig = safe_require("lspconfig")
-  if not lspconfig then
-    return
-  end
+  local lspconfig = require("lspconfig")
 
   local on_attach = function(client, bufnr)
     require("my.mappings").lsp_mapping(bufnr)

@@ -1,10 +1,7 @@
 local M = {}
 
 function M.setup()
-  local project = safe_require("project_nvim")
-  if not project then
-    return
-  end
+  local project = require("project_nvim")
 
   config = {
     -- LSP detection seems buggy

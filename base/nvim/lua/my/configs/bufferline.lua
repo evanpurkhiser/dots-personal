@@ -1,10 +1,7 @@
 local M = {}
 
 function M.setup()
-  local bufferline = safe_require("bufferline")
-  if not bufferline then
-    return
-  end
+  local bufferline = require("bufferline")
 
   bufferline.setup({
     options = {
