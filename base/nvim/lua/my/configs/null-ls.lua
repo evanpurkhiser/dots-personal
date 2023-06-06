@@ -17,7 +17,7 @@ function M.setup()
       formatting.gofmt,
       formatting.isort,
       formatting.prettierd,
-      formatting.rustfmt,
+      formatting.rustfmt.with({ extra_args = { "--edition=2021" } }),
       formatting.shfmt,
       formatting.stylua,
     },
