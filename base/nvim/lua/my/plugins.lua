@@ -41,7 +41,14 @@ return packer.startup(function(use)
   use({ "tpope/vim-commentary" })
   use({ "tpope/vim-unimpaired" })
   use({ "tpope/vim-fugitive" })
-  use({ "tpope/vim-rhubarb" })
+
+  -- Generate github links
+  use({
+    "ruifm/gitlinker.nvim",
+    config = function()
+      require("my.configs.gitlinker").setup()
+    end,
+  })
 
   -- Automatic pairs
   use({

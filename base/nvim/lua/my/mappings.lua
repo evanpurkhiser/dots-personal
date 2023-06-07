@@ -54,8 +54,10 @@ vmap({ "<Leader>s", "<cmd>sort<CR>" })
 
 -- Git
 nmap({ "gb", ":Git blame<cr>" })
-nmap({ "gh", ":GBrowse!<cr>" })
-vmap({ "gh", ":'<'>GBrowse!<cr>" })
+
+-- Git remote URLs
+nmap({ "gh", require("my.configs.gitlinker").normal })
+vmap({ "gh", require("my.configs.gitlinker").visual })
 
 -- Yank filepath into system clipboard
 nmap({
