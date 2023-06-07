@@ -15,6 +15,7 @@ function M.setup()
       "javascript",
       "jq",
       "json",
+      "jsonnet",
       "lua",
       "markdown",
       "php",
