@@ -20,14 +20,15 @@ vim-singleton() {
 
 	# Open passed files
 	if [[ "$@" != "" ]]; then
+		local files=()
+
 		# File list must be absolute path, since vims current directory may be
 		# different from where we are in the shell
-		local files="$(realpath "$@")"
+		for path in "$@"; do
+			files+=("$(realpath $(dirname "$path"))/$(basename "$path")")
+		done
 
-		# Open file in active vim session. Wrap in a subshell to avoid job control
-		# messages and background the job. nvr will wait until nvim responds, which
-		# will only happen once it's in the forground.
-		(nvim --server $NVIM_LISTEN_ADDRESS --remote "$files" &)
+		nvim --server $NVIM_LISTEN_ADDRESS --remote "${files[@]}"
 	fi
 
 	fg "$vim_id"
