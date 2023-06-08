@@ -12,6 +12,7 @@ function M.setup()
       "bashls",
       "cssls",
       "dockerls",
+      "eslint",
       "gopls",
       "jsonls",
       "lua_ls",

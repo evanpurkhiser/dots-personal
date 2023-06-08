@@ -13,7 +13,6 @@ function M.setup()
   null_ls.setup({
     sources = {
       formatting.black,
-      formatting.eslint_d,
       formatting.gofmt,
       formatting.isort,
       formatting.prettierd,
