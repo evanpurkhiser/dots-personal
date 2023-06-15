@@ -26,11 +26,10 @@ return packer.startup(function(use)
 
   -- Color schemes
   use({
-    "eddyekofo94/gruvbox-flat.nvim",
+    "ellisonleao/gruvbox.nvim",
     config = function()
       -- colorscheme
-      vim.g.gruvbox_flat_style = "dark"
-      vim.cmd("colorscheme gruvbox-flat")
+      vim.cmd("colorscheme gruvbox")
     end,
   })
 

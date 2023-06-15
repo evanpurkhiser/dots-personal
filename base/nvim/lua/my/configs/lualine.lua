@@ -9,7 +9,7 @@ function M.setup()
 
   local config = {
     options = {
-      theme = "gruvbox-flat",
+      theme = "gruvbox_dark",
 
       globalstatus = true,
       disabled_filetypes = { "NvimTree", "dashboard", "Outline" },
