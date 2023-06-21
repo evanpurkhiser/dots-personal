@@ -20,6 +20,7 @@ function M.setup()
       formatting.rustfmt.with({ extra_args = { "--edition=2021" } }),
       formatting.shfmt,
       formatting.stylua,
+      formatting.jsonnetfmt,
     },
 
     on_attach = function(client, bufnr)
