@@ -56,8 +56,10 @@ vmap({ "<Leader>s", "<cmd>sort<CR>" })
 nmap({ "gb", ":Git blame<cr>" })
 
 -- Git remote URLs
-nmap({ "gh", require("my.configs.gitlinker").normal })
-vmap({ "gh", require("my.configs.gitlinker").visual })
+function M.gitlinker_mappings(gitlinker)
+  nmap({ "gh", gitlinker.normal })
+  vmap({ "gh", gitlinker.visual })
+end
 
 -- Yank filepath into system clipboard
 nmap({
@@ -138,9 +140,7 @@ end
 nmap({ "<C-q>", quit })
 
 -- fzf
-function M.fzf_mapping()
-  local fzf = require("fzf-lua")
-
+function M.fzf_mapping(fzf)
   fzf["grep_project_full"] = function()
     fzf.grep_project({
       fzf_opts = { ["--nth"] = "1.." },
@@ -154,28 +154,33 @@ function M.fzf_mapping()
   nmap({ "<Leader>r", fzf.command_history })
 end
 
-function M.substitue_mapping()
-  -- Substitute
-  local substitute = require("substitute")
-
+function M.substitue_mapping(substitute)
   nmap({ "s", substitute.operator })
   nmap({ "ss", substitute.line })
   nmap({ "S", substitute.eol })
 end
 
 -- Upload image and insert markdown
-function M.image_paste_mapping()
-  imap({ "<C-v>", require("image-paste").paste_image })
+function M.image_paste_mapping(imagePaste)
+  imap({ "<C-v>", imagePaste.paste_image })
 end
 
 function M.lsp_mapping(bufnr)
   local fzf = require("fzf-lua")
-  local fzf_conf = require("my.configs.fzf")
+
+  local winopts_bottom = {
+    height = 0.3,
+    width = 1,
+    row = 1,
+    col = 0,
+    border = { "", "─", "", "", "", "", "", "" },
+    preview = { horizontal = "right:50%" },
+  }
 
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]
     return function()
-      fn(opts or { winopts = fzf_conf.winopts_bottom, jump_to_single_result = true })
+      fn(opts or { winopts = winopts_bottom, jump_to_single_result = true })
     end
   end
 
@@ -188,16 +193,23 @@ function M.lsp_mapping(bufnr)
 
   nmap({
     "gs",
-    fzf_lsp(
-      "document_symbols",
-      { winopts = fzf_conf.winopts_bottom, current_buffer_only = true }
-    ),
+    fzf_lsp("document_symbols", { winopts = winopts_bottom, current_buffer_only = true }),
     bufnr = bufnr,
   })
+
+  -- Remaing
+  nmap({
+    "gr",
+    vim.lsp.buf.rename,
+    bufnr = bufnr,
+  })
+
+  print("mapping space", bufnr)
 
   nmap({
     "<space>",
     function()
+      print("hellow")
       vim.lsp.buf.hover()
     end,
     bufnr = bufnr,

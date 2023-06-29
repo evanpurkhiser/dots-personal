@@ -1,6 +1,8 @@
-local M = {}
+local P = {
+  "akinsho/bufferline.nvim",
+}
 
-function M.setup()
+function P.config()
   local bufferline = require("bufferline")
 
   bufferline.setup({
@@ -16,11 +18,11 @@ function M.setup()
       enforce_regular_tabs = false,
       view = "multiwindow",
       show_buffer_close_icons = false,
-      separator_style = { "", "" },
+      separator_style = { '', '' },
       always_show_bufferline = true,
       diagnostics = false,
     },
   })
 end
 
-return M
+return P

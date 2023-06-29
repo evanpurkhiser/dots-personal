@@ -1,6 +1,8 @@
-M = {}
+local P = {
+  "norcalli/nvim-colorizer.lua",
+}
 
-function M.setup()
+function P.config()
   local colorizer = require("colorizer")
 
   colorizer.setup({ "*" }, {
@@ -11,4 +13,4 @@ function M.setup()
   })
 end
 
-return M
+return P

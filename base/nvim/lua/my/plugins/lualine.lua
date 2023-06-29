@@ -1,6 +1,8 @@
-local M = {}
+local P = {
+  "nvim-lualine/lualine.nvim",
+}
 
-function M.setup()
+function P.config()
   local lualine = require("lualine")
 
   local function repoName()
@@ -41,4 +43,4 @@ function M.setup()
   lualine.setup(config)
 end
 
-return M
+return P

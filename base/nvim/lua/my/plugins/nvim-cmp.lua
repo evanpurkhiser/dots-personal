@@ -1,6 +1,16 @@
-local M = {}
+local P = {
+  "hrsh7th/nvim-cmp",
+}
 
-function M.setup()
+P.dependencies = {
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "onsails/lspkind.nvim" },
+  { "L3MON4D3/luasnip" },
+  { "saadparwaiz1/cmp_luasnip", name = "cmp-luasnip" },
+}
+
+function P.config()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
   local lspkind = require("lspkind")
@@ -115,7 +125,7 @@ function M.setup()
     Enum = { link = "String" },
     EnumMember = { link = "String" },
     Constant = { link = "Constant" },
-    Snippet = { link = "Whitespace" },
+    Snippet = { link = "DiagnosticOk" },
     Field = { link = "Identifier" },
     Property = { link = "Identifier" },
     Variable = { link = "Identifier" },
@@ -130,4 +140,4 @@ function M.setup()
   end
 end
 
-return M
+return P

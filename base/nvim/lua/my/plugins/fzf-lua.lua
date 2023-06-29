@@ -1,4 +1,6 @@
-local M = {}
+local P = {
+  "ibhagwan/fzf-lua",
+}
 
 local grep_ignored = {
   "static/dist/**/*",
@@ -30,7 +32,7 @@ local grep_ignored = {
   "src/sentry/data/**/*",
 }
 
-grep_ignored.toString = function(self)
+function grep_ignored.toString(self)
   local str = ""
   for _, pattern in ipairs(self) do
     str = str .. string.format('-g "!%s" ', pattern)
@@ -38,7 +40,8 @@ grep_ignored.toString = function(self)
   return str
 end
 
-M.winopts_bottom = {
+-- Exported for use in other configs
+local winopts_bottom = {
   height = 0.3,
   width = 1,
   row = 1,
@@ -47,13 +50,14 @@ M.winopts_bottom = {
   preview = { horizontal = "right:50%" },
 }
 
-function M.setup()
+function P.config()
   local fzf = require("fzf-lua")
 
   fzf.setup({
     winopts = {
       height = 0.6,
       width = 0.8,
+      border = { " ", " ", " ", " ", " ", " ", " ", " " },
 
       preview = {
         title = false,
@@ -61,7 +65,8 @@ function M.setup()
         horizontal = "right:40%",
       },
       hl = {
-        border = "FloatBorder",
+        normal = "NormalFloat",
+        border = "NormalFloat",
       },
     },
 
@@ -89,6 +94,7 @@ function M.setup()
       files = {
         previewer = false,
         prompt = "tree › ",
+        cmd = "git ls-files --exclude-standard --cached --other",
       },
     },
 
@@ -99,13 +105,13 @@ function M.setup()
         width = 0.98,
         preview = { layout = "vertical", vertical = "up:30%" },
       },
-      rg_opts = fzf.config.globals.grep.rg_opts .. " " .. grep_ignored:toString(),
+      rg_opts = grep_ignored:toString() .. " " .. fzf.config.globals.grep.rg_opts,
     },
 
     nvim = {
       command_history = {
         prompt = "command history › ",
-        winopts = M.winopts_bottom,
+        winopts = winopts_bottom,
         fzf_opts = {
           ["--tiebreak"] = "index",
           ["--layout"] = "default",
@@ -115,7 +121,7 @@ function M.setup()
   })
 
   -- Load fzf mappings
-  require("my.mappings").fzf_mapping()
+  require("my.mappings").fzf_mapping(fzf)
 end
 
-return M
+return P

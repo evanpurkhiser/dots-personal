@@ -1,6 +1,8 @@
-local M = {}
+local P = {
+  "kyazdani42/nvim-web-devicons",
+}
 
-function M.setup()
+function P.config()
   local icons = require("nvim-web-devicons")
 
   icons.set_icon({
@@ -152,4 +154,4 @@ function M.setup()
   })
 end
 
-return M
+return P

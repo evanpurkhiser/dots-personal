@@ -1,6 +1,20 @@
-local M = {}
+local P = {
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  event = "BufRead",
+  cmd = {
+    "TSInstall",
+    "TSInstallInfo",
+    "TSInstallSync",
+    "TSUninstall",
+    "TSUpdate",
+    "TSUpdateSync",
+    "TSDisableAll",
+    "TSEnableAll",
+  },
+}
 
-function M.setup()
+function P.config()
   local treesitter = require("nvim-treesitter.configs")
 
   treesitter.setup({
@@ -59,4 +73,4 @@ function M.setup()
   })
 end
 
-return M
+return P

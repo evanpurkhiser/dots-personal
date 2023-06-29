@@ -1,17 +1,16 @@
-local M = {}
+local P = {
+  "ahmedkhalf/project.nvim",
+}
 
-function M.setup()
+function P.config()
   local project = require("project_nvim")
 
-  config = {
+  project.setup({
     -- LSP detection seems buggy
     detection_methods = { "pattern" },
-
     -- Scope path the window of the file
     scope_chdir = "win",
-  }
-
-  project.setup(config)
+  })
 end
 
-return M
+return P

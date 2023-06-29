@@ -1,8 +1,11 @@
-M = {}
+local P = {
+  "lukas-reineke/indent-blankline.nvim",
+  event = "BufRead",
+}
 
 local g = vim.g
 
-function M.setup()
+function P.config()
   local indent_blankline = require("indent_blankline")
 
   g.indent_blankline_show_trailing_blankline_indent = false
@@ -16,4 +19,4 @@ function M.setup()
   })
 end
 
-return M
+return P
