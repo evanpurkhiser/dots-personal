@@ -197,23 +197,11 @@ function M.lsp_mapping(bufnr)
     bufnr = bufnr,
   })
 
-  -- Remaing
-  nmap({
-    "gr",
-    vim.lsp.buf.rename,
-    bufnr = bufnr,
-  })
+  -- Renmae symbols
+  nmap({ "gn", vim.lsp.buf.rename, bufnr = bufnr })
 
-  print("mapping space", bufnr)
-
-  nmap({
-    "<space>",
-    function()
-      print("hellow")
-      vim.lsp.buf.hover()
-    end,
-    bufnr = bufnr,
-  })
+  -- Space to show hover details
+  nmap({ "<space>", vim.lsp.buf.hover, bufnr = bufnr })
 
   nmap({
     "<C-p>",
