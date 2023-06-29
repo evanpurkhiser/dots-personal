@@ -101,21 +101,19 @@ function P.config()
     grep = {
       prompt = "lines › ",
       winopts = {
-        height = 0.95,
-        width = 0.98,
+        height = 1,
+        width = 1,
         preview = { layout = "vertical", vertical = "up:30%" },
       },
       rg_opts = grep_ignored:toString() .. " " .. fzf.config.globals.grep.rg_opts,
     },
 
-    nvim = {
-      command_history = {
-        prompt = "command history › ",
-        winopts = winopts_bottom,
-        fzf_opts = {
-          ["--tiebreak"] = "index",
-          ["--layout"] = "default",
-        },
+    command_history = {
+      prompt = "command history › ",
+      winopts = winopts_bottom,
+      fzf_opts = {
+        ["--tiebreak"] = "index",
+        ["--layout"] = "default",
       },
     },
   })
