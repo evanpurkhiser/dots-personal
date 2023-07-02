@@ -32,6 +32,12 @@ function P.config()
   -- Order matters. lspconfig should load after mason-lspconfig
   local lspconfig = require("lspconfig")
 
+  local style = require("my.styles")
+  require("lspconfig.ui.windows").default_options.border = style.border
+
+  -- Fix float border highlight group for LspInfo
+  vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
+
   local function on_attach(client, bufnr)
     require("my.mappings").lsp_mapping(bufnr)
   end
@@ -84,13 +90,15 @@ function P.config()
     },
   }
 
+  local border = require("my.styles").border
+
   vim.diagnostic.config(diagnostics_config)
 
   vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+    vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 
   vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+    vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 end
 
 return P

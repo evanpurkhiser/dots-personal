@@ -8,71 +8,6 @@ local vmap = utils.map.vmap
 local cmap = utils.map.cmap
 local bmap = utils.map.bmap
 
--- Remap ^c to be the same as escape without telling us to use :q to quit. the
--- 'r' command is special cased to a NOP.
-nmap({ "r<C-c>", "<NOP>" })
-nmap({ "<C-c>", "<NOP>" })
-nmap({ "<C-c>", "<C-[>" })
-imap({ "<C-c>", "<C-[>" })
-
--- Disable EX mode
-bmap({ "Q", "<Nop>" })
-
--- Navigate command mode with proper partial-completion matching (the native
--- c-n c-p bindings don't do this for some reason)
-cmap({ "<C-p>", "<Up>" })
-cmap({ "<C-n>", "<Down>" })
-
--- Window movement
-nmap({ "<Tab>", "<C-W><C-w>" })
-nmap({ "<S-Tab>", "<C-W><S-W>" })
-
--- Buffer management
---
--- XXX: Using `<Esc>` for the previous buffer (which in typical terminals is
--- outputted for ^[) since for whatever reason, sometimes vim doesn't
--- understand <C-[>`
-nmap({ "<C-]>", "<cmd>bnext<CR>" })
-nmap({ "<Esc>", "<cmd>bprev<CR>" })
-
--- Do not move cursor when using *
-nmap({
-  "*",
-  "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
-})
-
--- Quick system copy and paste
-nmap({ "<Leader>y", '"+y', {} })
-nmap({ "<Leader>Y", '"+Y', {} })
-vmap({ "<Leader>y", '"+y', {} })
-
--- Toggle spelling
-nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
-
--- Sort visual selection
-vmap({ "<Leader>s", "<cmd>sort<CR>" })
-
--- Git
-nmap({ "gb", ":Git blame<cr>" })
-
--- Git remote URLs
-function M.gitlinker_mappings(gitlinker)
-  nmap({ "gh", gitlinker.normal })
-  vmap({ "gh", gitlinker.visual })
-end
-
--- Yank filepath into system clipboard
-nmap({
-  "<Leader>yp",
-  ":let @+ = expand('%:p')<CR>:echom 'Path copied to system clipboard'<CR>",
-})
-
--- Clear search
-nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
-
--- Repeat the last execuded macro
-nmap({ ",", "@@" })
-
 -- Visual star, search selected text
 local function visual_star()
   local win = vim.fn.winsaveview()
@@ -84,8 +19,6 @@ local function visual_star()
   vim.cmd("/" .. sel)
   vim.fn.winrestview(win)
 end
-
-vmap({ "*", visual_star })
 
 local function save()
   local path = vim.fn.expand("%")
@@ -105,8 +38,6 @@ local function save()
 
   return true
 end
-
-nmap({ "<C-s>", save })
 
 local function quit()
   local buffer_has_changes = vim.fn.getbufinfo("%")[1].changed
@@ -137,20 +68,113 @@ local function quit()
   end
 end
 
-nmap({ "<C-q>", quit })
+function M.setup()
+  -- Remap ^c to be the same as escape without telling us to use :q to quit. the
+  -- 'r' command is special cased to a NOP.
+  nmap({ "r<C-c>", "<NOP>" })
+  nmap({ "<C-c>", "<NOP>" })
+  nmap({ "<C-c>", "<C-[>" })
+  imap({ "<C-c>", "<C-[>" })
+
+  -- Disable EX mode
+  bmap({ "Q", "<Nop>" })
+
+  -- Navigate command mode with proper partial-completion matching (the native
+  -- c-n c-p bindings don't do this for some reason)
+  cmap({ "<C-p>", "<Up>" })
+  cmap({ "<C-n>", "<Down>" })
+
+  -- Window movement
+  nmap({ "<Tab>", "<C-W><C-w>" })
+  nmap({ "<S-Tab>", "<C-W><S-W>" })
+
+  -- Do not move cursor when using *
+  nmap({
+    "*",
+    "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
+  })
+
+  -- Visual mode star
+  vmap({ "*", visual_star })
+
+  -- Quick system copy and paste
+  nmap({ "<Leader>y", '"+y', {} })
+  nmap({ "<Leader>Y", '"+Y', {} })
+  vmap({ "<Leader>y", '"+y', {} })
+
+  -- Yank filepath into system clipboard
+  nmap({
+    "<Leader>yp",
+    ":let @+ = expand('%:p')<CR>:echom 'Path copied to system clipboard'<CR>",
+  })
+
+  -- Toggle spelling
+  nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
+
+  -- Sort visual selection
+  vmap({ "<Leader>s", "<cmd>sort<CR>" })
+
+  -- Git blame
+  nmap({ "gb", ":Git blame<cr>" })
+
+  -- Clear search
+  nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
+
+  -- Repeat the last execuded macro
+  nmap({ ",", "@@" })
+
+  nmap({ "<C-s>", save })
+  nmap({ "<C-q>", quit })
+end
+
+-- Buffer management
+function M.bufferline_mappings(bufferline)
+  local function cycle_left()
+    bufferline.cycle(-1)
+  end
+
+  local function cycle_right()
+    bufferline.cycle(1)
+  end
+
+  local function move_left()
+    bufferline.move(-1)
+  end
+
+  local function move_Right()
+    bufferline.move(-1)
+  end
+
+  -- XXX: Using `<Esc>` for the previous buffer (which in typical terminals is
+  -- outputted for ^[) since for whatever reason, sometimes vim doesn't
+  -- understand <C-[>`
+  nmap({ "<C-[>", cycle_left })
+  nmap({ "<C-]>", cycle_right })
+
+  nmap({ "<S-C-[>", move_left })
+  nmap({ "<S-C-]>", move_Right })
+end
+
+-- Git remote URLs
+function M.gitlinker_mappings(gitlinker)
+  local function normal()
+    gitlinker.get_buf_range_url("n")
+  end
+
+  local function visual()
+    gitlinker.get_buf_range_url("v")
+  end
+
+  nmap({ "gh", normal })
+  vmap({ "gh", visual })
+end
 
 -- fzf
 function M.fzf_mapping(fzf)
-  fzf["grep_project_full"] = function()
-    fzf.grep_project({
-      fzf_opts = { ["--nth"] = "1.." },
-    })
-  end
-
   nmap({ "<Leader><Leader>", fzf.git_files })
   nmap({ "<Leader>p", fzf.files })
   nmap({ "<Leader>b", fzf.buffers })
-  nmap({ "<Leader>f", fzf.grep_project_full })
+  nmap({ "<Leader>f", fzf.grep_project })
   nmap({ "<Leader>r", fzf.command_history })
 end
 
@@ -168,19 +192,10 @@ end
 function M.lsp_mapping(bufnr)
   local fzf = require("fzf-lua")
 
-  local winopts_bottom = {
-    height = 0.3,
-    width = 1,
-    row = 1,
-    col = 0,
-    border = { "", "─", "", "", "", "", "", "" },
-    preview = { horizontal = "right:50%" },
-  }
-
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]
     return function()
-      fn(opts or { winopts = winopts_bottom, jump_to_single_result = true })
+      fn(opts or { jump_to_single_result = true })
     end
   end
 
@@ -193,7 +208,7 @@ function M.lsp_mapping(bufnr)
 
   nmap({
     "gs",
-    fzf_lsp("document_symbols", { winopts = winopts_bottom, current_buffer_only = true }),
+    fzf_lsp("document_symbols", { current_buffer_only = true }),
     bufnr = bufnr,
   })
 

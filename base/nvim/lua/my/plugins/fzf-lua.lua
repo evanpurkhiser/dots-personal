@@ -40,40 +40,57 @@ function grep_ignored.toString(self)
   return str
 end
 
--- Exported for use in other configs
-local winopts_bottom = {
-  height = 0.3,
-  width = 1,
-  row = 1,
-  col = 0,
-  border = { "", "─", "", "", "", "", "", "" },
-  preview = { horizontal = "right:50%" },
-}
-
 function P.config()
   local fzf = require("fzf-lua")
+
+  local style = require("my.styles")
+
+  local winopts_bottom = {
+    height = 0.3,
+    width = 1,
+    row = 1,
+    col = 0,
+    border = style.top_only_border,
+    hi = {
+      normal = "Normal",
+    },
+    preview = {
+      horizontal = "right:50%",
+    },
+  }
+
+  local highlights = {
+    normal = "NormalFloat",
+    border = "FloatBorder",
+    preview_normal = "Normal",
+    preview_border = "Normal",
+  }
 
   fzf.setup({
     winopts = {
       height = 0.6,
       width = 0.8,
-      border = { " ", " ", " ", " ", " ", " ", " ", " " },
-
+      border = style.border,
+      hl = highlights,
       preview = {
         title = false,
         scrollbar = false,
-        horizontal = "right:40%",
-      },
-      hl = {
-        normal = "NormalFloat",
-        border = "NormalFloat",
+        hl = highlights,
       },
     },
 
     fzf_opts = {
       ["--prompt"] = "›",
-      ["--pointer"] = "›",
-      ["--marker"] = "›",
+      ["--pointer"] = "▋",
+      ["--marker"] = "▋",
+      ["--info"] = "default",
+      ["--no-separator"] = "",
+      ["--no-scrollbar"] = "",
+    },
+
+    fzf_colors = {
+      ["gutter"] = { "bg", "NormalFloat" },
+      ["bg+"] = { "bg", "Normal" },
     },
 
     actions = {
@@ -90,6 +107,11 @@ function P.config()
       prompt = "files › ",
     },
 
+    buffers = {
+      previewer = false,
+      prompt = "buffers › ",
+    },
+
     git = {
       files = {
         previewer = false,
@@ -103,9 +125,14 @@ function P.config()
       winopts = {
         height = 1,
         width = 1,
-        preview = { layout = "vertical", vertical = "up:30%" },
+        border = style.top_only_border,
+        preview = {
+          layout = "vertical",
+          vertical = "up:30%",
+        },
       },
       rg_opts = grep_ignored:toString() .. " " .. fzf.config.globals.grep.rg_opts,
+      fzf_opts = { ["--nth"] = "1.." },
     },
 
     command_history = {
@@ -114,6 +141,19 @@ function P.config()
       fzf_opts = {
         ["--tiebreak"] = "index",
         ["--layout"] = "default",
+      },
+    },
+
+    lsp = {
+      code_actions = {
+        prompt = "actions › ",
+        winopts = winopts_bottom,
+        fzf_opts = { ["--info"] = "hidden" },
+      },
+      references = {
+        prompt = "references › ",
+        winopts = winopts_bottom,
+        previewer = false,
       },
     },
   })
