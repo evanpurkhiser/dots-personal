@@ -16,7 +16,7 @@ env:
 window:
   decorations: full
   dimensions: { columns: 80, lines: 24 }
-  padding: { x: 1, y: 1 }
+  padding: { x: 2, y: 0 }
 
 # When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: true
@@ -264,6 +264,7 @@ key_bindings:
   - { key: X, mods: Alt|Shift, chars: "\x1bX" }
   - { key: Y, mods: Alt|Shift, chars: "\x1bY" }
   - { key: Z, mods: Alt|Shift, chars: "\x1bZ" }
+
   - { key: Key1, mods: Alt, chars: "\x1b1" }
   - { key: Key2, mods: Alt, chars: "\x1b2" }
   - { key: Key3, mods: Alt, chars: "\x1b3" }
