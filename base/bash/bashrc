@@ -46,12 +46,10 @@ source "$XDG_CONFIG_HOME/bash/fzf"
 # Source all extra functions
 for f in "$XDG_CONFIG_HOME/bash/functions.d/"*; do source "$f"; done
 
-# Setup dircolors
-# We have to temporarily set the TERM here due to a limitation of dircolors,
-# see [0]
-#
-# [0]: https://github.com/alacritty/alacritty/issues/2210
-eval "$(TERM=xterm-256color dircolors "$XDG_CONFIG_HOME/bash/dircolors/gruvbox")"
+# Setup vivid LS_COLORS
+if hash vivid 2>/dev/null; then
+	export LS_COLORS=$(vivid generate gruvbox-dark)
+fi
 
 # Setup direnv if available
 hash direnv 2>/dev/null && eval "$(direnv hook bash)"
