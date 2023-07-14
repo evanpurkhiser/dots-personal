@@ -20,6 +20,10 @@ local function visual_star()
   vim.fn.winrestview(win)
 end
 
+local function visual_lua_exec(v)
+  loadstring(utils.get_visual_selection())()
+end
+
 local function save()
   local path = vim.fn.expand("%")
   local writeable = vim.fn.filewritable(path) == 1
@@ -122,6 +126,9 @@ function M.setup()
 
   -- Repeat the last execuded macro
   nmap({ ",", "@@" })
+
+  -- Execute lua string in visual selection
+  vmap({ "ge", visual_lua_exec })
 
   nmap({ "<C-s>", save })
   nmap({ "<C-q>", quit })
