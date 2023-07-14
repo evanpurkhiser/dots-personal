@@ -72,6 +72,8 @@ function P.config()
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
   end
 
+  local border = require("my.styles").border
+
   local diagnostics_config = {
     virtual_text = false,
     update_in_insert = true,
@@ -83,14 +85,12 @@ function P.config()
     float = {
       focusable = false,
       style = "minimal",
-      border = "rounded",
+      border = border,
       source = "always",
       header = "",
       prefix = "",
     },
   }
-
-  local border = require("my.styles").border
 
   vim.diagnostic.config(diagnostics_config)
 
