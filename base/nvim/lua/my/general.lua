@@ -23,6 +23,9 @@ function M.setup()
   vim.api.nvim_set_hl(0, "VertSplit", { link = "FloatBorder" })
   set.fillchars:append("vert:│")
 
+  -- Always show signs
+  set.signcolumn = "yes:1"
+
   -- Better list characters
   set.listchars = "tab:› ,trail:-"
 
