@@ -14,7 +14,7 @@ function P.config()
       theme = "gruvbox_dark",
 
       globalstatus = true,
-      disabled_filetypes = { "NvimTree", "dashboard", "Outline" },
+      disabled_filetypes = {},
       component_separators = "",
       section_separators = "",
     },
@@ -26,16 +26,34 @@ function P.config()
           "filetype",
           colored = true,
           icon_only = true,
-          padding = { left = 1, right = 0 },
+          padding = 1,
         },
         {
           "filename",
           path = 1,
           shorting_target = 50,
+          symbols = {
+            modified = "⏺",
+            readonly = "◯",
+          },
         },
       },
-      lualine_x = { "encoding", "fileformat", "diagnostics" },
-      lualine_y = {},
+      lualine_x = {
+        {
+          "diagnostics",
+          padding = 1,
+          symbols = {
+            error = "[⏺] ",
+            warn = "[⏺] ",
+            info = "[⏺] ",
+            hint = "[⏺] ",
+          },
+        },
+      },
+      lualine_y = {
+        "encoding",
+        { "fileformat", padding = { right = 1 } },
+      },
       lualine_z = {},
     },
   }
