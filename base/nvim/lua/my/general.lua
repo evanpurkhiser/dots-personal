@@ -19,10 +19,6 @@ function M.setup()
   set.termguicolors = true
   set.background = "dark"
 
-  -- Vertical split coloring
-  vim.api.nvim_set_hl(0, "VertSplit", { link = "FloatBorder" })
-  set.fillchars:append("vert:│")
-
   -- Always show signs
   set.signcolumn = "yes:1"
 
