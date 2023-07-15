@@ -178,11 +178,18 @@ end
 
 -- fzf
 function M.fzf_mapping(fzf)
+  local function visual_grep()
+    local query = utils.get_visual_selection()
+    fzf.grep_project({ query = query })
+  end
+
   nmap({ "<Leader><Leader>", fzf.git_files })
   nmap({ "<Leader>p", fzf.files })
   nmap({ "<Leader>b", fzf.buffers })
-  nmap({ "<Leader>f", fzf.grep_project })
   nmap({ "<Leader>r", fzf.command_history })
+
+  nmap({ "<Leader>f", fzf.grep_project })
+  vmap({ "<Leader>f", visual_grep })
 end
 
 function M.substitue_mapping(substitute)
