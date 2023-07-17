@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-# Setup homebrew env
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 # Link safe (ish) GNU coreutils into the path
 GNU_OVERRIDE_DIR="$HOME/.local/lib/gnu-override/bin"
-HOMEBREW_BIN="$(brew --prefix coreutils)/bin"
+COREUTILS_BIN="$(brew --prefix coreutils)/bin"
 
 mkdir -p "$GNU_OVERRIDE_DIR"
 
-ln -fs "$HOMEBREW_BIN/gls" "$GNU_OVERRIDE_DIR/ls"
-ln -fs "$HOMEBREW_BIN/gdircolors" "$GNU_OVERRIDE_DIR/dircolors"
+ln -fs "$COREUTILS_BIN/gls" "$GNU_OVERRIDE_DIR/ls"
+ln -fs "$COREUTILS_BIN/gdircolors" "$GNU_OVERRIDE_DIR/dircolors"

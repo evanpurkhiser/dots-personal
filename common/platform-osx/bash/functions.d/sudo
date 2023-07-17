@@ -9,7 +9,7 @@ fi
 
 function sudo() {
 	unset -f sudo
-	sudo sed -i '' -e '2s;^;auth       sufficient     pam_tid.so\n;' /etc/pam.d/sudo
-	sudo sed -i '' -e '2s;^;auth       sufficient     /opt/homebrew/lib/pam/pam_reattach.so\n;' /etc/pam.d/sudo
+	sudo sed -i "" -e "2s;^;auth       sufficient     pam_tid.so\n;" /etc/pam.d/sudo
+	sudo sed -i "" -e "2s;^;auth       sufficient     $(brew --prefix)/lib/pam/pam_reattach.so\n;" /etc/pam.d/sudo
 	sudo "$@"
 }

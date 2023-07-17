@@ -14,8 +14,15 @@ if [[ -d "/run/user/$(id -u)" ]]; then
 	export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 fi
 
+# Determine the homebrew prefix for macos as early as possible
+if [ "$(uname -m)" == "arm64" ]; then
+	export HOMEBREW_PREFIX="/opt/homebrew"
+else
+	export HOMEBREW_PREFIX="/usr/local"
+fi
+
 # Load homebrew configuration for macos as early as possible
-[ -f /opt/homebrew/bin/brew ] && eval "$(cache_cmd /opt/homebrew/bin/brew shellenv)"
+[ -f $HOMEBREW_PREFIX/bin/brew ] && eval "$(cache_cmd $HOMEBREW_PREFIX/bin/brew shellenv)"
 
 # homebrew sets the shell as a link, which tmux will not be happy about
 export SHELL="$(realpath "$SHELL")"
