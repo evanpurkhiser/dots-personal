@@ -1,7 +1,7 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator
 
 import:
-  - ~/.config/alacritty/themes/gruvbox_dark.yml
+  - ~/.config/alacritty/themes/gruvbox-dark.yml
 
 shell:
   program: /opt/homebrew/bin/bash
