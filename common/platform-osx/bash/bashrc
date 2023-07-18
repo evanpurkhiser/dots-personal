@@ -13,5 +13,6 @@ fi
 
 # Setup homebrew auto update if it isn't already
 if hash brew 2>/dev/null && ! launchctl list | grep -q homebrew-autoupdate; then
+	mkdir -p "${HOME}/Library/LaunchAgents"
 	brew autoupdate start 3600 --cleanup
 fi
