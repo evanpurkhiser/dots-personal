@@ -1,21 +1,8 @@
+# Dock configuration
 defaults write com.apple.dock tilesize -int 24
 defaults write com.apple.dock orientation -string "left"
 defaults write com.apple.dock minimize-to-application -bool true
 defaults write com.apple.dock autohide -bool true
-
-defaults write com.apple.screencapture type -string "png"
-defaults write com.apple.finder ShowPathbar -bool false
-defaults write com.apple.finder ShowSidebar -bool false
-
-defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-defaults write com.apple.finder _FXSortFoldersFirst -bool true
-
-chflags hidden ~/Movies
-chflags hidden ~/Pictures
-
-# TODO: Set keybindings
-
 defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
@@ -43,6 +30,21 @@ defaults write com.apple.spotlight orderedItems -array \
 # Wipe all dock icons
 defaults write com.apple.dock persistent-apps -array
 
+# Screenshot as png
+defaults write com.apple.screencapture type -string "png"
+
+# Finder appearance
+defaults write com.apple.finder ShowPathbar -bool false
+defaults write com.apple.finder ShowSidebar -bool false
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+chflags hidden ~/Movies
+chflags hidden ~/Pictures
+
+# Show scrollbars only when scrolling
+defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
+
 # Disable natural scrolling
 defaults write -g com.apple.swipescrolldirection -bool NO
 
@@ -55,9 +57,6 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Don't play sound effects
 defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -int 0
-
-# Hide colorsnapper from the menubar
-defaults write com.koolesache.ColorSnapper2 showMenubarIcon false
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
