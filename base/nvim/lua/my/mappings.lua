@@ -20,7 +20,7 @@ local function visual_star()
   vim.fn.winrestview(win)
 end
 
-local function visual_lua_exec(v)
+local function visual_lua_exec()
   loadstring(utils.get_visual_selection())()
 end
 
