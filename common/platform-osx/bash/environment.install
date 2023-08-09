@@ -6,5 +6,5 @@ COREUTILS_BIN="$(brew --prefix coreutils)/bin"
 
 mkdir -p "$GNU_OVERRIDE_DIR"
 
+# GNU utils to use
 ln -fs "$COREUTILS_BIN/gls" "$GNU_OVERRIDE_DIR/ls"
-ln -fs "$COREUTILS_BIN/gdircolors" "$GNU_OVERRIDE_DIR/dircolors"
