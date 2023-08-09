@@ -8,7 +8,8 @@ rm -f "$HOME/.bashrc" \
 	"$HOME/.bash_profile" \
 	"$HOME/.bash_history" \
 	"$HOME/.bash_logout" \
-	"$HOME/.bash_login"
+	"$HOME/.bash_login" \
+	"$HOME/.zshrc"
 
 # Link bashrc / profile
 ln -sf "$XDG_CONFIG_HOME/bash/bashrc" "$HOME/.bashrc"
