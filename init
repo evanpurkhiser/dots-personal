@@ -5,7 +5,13 @@
 #
 # This script must be sourced!
 
-[[ $_ == $0 ]] && echo "Please source me!" && exit 1
+[[ "${0/-/}" != "bash" ]] &&
+	echo "Dots install must be sourced from bash" &&
+	exit 1
+
+[[ $_ == $0 ]] &&
+	echo "Please source me!" &&
+	exit 1
 
 # I am using the latest main builds of dots. See the bootstrap config for
 # details on available version constraints.
