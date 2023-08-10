@@ -32,3 +32,17 @@ function cache_cmd() {
 
 	cat "${cached_cmd}"
 }
+
+function confirm_prompt() {
+	read -n 1 -p "$1 [Y/n] " answer
+	echo
+
+	case ${answer:0:1} in
+	y | Y)
+		return 1
+		;;
+	*)
+		return 0
+		;;
+	esac
+}
