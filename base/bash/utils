@@ -14,7 +14,7 @@ function progress_timer() {
 	eval $@
 	local end=${EPOCHREALTIME/./}
 
-	local evaltime=$(bc <<<"scale=2; ($end - $start) / 1000")
+	local evaltime=$(echo | awk "{printf \"%.2f\", ($end - $start) / 1000}")
 
 	echo -e "\e[0;32m ✓\033[0;90m "$name" \e[0;37m${evaltime}ms\e[0m"
 }
