@@ -6,7 +6,7 @@
 # This script must be sourced!
 
 [[ "${0/-/}" != "bash" ]] &&
-	echo "Dots install must be sourced from bash" &&
+	echo "Dots install must be sourced from bash (using ${0/-/})" &&
 	exit 1
 
 [[ $_ == $0 ]] &&
