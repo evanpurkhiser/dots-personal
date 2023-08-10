@@ -10,8 +10,8 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_RUNTIME_DIR="/tmp"
 
 # Use systemd run directory if available on linux
-if [[ -d "/run/user/$(id -u)" ]]; then
-	export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+if [[ -d "/run/user/$UID" ]]; then
+	export XDG_RUNTIME_DIR="/run/user/$UID"
 fi
 
 # Determine the homebrew prefix for macos as early as possible
