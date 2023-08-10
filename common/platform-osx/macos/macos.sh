@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Dock configuration
 defaults write com.apple.dock tilesize -int 24
 defaults write com.apple.dock orientation -string "left"
