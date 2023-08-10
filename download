@@ -1,1 +1,8 @@
-# hello world
+#!/usr/bin/env bash
+
+mkdir dots-personal
+
+curl --location --silent "https://github.com/evanpurkhiser/dots-personal/archive/refs/heads/main.tar.gz" |
+	tar -xz --directory dots-personal --strip-components=1
+
+echo "dots-personal downloaded!"
