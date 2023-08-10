@@ -5,6 +5,14 @@
 
 source "$HOME/.config/bash/utils"
 
+# First time install
+source "$HOME/.config/bash/ensure-setup"
+
+# Don't try to load the bashrc file if we haven't actually setup everything
+if [ "$?" != 0 ]; then
+	return 0
+fi
+
 # Autostart tmux if available
 hash tmux 2>/dev/null &&
 	[ -z "$TMUX" ] &&

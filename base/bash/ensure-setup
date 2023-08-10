@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# This file is used to validate that common setup procedures have already been
+# completed. Other config groups typically override this, since by default I do
+# not have any required setup
