@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+function _macos_ensure_setup() {
+	local setup_missing
+
+	# Fix dotfile source git origin
+
+	# Mac command line tools should be installed
+	if ! xcode-select -p >/dev/null; then
+		setup_missing=1
+
+		if confirm_prompt "Install xcode command-line tools?"; then
+			xcode-select --install
+		fi
+	fi
+
+	# Brew not installed
+	if ! hash brew >/dev/null; then
+		setup_missing=1
+
+		if confirm_prompt "Install homebrew?"; then
+			bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		fi
+
+		if confirm_prompt "Run brew bundle?"; then
+			brew bundle --file "$XDG_CACHE_HOME/macos/Brewfile"
+		fi
+	fi
+
+	# Run macos.sh
+
+}
