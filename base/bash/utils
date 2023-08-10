@@ -38,11 +38,11 @@ function confirm_prompt() {
 	echo
 
 	case ${answer:0:1} in
-	y | Y)
-		return 1
+	y | Y | "")
+		return 0
 		;;
 	*)
-		return 0
+		return 1
 		;;
 	esac
 }
