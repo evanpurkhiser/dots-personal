@@ -9,7 +9,9 @@ rm -f "$HOME/.bashrc" \
 	"$HOME/.bash_history" \
 	"$HOME/.bash_logout" \
 	"$HOME/.bash_login" \
-	"$HOME/.zshrc"
+	"$HOME/.zshrc" \
+	"$HOME/.zsh_history" \
+	"$HOME/.viminfo"
 
 # Link bashrc / profile
 ln -sf "$XDG_CONFIG_HOME/bash/bashrc" "$HOME/.bashrc"
