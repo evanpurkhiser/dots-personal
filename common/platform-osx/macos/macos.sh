@@ -118,6 +118,3 @@ done
 # Other stuff that needs done
 echo "Set hostname with"
 echo "-> sudo scutil --set HostName <hostname>"
-
-echo "Set homebrew autoupdate with"
-echo "-> brew autoupdate start 3600 --cleanup"
