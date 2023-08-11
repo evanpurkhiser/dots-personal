@@ -3,25 +3,6 @@
 function _macos_ensure_setup() {
 	local setup_missing=0
 
-	# Mac command line tools should be installed
-	if ! xcode-select -p >/dev/null; then
-		setup_missing=1
-
-		if confirm_prompt "Install xcode command-line tools?"; then
-			xcode-select --install
-		fi
-	fi
-
-	# dotfile source is not a git repo
-	if [ ! -d "$HOME/.local/etc/.git" ] && hash git >/dev/null; then
-		setup_missing=1
-
-		if confirm_prompt "Dotfiles source is not a git repo, clone it?"; then
-			rm -rf "$HOME/.local/etc"
-			git clone me:dots-personal "$HOME/.local/etc"
-		fi
-	fi
-
 	# Brew not installed
 	if ! hash brew >/dev/null; then
 		setup_missing=1
@@ -32,6 +13,16 @@ function _macos_ensure_setup() {
 
 		if confirm_prompt "Run brew bundle?"; then
 			brew bundle --file "$XDG_CONFIG_HOME/macos/Brewfile"
+		fi
+	fi
+
+	# dotfile source is not a git repo
+	if [ ! -d "$HOME/.local/etc/.git" ] && hash git >/dev/null; then
+		setup_missing=1
+
+		if confirm_prompt "Dotfiles source is not a git repo, clone it?"; then
+			rm -rf "$HOME/.local/etc"
+			git clone me:dots-personal "$HOME/.local/etc"
 		fi
 	fi
 
