@@ -36,10 +36,6 @@ function _macos_ensure_setup() {
 		fi
 	fi
 
-	if [ $setup_missing == 1 ]; then
-		echo "Not loading bashrc, re-exec bash once all config is complete"
-	fi
-
 	# Link safe (ish) GNU coreutils into the path
 	if [ ! -d "$HOME/.local/lib/gnu-override" ] && hash brew 2>/dev/null; then
 		local GNU_OVERRIDE_DIR="$HOME/.local/lib/gnu-override/bin"
@@ -56,6 +52,10 @@ function _macos_ensure_setup() {
 		mv "${HOME}/.terminfo/61/alacritty" "${TERMINFO}/61"
 		mv "${HOME}/.terminfo/61/alacritty-direct" "${TERMINFO}/61"
 		rm -rf "${HOME}/.terminfo"
+	fi
+
+	if [ $setup_missing == 1 ]; then
+		echo "Not loading bashrc, re-exec bash once all config is complete"
 	fi
 
 	return $setup_missing
