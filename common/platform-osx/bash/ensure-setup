@@ -50,6 +50,14 @@ function _macos_ensure_setup() {
 		ln -fs "$COREUTILS_BIN/gls" "$GNU_OVERRIDE_DIR/ls"
 	fi
 
+	# Ensure the alacritty term info is in the right place
+	if [ -f "${HOME}/.terminfo/61/alacritty" ]; then
+		mkdir -p "${TERMINFO}/61"
+		mv "${HOME}/.terminfo/61/alacritty" "${TERMINFO}/61"
+		mv "${HOME}/.terminfo/61/alacritty-direct" "${TERMINFO}/61"
+		rm -rf "${HOME}/.terminfo"
+	fi
+
 	return $setup_missing
 }
 
