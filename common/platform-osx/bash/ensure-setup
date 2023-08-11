@@ -24,12 +24,7 @@ function _macos_ensure_setup() {
 
 	# dotfile source is not a git repo
 	if [ ! -d "$HOME/.local/etc/.git" ] && hash git 2>/dev/null; then
-		setup_missing=1
-
-		if confirm_prompt "Dotfiles source is not a git repo, clone it?"; then
-			rm -rf "$HOME/.local/etc"
-			git clone me:dots-personal "$HOME/.local/etc"
-		fi
+		# TODO
 	fi
 
 	# Ensure macos.sh has been run
