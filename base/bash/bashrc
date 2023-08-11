@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
+source "$HOME/.config/bash/utils"
+source "$HOME/.config/bash/environment"
+
 # Do nothing if not running interactively
 [ -z "$PS1" ] && return
 
-source "$HOME/.config/bash/utils"
-
-# First time install
 source "$HOME/.config/bash/ensure-setup"
 
 # Don't try to load the bashrc file if we haven't actually setup everything
