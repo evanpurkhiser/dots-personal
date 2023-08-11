@@ -40,6 +40,16 @@ function _macos_ensure_setup() {
 		echo "Not loading bashrc, re-exec bash once all config is complete"
 	fi
 
+	# Link safe (ish) GNU coreutils into the path
+	if [ ! -d "$HOME/.local/lib/gnu-override" ] && hash brew 2>/dev/null; then
+		local GNU_OVERRIDE_DIR="$HOME/.local/lib/gnu-override/bin"
+		local COREUTILS_BIN="$(brew --prefix coreutils)/bin"
+		mkdir -p "$GNU_OVERRIDE_DIR"
+
+		# GNU utils to use
+		ln -fs "$COREUTILS_BIN/gls" "$GNU_OVERRIDE_DIR/ls"
+	fi
+
 	return $setup_missing
 }
 
