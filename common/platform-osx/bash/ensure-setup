@@ -16,6 +16,12 @@ function _macos_ensure_setup() {
 		fi
 	fi
 
+	# Just after homebrew installation we need to setup the shell environment.
+	# Typically bash/environment would do this for us, but it's already loaded
+	if [ - z "$HOMEBREW_REPOSITORY" ] && [ -f "$HOMEBREW_PREFIX/bin/brew" ]; then
+		eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+	fi
+
 	# dotfile source is not a git repo
 	if [ ! -d "$HOME/.local/etc/.git" ] && hash git 2>/dev/null; then
 		setup_missing=1
