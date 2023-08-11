@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 function _macos_ensure_setup() {
-	local setup_missing
-
-	# Fix dotfile source git origin
+	local setup_missing=0
 
 	# Mac command line tools should be installed
 	if ! xcode-select -p >/dev/null; then
@@ -11,6 +9,16 @@ function _macos_ensure_setup() {
 
 		if confirm_prompt "Install xcode command-line tools?"; then
 			xcode-select --install
+		fi
+	fi
+
+	# dotfile source is not a git repo
+	if [ ! -d "$HOME/.local/etc/.git" ] && hash git >/dev/null; then
+		setup_missing=1
+
+		if confirm_prompt "Dotfiles source is not a git repo, clone it?"; then
+			rm -rf "$HOME/.local/etc"
+			git clone me:dots-personal "$HOME/.local/etc"
 		fi
 	fi
 
@@ -23,10 +31,25 @@ function _macos_ensure_setup() {
 		fi
 
 		if confirm_prompt "Run brew bundle?"; then
-			brew bundle --file "$XDG_CACHE_HOME/macos/Brewfile"
+			brew bundle --file "$XDG_CONFIG_HOME/macos/Brewfile"
 		fi
 	fi
 
-	# Run macos.sh
+	# Ensure macos.sh has been run
+	if [ ! -f "$XDG_DATA_HOME/macos-setup" ]; then
+		setup_missing=1
 
+		if confirm_prompt "Run macos.sh setup?"; then
+			bash "$XDG_CONFIG_HOME/macos/macos.sh"
+			touch "$XDG_DATA_HOME/macos-setup"
+		fi
+	fi
+
+	if [ $setup_missing == 1 ]; then
+		echo "Not loading bashrc, re-exec bash once all config is complete"
+	fi
+
+	return $setup_missing
 }
+
+_macos_ensure_setup
