@@ -19,6 +19,7 @@ function _macos_ensure_setup() {
 	# Just after homebrew installation we need to setup the shell environment.
 	# Typically bash/environment would do this for us, but it's already loaded
 	if [ -z "$HOMEBREW_REPOSITORY" ] && [ -f "$HOMEBREW_PREFIX/bin/brew" ]; then
+		echo "Adding brew environment to session"
 		eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 	fi
 
