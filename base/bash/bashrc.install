@@ -3,7 +3,8 @@
 source "$DOTS_SOURCE/base/bash/environment"
 
 # Cleanup home directory
-rm -f "$HOME/.bashrc" \
+rm -f \
+	"$HOME/.bashrc" \
 	"$HOME/.profile" \
 	"$HOME/.bash_profile" \
 	"$HOME/.bash_history" \
@@ -11,7 +12,12 @@ rm -f "$HOME/.bashrc" \
 	"$HOME/.bash_login" \
 	"$HOME/.zshrc" \
 	"$HOME/.zsh_history" \
-	"$HOME/.viminfo"
+	"$HOME/.viminfo" \
+	"$HOME/.CFUserTextEncoding" \
+	"$HOME/.DS_Store"
+
+rm -rf \
+	"$HOME/.zsh_sessions"
 
 # Link bashrc / profile
 ln -sf "$XDG_CONFIG_HOME/bash/bashrc" "$HOME/.bashrc"
