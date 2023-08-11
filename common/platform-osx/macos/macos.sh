@@ -48,7 +48,7 @@ chflags hidden ~/Pictures
 defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 
 # Disable natural scrolling
-defaults write -g com.apple.swipescrolldirection -bool NO
+defaults write -g com.apple.swipescrolldirection -bool false
 
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
