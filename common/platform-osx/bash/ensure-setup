@@ -4,7 +4,7 @@ function _macos_ensure_setup() {
 	local setup_missing=0
 
 	# Brew not installed
-	if ! hash brew >/dev/null; then
+	if ! hash brew 2>/dev/null; then
 		setup_missing=1
 
 		if confirm_prompt "Install homebrew?"; then
@@ -17,7 +17,7 @@ function _macos_ensure_setup() {
 	fi
 
 	# dotfile source is not a git repo
-	if [ ! -d "$HOME/.local/etc/.git" ] && hash git >/dev/null; then
+	if [ ! -d "$HOME/.local/etc/.git" ] && hash git 2>/dev/null; then
 		setup_missing=1
 
 		if confirm_prompt "Dotfiles source is not a git repo, clone it?"; then
