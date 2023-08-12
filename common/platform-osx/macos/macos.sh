@@ -67,41 +67,6 @@ sudo nvram SystemAudioVolume=" "
 defaults write -g InitialKeyRepeat -int 15 # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1         # normal minimum is 2 (30 ms)
 
-# Reconfigure a number of hotkeys
-#
-# Useful resources for this
-#
-#  - https://krypted.com/mac-os-x/defaults-symbolichotkeys/
-#  - https://apple.stackexchange.com/questions/201816/how-do-i-change-mission-control-shortcuts-from-the-command-line
-SYMBOLIC_KEYS="${HOME}/Library/Preferences/com.apple.symbolichotkeys.plist"
-
-plutil -replace AppleSymbolicHotKeys.52.enabled -bool NO $SYMBOLIC_KEYS  # Turn Dock hiding on/off
-plutil -replace AppleSymbolicHotKeys.160.enabled -bool NO $SYMBOLIC_KEYS # Show Launchpad
-
-# Disable default spotlight search (use Raycast instead)
-plutil -replace AppleSymbolicHotKeys.64.enabled -bool NO $SYMBOLIC_KEYS
-plutil -replace AppleSymbolicHotKeys.65.enabled -bool NO $SYMBOLIC_KEYS
-
-plutil -replace AppleSymbolicHotKeys.33.enabled -bool NO $SYMBOLIC_KEYS  # Application Windows
-plutil -replace AppleSymbolicHotKeys.36.enabled -bool NO $SYMBOLIC_KEYS  # Show Desktop
-plutil -replace AppleSymbolicHotKeys.118.enabled -bool NO $SYMBOLIC_KEYS # Switch to Desktop 1
-plutil -replace AppleSymbolicHotKeys.163.enabled -bool NO $SYMBOLIC_KEYS # Show notification center
-plutil -replace AppleSymbolicHotKeys.175.enabled -bool NO $SYMBOLIC_KEYS # Do not disturb
-plutil -replace AppleSymbolicHotKeys.222.enabled -bool NO $SYMBOLIC_KEYS # Turn Stage Manager on/off
-plutil -replace AppleSymbolicHotKeys.190.enabled -bool NO $SYMBOLIC_KEYS # Quick Note
-
-# Mission Control Super-W
-plutil -replace AppleSymbolicHotKeys.32.value.parameters -json '[119, 13, 1966080]' $SYMBOLIC_KEYS
-
-# Move spaces left right Super-[ Super-]
-plutil -replace AppleSymbolicHotKeys.79.value.parameters -json '[91, 33, 1966080]' $SYMBOLIC_KEYS
-plutil -replace AppleSymbolicHotKeys.81.value.parameters -json '[93, 30, 1966080]' $SYMBOLIC_KEYS
-
-# Apply keyboard changes, the defaults read is needed to ensure the cache is
-# primed, then activateSettings does the magic
-defaults read com.apple.symbolichotkeys.plist >/dev/null
-/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-
 # Remove unused apps
 sudo rm -rf /Applications/GarageBand.app
 sudo rm -rf /Applications/Keynote.app
