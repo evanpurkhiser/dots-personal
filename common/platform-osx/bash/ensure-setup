@@ -1,66 +1,54 @@
 #!/usr/bin/env bash
 
-function _macos_ensure_setup() {
-	local setup_missing=0
+# Brew not installed
+if ! hash brew 2>/dev/null; then
+	export BASHRC_NOT_READY=1
 
-	# Brew not installed
-	if ! hash brew 2>/dev/null; then
-		setup_missing=1
-
-		if confirm_prompt "Install homebrew?"; then
-			bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-		fi
-
-		if confirm_prompt "Run brew bundle?"; then
-			brew bundle --file "$XDG_CONFIG_HOME/macos/Brewfile"
-		fi
+	if confirm_prompt "Install homebrew?"; then
+		bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	fi
 
-	# Just after homebrew installation we need to setup the shell environment.
-	# Typically bash/environment would do this for us, but it's already loaded
-	if [ -z "$HOMEBREW_REPOSITORY" ] && [ -f "$HOMEBREW_PREFIX/bin/brew" ]; then
-		eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+	if confirm_prompt "Run brew bundle?"; then
+		brew bundle --file "$XDG_CONFIG_HOME/macos/Brewfile"
 	fi
+fi
 
-	# dotfile source is not a git repo
-	if [ ! -d "$HOME/.local/etc/.git" ] && hash git 2>/dev/null; then
-		# TODO
-		true
+# Just after homebrew installation we need to setup the shell environment.
+# Typically bash/environment would do this for us, but it's already loaded
+if [ -z "$HOMEBREW_REPOSITORY" ] && [ -f "$HOMEBREW_PREFIX/bin/brew" ]; then
+	eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+fi
+
+# dotfile source is not a git repo
+if [ ! -d "$HOME/.local/etc/.git" ] && hash git 2>/dev/null; then
+	# TODO
+	true
+fi
+
+# Ensure macos.sh has been run
+if [ ! -f "$XDG_DATA_HOME/macos-setup" ]; then
+	export BASHRC_NOT_READY=1
+
+	if confirm_prompt "Run macos.sh setup?"; then
+		bash "$XDG_CONFIG_HOME/macos/macos.sh"
+		touch "$XDG_DATA_HOME/macos-setup"
 	fi
+fi
 
-	# Ensure macos.sh has been run
-	if [ ! -f "$XDG_DATA_HOME/macos-setup" ]; then
-		setup_missing=1
+# Link safe (ish) GNU coreutils into the path
+if [ ! -d "$HOME/.local/lib/gnu-override" ] && hash brew 2>/dev/null; then
+	local GNU_OVERRIDE_DIR="$HOME/.local/lib/gnu-override/bin"
+	local COREUTILS_BIN="$(brew --prefix coreutils)/bin"
+	mkdir -p "$GNU_OVERRIDE_DIR"
 
-		if confirm_prompt "Run macos.sh setup?"; then
-			bash "$XDG_CONFIG_HOME/macos/macos.sh"
-			touch "$XDG_DATA_HOME/macos-setup"
-		fi
-	fi
+	# GNU utils to use
+	ln -fs "$COREUTILS_BIN/gls" "$GNU_OVERRIDE_DIR/ls"
+fi
 
-	# Link safe (ish) GNU coreutils into the path
-	if [ ! -d "$HOME/.local/lib/gnu-override" ] && hash brew 2>/dev/null; then
-		local GNU_OVERRIDE_DIR="$HOME/.local/lib/gnu-override/bin"
-		local COREUTILS_BIN="$(brew --prefix coreutils)/bin"
-		mkdir -p "$GNU_OVERRIDE_DIR"
-
-		# GNU utils to use
-		ln -fs "$COREUTILS_BIN/gls" "$GNU_OVERRIDE_DIR/ls"
-	fi
-
-	# Ensure the alacritty term info is in the right place
-	if [ -f "${HOME}/.terminfo/61/alacritty" ]; then
-		mkdir -p "${TERMINFO}/61"
-		mv "${HOME}/.terminfo/61/alacritty" "${TERMINFO}/61"
-		mv "${HOME}/.terminfo/61/alacritty-direct" "${TERMINFO}/61"
-		rm -rf "${HOME}/.terminfo"
-	fi
-
-	if [ $setup_missing == 1 ]; then
-		echo "Not loading bashrc, re-exec bash once all config is complete"
-	fi
-
-	return $setup_missing
-}
-
-_macos_ensure_setup
+# Ensure the alacritty term info is in the right place
+if [ -f "${HOME}/.terminfo/61/alacritty" ]; then
+	mkdir -p "${TERMINFO}/61"
+	mv "${HOME}/.terminfo/61/alacritty" "${TERMINFO}/61"
+	mv "${HOME}/.terminfo/61/alacritty-direct" "${TERMINFO}/61"
+	rm -rf "${HOME}/.terminfo"
+fi

@@ -9,7 +9,8 @@ source "$HOME/.config/bash/environment"
 source "$HOME/.config/bash/ensure-setup"
 
 # Don't try to load the bashrc file if we haven't actually setup everything
-if [ "$?" != 0 ]; then
+if [ "$BASHRC_NOT_READY" == 1 ]; then
+	echo "Not loading bashrc, re-exec bash once all config is complete"
 	return 0
 fi
 
