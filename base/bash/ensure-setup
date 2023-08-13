@@ -5,3 +5,10 @@
 # not have any required setup
 
 export BASHRC_NOT_READY=0
+
+# Ensure bash-preexec. Needed for atuin
+if [ ! -f "$XDG_CONFIG_HOME/bash/bash-preexec" ]; then
+	curl \
+		-s https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh \
+		-o "$XDG_CONFIG_HOME/bash/bash-preexec"
+fi

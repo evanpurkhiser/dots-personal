@@ -1,0 +1,18 @@
+# possible values: auto, full, compact
+style = "compact"
+
+# date format used, either "us" or "uk"
+dialect = "us"
+
+# address of the sync server
+sync_address = "https://atuin.evanpurkhiser.com"
+
+# enable or disable automatic sync
+auto_sync = true
+
+# how often to sync history. note that this is only triggered when a command is
+# ran, so sync intervals may well be longer. set it to 0 to sync each command
+sync_frequency = "5m"
+
+# enable or disable automatic update checks
+update_check = false

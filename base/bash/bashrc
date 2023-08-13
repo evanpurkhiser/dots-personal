@@ -63,6 +63,12 @@ fi
 # Setup direnv if available
 hash direnv 2>/dev/null && eval "$(direnv hook bash)"
 
+# Setup atuin for bash history.
+#
+# NOTE: It's important this comes after any other PROMPT_COMMAND updates
+source "$XDG_CONFIG_HOME/bash/bash-preexec"
+eval "$(atuin init bash)"
+
 # Cache sudo password immeidately when using SSH with pam_ssh_agent
 [ "$SSH_CLIENT" ] &&
 	grep --quiet 'pam_ssh_agent' /etc/pam.d/sudo &&
