@@ -20,3 +20,4 @@ update_check = false
 # Search interface styling
 inline_height=20
 show_help = false
+filter_mode_shell_up_key_binding = "session"
