@@ -16,3 +16,7 @@ sync_frequency = "5m"
 
 # enable or disable automatic update checks
 update_check = false
+
+# Search interface styling
+inline_height=20
+show_help = false
