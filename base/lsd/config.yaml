@@ -21,11 +21,9 @@ color:
   when: auto
   # How to colorize the output.
   # When "classic" is set, this is set to "no-color".
-  # Possible values: default, <theme-file-name>
-  # when specifying <theme-file-name>, lsd will look up theme file
-  # XDG Base Directory if relative, e.g. ~/.config/lsd/themes/<theme-file-name>.yaml,
-  # The file path if absolute
-  theme: colors.yaml
+  # Possible values: default, custom
+  # When "custom" is set, lsd will look in the config directory for `colors.yaml`.
+  theme: custom
 
 # This specifies the date format for the date column. The freeform format
 # accepts a strftime like string.
