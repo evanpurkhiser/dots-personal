@@ -9,6 +9,12 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_RUNTIME_DIR="/tmp"
 
+# Ensure directories exist
+mkdir -p "$XDG_CONFIG_HOME"
+mkdir -p "$XDG_CACHE_HOME"
+mkdir -p "$XDG_DATA_HOME"
+mkdir -p "$XDG_STATE_HOME"
+
 # Use systemd run directory if available on linux
 if [[ -d "/run/user/$UID" ]]; then
 	export XDG_RUNTIME_DIR="/run/user/$UID"
