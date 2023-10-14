@@ -163,18 +163,8 @@ function M.bufferline_mappings(bufferline)
 end
 
 -- Git remote URLs
-function M.gitlinker_mappings(gitlinker)
-  local function normal()
-    gitlinker.get_buf_range_url("n")
-  end
-
-  local function visual()
-    gitlinker.get_buf_range_url("v")
-  end
-
-  nmap({ "gh", normal })
-  vmap({ "gh", visual })
-end
+nmap({ "gh", ":GBrowse!<CR>" })
+vmap({ "gh", ":GBrowse!<CR>" })
 
 -- fzf
 function M.fzf_mapping(fzf)
