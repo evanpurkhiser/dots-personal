@@ -8,6 +8,7 @@ function P.config()
 
   ibl.setup({
     indent = { char = "|" },
+    scope = { enabled = false },
   })
 end
 
