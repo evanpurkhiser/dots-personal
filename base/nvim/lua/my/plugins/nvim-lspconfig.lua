@@ -59,6 +59,19 @@ function P.config()
     -- ["rust_analyzer"] = function()
     --   require("rust-tools").setup({})
     -- end,
+    ["rust_analyzer"] = function()
+      lspconfig["rust_analyzer"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = true,
+            check = { command = "clippy" },
+            cargo = { features = "all" },
+          },
+        },
+      })
+    end,
   })
 
   local signs = {
