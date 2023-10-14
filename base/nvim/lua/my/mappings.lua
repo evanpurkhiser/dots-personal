@@ -170,7 +170,7 @@ vmap({ "gh", ":GBrowse!<CR>" })
 function M.fzf_mapping(fzf)
   local function visual_grep()
     local query = utils.get_visual_selection()
-    fzf.grep_project({ query = query })
+    fzf.grep({ search = query })
   end
 
   nmap({ "<Leader><Leader>", fzf.git_files })
@@ -178,7 +178,7 @@ function M.fzf_mapping(fzf)
   nmap({ "<Leader>b", fzf.buffers })
   nmap({ "<Leader>r", fzf.command_history })
 
-  nmap({ "<Leader>f", fzf.grep_project })
+  nmap({ "<Leader>f", fzf.grep })
   vmap({ "<Leader>f", visual_grep })
 end
 
