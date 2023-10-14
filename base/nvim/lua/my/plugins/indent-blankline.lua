@@ -7,7 +7,7 @@ function P.config()
   local ibl = require("ibl")
 
   ibl.setup({
-    indent = { char = "|" },
+    indent = { char = "│" },
     scope = { enabled = false },
   })
 end
