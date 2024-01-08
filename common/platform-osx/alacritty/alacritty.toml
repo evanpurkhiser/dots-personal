@@ -1,0 +1,51 @@
+import = ["/Users/evan/.config/alacritty/themes/gruvbox-dark.toml"]
+live_config_reload = true
+
+[shell]
+args = ["--login"]
+program = "/opt/homebrew/bin/bash"
+
+[env]
+SHELL = "/opt/homebrew/bin/bash"
+TERM = "alacritty-direct"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[window]
+decorations = "full"
+option_as_alt = "Both"
+
+[window.padding]
+x = 2
+y = 0
+
+[font]
+size = 12.0
+
+[font.normal]
+family = "CaskaydiaCove Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "CaskaydiaCove Nerd Font"
+style = "SemiBold"
+
+[font.italic]
+family = "CaskaydiaCove Nerd Font"
+style = "Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.offset]
+x = 0
+y = 0
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[bell]
+animation = "EaseOutExpo"
+duration = 0
