@@ -28,6 +28,7 @@
 .idea
 .tern-project
 .importjs.js
+.pdm-python
 tmp/
 node_modules/
 bower_components/
