@@ -25,8 +25,13 @@ end)
 
 -- Align widnows to the center of the screen
 hs.hotkey.bind(super, "m", function()
-  hs.window.focusedWindow():centerOnScreen()
-  utils.snapWindow(hs.window.focusedWindow(), 10)
+  screen = hs.screen.mainScreen():frame()
+  window = hs.window.focusedWindow():frame()
+
+  window.x = screen.center.x - (window.w / 2)
+  window.y = screen.center.y - (window.h / 2)
+
+  hs.window.focusedWindow():setFrame(window)
 end)
 
 -- Focus Slack / Cron / Spark
