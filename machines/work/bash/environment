@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export PATH="$PATH:$XDG_DATA_HOME/sentry-devenv/bin"
+
 export SENTRY_CONF="$XDG_CONFIG_HOME/sentry"
 export SENTRY_SKIP_FORCE_PATCH=1
 
