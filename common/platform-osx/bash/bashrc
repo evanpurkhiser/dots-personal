@@ -8,7 +8,7 @@ if [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
 	# See bashrc.install for automatic linking
 	BASH_COMPLETION_COMPAT_DIR=/dev/null
 
-	progress_timer "load bash-completion" source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+	source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
 fi
 
 # Setup homebrew auto update if it isn't already
