@@ -158,6 +158,33 @@ function P.config()
     },
   })
 
+  -- Open files from specific project
+  fzf.project_git_files = function()
+    local projects_root = "~/Coding"
+
+    local select_project = function(path)
+      local entry = fzf.path.entry_to_file(path[1], { cwd = projects_root })
+      fzf.git_files({ cwd = entry.path })
+    end
+
+    fzf.files({
+      cwd = projects_root,
+      prompt = "projects › ",
+      cwd_prompt = false,
+      no_header = true,
+      fd_opts = "--follow --max-depth=1",
+      fzf_opts = { ["--info"] = "hidden" },
+      winopts = {
+        col = 0,
+        height = 1,
+        width = 0.2,
+      },
+      actions = {
+        ["default"] = select_project,
+      },
+    })
+  end
+
   -- Load fzf mappings
   require("my.mappings").fzf_mapping(fzf)
 end
