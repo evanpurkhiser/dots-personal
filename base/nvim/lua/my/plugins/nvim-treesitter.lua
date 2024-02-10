@@ -55,9 +55,6 @@ function P.config()
     autopairs = {
       enable = true,
     },
-    incremental_selection = {
-      enable = true,
-    },
     indent = {
       enable = true,
     },
