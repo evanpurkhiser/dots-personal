@@ -175,6 +175,7 @@ function M.fzf_mapping(fzf)
 
   nmap({ "<Leader><Leader>", fzf.git_files })
   nmap({ "<Leader>w", fzf.project_git_files })
+  nmap({ "<Leader>s", fzf.git_status })
   nmap({ "<Leader>p", fzf.files })
   nmap({ "<Leader>b", fzf.buffers })
   nmap({ "<Leader>r", fzf.command_history })
