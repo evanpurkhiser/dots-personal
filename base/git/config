@@ -4,6 +4,7 @@
 
 [alias]
   f   = pull --rebase
+  d   = diff
   st  = status --short --branch
   ci  = commit --verbose
   co  = checkout
