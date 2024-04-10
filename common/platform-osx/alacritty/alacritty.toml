@@ -49,3 +49,9 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 [bell]
 animation = "EaseOutExpo"
 duration = 0
+
+[keyboard]
+
+bindings = [
+  { key = "T", mods = "Command", action = "ReceiveChar" }
+]
