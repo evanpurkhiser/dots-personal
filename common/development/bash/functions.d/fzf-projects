@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+fzf-projects() {
+	local projects="$HOME/Coding"
+
+	local selected="$(
+		lsd "${projects}" --icon=always --oneline --no-symlink |
+			FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" fzf -m "$@" |
+			cut -d ' ' -f3-
+	)"
+
+	READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
+	READLINE_POINT=$((READLINE_POINT + ${#selected}))
+
+	cd "${projects}/${selected}"
+}

@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-alias sudo="sudo -E " # carry over environment to sudo commands
-alias cp="cp -i"      # confirm before overwriting something
-alias mv="mv -i"      # confirm before overwriting something
-alias df="df -h"      # human-readable sizes
-alias du="du -h"      # human-readable sizes
-alias free="free -m"  # human-readable sizes
-alias ll="lsd -l"     # detailed file list
-alias la="lsd -lA"    # detailed file list with hidden files
-alias wh="which -aS"  # Informative version of which
+alias sudo="sudo -E "  # carry over environment to sudo commands
+alias cp="cp -i"       # confirm before overwriting something
+alias mv="mv -i"       # confirm before overwriting something
+alias df="df -h"       # human-readable sizes
+alias du="du -h"       # human-readable sizes
+alias free="free -m"   # human-readable sizes
+alias ll="lsd -l"      # detailed file list
+alias la="lsd -lA"     # detailed file list with hidden files
+alias wh="which -aS"   # Informative version of which
+alias p="fzf-projects" # Project switcher
 
 # When interactively starting vim, execute the vim-singleton function to avoid
 # starting multiple vim instances.
