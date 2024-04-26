@@ -174,13 +174,14 @@ function M.fzf_mapping(fzf)
   end
 
   nmap({ "<Leader><Leader>", fzf.git_files })
-  nmap({ "<Leader>w", fzf.project_git_files })
+  nmap({ "<Leader>w", fzf.specific_project_git_files })
   nmap({ "<Leader>s", fzf.git_status })
   nmap({ "<Leader>p", fzf.files })
   nmap({ "<Leader>b", fzf.buffers })
   nmap({ "<Leader>r", fzf.command_history })
 
   nmap({ "<Leader>f", fzf.grep })
+  nmap({ "<Leader>F", fzf.specific_project_grep })
   vmap({ "<Leader>f", visual_grep })
 end
 

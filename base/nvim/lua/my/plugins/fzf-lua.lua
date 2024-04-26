@@ -158,15 +158,9 @@ function P.config()
     },
   })
 
-  -- Open files from specific project
-  fzf.project_git_files = function()
-    local projects_root = "~/Coding"
+  local projects_root = "~/Coding"
 
-    local select_project = function(path)
-      local entry = fzf.path.entry_to_file(path[1], { cwd = projects_root })
-      fzf.git_files({ cwd = entry.path })
-    end
-
+  local select_project = function(actions)
     fzf.files({
       cwd = projects_root,
       prompt = "projects › ",
@@ -179,10 +173,27 @@ function P.config()
         height = 1,
         width = 0.2,
       },
-      actions = {
-        ["default"] = select_project,
-      },
+      actions = actions,
     })
+  end
+
+  -- Open files from specific project
+  fzf.specific_project_git_files = function()
+    local find_files = function(path)
+      local entry = fzf.path.entry_to_file(path[1], { cwd = projects_root })
+      fzf.git_files({ cwd = entry.path })
+    end
+
+    select_project({ ["default"] = find_files })
+  end
+
+  fzf.specific_project_grep = function()
+    local search = function(path)
+      local entry = fzf.path.entry_to_file(path[1], { cwd = projects_root })
+      fzf.grep({ cwd = entry.path })
+    end
+
+    select_project({ ["default"] = search })
   end
 
   -- Load fzf mappings
