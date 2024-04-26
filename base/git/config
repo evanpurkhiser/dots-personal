@@ -3,6 +3,7 @@
   excludesfile = ~/.config/git/ignore
 
 [alias]
+  a   = add
   f   = pull --rebase
   d   = diff
   st  = status --short --branch
