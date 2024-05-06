@@ -4,6 +4,7 @@
 
 [alias]
   a   = add
+  aa  = add .
   f   = pull --rebase
   d   = diff
   st  = status --short --branch
