@@ -9,7 +9,7 @@ alias free="free -m"   # human-readable sizes
 alias ll="lsd -l"      # detailed file list
 alias la="lsd -lA"     # detailed file list with hidden files
 alias wh="which -aS"   # Informative version of which
-alias p="fzf-projects" # Project switcher
+alias c="fzf-projects" # Project switcher
 
 # When interactively starting vim, execute the vim-singleton function to avoid
 # starting multiple vim instances.
