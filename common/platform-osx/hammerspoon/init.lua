@@ -34,12 +34,8 @@ hs.hotkey.bind(super, "m", function()
   hs.window.focusedWindow():setFrame(window)
 end)
 
--- Focus Slack / Cron / Spark
-hs.hotkey.bind(
-  super,
-  "1",
-  utils.cycleWindowFocus(hs.window.filter.new({ "Slack", "Cron", "Spark" }))
-)
+-- Focus Slack
+hs.hotkey.bind(super, "1", utils.cycleWindowFocus(hs.window.filter.new({ "Slack" })))
 
 -- Focus messaging window
 hs.hotkey.bind(
@@ -57,7 +53,12 @@ hs.hotkey.bind(
 hs.hotkey.bind(
   super,
   "3",
-  utils.cycleWindowFocus(hs.window.filter.new({ "Google Chrome", "Firefox", "Safari" }))
+  utils.cycleWindowFocus(hs.window.filter.new({
+    "Google Chrome",
+    "Firefox",
+    "Safari",
+    "Arc",
+  }))
 )
 
 -- Focus Terminals
