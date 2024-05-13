@@ -7,6 +7,7 @@ local imap = utils.map.imap
 local vmap = utils.map.vmap
 local cmap = utils.map.cmap
 local bmap = utils.map.bmap
+local omap = utils.map.omap
 
 -- Visual star, search selected text
 local function visual_star()
@@ -194,6 +195,21 @@ end
 -- Upload image and insert markdown
 function M.image_paste_mapping(imagePaste)
   imap({ "<C-v>", imagePaste.paste_image })
+end
+
+-- Git hunk navigiations
+function M.gitsigns_mappings(gitsigns, bufnr)
+  local function navigate_hunk(direction)
+    return function()
+      gitsigns.nav_hunk(direction)
+    end
+  end
+
+  nmap({ "]h", navigate_hunk("next"), bufnr = bufnr })
+  nmap({ "[h", navigate_hunk("prev"), bufnr = bufnr })
+
+  vmap({ "ih", ":<C-U>Gitsigns select_hunk<CR>", bufnr = bufnr })
+  omap({ "ih", ":<C-U>Gitsigns select_hunk<CR>", bufnr = bufnr })
 end
 
 function M.lsp_mapping(bufnr)

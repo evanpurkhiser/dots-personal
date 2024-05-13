@@ -3,7 +3,9 @@ P = {
 }
 
 function P.config()
-  require("gitsigns").setup({
+  local gitsigns = require("gitsigns")
+
+  gitsigns.setup({
     signs = {
       add = { text = "┃" },
       change = { text = "┃" },
@@ -12,6 +14,9 @@ function P.config()
       changedelete = { text = "┇" },
       untracked = { text = "┃" },
     },
+    on_attach = function(bufnr)
+      require("my.mappings").gitsigns_mappings(gitsigns, bufnr)
+    end,
   })
 end
 
