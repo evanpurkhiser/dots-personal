@@ -1,3 +1,5 @@
+# vim: set filetype=gitignore
+
 # Compiled files
 *.sass-cache
 *.cache
