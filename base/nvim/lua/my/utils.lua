@@ -33,6 +33,7 @@ M.map = {
   imap = make_map("i"),
   vmap = make_map("v"),
   cmap = make_map("c"),
+  omap = make_map("o"),
   bmap = make_map(""),
 }
 
