@@ -18,6 +18,7 @@ function P.config()
     ensure_installed = {
       "ansiblels",
       "bashls",
+      "biome",
       "cssls",
       "dockerls",
       "eslint",
