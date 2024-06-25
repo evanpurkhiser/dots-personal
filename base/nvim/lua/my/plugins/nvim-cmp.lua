@@ -71,17 +71,7 @@ function P.config()
       },
     },
     mapping = {
-      ["<C-k>"] = cmp.mapping.select_prev_item(),
-      ["<C-j>"] = cmp.mapping.select_next_item(),
-      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-      ["<C-y>"] = cmp.config.disable,
-      ["<C-e>"] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
-      }),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      -- Next item
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -109,6 +99,31 @@ function P.config()
       end, {
         "i",
         "s",
+      }),
+      ["<CR>"] = cmp.mapping.confirm({ select = true }),
+
+      -- Alternative item navigation
+      ["<C-k>"] = cmp.mapping.select_prev_item(),
+      ["<C-j>"] = cmp.mapping.select_next_item(),
+
+      -- Documentation navigation
+      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+      --
+      -- Open ompletion filtered to luasnip
+      ["<C-s>"] = cmp.mapping.complete({
+        config = {
+          presel = cmp.PreselectMode.Item,
+          sources = { { name = "luasnip" } },
+        },
+      }),
+
+      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+
+      ["<C-y>"] = cmp.config.disable,
+      ["<C-e>"] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
       }),
     },
   })
