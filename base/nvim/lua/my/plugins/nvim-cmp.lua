@@ -23,7 +23,11 @@ function P.config()
   cmp.setup({
     formatting = {
       fields = { "kind", "abbr", "menu" },
-      format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 }),
+      format = lspkind.cmp_format({
+        mode = "symbol_text",
+        maxwidth = 50,
+        symbol_map = { Copilot = "" },
+      }),
     },
     snippet = {
       expand = function(args)
