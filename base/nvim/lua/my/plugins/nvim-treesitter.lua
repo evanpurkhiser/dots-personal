@@ -64,9 +64,6 @@ function P.config()
       extended_mode = false,
       max_file_lines = nil,
     },
-    autotag = {
-      enable = true,
-    },
   })
 end
 
