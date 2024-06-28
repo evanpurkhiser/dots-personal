@@ -229,6 +229,8 @@ function M.lsp_mapping(bufnr)
   nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
   nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
 
+  nmap({ "<Leader>d", fzf_lsp("diagnostics_workspace"), bufnr = bufnr })
+
   nmap({
     "gs",
     fzf_lsp("document_symbols", { current_buffer_only = true }),
