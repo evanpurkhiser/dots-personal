@@ -186,7 +186,7 @@ function M.fzf_mapping(fzf)
   vmap({ "<Leader>f", visual_grep })
 end
 
-function M.substitue_mapping(substitute)
+function M.substitute_mapping(substitute)
   nmap({ "s", substitute.operator })
   nmap({ "ss", substitute.line })
   nmap({ "S", substitute.eol })

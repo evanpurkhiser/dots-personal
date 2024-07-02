@@ -7,7 +7,7 @@ function P.config()
 
   substitute.setup()
 
-  require("my.mappings").substitue_mapping(substitute)
+  require("my.mappings").substitute_mapping(substitute)
 end
 
 return P
