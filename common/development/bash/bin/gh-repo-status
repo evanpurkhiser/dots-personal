@@ -44,8 +44,8 @@ END
 
 gh api graphql --paginate -f query="$query" |
 	jq -r "$jq_query" |
-	sed "s/success/"$'\033\[32m✓passing\033\[0m/g' |
-	sed "s/failure/"$'\033\[31m×failing\033\[0m/g' |
-	sed "s/pending/"$'\033\[33m pending\033\[0m/g' |
+	sed "s/success/"$'\033\[32m passing\033\[0m/g' |
+	sed "s/failure/"$'\033\[31m failing\033\[0m/g' |
+	sed "s/pending/"$'\033\[33m  pending\033\[0m/g' |
 	sort |
 	column -t
