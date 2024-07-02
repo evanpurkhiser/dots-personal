@@ -6,9 +6,9 @@ query ($endCursor: String) {
   viewer {
     repositories(first: 100, after: $endCursor) {
       nodes {
-				owner {
-					login
-				}
+        owner {
+          login
+        }
         nameWithOwner
         isArchived
         defaultBranchRef {
