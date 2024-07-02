@@ -2,7 +2,7 @@
 
 # Use bash completion
 if [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
-	# Do not egar load completions from the compatability directory. This
+	# Do not egar load completions from the compatibility directory. This
 	# SIGNIFICANTLY speeds up bash completion loading.
 	#
 	# See bashrc.install for automatic linking

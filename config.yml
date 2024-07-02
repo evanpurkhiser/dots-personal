@@ -1,5 +1,5 @@
 # Compilation installation path.
-# Supports environment variable expansions using ${VARIBLE}
+# Supports environment variable expansions using ${VARIABLE}
 install_path: ${HOME}/.config
 
 # The file suffix used for override files

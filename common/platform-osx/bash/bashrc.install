@@ -2,7 +2,7 @@
 
 source "$DOTS_SOURCE/base/bash/environment"
 
-# MacOS requires manaul configuration of completion files for
+# MacOS requires manual configuration of completion files for
 # bash-completion@2
 
 mkdir -p "$XDG_DATA_HOME/bash-completion/completions"

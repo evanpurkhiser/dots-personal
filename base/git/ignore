@@ -8,7 +8,7 @@
 *.so
 *.pyc
 
-# Pacakges
+# Packages
 *.7z
 *.dmg
 *.gz

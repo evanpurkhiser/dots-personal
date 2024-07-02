@@ -32,7 +32,7 @@ brew "vivid"
 # platform-osx/bash/functions.d/sudo
 brew "pam-reattach"
 
-# Terminal window managment
+# Terminal window management
 brew "tmux"
 
 # Tooling
@@ -64,7 +64,7 @@ brew "python"
 brew "ruby"
 brew "sqlite"
 
-# Dependency managment
+# Dependency management
 brew "pyenv"
 brew "volta"
 brew "direnv"

@@ -14,7 +14,7 @@ local make_map = function(mode)
       options = vim.tbl_extend("force", options, { desc = conf.desc })
     end
 
-    -- A lua funciton passed as the cmd argument goes into the callback
+    -- A lua function passed as the cmd argument goes into the callback
     if type(cmd) == "function" then
       options = vim.tbl_extend("force", options, { callback = cmd })
       cmd = ""

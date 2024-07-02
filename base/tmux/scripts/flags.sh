@@ -27,7 +27,7 @@ sed_script="$(
 	echo "${mappings[*]}"
 )"
 
-# The extra replacment adds spaces between each character
+# The extra replacement adds spaces between each character
 formatting_script="sed -e '${sed_script}g'"
 flags_value=" #(printf '%%s\n' '#F' | ${formatting_script})"
 

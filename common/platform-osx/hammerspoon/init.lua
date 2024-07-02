@@ -18,7 +18,7 @@ hs.hotkey.bind(super, "s", function()
   hs.eventtap.keyStroke({ "cmd", "shift" }, ";")
 end)
 
--- Align windwos to 10px grid
+-- Align windows to 10px grid
 hs.hotkey.bind(super, "a", function()
   utils.snapWindow(hs.window.focusedWindow(), 10)
 end)

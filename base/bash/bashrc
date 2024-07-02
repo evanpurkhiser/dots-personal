@@ -71,7 +71,7 @@ if hash atuin 2>/dev/null; then
 	eval "$(ATUIN_NOBIND=1 atuin init bash)"
 fi
 
-# Cache sudo password immeidately when using SSH with pam_ssh_agent
+# Cache sudo password immediately when using SSH with pam_ssh_agent
 [ "$SSH_CLIENT" ] &&
 	grep --quiet 'pam_ssh_agent' /etc/pam.d/sudo &&
 	sudo --stdin true </dev/null 2>/dev/null

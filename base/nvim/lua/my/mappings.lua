@@ -125,7 +125,7 @@ function M.setup()
   -- Clear search
   nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
 
-  -- Repeat the last execuded macro
+  -- Repeat the last executed macro
   nmap({ ",", "@@" })
 
   -- Execute lua string in visual selection
