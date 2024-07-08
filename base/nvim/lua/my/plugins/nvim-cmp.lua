@@ -54,10 +54,10 @@ function P.config()
     },
     sources = {
       { name = "nvim_lsp" },
-      { name = "copilot" },
       { name = "luasnip" },
       {
         name = "buffer",
+        group_index = 1,
         option = {
           -- Complete across visible buffers
           get_bufnrs = function()
@@ -109,12 +109,18 @@ function P.config()
       -- Documentation navigation
       ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-      --
+
       -- Open ompletion filtered to luasnip
       ["<C-s>"] = cmp.mapping.complete({
         config = {
-          presel = cmp.PreselectMode.Item,
           sources = { { name = "luasnip" } },
+        },
+      }),
+
+      -- Open ompletion filtered to luasnip
+      ["<C-f>"] = cmp.mapping.complete({
+        config = {
+          sources = { { name = "copilot" } },
         },
       }),
 
