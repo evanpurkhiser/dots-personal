@@ -14,6 +14,7 @@ alias c="fzf-projects" # Project switcher
 # When interactively starting vim, execute the vim-singleton function to avoid
 # starting multiple vim instances.
 alias vim='vim-singleton'
+alias vi='vim-singleton'
 
 # Better LS sorting
 #  - Collate listings so dot files are listed first
