@@ -25,6 +25,9 @@ function M.setup()
   -- Better list characters
   set.listchars = "tab:› ,trail:-"
 
+  -- High command line when no messages
+  set.cmdheight = 0
+
   -- Incremental scrolling
   set.sidescroll = 1
   set.scrolloff = 1
