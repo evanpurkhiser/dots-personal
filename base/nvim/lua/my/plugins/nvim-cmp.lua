@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "hrsh7th/nvim-cmp",
 }
@@ -28,6 +29,7 @@ function P.config()
         maxwidth = 50,
         symbol_map = { Copilot = "" },
       }),
+      expandable_indicator = false,
     },
     snippet = {
       expand = function(args)
@@ -118,7 +120,7 @@ function P.config()
       }),
 
       -- Open ompletion filtered to luasnip
-      ["<C-f>"] = cmp.mapping.complete({
+      ["<C-a>"] = cmp.mapping.complete({
         config = {
           sources = { { name = "copilot" } },
         },

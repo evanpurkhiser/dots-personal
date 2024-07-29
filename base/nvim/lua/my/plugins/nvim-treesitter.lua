@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",

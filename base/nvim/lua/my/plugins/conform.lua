@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "stevearc/conform.nvim",
 }

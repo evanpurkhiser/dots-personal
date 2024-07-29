@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "L3MON4D3/luasnip",
   event = "BufRead",

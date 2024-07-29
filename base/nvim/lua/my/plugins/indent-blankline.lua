@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "lukas-reineke/indent-blankline.nvim",
   event = "BufRead",

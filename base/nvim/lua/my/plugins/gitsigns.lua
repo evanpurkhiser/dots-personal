@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "lewis6991/gitsigns.nvim",
 }

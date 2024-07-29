@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "j-hui/fidget.nvim",
   tag = "legacy",

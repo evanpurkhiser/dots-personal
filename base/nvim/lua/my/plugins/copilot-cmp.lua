@@ -1,8 +1,9 @@
+---@type LazySpec
 local P = {
   "zbirenbaum/copilot-cmp",
 }
 
-P.config = function()
+function P.config()
   require("copilot_cmp").setup()
 end
 

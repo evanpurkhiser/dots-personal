@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "folke/lazydev.nvim",
   ft = "lua",

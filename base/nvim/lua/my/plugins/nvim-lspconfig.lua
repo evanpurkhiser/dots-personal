@@ -1,3 +1,4 @@
+---@type LazySpec
 local P = {
   "neovim/nvim-lspconfig",
 }
