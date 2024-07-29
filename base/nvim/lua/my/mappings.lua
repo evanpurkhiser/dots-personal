@@ -108,10 +108,7 @@ function M.setup()
   vmap({ "<Leader>y", '"+y', {} })
 
   -- Yank filepath into system clipboard
-  nmap({
-    "<Leader>yp",
-    ":let @+ = expand('%:p')<CR>:echom 'Path copied to system clipboard'<CR>",
-  })
+  nmap({ "<Leader>yp", ":let @+ = expand('%:p')<CR>" })
 
   -- Toggle spelling
   nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
