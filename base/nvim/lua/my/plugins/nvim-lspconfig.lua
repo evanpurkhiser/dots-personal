@@ -51,7 +51,7 @@ function P.config()
     function(server_name)
       lspconfig[server_name].setup({
         on_attach = on_attach,
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
     end,
     -- you can provide a dedicated handler for specific servers. For example, a
