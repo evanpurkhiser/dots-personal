@@ -1,13 +1,29 @@
 local M = {}
 
-local default_make_map_opts = { noremap = true, silent = false }
+---@type vim.api.keyset.keymap
+local default_make_map_opts = {
+  noremap = true,
+  silent = false,
+}
 
--- Produces a function which defines key maps.
+---@class KeybindConfig
+---@field [1] string lhs keybinding
+---@field [2] function | string The function or rhs to trigger
+---@field bufnr? number The buffer number to attach the binding to
+---@field desc? number The buffer number to attach the binding to
+---@field otps? vim.api.keyset.keymap Additional options
+
+---@alias KeybindMap fun(conf: KeybindConfig)
+
+--- Produces a function which defines key maps.
+---@param mode string
+---@return KeybindMap
 local make_map = function(mode)
   return function(conf)
     local keybind = conf[1]
     local cmd = conf[2]
 
+    ---@type vim.api.keyset.keymap
     local options = conf[3] or default_make_map_opts
 
     if conf.desc then
@@ -37,6 +53,8 @@ M.map = {
   bmap = make_map(""),
 }
 
+---Get's the currently visually selected text
+---@return string
 function M.get_visual_selection()
   local curr_vreg = vim.fn.getreg("v")
   local curr_vreg_type = vim.fn.getregtype("v")
