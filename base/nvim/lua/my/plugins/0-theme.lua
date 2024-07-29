@@ -1,3 +1,5 @@
+---@module "lazy"
+
 ---@type LazySpec
 local P = {
   "ellisonleao/gruvbox.nvim",

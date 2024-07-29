@@ -1,3 +1,5 @@
+---@module "lazy"
+
 ---@type LazySpec
 local P = {
   "williamboman/mason.nvim",
