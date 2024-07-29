@@ -114,7 +114,7 @@ function M.setup()
   nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
 
   -- Sort visual selection
-  vmap({ "<Leader>s", "<cmd>sort<CR>" })
+  vmap({ "<Leader>s", ":'<,'>sort<CR>" })
 
   -- Git blame
   nmap({ "gb", ":Git blame<cr>" })
