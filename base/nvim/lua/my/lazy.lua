@@ -15,9 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Load plugin specs
 require("lazy").setup("my.plugins", {
   change_detection = {
-    -- Don't use change detection, it doesn't do a great job
-    -- reloading the plugin config, it doesn't do a great job
-    -- reloading the plugin config.
+    -- Don't use change detection, it doesn't do a great job reloading the
+    -- plugin config.
     enabled = false,
   },
 })
