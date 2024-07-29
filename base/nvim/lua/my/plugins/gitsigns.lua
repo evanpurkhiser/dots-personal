@@ -1,4 +1,4 @@
-P = {
+local P = {
   "lewis6991/gitsigns.nvim",
 }
 
