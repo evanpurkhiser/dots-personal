@@ -128,7 +128,12 @@ function M.setup()
   })
 
   -- Yank filepath into system clipboard
-  nmap({ "<Leader>yp", ":let @+ = expand('%:p')<CR>" })
+  nmap({
+    "<Leader>yp",
+    function()
+      vim.fn.setreg("+", vim.fn.expand("%:p"))
+    end,
+  })
 
   -- Toggle spelling
   nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
