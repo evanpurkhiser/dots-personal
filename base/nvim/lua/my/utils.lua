@@ -61,4 +61,25 @@ function M.get_buffer_list()
   return buffers
 end
 
+---Removes leading whitespace from the array of lines. Ignores lines that are
+---only whitespace. Does not handle mixed tabs / spaces.
+---@param lines string[]
+---@return string[]
+function M.trim_leading_whitespace(lines)
+  local min_indent = math.huge
+  for _, line in ipairs(lines) do
+    -- Ignore blank lines
+    if line:match("^%s*$") == nil then
+      min_indent = math.min(min_indent, #line:match("^%s*"))
+    end
+  end
+
+  local trimmed = {}
+  for _, line in ipairs(lines) do
+    table.insert(trimmed, line:sub(min_indent + 1))
+  end
+
+  return trimmed
+end
+
 return M

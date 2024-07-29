@@ -102,10 +102,30 @@ function M.setup()
   -- Visual mode star
   vmap({ "*", visual_star })
 
-  -- Quick system copy and paste
-  nmap({ "<Leader>y", '"+y', {} })
-  nmap({ "<Leader>Y", '"+Y', {} })
-  vmap({ "<Leader>y", '"+y', {} })
+  -- System copy paste. Uses the "c register. A TextYankPost autocmd will
+  -- handle trimming the leading white space for improved pasting, since
+  -- clipboard copy is almost always to share code somewhere.
+  nmap({ "<Leader>y", '"cy', {} })
+  nmap({ "<Leader>Y", '"cY', {} })
+  vmap({ "<Leader>y", '"cy', {} })
+
+  local yank_clipboard_trimmed = function()
+    -- Only trim and move yanked text from the "c register into the clipboard
+    if vim.v.event.regname ~= "c" then
+      return
+    end
+
+    local lines = vim.v.event.regcontents
+    local trimmed = utils.trim_leading_whitespace(lines)
+    vim.fn.setreg("+", trimmed)
+  end
+
+  vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Trim leading whitesapce",
+    group = vim.api.nvim_create_augroup("YankClipboard", {}),
+    pattern = "*",
+    callback = yank_clipboard_trimmed,
+  })
 
   -- Yank filepath into system clipboard
   nmap({ "<Leader>yp", ":let @+ = expand('%:p')<CR>" })
