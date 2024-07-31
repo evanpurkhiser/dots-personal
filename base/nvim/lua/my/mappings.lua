@@ -38,6 +38,34 @@ local function yank_clipboard_trimmed()
   vim.fn.setreg("+", trimmed)
 end
 
+local yank_diagnostic_ns = vim.api.nvim_create_namespace("hlyankdiag")
+
+local function yank_diagnostic()
+  local bufnr, lnum, col, _ = unpack(vim.fn.getpos("."))
+
+  for _, diag in ipairs(vim.diagnostic.get(bufnr)) do
+    -- XXX: Note that the lnum and col in the diagnostic result is 0
+    -- indexed, so we need to account for that
+    if diag.lnum == lnum - 1 and diag.col == col - 1 then
+      vim.fn.setreg("+", diag.message)
+
+      -- highlight the diagnostic area we just yanked
+      vim.highlight.range(
+        0,
+        yank_diagnostic_ns,
+        "Search",
+        { diag.lnum, diag.col },
+        { diag.end_lnum, diag.end_col }
+      )
+
+      vim.defer_fn(function()
+        vim.api.nvim_buf_clear_namespace(0, yank_diagnostic_ns, 0, -1)
+      end, 800)
+      break
+    end
+  end
+end
+
 ---Save the file. If the file is not writeable attempt to save using suda.
 local function save()
   local path = vim.fn.expand("%")
@@ -136,6 +164,12 @@ function M.setup()
     function()
       vim.fn.setreg("+", vim.fn.expand("%:p"))
     end,
+  })
+
+  -- Yank current diagnostic error message
+  nmap({
+    "<Leader>ye",
+    yank_diagnostic,
   })
 
   -- Toggle spelling
