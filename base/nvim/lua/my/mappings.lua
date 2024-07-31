@@ -172,6 +172,9 @@ function M.setup()
     yank_diagnostic,
   })
 
+  -- Open directory of current file for editing
+  nmap({ "<Leader>o", ":edit %:p:h<CR>" })
+
   -- Toggle spelling
   nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
 
