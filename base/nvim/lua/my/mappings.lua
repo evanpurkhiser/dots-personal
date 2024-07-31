@@ -25,6 +25,20 @@ local function visual_lua_exec()
   loadstring(utils.get_visual_selection())()
 end
 
+---Extract text from the "c register, trim the leading whitespace, and place
+---the text into the "+ system clipboard.
+local function yank_clipboard_trimmed()
+  -- Only trim and move yanked text from the "c register into the clipboard
+  if vim.v.event.regname ~= "c" then
+    return
+  end
+
+  local lines = vim.v.event.regcontents
+  local trimmed = utils.trim_leading_whitespace(lines)
+  vim.fn.setreg("+", trimmed)
+end
+
+---Save the file. If the file is not writeable attempt to save using suda.
 local function save()
   local path = vim.fn.expand("%")
   local writeable = vim.fn.filewritable(path) == 1
@@ -108,17 +122,6 @@ function M.setup()
   nmap({ "<Leader>y", '"cy', {} })
   nmap({ "<Leader>Y", '"cY', {} })
   vmap({ "<Leader>y", '"cy', {} })
-
-  local yank_clipboard_trimmed = function()
-    -- Only trim and move yanked text from the "c register into the clipboard
-    if vim.v.event.regname ~= "c" then
-      return
-    end
-
-    local lines = vim.v.event.regcontents
-    local trimmed = utils.trim_leading_whitespace(lines)
-    vim.fn.setreg("+", trimmed)
-  end
 
   vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Trim leading whitesapce",
