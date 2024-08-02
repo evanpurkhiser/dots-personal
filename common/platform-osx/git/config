@@ -1,0 +1,13 @@
+# vim: set filetype=gitconfig
+
+[user]
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILBw6fKi5PEZfZqtel74uxVLOvDGalv3VXcaRNCKwVSo
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+  gpgsign = true
