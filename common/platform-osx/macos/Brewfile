@@ -1,5 +1,4 @@
 tap "evanpurkhiser/personal"
-tap "homebrew/cask-fonts"
 tap "1password/tap"
 
 cask "1password"
