@@ -293,7 +293,7 @@ function M.lsp_mapping(bufnr)
   nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
   nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
 
-  nmap({ "<Leader>d", fzf_lsp("diagnostics_workspace"), bufnr = bufnr })
+  nmap({ "<Leader>d", fzf_lsp("workspace_diagnostics"), bufnr = bufnr })
 
   nmap({
     "gs",
