@@ -20,6 +20,8 @@ cask "telegram"
 cask "font-caskaydia-cove-nerd-font"
 cask "1password-cli"
 cask "obsidian"
+cask "lookaway"
+
 
 # Basic terminal stuff
 brew "atuin"
