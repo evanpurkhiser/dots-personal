@@ -32,6 +32,7 @@
 [advice]
   skippedCherryPicks = false
   addEmptyPathspec = false
+  mergeConflict = false
 
 [apply]
   whitespace = strip
