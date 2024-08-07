@@ -29,6 +29,7 @@ function P.config()
       go = { "gofmt" },
       sh = { "shfmt" },
       rust = { "rustfmt" },
+      toml = { "taplo" },
       javascript = jsformat,
       javascriptreact = jsformat,
       typescript = jsformat,
