@@ -21,7 +21,7 @@ cask "font-caskaydia-cove-nerd-font"
 cask "1password-cli"
 cask "obsidian"
 cask "lookaway"
-
+cask "displaperture"
 
 # Basic terminal stuff
 brew "atuin"
