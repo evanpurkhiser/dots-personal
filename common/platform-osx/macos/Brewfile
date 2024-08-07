@@ -1,5 +1,6 @@
 tap "evanpurkhiser/personal"
 tap "1password/tap"
+tap "homebrew/autoupdate"
 
 cask "1password"
 cask "alacritty"
