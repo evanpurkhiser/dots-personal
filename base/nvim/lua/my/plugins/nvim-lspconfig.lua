@@ -28,8 +28,10 @@ function P.config()
       "gopls",
       "jsonls",
       "lua_ls",
+      "rust_analyzer",
       "sqlls",
       "tsserver",
+      "yamlls",
     },
   })
 
