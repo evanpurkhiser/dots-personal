@@ -9,7 +9,7 @@ local cmap = utils.map.cmap
 local bmap = utils.map.bmap
 local omap = utils.map.omap
 
--- Visual star, search selected text
+---Visual star, search selected text
 local function visual_star()
   local win = vim.fn.winsaveview()
   local sel = utils.get_visual_selection()
