@@ -60,6 +60,9 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Don't play sound effects
 defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -int 0
 
+# Disable click wallaper to show desktop
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
