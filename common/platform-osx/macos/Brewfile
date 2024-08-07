@@ -54,6 +54,7 @@ brew "shellcheck"
 brew "shfmt"
 brew "stylua"
 brew "tree"
+brew "typos-cli"
 brew "wget"
 
 # Languages, runtimes, compilers
