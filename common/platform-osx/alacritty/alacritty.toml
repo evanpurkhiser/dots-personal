@@ -1,7 +1,8 @@
+[general]
 import = ["/Users/evan/.config/alacritty/themes/gruvbox-dark.toml"]
 live_config_reload = true
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/opt/homebrew/bin/bash"
 
