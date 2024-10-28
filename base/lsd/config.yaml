@@ -104,3 +104,6 @@ symlink-arrow: →
 
 # Whether to display block headers.
 header: false
+
+# Show filenames without quotes
+literal: true
