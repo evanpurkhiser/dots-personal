@@ -9,7 +9,7 @@ function P.config()
   local conform = require("conform")
 
   local jsformat = {
-    { "prettierd", "prettier" },
+    "prettierd",
     "biome-check",
     "eslint_d",
   }
@@ -34,6 +34,7 @@ function P.config()
       javascriptreact = jsformat,
       typescript = jsformat,
       typescriptreact = jsformat,
+      json = { "prettierd" },
       jsonnet = { "jsonnetfmt" },
     },
   })
