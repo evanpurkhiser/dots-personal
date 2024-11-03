@@ -30,7 +30,7 @@ function P.config()
       "lua_ls",
       "rust_analyzer",
       "sqlls",
-      "tsserver",
+      "ts_ls",
       "yamlls",
     },
   })
