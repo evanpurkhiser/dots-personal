@@ -32,6 +32,9 @@ defaults write com.apple.spotlight orderedItems -array \
 # Wipe all dock icons
 defaults write com.apple.dock persistent-apps -array
 
+# Disable auto-reordering of desktop spaces
+defaults write com.apple.dock mru-spaces -bool false
+
 # Screenshot as png
 defaults write com.apple.screencapture type -string "png"
 
