@@ -19,6 +19,10 @@ function M.setup()
   set.termguicolors = true
   set.background = "dark"
 
+  -- Allow ctrl-O to jump back to closed buffers.
+  -- See https://github.com/neovim/neovim/issues/28968
+  set.jumpoptions:remove({ "clean" })
+
   -- Always show signs
   set.signcolumn = "yes:1"
 
