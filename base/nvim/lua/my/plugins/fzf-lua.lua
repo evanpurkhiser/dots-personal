@@ -70,11 +70,11 @@ function P.config()
   }
 
   fzf.setup({
+    hls = highlights,
     winopts = {
       height = 0.6,
       width = 0.8,
       border = style.border,
-      hl = highlights,
       preview = {
         title = false,
         scrollbar = false,
