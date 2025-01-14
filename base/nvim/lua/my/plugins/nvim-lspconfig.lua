@@ -21,6 +21,7 @@ function P.config()
     ensure_installed = {
       "ansiblels",
       "bashls",
+      "basedpyright",
       "biome",
       "cssls",
       "dockerls",
@@ -59,12 +60,7 @@ function P.config()
         capabilities = capabilities,
       })
     end,
-    -- you can provide a dedicated handler for specific servers. For example, a
-    -- handler override for the `rust_analyzer`:
-    --
-    -- ["rust_analyzer"] = function()
-    --   require("rust-tools").setup({})
-    -- end,
+    -- Server customizations
     ["rust_analyzer"] = function()
       lspconfig["rust_analyzer"].setup({
         capabilities = capabilities,
@@ -74,6 +70,17 @@ function P.config()
             checkOnSave = true,
             check = { command = "clippy" },
             cargo = { features = "all" },
+          },
+        },
+      })
+    end,
+    ["basedpyright"] = function()
+      lspconfig["basedpyright"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          basedpyright = {
+            analysis = { typeCheckingMode = "off" },
           },
         },
       })
