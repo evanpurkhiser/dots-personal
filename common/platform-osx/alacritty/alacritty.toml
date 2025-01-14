@@ -53,6 +53,4 @@ duration = 0
 
 [keyboard]
 
-bindings = [
-  { key = "T", mods = "Command", action = "ReceiveChar" }
-]
+bindings = [{ key = "T", mods = "Command", action = "ReceiveChar" }]
