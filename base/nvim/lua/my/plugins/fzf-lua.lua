@@ -54,6 +54,7 @@ function P.config()
     row = 1,
     col = 0,
     border = style.top_only_border,
+    backdrop = 100,
     hi = {
       normal = "Normal",
     },
