@@ -7,14 +7,14 @@ vim-singleton() {
 	# Check if vim is already running
 	vim_id="$(jobs | sed -n "/nvim/s/\[\([0-9]\)\]+.*/\1/p")"
 
-	export NVIM_LISTEN_ADDRESS=/tmp/nvim-${TMUX_PANE:-notmux}.socket
+	export VIM_SINGLETON_SOCKET=/tmp/nvim-${TMUX_PANE:-notmux}.socket
 
 	# No instance of nvim running. Start nvim and provide a server socket address
 	# to communicate for future calls to this script.
 	if [[ ! "$vim_id" ]]; then
 		# Ensure we don't have an invalid socket address
-		rm -f $NVIM_LISTEN_ADDRESS
-		nvim --listen $NVIM_LISTEN_ADDRESS "$@"
+		rm -f $VIM_SINGLETON_SOCKET
+		nvim --listen $VIM_SINGLETON_SOCKET "$@"
 		return 0
 	fi
 
@@ -28,7 +28,7 @@ vim-singleton() {
 			files+=("$(realpath $(dirname "$path"))/$(basename "$path")")
 		done
 
-		nvim --server $NVIM_LISTEN_ADDRESS --remote "${files[@]}"
+		nvim --server $VIM_SINGLETON_SOCKET --remote "${files[@]}"
 	fi
 
 	fg "$vim_id"
