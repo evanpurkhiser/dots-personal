@@ -282,7 +282,7 @@ function M.lsp_mapping(bufnr)
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]
     return function()
-      fn(opts or { jump_to_single_result = true })
+      fn(opts)
     end
   end
 
