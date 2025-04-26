@@ -55,6 +55,7 @@ function P.config()
     col = 0,
     border = style.top_only_border,
     backdrop = 100,
+    title = false,
     hi = {
       normal = "Normal",
     },
@@ -77,7 +78,6 @@ function P.config()
       width = 0.8,
       border = style.border,
       preview = {
-        title = false,
         scrollbar = false,
         hl = highlights,
       },
@@ -107,17 +107,20 @@ function P.config()
     },
 
     files = {
+      winopts = { title = false },
       previewer = false,
       prompt = "files › ",
     },
 
     buffers = {
+      winopts = { title = false },
       previewer = false,
       prompt = "buffers › ",
     },
 
     git = {
       files = {
+        winopts = { title = false },
         previewer = false,
         prompt = "tree › ",
         cmd = "git ls-files --exclude-standard --cached --other",
@@ -127,6 +130,7 @@ function P.config()
     grep = {
       prompt = "lines › ",
       winopts = {
+        title = false,
         height = 1,
         width = 1,
         border = style.top_only_border,
