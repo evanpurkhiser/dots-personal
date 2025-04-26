@@ -70,7 +70,7 @@ function M.setup()
     group = vim.api.nvim_create_augroup("YankHighlight", {}),
     pattern = "*",
     callback = function()
-      vim.highlight.on_yank({ higroup = "IncSearch", timeout = 800 })
+      vim.hl.on_yank({ higroup = "IncSearch", timeout = 800 })
     end,
   })
 

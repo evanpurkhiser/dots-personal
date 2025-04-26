@@ -50,7 +50,7 @@ local function yank_diagnostic()
       vim.fn.setreg("+", diag.message)
 
       -- highlight the diagnostic area we just yanked
-      vim.highlight.range(
+      vim.hl.range(
         0,
         yank_diagnostic_ns,
         "Search",
@@ -310,7 +310,7 @@ function M.lsp_mapping(bufnr)
   nmap({
     "<C-p>",
     function()
-      vim.diagnostic.goto_prev({ border = "rounded" })
+      vim.diagnostic.jump({ count = -1, float = true })
     end,
     bufnr = bufnr,
   })
@@ -318,7 +318,7 @@ function M.lsp_mapping(bufnr)
   nmap({
     "<C-n>",
     function()
-      vim.diagnostic.goto_next({ border = "rounded" })
+      vim.diagnostic.jump({ count = 1, float = true })
     end,
     bufnr = bufnr,
   })
