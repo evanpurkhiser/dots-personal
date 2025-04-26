@@ -85,7 +85,6 @@ function P.config()
 
     fzf_opts = {
       ["--prompt"] = "›",
-      ["--pointer"] = "▋",
       ["--marker"] = "▋",
       ["--info"] = "default",
       ["--no-separator"] = "",
