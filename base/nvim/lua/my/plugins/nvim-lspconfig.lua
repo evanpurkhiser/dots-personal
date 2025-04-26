@@ -111,8 +111,8 @@ function P.config()
     float = {
       focusable = false,
       style = "minimal",
+      source = true,
       border = border,
-      source = "always",
       header = "",
       prefix = "",
     },
