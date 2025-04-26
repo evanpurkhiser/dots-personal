@@ -54,7 +54,6 @@ function P.config()
     row = 1,
     col = 0,
     border = style.top_only_border,
-    backdrop = 100,
     title = false,
     hi = {
       normal = "Normal",
@@ -77,6 +76,7 @@ function P.config()
       height = 0.6,
       width = 0.8,
       border = style.border,
+      backdrop = 100,
       preview = {
         scrollbar = false,
         hl = highlights,

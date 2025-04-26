@@ -278,6 +278,7 @@ end
 
 function M.lsp_mapping(bufnr)
   local fzf = require("fzf-lua")
+  local border = require("my.styles").border
 
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]
@@ -305,7 +306,13 @@ function M.lsp_mapping(bufnr)
   nmap({ "gn", vim.lsp.buf.rename, bufnr = bufnr })
 
   -- Space to show hover details
-  nmap({ "<space>", vim.lsp.buf.hover, bufnr = bufnr })
+  nmap({
+    "<space>",
+    function()
+      vim.lsp.buf.hover({ border = border })
+    end,
+    bufnr = bufnr,
+  })
 
   nmap({
     "<C-p>",
