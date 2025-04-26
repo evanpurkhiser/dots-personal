@@ -170,7 +170,7 @@ function P.config()
       prompt = "projects › ",
       cwd_prompt = false,
       no_header = true,
-      fd_opts = "--follow --max-depth=1",
+      fd_opts = "--type=directory --type=symlink --follow --max-depth=1",
       fzf_opts = { ["--info"] = "hidden" },
       winopts = {
         col = 0,
