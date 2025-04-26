@@ -128,6 +128,7 @@ function P.config()
 
     grep = {
       prompt = "lines › ",
+      input_prompt = "rg › ",
       winopts = {
         title = false,
         height = 1,
@@ -197,7 +198,10 @@ function P.config()
   fzf.specific_project_grep = function()
     local search = function(path)
       local entry = fzf.path.entry_to_file(path[1], { cwd = projects_root })
-      fzf.grep({ cwd = entry.path })
+      fzf.grep({
+        input_prompt = "rg " .. entry.path .. " › ",
+        cwd = entry.path,
+      })
     end
 
     select_project({ ["default"] = search })
