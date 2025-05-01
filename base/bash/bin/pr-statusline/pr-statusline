@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OUTPUT="${XDG_STATE_HOME}/pr-statusline"
 
-gh api graphql -F query=@${ROOT}/gh.graphql | jq -r -f ${ROOT}/parser.jq
+result=$(gh api graphql -F query=@${ROOT}/gh.graphql | jq -r -f ${ROOT}/parser.jq)
+
+if [[ $? == 0 ]]; then
+  echo "$result" >"${OUTPUT}"
+fi
