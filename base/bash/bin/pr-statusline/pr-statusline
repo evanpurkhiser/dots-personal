@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source "$HOME/.config/bash/environment"
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUTPUT="${XDG_STATE_HOME}/pr-statusline"
 
