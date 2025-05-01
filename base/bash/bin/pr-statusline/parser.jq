@@ -1,22 +1,18 @@
-def escape: "\u001b";
-
-def reset: escape + "[0m";
-
 def reviewMap:
     {
-        "APPROVED": "\(escape)[32m󰆀\(reset)",
-        "REVIEW_REQUIRED": "\(escape)[33m󰆅\(reset)",
-        "CHANGES_REQUESTED": "\(escape)[31m󰆇\(reset)",
+        "APPROVED": "#[fg=green]󰆀#[default]",
+        "REVIEW_REQUIRED": "#[fg=yellow]󰆅#[default]",
+        "CHANGES_REQUESTED": "#[fg=red]󰆇#[default]",
         "": ""
     };
 
 def checkMap:
     {
-        "SUCCESS": "\(escape)[32m\(reset)",
-        "FAILURE": "\(escape)[31m\(reset)",
-        "ERROR": "\(escape)[31m\(reset)",
-        "EXPECTED": "\(escape)[33m\(reset)",
-        "PENDING": "\(escape)[33m\(reset)",
+        "SUCCESS": "#[fg=green]#[default]",
+        "FAILURE": "#[fg=red]#[default]",
+        "ERROR": "#[fg=red]#[default]",
+        "EXPECTED": "#[fg=yellow]m#[default]",
+        "PENDING": "#[fg=yellow]m#[default]",
         "": "",
     };
 
@@ -30,6 +26,6 @@ def checkMap:
             review: .reviewDecision,
             reviewIcon: reviewMap[.reviewDecision // ""],
           }
-        | " #\(.number) \(.checkColor) \(.reviewIcon)"
+        | " ##\(.number) \(.checkColor) \(.reviewIcon)"
     )
-    | join(" │ ")
+    | join(" #[fg=grey]│#[default] ")
