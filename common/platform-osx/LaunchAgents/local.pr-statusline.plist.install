@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source $DOTS_SOURCE/base/bash/environment
+
+PLIST_NAME="local.pr-statusline.plist"
+DEST_PLIST="$HOME/Library/LaunchAgents/$PLIST_NAME"
+
+mkdir -p $XDG_CONFIG_HOME/LaunchAgents
+cp $XDG_CONFIG_HOME/LaunchAgents/$PLIST_NAME $DEST_PLIST
+
+if launchctl list | grep -q "^local.pr-statusline"; then
+  launchctl unload $DEST_PLIST
+fi
+
+launchctl load $DEST_PLIST
