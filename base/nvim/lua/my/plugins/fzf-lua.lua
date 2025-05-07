@@ -63,6 +63,16 @@ function P.config()
     },
   }
 
+  local winopts_full = {
+    height = 1,
+    width = 1,
+    border = style.top_only_border,
+    preview = {
+      layout = "vertical",
+      vertical = "up:30%",
+    },
+  }
+
   local highlights = {
     normal = "NormalFloat",
     border = "FloatBorder",
@@ -153,15 +163,11 @@ function P.config()
     },
 
     lsp = {
+      winopts = winopts_full,
       code_actions = {
         prompt = "actions › ",
         winopts = winopts_bottom,
         fzf_opts = { ["--info"] = "hidden" },
-      },
-      references = {
-        prompt = "references › ",
-        winopts = winopts_bottom,
-        previewer = false,
       },
     },
   })
