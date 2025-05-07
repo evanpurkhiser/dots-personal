@@ -60,18 +60,11 @@ function P.config()
     },
     preview = {
       horizontal = "right:50%",
+      border = style.top_only_border,
     },
   }
 
-  local winopts_full = {
-    height = 1,
-    width = 1,
-    border = style.top_only_border,
-    preview = {
-      layout = "vertical",
-      vertical = "up:30%",
-    },
-  }
+  local winopts_full = {}
 
   local highlights = {
     normal = "NormalFloat",
@@ -163,7 +156,19 @@ function P.config()
     },
 
     lsp = {
-      winopts = winopts_full,
+      winopts = {
+        height = 0.5,
+        width = 1,
+        row = 1,
+        col = 0,
+        border = style.top_only_border,
+        title = false,
+        preview = {
+          horizontal = "right:50%",
+          border = style.top_only_border,
+          title = false,
+        },
+      },
       code_actions = {
         prompt = "actions › ",
         winopts = winopts_bottom,
