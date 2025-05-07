@@ -15,17 +15,18 @@ P.dependencies = {
 function P.config()
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-  local function on_attach(client, bufnr)
-    require("my.mappings").lsp_mapping(bufnr)
-  end
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("my.lsp", {}),
+    callback = function(args)
+      require("my.mappings").lsp_mapping(args.buf)
+    end,
+  })
 
   vim.lsp.config("*", {
-    on_attach = on_attach,
     capabilities = capabilities,
   })
   vim.lsp.config("rust_analyzer", {
     capabilities = capabilities,
-    on_attach = on_attach,
     settings = {
       ["rust-analyzer"] = {
         checkOnSave = true,
@@ -36,7 +37,6 @@ function P.config()
   })
   vim.lsp.config("basedpyright", {
     capabilities = capabilities,
-    on_attach = on_attach,
     settings = {
       basedpyright = {
         analysis = { typeCheckingMode = "off" },
