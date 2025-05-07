@@ -11,8 +11,8 @@ def checkMap:
         "SUCCESS": "#[fg=green]#[default]",
         "FAILURE": "#[fg=red]#[default]",
         "ERROR": "#[fg=red]#[default]",
-        "EXPECTED": "#[fg=yellow]m#[default]",
-        "PENDING": "#[fg=yellow]m#[default]",
+        "EXPECTED": "#[fg=yellow]#[default]",
+        "PENDING": "#[fg=yellow]#[default]",
         "": "",
     };
 
