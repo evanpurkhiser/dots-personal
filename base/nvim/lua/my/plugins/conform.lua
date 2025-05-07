@@ -10,7 +10,6 @@ function P.config()
 
   local jsformat = {
     "prettierd",
-    "biome-check",
     "eslint_d",
   }
 
