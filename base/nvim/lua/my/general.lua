@@ -38,7 +38,7 @@ function M.setup()
   set.sidescrolloff = 5
 
   -- Don't autoselect the first entry when doing completion
-  set.completeopt = "longest,menuone"
+  set.completeopt = "fuzzy,longest,menuone"
 
   -- Disable backup files
   set.backup = false
