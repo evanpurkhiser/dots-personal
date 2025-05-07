@@ -38,6 +38,7 @@ brew "pam-reattach"
 brew "tmux"
 
 # Tooling
+brew "codespell"
 brew "entr"
 brew "fd"
 brew "ffmpeg"
