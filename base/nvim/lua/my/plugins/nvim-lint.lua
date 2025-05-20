@@ -23,6 +23,13 @@ function P.config()
     json = { "jsonlint" },
   }
 
+  -- Add config mapping for codespell
+  local codespell_config = vim.fn.expand("$XDG_CONFIG_HOME/codespell/")
+  lint.linters.codespell.args = vim.list_extend({
+    "--config=" .. codespell_config .. "config.cfg",
+    "--ignore-words=" .. codespell_config .. "ignore.txt",
+  }, lint.linters.codespell.args)
+
   vim.api.nvim_create_autocmd(
     { "BufEnter", "BufWritePost", "InsertLeave", "TextChanged", "TextChangedI" },
     {
