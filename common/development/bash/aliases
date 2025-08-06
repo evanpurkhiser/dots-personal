@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
 alias c="fzf-projects" # Project switcher
+alias ft="pnpm test"
