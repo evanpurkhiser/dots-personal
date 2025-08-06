@@ -1,5 +1,4 @@
 brew "ansible"
-brew "tremc"
 brew "rclone"
 brew "libkeyfinder"
 brew "keyfinder-cli"
