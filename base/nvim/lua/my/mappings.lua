@@ -271,6 +271,14 @@ function M.gitsigns_mappings(gitsigns, bufnr)
   nmap({ "[h", navigate_hunk("prev"), bufnr = bufnr })
 
   nmap({ "<Leader>hr", gitsigns.reset_hunk, bufnr = bufnr })
+  nmap({ "<Leader>hs", gitsigns.stage_hunk, bufnr = bufnr })
+  vmap({
+    "<Leader>hs",
+    function()
+      gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+    end,
+    bufnr = bufnr,
+  })
 
   vmap({ "ih", ":<C-U>Gitsigns select_hunk<CR>", bufnr = bufnr })
   omap({ "ih", ":<C-U>Gitsigns select_hunk<CR>", bufnr = bufnr })
