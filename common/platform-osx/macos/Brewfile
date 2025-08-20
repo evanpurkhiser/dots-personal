@@ -74,6 +74,5 @@ brew "sqlite"
 # Dependency management
 brew "direnv"
 brew "pyenv"
-brew "rustup"
 brew "volta"
 brew "yarn"
