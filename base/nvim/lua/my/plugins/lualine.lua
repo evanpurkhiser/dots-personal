@@ -23,7 +23,20 @@ function P.config()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { { repoName } },
+      lualine_b = {
+        { repoName },
+        {
+          "macro",
+          fmt = function()
+            local reg = vim.fn.reg_recording()
+            if reg ~= "" then
+              return "Recording @" .. reg
+            end
+            return nil
+          end,
+          draw_empty = false,
+        },
+      },
       lualine_c = {
         {
           "filetype",
