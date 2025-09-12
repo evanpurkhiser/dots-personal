@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
 pane_id=$(tmux display -p '#{pane_id}')
-pane_content=$(tmux capture-pane -p -t "$pane_id")
+window_id=$(tmux display -p '#{window_id}')
+
+# Capture content from all panes in the current window
+pane_content=""
+for pane in $(tmux list-panes -t "$window_id" -F '#{pane_id}'); do
+    pane_content+=$(tmux capture-pane -p -t "$pane")$'\n'
+done
 
 # Extract file-looking paths
 file_candidates=$(echo "$pane_content" | grep -Eo '[^[:space:]]*/[^[:space:]]+' | grep -v ' ' | sort -u)
