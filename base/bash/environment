@@ -72,7 +72,7 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 
 # Babel cache
-export BABEL_CACHE_PATH="#XDG_CACHE_HOME/babel.json"
+export BABEL_CACHE_PATH="$XDG_CACHE_HOME/babel.json"
 
 # sqlite history file
 export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"

@@ -25,7 +25,7 @@ vim-singleton() {
 		# File list must be absolute path, since vims current directory may be
 		# different from where we are in the shell
 		for path in "$@"; do
-			files+=("$(realpath $(dirname "$path"))/$(basename "$path")")
+			files+=("$(realpath "$(dirname "$path")")/$(basename "$path")")
 		done
 
 		nvim --server $VIM_SINGLETON_SOCKET --remote "${files[@]}"
