@@ -65,10 +65,10 @@ fi
 export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_repl_history
 export TS_NODE_HISTORY="$XDG_STATE_HOME"/ts_node_repl_history
 export YARN_RC_FILENAME="$XDG_CONFIG_HOME/yarn/yarnrc"
+export VOLTA_FEATURE_PNPM=1
 
 # NPM tool configuration
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export NPM_CONFIG_DEVDIR="$XDG_CACHE_HOME/node-gyp"
 export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 
 # Babel cache

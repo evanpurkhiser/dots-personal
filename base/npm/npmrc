@@ -1,3 +1,2 @@
-email  = evanpurkhiser@gmail.com
 prefix = ${HOME}/.local/lib/nodejs
 cache  = ${HOME}/.cache/npm
