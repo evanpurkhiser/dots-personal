@@ -5,7 +5,7 @@ style = "compact"
 dialect = "us"
 
 # address of the sync server
-sync_address = "http://atuin"
+sync_address = "http://server:7070"
 
 # enable or disable automatic sync
 auto_sync = true
