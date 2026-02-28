@@ -5,7 +5,7 @@ style = "compact"
 dialect = "us"
 
 # address of the sync server
-sync_address = "https://atuin.evanpurkhiser.com"
+sync_address = "https://atuin.tail81df.ts.net"
 
 # enable or disable automatic sync
 auto_sync = true
@@ -22,7 +22,7 @@ inline_height=20
 show_help = false
 filter_mode_shell_up_key_binding = "session"
 
-# Typicall I want shell history from this machine, Can always tap C-R to get
+# Typically I want shell history from this machine, Can always tap C-R to get
 # history from other machines
 filter_mode = "host"
 
