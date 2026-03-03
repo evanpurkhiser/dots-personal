@@ -1,0 +1,2 @@
+- never mention claude in commit messages
+- never mention claude code as a co-author
