@@ -12,6 +12,7 @@ groups:
   - base
   - machines/home
   - machines/work
+  - machines/server
   - common/development
   - common/platform-osx
 
@@ -30,3 +31,5 @@ profiles:
     - common/platform-osx
     - common/development
     - machines/home
+  server:
+    - machines/server
