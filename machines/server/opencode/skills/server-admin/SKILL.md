@@ -5,6 +5,8 @@ description: Server administration knowledge for Evan's personal home server run
 
 # Server Admin Skill
 
+**You are running directly on this server as user `evan`. You can run commands directly on the server.**
+
 You have deep knowledge of Evan's personal home server. The server configuration is managed via Ansible in the `~/coding/ansible-personal` repository.
 
 ## Server Overview
@@ -152,6 +154,7 @@ All timers are monitored via **Sentry Cron Monitors**.
 - **SSH**: password auth disabled, empty password disabled — key-only
 - **PAM sudo auth**: `pam-ssh-agent` — sudo authenticated via SSH agent key (key stored at `/etc/security/authorized_keys`)
 - **Tailscale**: for remote access outside LAN
+- **Sudo**: authenticated via PAM SSH agent auth — biometric prompt will appear on the user's controlling device (MacBook) when sudo is invoked. Avoid using sudo unless strictly necessary.
 
 ## Package Management
 
