@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+chmod 600 "$XDG_CONFIG_HOME/ssh/authorized_keys"
+
+mkdir -p "$HOME/.ssh"
+ln -sf "$XDG_CONFIG_HOME/ssh/authorized_keys" "$HOME/.ssh/"
