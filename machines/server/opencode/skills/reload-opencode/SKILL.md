@@ -8,5 +8,5 @@ description: Reload or restart the opencode service. Use this skill after adding
 After adding or updating skills or configuration, restart the opencode service:
 
 ```bash
-sudo systemctl restart opencode
+systemctl --user restart opencode
 ```
