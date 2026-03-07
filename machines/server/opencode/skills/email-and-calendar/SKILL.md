@@ -9,17 +9,16 @@ Evan's Gmail and Google Calendar are accessible via `gog` (gogcli), installed at
 
 ## Environment
 
-Always set these before running any `gog` command:
+Always set this before running any `gog` command:
 
 ```bash
-export GOG_ACCOUNT="evanpurkhiser@gmail.com"
 export GOG_KEYRING_PASSWORD="$(cat ~/.config/gogcli/keyring-password)"
 ```
 
 Or prefix commands inline:
 
 ```bash
-GOG_ACCOUNT=evanpurkhiser@gmail.com GOG_KEYRING_PASSWORD="$(cat ~/.config/gogcli/keyring-password)" gog ...
+GOG_KEYRING_PASSWORD="$(cat ~/.config/gogcli/keyring-password)" gog ...
 ```
 
 Use `--json` for machine-readable output. Use `--plain` for TSV.
@@ -99,7 +98,7 @@ gog gmail batch delete <messageId1> <messageId2>
 
 ## Calendar
 
-Evan's primary calendar ID is `primary` (maps to `evanpurkhiser@gmail.com`).
+Evan's primary calendar ID is `primary`.
 
 ### List calendars
 
