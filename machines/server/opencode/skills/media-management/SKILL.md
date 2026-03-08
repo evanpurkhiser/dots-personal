@@ -1,6 +1,6 @@
 ---
 name: media-management
-description: Manage files in Evan's multimedia library at ~/documents/multimedia. Use this skill when Evan asks about organizing, finding, or managing media files (music, videos, photos, artwork, etc.).
+description: Find, search, and manage files in Evan's multimedia library at ~/documents/multimedia. Use this skill when Evan asks if he has specific movies/shows/music, searches for media files, checks what's in his collection, or needs to organize media files (videos, music, photos, artwork, etc.).
 ---
 
 # Media Management
