@@ -17,6 +17,8 @@ Skills live in the dotfiles source tree (not directly in `~/.config`):
 
 After editing, run `dots install` to install them to `~/.config/opencode/skills/`.
 
+**Note:** See the `dotfile-management` skill for detailed information about working with the dotfiles repository and the `dots` utility.
+
 ## Frontmatter
 
 Every skill **must** have frontmatter with `name` and `description`:
