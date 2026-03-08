@@ -122,6 +122,6 @@ Report success or failure clearly.
 ## Notes
 
 - freeleech torrents cost no download quota — always prefer them unless quality is wrong
-- `cf_clearance` doesn't have a fixed short expiry — but if Cloudflare re-challenges (e.g. IP change, VPN) requests will fail with 403 and the user needs to re-auth
+- `cf_clearance` cookie does not have a fixed expiry — it typically remains valid indefinitely until Cloudflare re-challenges (e.g. IP change, VPN switch, security trigger). If auth expires, requests will fail with 403 and the user needs to re-auth.
 - Do NOT auto-download without at least showing the user what will be downloaded
 - `ipt` supports `--json` on all commands if you need structured output for scripting or `jq` filtering
