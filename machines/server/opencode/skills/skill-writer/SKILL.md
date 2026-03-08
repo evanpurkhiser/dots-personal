@@ -44,4 +44,5 @@ description: One sentence describing when to use this skill.
 4. Restart opencode to pick up the new skill: `sudo systemctl restart opencode`
 5. Test the skill by asking opencode something that should trigger it
 6. Iterate until satisfied
-7. Ask Evan if he'd like to commit and push the skill
+7. When committing changes, **always read `~/.local/etc/AGENTS.md` first** to follow the correct commit message format: `<component>: <imperative description>`
+8. Ask Evan if he'd like to commit and push the skill
