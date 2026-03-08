@@ -99,6 +99,17 @@ rm "$tmp"
 
 Report success or failure clearly.
 
+**Automatic Organization:** Transmission is configured with `transmission-helper` (https://github.com/evanpurkhiser/transmission-helper) which automatically:
+- Detects when torrents complete via systemd socket activation
+- Uses OpenAI to classify content (movie vs TV series)
+- Organizes files by hard-linking them to the proper library structure:
+  - Movies → `~/documents/multimedia/videos/movies/`
+  - TV Series → `~/documents/multimedia/videos/series/<Show Name>/Season N/`
+- Sends Telegram notifications with processing details
+- Keeps torrents seeding in their original location
+
+**No manual organization needed** — just add the torrent and transmission-helper will handle the rest when it completes.
+
 ## Error handling
 
 | Situation | Action |
