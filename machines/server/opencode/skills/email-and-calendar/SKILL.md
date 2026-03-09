@@ -32,22 +32,22 @@ Use `--json` for machine-readable output. Use `--plain` for TSV.
 Gmail query syntax (same as the Gmail search box):
 
 ```bash
-gog gmail search 'newer_than:7d' --json
-gog gmail search 'from:someone@example.com is:unread' --json
-gog gmail search 'subject:"meeting" newer_than:3d' --json
-gog gmail search 'is:unread in:inbox' --max 20 --json
+gog gmail search 'newer_than:7d' --json | toonify
+gog gmail search 'from:someone@example.com is:unread' --json | toonify
+gog gmail search 'subject:"meeting" newer_than:3d' --json | toonify
+gog gmail search 'is:unread in:inbox' --max 20 --json | toonify
 ```
 
 ### Read a thread
 
 ```bash
-gog gmail thread get <threadId> --json
+gog gmail thread get <threadId> --json | toonify
 ```
 
 ### Read a single message
 
 ```bash
-gog gmail get <messageId> --json
+gog gmail get <messageId> --json | toonify
 ```
 
 ### Send an email
@@ -69,7 +69,7 @@ gog gmail send --reply-to-message-id <messageId> --to recipient@example.com --su
 gog gmail drafts create --to recipient@example.com --subject "Subject" --body "Body"
 
 # List drafts
-gog gmail drafts list --json
+gog gmail drafts list --json | toonify
 
 # Send a draft
 gog gmail drafts send <draftId>
@@ -78,7 +78,7 @@ gog gmail drafts send <draftId>
 ### Labels
 
 ```bash
-gog gmail labels list --json
+gog gmail labels list --json | toonify
 
 # Add/remove labels on a thread
 gog gmail thread modify <threadId> --add STARRED --remove INBOX
@@ -103,39 +103,39 @@ Evan's primary calendar ID is `primary`.
 ### List calendars
 
 ```bash
-gog calendar calendars --json
+gog calendar calendars --json | toonify
 ```
 
 ### List events
 
 ```bash
 # Today
-gog calendar events primary --today --json
+gog calendar events primary --today --json | toonify
 
 # This week
-gog calendar events primary --week --json
+gog calendar events primary --week --json | toonify
 
 # Next N days
-gog calendar events primary --days 7 --json
+gog calendar events primary --days 7 --json | toonify
 
 # Date range
-gog calendar events primary --from 2026-03-01 --to 2026-03-31 --json
+gog calendar events primary --from 2026-03-01 --to 2026-03-31 --json | toonify
 
 # All calendars
-gog calendar events --all --today --json
+gog calendar events --all --today --json | toonify
 ```
 
 ### Search events
 
 ```bash
-gog calendar search "meeting" --days 30 --json
-gog calendar search "dentist" --from 2026-01-01 --to 2026-12-31 --json
+gog calendar search "meeting" --days 30 --json | toonify
+gog calendar search "dentist" --from 2026-01-01 --to 2026-12-31 --json | toonify
 ```
 
 ### Get a specific event
 
 ```bash
-gog calendar event primary <eventId> --json
+gog calendar event primary <eventId> --json | toonify
 ```
 
 ### Create an event
@@ -184,14 +184,14 @@ gog calendar respond primary <eventId> --status tentative
 gog calendar freebusy primary \
   --from 2026-03-10T00:00:00-05:00 \
   --to 2026-03-10T23:59:59-05:00 \
-  --json
+  --json | toonify
 ```
 
 ### Find conflicts
 
 ```bash
-gog calendar conflicts --today --json
-gog calendar conflicts --days 7 --json
+gog calendar conflicts --today --json | toonify
+gog calendar conflicts --days 7 --json | toonify
 ```
 
 ---

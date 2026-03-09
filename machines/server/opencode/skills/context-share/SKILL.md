@@ -196,13 +196,13 @@ These are the most useful endpoints for this skill. For full API documentation:
 
 ```bash
 # Get OpenAPI spec
-curl -s "$OPENCODE_HOST/doc" | jq . > /tmp/opencode-api.json
+curl -s "$OPENCODE_HOST/doc" | toonify
 
 # List all endpoints
 curl -s "$OPENCODE_HOST/doc" | jq -r '.paths | keys[]'
 
 # Get specific endpoint details
-curl -s "$OPENCODE_HOST/doc" | jq '.paths["/session"]'
+curl -s "$OPENCODE_HOST/doc" | jq '.paths["/session"]' | toonify
 ```
 
 ### Key Endpoints
@@ -311,19 +311,19 @@ The opencode server API is extensive. To explore more capabilities:
 
 ```bash
 # Download full OpenAPI spec
-curl -s "$OPENCODE_HOST/doc" > /tmp/opencode-api.json
+curl -s "$OPENCODE_HOST/doc" | toonify
 
-# Browse all available endpoints
-jq -r '.paths | keys[]' /tmp/opencode-api.json
+# List all endpoints
+curl -s "$OPENCODE_HOST/doc" | jq -r '.paths | keys[]'
 
-# Get details for a specific endpoint (e.g., forking sessions)
-jq '.paths["/session/{sessionID}/fork"]' /tmp/opencode-api.json
+# Get specific endpoint details
+curl -s "$OPENCODE_HOST/doc" | jq '.paths["/session"]' | toonify
 
-# List all session-related endpoints
-jq -r '.paths | keys[] | select(contains("session"))' /tmp/opencode-api.json
+# List session-related endpoints
+curl -s "$OPENCODE_HOST/doc" | jq -r '.paths | keys[] | select(contains("session"))'
 
-# Get parameter details for an endpoint
-jq '.paths["/session"].get.parameters' /tmp/opencode-api.json
+# Get parameter details
+curl -s "$OPENCODE_HOST/doc" | jq '.paths["/session"].get.parameters' | toonify
 ```
 
 **Potential enhancements:**
