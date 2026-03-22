@@ -9,8 +9,7 @@ function P.config()
   local lint = require("lint")
 
   local jslint = {
-    "eslint_d",
-    "stylelint",
+    "oxlint",
   }
 
   lint.linters_by_ft = {
@@ -19,7 +18,7 @@ function P.config()
     typescript = jslint,
     typescriptreact = jslint,
     bash = { "shellcheck" },
-    python = { "mypy", "flake8" },
+    python = { "ruff", "mypy" },
     json = { "jsonlint" },
   }
 

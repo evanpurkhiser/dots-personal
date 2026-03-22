@@ -9,8 +9,7 @@ function P.config()
   local conform = require("conform")
 
   local jsformat = {
-    "prettierd",
-    "eslint_d",
+    "oxfmt",
   }
 
   conform.setup({
@@ -24,7 +23,7 @@ function P.config()
 
     formatters_by_ft = {
       lua = { "stylua" },
-      python = { "black", "isort" },
+      python = { "ruff_fix", "ruff_format" },
       go = { "gofmt" },
       sh = { "shfmt" },
       rust = { "rustfmt" },
@@ -33,7 +32,7 @@ function P.config()
       javascriptreact = jsformat,
       typescript = jsformat,
       typescriptreact = jsformat,
-      json = { "prettierd" },
+      json = { "oxfmt" },
       jsonnet = { "jsonnetfmt" },
     },
   })
