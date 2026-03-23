@@ -31,6 +31,7 @@
 .tern-project
 .importjs.js
 .pdm-python
+.claude/
 tmp/
 node_modules/
 bower_components/
