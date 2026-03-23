@@ -8,9 +8,25 @@ local P = {
 function P.config()
   local lint = require("lint")
 
-  local jslint = {
+  local function available_linters(names)
+    return vim.tbl_filter(function(name)
+      local linter = lint.linters[name]
+      if not linter then
+        return false
+      end
+
+      local cmd = linter.cmd
+      if type(cmd) == "function" then
+        cmd = cmd()
+      end
+
+      return type(cmd) == "string" and vim.fn.executable(cmd) == 1
+    end, names)
+  end
+
+  local jslint = available_linters({
     "oxlint",
-  }
+  })
 
   lint.linters_by_ft = {
     javascript = jslint,
