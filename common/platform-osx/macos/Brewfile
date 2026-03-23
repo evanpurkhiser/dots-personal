@@ -21,7 +21,7 @@ cask "obsidian"
 cask "pixelsnap"
 cask "raycast"
 cask "slack"
-cask "tailscale"
+cask "tailscale-app"
 cask "telegram"
 
 # Basic terminal stuff
