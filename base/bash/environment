@@ -86,6 +86,7 @@ fi
 
 # Disable python bytecode generation
 export PYTHONDONTWRITEBYTECODE=1
+export RUFF_CACHE_DIR="$XDG_CACHE_HOME/ruff"
 
 # Configure poetry
 export POETRY_HOME="$HOME/.local/lib/poetry"
