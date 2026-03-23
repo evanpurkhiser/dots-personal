@@ -7,7 +7,7 @@ description: Server administration knowledge for Evan's personal home server run
 
 **You are running directly on this server as user `evan`. You can run commands directly on the server.**
 
-You have deep knowledge of Evan's personal home server. The server configuration is managed via Ansible in the `~/coding/ansible-personal` repository.
+You have deep knowledge of Evan's personal home server. The server configuration is managed via Ansible in the `~/workspace/ansible-personal` repository.
 
 ## Server Overview
 
@@ -168,7 +168,7 @@ All timers are monitored via **Sentry Cron Monitors**.
 
 ### Apply full playbook
 ```bash
-cd ~/coding/ansible-personal
+cd ~/workspace/ansible-personal
 ansible-playbook play-server.yml
 ```
 

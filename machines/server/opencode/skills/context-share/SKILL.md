@@ -71,7 +71,7 @@ If user said "send to X" without "recent" or "add to" keywords:
 
 ```bash
 # Create session with optional directory/workspace/title
-curl -s -X POST "$OPENCODE_HOST/session?directory=/home/evan/coding/$PROJECT" \
+curl -s -X POST "$OPENCODE_HOST/session?directory=/home/evan/workspace/$PROJECT" \
   -H "Content-Type: application/json" \
   -d "{\"title\": \"$TITLE\"}" | jq -r '.id'
 ```
@@ -82,7 +82,7 @@ curl -s -X POST "$OPENCODE_HOST/session?directory=/home/evan/coding/$PROJECT" \
 
 **Ambiguity handling:**
 - For example, if they said "my-app", try:
-  1. Directory: `/home/evan/coding/my-app`
+  1. Directory: `/home/evan/workspace/my-app`
   2. Workspace ID: `my-app`
 - If neither exists, ask user: "Create new session in my-app as directory or workspace?"
 
@@ -92,12 +92,12 @@ If user said "add to X", "continue in X", "most recent X", or "latest X chat":
 
 ```bash
 # List sessions for that project/workspace
-curl -s "$OPENCODE_HOST/session?directory=/home/evan/coding/$PROJECT&limit=10" | jq -r '.[0].id'
+curl -s "$OPENCODE_HOST/session?directory=/home/evan/workspace/$PROJECT&limit=10" | jq -r '.[0].id'
 ```
 
 **Ambiguity handling:**
 - For example, if they said "my-app", try:
-  1. Directory: `/home/evan/coding/my-app`
+  1. Directory: `/home/evan/workspace/my-app`
   2. Workspace ID: `my-app`
 - If no sessions found, ask user: "No recent sessions found for my-app. Create a new one?"
 
@@ -256,7 +256,7 @@ When sending messages, `parts` is an array of objects. Most common types:
 1. Recognize "send to" pattern → DEFAULT to creating NEW session
 2. Summarize the DNS findings from current conversation
 3. Generate title: "Tailscale DNS fix"
-4. `curl -X POST "$OPENCODE_HOST/session?directory=/home/evan/coding/ansible-personal" -d '{"title": "Tailscale DNS fix"}'`
+4. `curl -X POST "$OPENCODE_HOST/session?directory=/home/evan/workspace/ansible-personal" -d '{"title": "Tailscale DNS fix"}'`
 5. Get new session ID from response
 6. Send summary to new session using `prompt_async`
 7. Report success with session ID
@@ -268,7 +268,7 @@ When sending messages, `parts` is an array of objects. Most common types:
 **You:**
 1. Recognize "add to" + "most recent" → FIND existing session
 2. Summarize the relevant context
-3. `curl -s "$OPENCODE_HOST/session?directory=/home/evan/coding/ansible-personal&limit=1"`
+3. `curl -s "$OPENCODE_HOST/session?directory=/home/evan/workspace/ansible-personal&limit=1"`
 4. Extract session ID: `ses_xxxxx`
 5. Send POST with summary to `/session/ses_xxxxx/prompt_async`
 6. Report success with session ID
@@ -292,7 +292,7 @@ When sending messages, `parts` is an array of objects. Most common types:
 
 **You:**
 1. Recognize "send to" → DEFAULT to NEW session
-2. Try directory: `/home/evan/coding/web-app`
+2. Try directory: `/home/evan/workspace/web-app`
 3. If directory doesn't exist, try workspace: `web-app`
 4. If neither exists, ask: "I couldn't find web-app as a directory or workspace. Where should I create the new session?"
 

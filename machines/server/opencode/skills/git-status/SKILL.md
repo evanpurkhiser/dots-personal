@@ -1,24 +1,24 @@
 ---
 name: git-status
-description: Show uncommitted and unpushed changes in ~/coding repositories with git diffs. ONLY use when explicitly invoked by name or with very explicit requests like "use the git status skill" or "show me everything uncommitted in ~/coding".
+description: Show uncommitted and unpushed changes in ~/workspace repositories with git diffs. ONLY use when explicitly invoked by name or with very explicit requests like "use the git status skill" or "show me everything uncommitted in ~/workspace".
 ---
 
 # Git Status Skill
 
-This skill finds and displays uncommitted and unpushed changes across all git repositories in ~/coding.
+This skill finds and displays uncommitted and unpushed changes across all git repositories in ~/workspace.
 
 ## When to Use
 
 **ONLY use this skill when:**
 - User explicitly says "use the git status skill"
-- User says something very explicit like "show me everything uncommitted in ~/coding"
+- User says something very explicit like "show me everything uncommitted in ~/workspace"
 - User explicitly invokes this skill by name
 
 **DO NOT use for general git questions or requests.**
 
 ## Workflow
 
-1. Find all git repositories in ~/coding (up to 2 levels deep)
+1. Find all git repositories in ~/workspace (up to 2 levels deep)
 2. For each repository, check:
    - Uncommitted changes (modified, staged, untracked files)
    - Unpushed commits
@@ -28,7 +28,7 @@ This skill finds and displays uncommitted and unpushed changes across all git re
 
 ### Find all git repos
 ```bash
-find ~/coding -maxdepth 2 -name .git -type d -exec dirname {} \;
+find ~/workspace -maxdepth 2 -name .git -type d -exec dirname {} \;
 ```
 
 ### For each repository:
