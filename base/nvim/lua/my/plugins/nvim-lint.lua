@@ -28,14 +28,27 @@ function P.config()
     "oxlint",
   })
 
+  local pylint = available_linters({
+    "ruff",
+    "mypy",
+  })
+
+  local bashlint = available_linters({
+    "shellcheck",
+  })
+
+  local jsonlint = available_linters({
+    "jsonlint",
+  })
+
   lint.linters_by_ft = {
     javascript = jslint,
     javascriptreact = jslint,
     typescript = jslint,
     typescriptreact = jslint,
-    bash = { "shellcheck" },
-    python = { "ruff", "mypy" },
-    json = { "jsonlint" },
+    bash = bashlint,
+    python = pylint,
+    json = jsonlint,
   }
 
   -- Add config mapping for codespell
