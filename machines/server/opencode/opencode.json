@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-sonnet-4-5",
+  "autoupdate": true,
+  "server": {
+    "port": 4096
+  },
+  "mcp": {
+    "home-assistant": {
+      "type": "local",
+      "command": [
+        "mcp-sandbox-ha"
+      ]
+    },
+    "lunchmoney": {
+      "type": "local",
+      "command": [
+        "mcp-sandbox-lunchmoney"
+      ]
+    }
+  }
+}
