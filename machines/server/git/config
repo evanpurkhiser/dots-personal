@@ -1,0 +1,10 @@
+# vim: set filetype=gitconfig
+
+[url "https://github.com/"]
+  # OpenCode on server is often accessed from phone sessions without SSH agent forwarding,
+  # so force HTTPS + gh token auth for GitHub remotes.
+  insteadOf = git@github.com:
+  insteadOf = ssh://git@github.com/
+
+[credential]
+  helper = !gh auth git-credential
