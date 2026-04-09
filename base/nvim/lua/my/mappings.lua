@@ -195,6 +195,19 @@ function M.setup()
 
   nmap({ "<C-s>", save })
   nmap({ "<C-q>", quit })
+
+  -- Incremental treesitter node selection
+  vim.keymap.set({ "n", "x", "o" }, "<CR>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+      require("vim.treesitter._select").select_parent(vim.v.count1)
+    end
+  end, { desc = "Expand treesitter selection" })
+
+  vim.keymap.set({ "n", "x", "o" }, "<BS>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+      require("vim.treesitter._select").select_child(vim.v.count1)
+    end
+  end, { desc = "Shrink treesitter selection" })
 end
 
 -- Buffer management
