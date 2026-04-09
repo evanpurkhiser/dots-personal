@@ -3,6 +3,7 @@
 ---@type LazySpec
 local P = {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
   build = ":TSUpdate",
   event = "BufRead",
   cmd = {
