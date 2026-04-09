@@ -210,8 +210,8 @@ function M.bufferline_mappings(bufferline)
     bufferline.move(-1)
   end
 
-  local function move_Right()
-    bufferline.move(-1)
+  local function move_right()
+    bufferline.move(1)
   end
 
   -- XXX: Using `<Esc>` for the previous buffer (which in typical terminals is
@@ -221,7 +221,7 @@ function M.bufferline_mappings(bufferline)
   map("n", "<C-]>", cycle_right)
 
   map("n", "<S-C-[>", move_left)
-  map("n", "<S-C-]>", move_Right)
+  map("n", "<S-C-]>", move_right)
 end
 
 -- Git remote URLs
