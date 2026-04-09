@@ -29,7 +29,6 @@ function P.config()
       format = lspkind.cmp_format({
         mode = "symbol_text",
         maxwidth = 50,
-        symbol_map = { Copilot = "" },
       }),
       expandable_indicator = false,
     },
@@ -41,7 +40,6 @@ function P.config()
     duplicates = {
       nvim_lsp = 1,
       luasnip = 1,
-      cmp_tabnine = 1,
       buffer = 1,
       path = 1,
     },
@@ -51,7 +49,6 @@ function P.config()
     },
     experimental = {
       ghost_text = true,
-      native_menu = false,
     },
     completion = {
       keyword_length = 1,
@@ -118,13 +115,6 @@ function P.config()
       ["<C-s>"] = cmp.mapping.complete({
         config = {
           sources = { { name = "luasnip" } },
-        },
-      }),
-
-      -- Open ompletion filtered to luasnip
-      ["<C-a>"] = cmp.mapping.complete({
-        config = {
-          sources = { { name = "copilot" } },
         },
       }),
 
