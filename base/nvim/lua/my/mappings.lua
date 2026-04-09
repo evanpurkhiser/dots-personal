@@ -2,12 +2,7 @@ local M = {}
 
 local utils = require("my.utils")
 
-local nmap = utils.map.nmap
-local imap = utils.map.imap
-local vmap = utils.map.vmap
-local cmap = utils.map.cmap
-local bmap = utils.map.bmap
-local omap = utils.map.omap
+local map = vim.keymap.set
 
 ---Visual star, search selected text
 local function visual_star()
@@ -118,38 +113,35 @@ end
 function M.setup()
   -- Remap ^c to be the same as escape without telling us to use :q to quit. the
   -- 'r' command is special cased to a NOP.
-  nmap({ "r<C-c>", "<NOP>" })
-  nmap({ "<C-c>", "<NOP>" })
-  nmap({ "<C-c>", "<C-[>" })
-  imap({ "<C-c>", "<C-[>" })
+  map("n", "r<C-c>", "<NOP>")
+  map("n", "<C-c>", "<NOP>")
+  map("n", "<C-c>", "<C-[>")
+  map("i", "<C-c>", "<C-[>")
 
   -- Disable EX mode
-  bmap({ "Q", "<Nop>" })
+  map({ "n", "v", "o" }, "Q", "<Nop>")
 
   -- Navigate command mode with proper partial-completion matching (the native
   -- c-n c-p bindings don't do this for some reason)
-  cmap({ "<C-p>", "<Up>" })
-  cmap({ "<C-n>", "<Down>" })
+  map("c", "<C-p>", "<Up>")
+  map("c", "<C-n>", "<Down>")
 
   -- Window movement
-  nmap({ "<Tab>", "<C-W><C-w>" })
-  nmap({ "<S-Tab>", "<C-W><S-W>" })
+  map("n", "<Tab>", "<C-W><C-w>")
+  map("n", "<S-Tab>", "<C-W><S-W>")
 
   -- Do not move cursor when using *
-  nmap({
-    "*",
-    "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
-  })
+  map("n", "*", "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>")
 
   -- Visual mode star
-  vmap({ "*", visual_star })
+  map("v", "*", visual_star)
 
   -- System copy paste. Uses the "c register. A TextYankPost autocmd will
   -- handle trimming the leading white space for improved pasting, since
   -- clipboard copy is almost always to share code somewhere.
-  nmap({ "<Leader>y", '"cy', {} })
-  nmap({ "<Leader>Y", '"cY', {} })
-  vmap({ "<Leader>y", '"cy', {} })
+  map("n", "<Leader>y", '"cy', { remap = true })
+  map("n", "<Leader>Y", '"cY', { remap = true })
+  map("v", "<Leader>y", '"cy', { remap = true })
 
   vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Trim leading whitesapce",
@@ -159,51 +151,45 @@ function M.setup()
   })
 
   -- Yank filepath into system clipboard
-  nmap({
-    "<Leader>yp",
-    function()
-      vim.fn.setreg("+", vim.fn.expand("%:p"))
-    end,
-  })
+  map("n", "<Leader>yp", function()
+    vim.fn.setreg("+", vim.fn.expand("%:p"))
+  end)
 
   -- Yank current diagnostic error message
-  nmap({
-    "<Leader>ye",
-    yank_diagnostic,
-  })
+  map("n", "<Leader>ye", yank_diagnostic)
 
   -- Open directory of current file for editing
-  nmap({ "<Leader>o", ":edit %:p:h<CR>" })
+  map("n", "<Leader>o", ":edit %:p:h<CR>")
 
   -- Toggle spelling
-  nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
+  map("n", "<Leader>s", "<cmd>set spell!<CR>")
 
   -- Sort visual selection
-  vmap({ "<Leader>s", ":'<,'>sort<CR>" })
+  map("v", "<Leader>s", ":'<,'>sort<CR>")
 
   -- Git blame
-  nmap({ "gb", ":Git blame<cr>" })
+  map("n", "gb", ":Git blame<cr>")
 
   -- Clear search
-  nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
+  map("n", "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>")
 
   -- Repeat the last executed macro
-  nmap({ ",", "@@" })
+  map("n", ",", "@@")
 
   -- Execute lua string in visual selection
-  vmap({ "ge", visual_lua_exec })
+  map("v", "ge", visual_lua_exec)
 
-  nmap({ "<C-s>", save })
-  nmap({ "<C-q>", quit })
+  map("n", "<C-s>", save)
+  map("n", "<C-q>", quit)
 
   -- Incremental treesitter node selection
-  vim.keymap.set({ "n", "x", "o" }, "<CR>", function()
+  map({ "n", "x", "o" }, "<CR>", function()
     if vim.treesitter.get_parser(nil, nil, { error = false }) then
       require("vim.treesitter._select").select_parent(vim.v.count1)
     end
   end, { desc = "Expand treesitter selection" })
 
-  vim.keymap.set({ "n", "x", "o" }, "<BS>", function()
+  map({ "n", "x", "o" }, "<BS>", function()
     if vim.treesitter.get_parser(nil, nil, { error = false }) then
       require("vim.treesitter._select").select_child(vim.v.count1)
     end
@@ -231,16 +217,16 @@ function M.bufferline_mappings(bufferline)
   -- XXX: Using `<Esc>` for the previous buffer (which in typical terminals is
   -- outputted for ^[) since for whatever reason, sometimes vim doesn't
   -- understand <C-[>`
-  nmap({ "<C-[>", cycle_left })
-  nmap({ "<C-]>", cycle_right })
+  map("n", "<C-[>", cycle_left)
+  map("n", "<C-]>", cycle_right)
 
-  nmap({ "<S-C-[>", move_left })
-  nmap({ "<S-C-]>", move_Right })
+  map("n", "<S-C-[>", move_left)
+  map("n", "<S-C-]>", move_Right)
 end
 
 -- Git remote URLs
-nmap({ "gh", ":GBrowse!<CR>" })
-vmap({ "gh", ":GBrowse!<CR>" })
+map("n", "gh", ":GBrowse!<CR>")
+map("v", "gh", ":GBrowse!<CR>")
 
 -- fzf
 function M.fzf_mapping(fzf)
@@ -249,57 +235,50 @@ function M.fzf_mapping(fzf)
     fzf.grep({ search = query })
   end
 
-  nmap({ "<Leader><Leader>", fzf.git_files })
-  nmap({ "<Leader>w", fzf.specific_project_git_files })
-  nmap({ "<Leader>s", fzf.git_status })
-  nmap({ "<Leader>p", fzf.files })
-  nmap({ "<Leader>b", fzf.buffers })
-  nmap({ "<Leader>r", fzf.command_history })
+  map("n", "<Leader><Leader>", fzf.git_files)
+  map("n", "<Leader>w", fzf.specific_project_git_files)
+  map("n", "<Leader>s", fzf.git_status)
+  map("n", "<Leader>p", fzf.files)
+  map("n", "<Leader>b", fzf.buffers)
+  map("n", "<Leader>r", fzf.command_history)
 
-  nmap({ "<Leader>f", fzf.grep })
-  nmap({ "<Leader>F", fzf.specific_project_grep })
-  vmap({ "<Leader>f", visual_grep })
+  map("n", "<Leader>f", fzf.grep)
+  map("n", "<Leader>F", fzf.specific_project_grep)
+  map("v", "<Leader>f", visual_grep)
 end
 
 function M.substitute_mapping(substitute)
-  nmap({ "s", substitute.operator })
-  nmap({ "ss", substitute.line })
-  nmap({ "S", substitute.eol })
+  map("n", "s", substitute.operator)
+  map("n", "ss", substitute.line)
+  map("n", "S", substitute.eol)
 end
 
 -- Upload image and insert markdown
 function M.image_paste_mapping(imagePaste)
-  imap({ "<C-v>", imagePaste.paste_image })
+  map("i", "<C-v>", imagePaste.paste_image)
 end
 
 -- Git hunk navigiations
 function M.gitsigns_mappings(gitsigns, bufnr)
-  local function navigate_hunk(direction)
-    return function()
-      gitsigns.nav_hunk(direction)
-    end
-  end
+  local b = { buffer = bufnr }
 
-  nmap({ "]h", navigate_hunk("next"), bufnr = bufnr })
-  nmap({ "[h", navigate_hunk("prev"), bufnr = bufnr })
+  map("n", "]h", function() gitsigns.nav_hunk("next") end, b)
+  map("n", "[h", function() gitsigns.nav_hunk("prev") end, b)
 
-  nmap({ "<Leader>hr", gitsigns.reset_hunk, bufnr = bufnr })
-  nmap({ "<Leader>hs", gitsigns.stage_hunk, bufnr = bufnr })
-  vmap({
-    "<Leader>hs",
-    function()
-      gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end,
-    bufnr = bufnr,
-  })
+  map("n", "<Leader>hr", gitsigns.reset_hunk, b)
+  map("n", "<Leader>hs", gitsigns.stage_hunk, b)
+  map("v", "<Leader>hs", function()
+    gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  end, b)
 
-  vmap({ "ih", ":<C-U>Gitsigns select_hunk<CR>", bufnr = bufnr })
-  omap({ "ih", ":<C-U>Gitsigns select_hunk<CR>", bufnr = bufnr })
+  map("v", "ih", ":<C-U>Gitsigns select_hunk<CR>", b)
+  map("o", "ih", ":<C-U>Gitsigns select_hunk<CR>", b)
 end
 
 function M.lsp_mapping(bufnr)
   local fzf = require("fzf-lua")
   local border = require("my.styles").border
+  local b = { buffer = bufnr }
 
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]
@@ -309,47 +288,31 @@ function M.lsp_mapping(bufnr)
   end
 
   -- fzf lsp triggers
-  nmap({ "gD", fzf_lsp("declarations"), bufnr = bufnr })
-  nmap({ "gd", fzf_lsp("definitions"), bufnr = bufnr })
-  nmap({ "gr", fzf_lsp("references"), bufnr = bufnr })
-  nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
-  nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
+  map("n", "gD", fzf_lsp("declarations"), b)
+  map("n", "gd", fzf_lsp("definitions"), b)
+  map("n", "gr", fzf_lsp("references"), b)
+  map("n", "ga", fzf_lsp("code_actions"), b)
+  map("n", "gi", fzf_lsp("implementations"), b)
 
-  nmap({ "<Leader>d", fzf_lsp("workspace_diagnostics"), bufnr = bufnr })
+  map("n", "<Leader>d", fzf_lsp("workspace_diagnostics"), b)
 
-  nmap({
-    "gs",
-    fzf_lsp("document_symbols", { current_buffer_only = true }),
-    bufnr = bufnr,
-  })
+  map("n", "gs", fzf_lsp("document_symbols", { current_buffer_only = true }), b)
 
   -- Renmae symbols
-  nmap({ "gn", vim.lsp.buf.rename, bufnr = bufnr })
+  map("n", "gn", vim.lsp.buf.rename, b)
 
   -- Space to show hover details
-  nmap({
-    "<space>",
-    function()
-      vim.lsp.buf.hover({ border = border })
-    end,
-    bufnr = bufnr,
-  })
+  map("n", "<space>", function()
+    vim.lsp.buf.hover({ border = border })
+  end, b)
 
-  nmap({
-    "<C-p>",
-    function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end,
-    bufnr = bufnr,
-  })
+  map("n", "<C-p>", function()
+    vim.diagnostic.jump({ count = -1, float = true })
+  end, b)
 
-  nmap({
-    "<C-n>",
-    function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end,
-    bufnr = bufnr,
-  })
+  map("n", "<C-n>", function()
+    vim.diagnostic.jump({ count = 1, float = true })
+  end, b)
 end
 
 return M
