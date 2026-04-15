@@ -37,6 +37,7 @@ brew "pam-reattach"
 
 # Terminal window management
 brew "tmux"
+brew "tmux-ai-titles"
 
 # Tooling
 brew "codespell"

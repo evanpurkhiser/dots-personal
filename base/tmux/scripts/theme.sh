@@ -34,6 +34,12 @@ function apply_theme() {
 		t_indicator_copy
 		t_indicator_prefix
 		t_indicator_locked
+		t_pane_title_active
+		t_pane_title_active_edge
+		t_pane_title_inactive
+		t_pane_title_inactive_edge
+		t_pane_title_text
+		t_pane_title_transition
 	)
 
 	# List of settings to replcae theme variables in
@@ -46,6 +52,7 @@ function apply_theme() {
 		window-status-current-format
 		status-left
 		status-right
+		pane-border-format
 	)
 
 	for setting in "${style_settings[@]}"; do
@@ -54,8 +61,12 @@ function apply_theme() {
 		for theme_var_key in "${theme_vars[@]}"; do
 			local theme_var="\#{$theme_var_key}"
 			local value="${!theme_var_key}"
-			setting_string="${setting_string/$theme_var/$value}"
+			setting_string="${setting_string//$theme_var/$value}"
 		done
+
+		# Split #[a,b] into #[a]#[b] to avoid comma conflicts
+		# with #{?condition,true,false} in format strings
+		setting_string="$(echo "$setting_string" | sed -E 's/#\[([^],]+),([^]]+)\]/#[\1]#[\2]/g')"
 
 		tmux set-option -gq $setting "${setting_string}"
 	done
