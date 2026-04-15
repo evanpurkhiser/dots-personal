@@ -25,6 +25,7 @@ cask "raycast"
 cask "slack"
 cask "tailscale-app"
 cask "telegram"
+cask "things3-cloud"
 
 # Basic terminal stuff
 brew "atuin"
