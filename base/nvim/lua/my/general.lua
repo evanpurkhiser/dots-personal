@@ -15,6 +15,7 @@ function M.setup()
   set.ignorecase = true -- Ignore case when searching
   set.smartcase = true -- Don't ignore case when using uppercase in a search
   set.confirm = true -- Ask for confirmation when closing unsaved files
+  set.autoread = true -- Reload files changed outside of vim
 
   set.termguicolors = true
   set.background = "dark"
