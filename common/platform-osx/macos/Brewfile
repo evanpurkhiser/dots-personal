@@ -64,6 +64,7 @@ brew "stylua"
 brew "taplo"
 brew "things3-cloud"
 brew "tree"
+brew "tree-sitter-cli"
 brew "typos-cli"
 brew "wget"
 
