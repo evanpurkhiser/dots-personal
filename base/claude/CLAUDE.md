@@ -1,5 +1,6 @@
 - never mention claude in commit messages
 - never mention claude code as a co-author
+- when inferring commit style for a repo, also look at the history of the specific file(s) being committed (`git log --oneline -- <path>`), not just the repo's overall recent history — subsystems often have their own conventions (prefixes, scopes, tone).
 
 ## Git & Pull Request Workflow
 
