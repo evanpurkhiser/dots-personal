@@ -26,6 +26,7 @@ function apply_theme() {
 		t_window_name
 		t_window_num
 		t_window_flags
+		t_window_flag_bell
 		t_window_active_name
 		t_window_active_num
 		t_window_active_flags
