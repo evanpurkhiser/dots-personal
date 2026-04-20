@@ -32,4 +32,5 @@ profiles:
     - common/development
     - machines/home
   server:
+    - common/development
     - machines/server
