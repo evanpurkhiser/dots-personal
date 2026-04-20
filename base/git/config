@@ -3,6 +3,16 @@
 [core]
   autocrlf = false
   excludesfile = ~/.config/git/ignore
+  # Use OS file-change notifications instead of stat-ing every file
+  fsmonitor = true
+
+[feature]
+  # Implies index.version=4, index.skipHash=true, core.untrackedCache=true
+  manyFiles = true
+
+[fetch]
+  # Write commit-graph file after fetch to speed up log/reachability operations
+  writeCommitGraph = true
 
 [alias]
   a   = add
