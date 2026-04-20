@@ -5,6 +5,14 @@
 
 Evan has a specific git workflow optimized for speed. Understand this before making commits or PRs.
 
+### Which workflow applies
+
+Check `git remote get-url origin` first. Note Evan uses git URL aliases: `gh:<owner>/<repo>` expands to a GitHub repo, and `me:<repo>` is shorthand where the owner is himself (`evanpurkhiser`).
+
+- **Owner `evanpurkhiser`** — personal project. Commit directly to main and push to `origin main`. No branches, no PRs, no `pt pr`. You may run `git push` yourself.
+- **Owner `getsentry`** — work project. The `pt pr` workflow below applies. Do not push.
+- **Any other owner** — likely a fork. Ask before pushing: you'll probably need a new remote (e.g. `evan`) pointing at Evan's fork so commits can land there rather than on the upstream.
+
 ### Core principles
 
 1. **No branches.** All commits are made directly on main. Branches are only created at push-time for PRs.
