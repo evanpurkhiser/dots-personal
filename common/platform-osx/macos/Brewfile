@@ -1,5 +1,6 @@
 tap "evanpurkhiser/personal"
 tap "homebrew/autoupdate"
+tap "teamookla/speedtest"
 
 cask "1password"
 cask "1password-cli"
@@ -23,6 +24,7 @@ cask "raycast"
 cask "slack"
 cask "tailscale-app"
 cask "telegram"
+cask "mitmproxy"
 
 # Basic terminal stuff
 brew "atuin"
@@ -47,6 +49,7 @@ brew "ffmpeg"
 brew "fzf"
 brew "gh"
 brew "git"
+brew "gmailctl"
 brew "htop"
 brew "imagemagick"
 brew "jq"
@@ -60,6 +63,7 @@ brew "rsync"
 brew "ruff"
 brew "shellcheck"
 brew "shfmt"
+brew "sqlfmt"
 brew "stylua"
 brew "taplo"
 brew "things3-cloud"
@@ -70,6 +74,7 @@ brew "wget"
 
 # Languages, runtimes, compilers
 brew "cmake"
+brew "deno"
 brew "go"
 brew "node"
 brew "python"
@@ -78,6 +83,15 @@ brew "sqlite"
 
 # Dependency management
 brew "direnv"
+brew "pdm"
 brew "pyenv"
+brew "uv"
 brew "volta"
 brew "yarn"
+
+# Networking & infrastructure
+brew "tailscale"
+brew "speedtest"
+
+# Containers & VMs
+brew "colima"
