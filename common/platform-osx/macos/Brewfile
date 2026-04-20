@@ -1,6 +1,5 @@
 tap "evanpurkhiser/personal"
 tap "homebrew/autoupdate"
-tap "teamookla/speedtest"
 
 cask "1password"
 cask "1password-cli"
@@ -66,6 +65,7 @@ brew "shfmt"
 brew "sqlfmt"
 brew "stylua"
 brew "taplo"
+brew "teamookla/speedtest/speedtest"
 brew "things3-cloud"
 brew "tree"
 brew "tree-sitter-cli"
@@ -88,10 +88,6 @@ brew "pyenv"
 brew "uv"
 brew "volta"
 brew "yarn"
-
-# Networking & infrastructure
-brew "tailscale"
-brew "speedtest"
 
 # Containers & VMs
 brew "colima"
