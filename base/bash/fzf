@@ -2,7 +2,7 @@
 
 hash fzf 2>/dev/null || return
 
-export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›" --bind change:top --no-scrollbar'
+export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›" --bind change:top --no-scrollbar --highlight-line --color=bg+:0,gutter:0,separator:0'
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_CTRL_T_COMMAND="fd --type f --follow --hidden"
 
