@@ -142,7 +142,7 @@ export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
 
 # Less history file and key file
 export LESSHISTFILE="$XDG_STATE_HOME/less_history"
-export LESSKEY="$XDG_CONFIG_HOME/less/keyfile.bin"
+export LESSKEYIN="$XDG_CONFIG_HOME/less/keyfile"
 
 # Don't add quotes when using ls
 export QUOTING_STYLE="literal"
