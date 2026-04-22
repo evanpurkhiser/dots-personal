@@ -2,7 +2,7 @@
   viewer {
     pullRequests(
       states: OPEN
-      first: 5
+      first: 20
       orderBy: { field: CREATED_AT, direction: DESC }
     ) {
       edges {
@@ -10,8 +10,11 @@
           id
           number
           title
+          url
           createdAt
+          repository { nameWithOwner }
           reviewDecision
+          autoMergeRequest { enabledAt }
           commits(last: 1) {
             nodes {
               commit {

@@ -4,9 +4,11 @@ source "$HOME/.config/bash/environment"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUTPUT="${XDG_STATE_HOME}/pr-statusline"
+JSON_CACHE="${XDG_STATE_HOME}/pr-statusline.json"
 
-result=$(gh api graphql -F query=@${ROOT}/gh.graphql | jq -r -f ${ROOT}/parser.jq)
+json=$(gh api graphql -F query=@${ROOT}/gh.graphql)
 
 if [[ $? == 0 ]]; then
-  echo "$result" >"${OUTPUT}"
+  echo "$json" > "${JSON_CACHE}"
+  echo "$json" | jq -r -f ${ROOT}/parser.jq > "${OUTPUT}"
 fi

@@ -16,7 +16,7 @@ def checkMap:
         "": "",
     };
 
-.data.viewer.pullRequests.edges
+.data.viewer.pullRequests.edges[:5]
     | map(.node
         | .commits.nodes[].commit.statusCheckRollup.state as $checkState
         | {
