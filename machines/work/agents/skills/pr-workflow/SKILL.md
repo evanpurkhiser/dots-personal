@@ -36,7 +36,16 @@ pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--
 
 - `<sha>`: commit SHA (full or prefix) from unpublished commits on local main
 - `--title`: PR title, required (use the commit subject)
-- body is read from stdin -- use the commit message minus the subject, or empty
+- body is read from stdin. Use a heredoc; for an empty body pass `< /dev/null`:
+  ```bash
+  pt pr-create <sha> --title "..." --reviewer a,b <<'EOF'
+  Motivation for this change.
+
+  Details about the approach.
+  EOF
+
+  pt pr-create <sha> --title "..." < /dev/null
+  ```
 - `--reviewer`: comma-separated GitHub logins / `org/team` slugs
 - `--update-only`: fail if no PR exists for the generated branch (don't create)
 - prints the PR URL on stdout (progress goes to stderr)
@@ -59,7 +68,12 @@ Assignable users are cached at `$XDG_CACHE_HOME/pt/`; pass `--refresh` to invali
 
 1. Make the commit locally -- use regular `git add` + `git commit` when changes are already separated; use `git-surgeon` only when unstaged changes are intermixed.
 2. `reviewers=$(pt suggest-assignees --commit <sha> --limit 3)`
-3. `pt pr-create <sha> --title "<commit subject>" --reviewer "$reviewers" < body.md`
+3. Run `pt pr-create` with the body via heredoc (or `< /dev/null` if there's no body):
+   ```bash
+   pt pr-create <sha> --title "<commit subject>" --reviewer "$reviewers" <<'EOF'
+   <commit body>
+   EOF
+   ```
 4. Print the returned PR URL back to Evan.
 
 ### Amending or fixing up an existing commit
