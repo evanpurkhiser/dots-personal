@@ -24,11 +24,11 @@ Check `git remote get-url origin` first. Note Evan uses git URL aliases: `gh:<ow
 3. **Optimize for reviewability.** Small, focused changes with no unrelated work mixed in. The easier it is to review, the faster it lands.
 4. **Parallel review.** Multiple independent PRs can be open simultaneously. Dependent changes are simply committed later on main.
 
-Commits pile up on local `main` ahead of `origin/main`, with hunks carefully staged per commit. Use regular `git add` when changes are already cleanly separated. Use `git-surgeon` when unstaged changes are intermixed and you need hunk/line-level selection (`git-surgeon hunks` to list, `git-surgeon show <id>` to inspect, `git-surgeon stage <id>` / `git-surgeon commit <id> -m "..."` to act; see the `git-surgeon` skill for full docs). Each commit becomes its own PR -- branch name is auto-derived from the commit subject as `{username}/{kebab-case-subject}`.
+Commits pile up on local `main` ahead of `origin/main`, with hunks carefully staged per commit. Use regular `git add` when changes are already cleanly separated. Use `git-surgeon` when unstaged changes are intermixed and you need hunk/line-level selection (`git-surgeon hunks` to list, `git-surgeon show <id>` to inspect, `git-surgeon stage <id>` / `git-surgeon commit <id> -m "..."` to act; see the `git-surgeon` skill for full docs). Each commit becomes its own PR.
 
 ### Opening a PR: `pt pr-create`
 
-To open or update a PR for a commit, use `pt pr-create` (from [`@evanpurkhiser/tooling-personal`](https://www.npmjs.com/package/@evanpurkhiser/tooling-personal), source at `~/Coding/personal/tooling-personal`). It's non-interactive -- agent-safe.
+To open or update a PR for a commit, use `pt pr-create` (from [`@evanpurkhiser/tooling-personal`](https://www.npmjs.com/package/@evanpurkhiser/tooling-personal), source at `~/Coding/personal/tooling-personal`). It's non-interactive -- agent-safe. The tool auto-derives the PR branch name from the commit subject, which is how it identifies the PR on subsequent updates.
 
 ```bash
 pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--update-only] [--no-open] < body.md
