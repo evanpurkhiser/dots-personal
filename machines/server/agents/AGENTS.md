@@ -1,4 +1,8 @@
-# OpenCode Agent Guidelines
+# Agent Guidelines
+
+You're running on my personal home server. We're primarily working on personal infrastructure, services, media automation, and dotfiles operations.
+
+All Evan repositories on this machine are checked out in `~/workspace`.
 
 ## Token-Efficient Output
 

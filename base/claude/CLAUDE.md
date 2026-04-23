@@ -1,2 +1,0 @@
-- For any commit, amend, push, or pull request task, load and follow the `pr-workflow` skill first.
-- The `pr-workflow` skill is the source of truth for all commit and PR workflow rules.

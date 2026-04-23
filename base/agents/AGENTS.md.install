@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+source "$DOTS_SOURCE/base/bash/environment"
+
+mkdir -p "$XDG_CONFIG_HOME/claude" "$XDG_CONFIG_HOME/opencode"
+
+rm -f "$XDG_CONFIG_HOME/claude/CLAUDE.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
+
+ln -sf "$XDG_CONFIG_HOME/agents/AGENTS.md" "$XDG_CONFIG_HOME/claude/CLAUDE.md"
+ln -sf "$XDG_CONFIG_HOME/agents/AGENTS.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
