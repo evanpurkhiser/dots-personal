@@ -28,7 +28,7 @@ Check `git remote get-url origin` first. Note Evan uses git URL aliases: `gh:<ow
 3. **Optimize for reviewability.** Small, focused changes with no unrelated work mixed in. The easier it is to review, the faster it lands.
 4. **Parallel review.** Multiple independent PRs can be open simultaneously. Dependent changes are simply committed later on main.
 
-Commits pile up on local `main` ahead of `origin/main`, with hunks carefully staged per commit. For agent-safe hunk-level staging use `git-surgeon` (`git-surgeon hunks` to list, `git-surgeon stage <id>` / `git-surgeon commit <id> -m "..."` to act; see the `git-surgeon` skill for full docs). Each commit becomes its own PR -- branch name is auto-derived from the commit subject as `{username}/{kebab-case-subject}`.
+Commits pile up on local `main` ahead of `origin/main`, with hunks carefully staged per commit. Use regular `git add` when changes are already cleanly separated. Use `git-surgeon` when unstaged changes are intermixed and you need hunk/line-level selection (`git-surgeon hunks` to list, `git-surgeon show <id>` to inspect, `git-surgeon stage <id>` / `git-surgeon commit <id> -m "..."` to act; see the `git-surgeon` skill for full docs). Each commit becomes its own PR -- branch name is auto-derived from the commit subject as `{username}/{kebab-case-subject}`.
 
 ### Opening a PR: `pt pr-create`
 
@@ -61,24 +61,29 @@ Assignable users are cached at `$XDG_CACHE_HOME/pt/`; pass `--refresh` to invali
 
 ### The typical agent flow
 
-1. Make the commit locally -- stage hunks via `git-surgeon`, then `git commit`.
+1. Make the commit locally -- use regular `git add` + `git commit` when changes are already separated; use `git-surgeon` only when unstaged changes are intermixed.
 2. `reviewers=$(pt suggest-assignees --commit <sha> --limit 3)`
 3. `pt pr-create <sha> --title "<commit subject>" --reviewer "$reviewers" < body.md`
 4. Print the returned PR URL back to Evan.
 
-### Amending an existing commit
+### Amending or fixing up an existing commit
 
-To fold new changes into an earlier commit, always use `--fixup` immediately followed by autosquash:
+To fold new changes into an earlier commit, use `git-surgeon` first:
 
 ```bash
-git-surgeon stage <hunk-id> ...   # or git add <files>
-git commit --fixup=<sha>
-git rebase --autosquash origin/main   # or origin/master, whichever the repo uses
+# If changes are still unstaged, stage only what belongs to the fix
+git-surgeon stage <hunk-id>...
+
+# Fold staged changes into target commit (uses amend for HEAD, autosquash rebase for older commits)
+git-surgeon amend <sha>
+
+# Or fold one or more commits into a target commit
+git-surgeon fixup <target-sha> --from <sha>
 ```
 
-- `--fixup=<sha>` writes a commit with subject `fixup! <original subject>`.
-- `git rebase --autosquash <base>` runs non-interactively and folds the fixup into its target.
-- Run them back-to-back so the working tree never carries a stray `fixup!` commit.
+- `git-surgeon amend <sha>` is preferred when you've already staged the exact hunks for the fix and needed hunk-level staging.
+- `git-surgeon fixup <target-sha> --from <sha>` is preferred when the fix already exists as a separate commit.
+- If you use raw git instead, keep the same rule: run `git commit --fixup=<sha>` immediately followed by `git rebase --autosquash <base>`.
 
 If the amended commit already has a PR open, re-run `pt pr-create <new-sha>` -- it detects the existing PR by the generated branch name and just re-pushes.
 
@@ -87,7 +92,7 @@ If the amended commit already has a PR open, re-run `pt pr-create <new-sha>` -- 
 ### Implications for agents
 
 - **Do not create branches.** Commit directly to main.
-- **Keep commits atomic** -- one logical change per commit, no unrelated fixups mixed in.
+- **Keep commits atomic** -- one logical change per commit, no unrelated fixups mixed in. Use `git-surgeon` only when necessary to split intermixed unstaged changes by hunk or line range.
 - Commit messages matter -- they become the PR title/body.
 - Do not run `git push` or `gh pr create` directly -- use `pt pr-create`.
 - There's also an interactive `pt pr` that Evan runs himself (fzf + `$EDITOR`); don't invoke it from an agent.
