@@ -35,7 +35,7 @@ pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--
 ```
 
 - `<sha>`: commit SHA (full or prefix); must already exist on local `main` ahead of `origin/main`
-- `--title`: PR title, required (use the commit subject)
+- `--title`: PR title, required on PR creation (use the commit subject). Optional and ignored on `--update-only` -- the existing PR's title is kept, edit it on GitHub if you need to change it.
 - body is read from stdin. Use a heredoc; for an empty body pass `< /dev/null`:
   ```bash
   pt pr-create <sha> --title "..." --reviewer a,b <<'EOF'
@@ -99,10 +99,25 @@ If the amended commit already has a PR open, re-run `pt pr-create <new-sha>` -- 
 
 **Never change the commit subject once a PR is open** -- not via rebase-reword, not via `git commit --amend -m`, not any other way. The PR branch name is derived from the subject, so any change orphans the existing PR and the next `pt pr-create` opens a new one. The commit *body* is safe to edit (it doesn't affect the branch name); if only the PR title needs to change, edit it on GitHub directly.
 
+### Editing PR metadata without re-pushing
+
+`pt pr-create` pushes the commit, which re-triggers CI. For changes that don't touch the code, prefer `gh` directly -- it hits the GitHub API without disturbing the branch.
+
+Use `gh` for:
+
+- **Editing PR title or body**: `gh pr edit <num> --title "..." --body "..."` (or `--body-file -` with a heredoc). Use this to fix up a Linear link or typo in the description without a force-push.
+- **Enabling auto-merge**: `gh pr merge <num> --auto --squash`.
+- **Adding/removing reviewers on an existing PR**: `gh pr edit <num> --add-reviewer foo --remove-reviewer bar` (recall that `pt pr-create` ignores `--reviewer` on updates).
+- **Labels, milestones, assignees, projects**: all available via `gh pr edit` subflags.
+- **Marking ready-for-review / draft**: `gh pr ready <num>` / `gh pr ready <num> --undo`.
+- **Reading PR state**: `gh pr view <num>`, `gh pr checks <num>`, `gh api repos/OWNER/REPO/pulls/<num>/comments`.
+
+The only things you should *not* do with `gh` on a Sentry PR: create the PR (`gh pr create`) and push the branch (`gh pr sync`, `git push`). Those go through `pt pr-create` so the branch-naming and cherry-pick plumbing stay consistent.
+
 ### Implications for agents
 
 - **Do not create branches.** Commit directly to main.
 - **Keep commits atomic** -- one logical change per commit, no unrelated fixups mixed in. Use `git-surgeon` only when necessary to split intermixed unstaged changes by hunk or line range.
 - Commit messages matter -- they become the PR title/body.
-- Do not run `git push` or `gh pr create` directly -- use `pt pr-create`.
+- Do not run `git push` or `gh pr create` directly -- use `pt pr-create`. But `gh pr edit`, `gh pr merge --auto`, etc. are fine (and preferred) for metadata-only changes that shouldn't re-push the branch.
 - There's also an interactive `pt pr` that Evan runs himself (fzf + `$EDITOR`); don't invoke it from an agent.
