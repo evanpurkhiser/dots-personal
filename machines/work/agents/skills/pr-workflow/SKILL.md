@@ -14,7 +14,7 @@ Evan has a specific git workflow optimized for speed. Understand this before mak
 Check `git remote get-url origin` first. Note Evan uses git URL aliases: `gh:<owner>/<repo>` expands to a GitHub repo, and `me:<repo>` is shorthand where the owner is himself (`evanpurkhiser`).
 
 - **Owner `evanpurkhiser`** -- personal project. Commit directly to main and push to `origin main`. No branches, no PRs. You may run `git push` yourself.
-- **Owner `getsentry`** -- work project. The PR workflow below applies. Do not run `git push`.
+- **Owner `getsentry`** -- work project. The PR workflow below applies. Do not run `git push` directly; `pt pr-create` handles pushing.
 - **Any other owner** -- likely a fork. Ask before pushing: you'll probably need a new remote (e.g. `evan`) pointing at Evan's fork so commits can land there rather than on the upstream.
 
 ### Core principles
@@ -34,7 +34,7 @@ To open or update a PR for a commit, use `pt pr-create` (from [`@evanpurkhiser/t
 pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--update-only] [--no-open] < body.md
 ```
 
-- `<sha>`: commit SHA (full or prefix) from unpublished commits on local main
+- `<sha>`: commit SHA (full or prefix); must already exist on local `main` ahead of `origin/main`
 - `--title`: PR title, required (use the commit subject)
 - body is read from stdin. Use a heredoc; for an empty body pass `< /dev/null`:
   ```bash
@@ -46,11 +46,11 @@ pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--
 
   pt pr-create <sha> --title "..." < /dev/null
   ```
-- `--reviewer`: comma-separated GitHub logins / `org/team` slugs
+- `--reviewer`: comma-separated GitHub logins / `org/team` slugs. **Unknown slug = hard fail** (exits before pushing). Get candidates with `pt suggest-assignees` rather than guessing.
 - `--update-only`: fail if no PR exists for the generated branch (don't create)
 - prints the PR URL on stdout (progress goes to stderr)
 
-Under the hood it cherry-picks `<sha>` onto `origin/main` via `git merge-tree` + `git commit-tree` plumbing (no rebase, no working tree changes), force-pushes the new commit to the generated branch, then creates/updates the PR via GraphQL. If a PR already exists for the generated branch it just re-pushes.
+Under the hood it cherry-picks `<sha>` onto `origin/main` via `git merge-tree` + `git commit-tree` plumbing (no rebase, no working tree changes), force-pushes the new commit to the generated branch, then creates/updates the PR via GraphQL. If a PR already exists for the generated branch it just re-pushes -- **`--reviewer` and `--draft` are ignored on update**; to change reviewers on an existing PR, edit it on GitHub.
 
 ### Picking reviewers: `pt suggest-assignees`
 
@@ -97,7 +97,7 @@ git-surgeon fixup <target-sha> --from <sha>
 
 If the amended commit already has a PR open, re-run `pt pr-create <new-sha>` -- it detects the existing PR by the generated branch name and just re-pushes.
 
-**Never reword the commit subject once a PR is open.** The PR branch name is derived from the subject, so changing it orphans the existing PR and opens a new one. The commit body is safe to edit (it won't change the branch); if only the PR title needs to change, edit it on GitHub directly.
+**Never change the commit subject once a PR is open** -- not via rebase-reword, not via `git commit --amend -m`, not any other way. The PR branch name is derived from the subject, so any change orphans the existing PR and the next `pt pr-create` opens a new one. The commit *body* is safe to edit (it doesn't affect the branch name); if only the PR title needs to change, edit it on GitHub directly.
 
 ### Implications for agents
 
