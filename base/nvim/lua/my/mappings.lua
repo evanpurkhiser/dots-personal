@@ -189,7 +189,7 @@ function M.setup()
     end
   end, { desc = "Expand treesitter selection" })
 
-  map({ "n", "x", "o" }, "<BS>", function()
+  map({ "n", "x", "o" }, "<S-CR>", function()
     if vim.treesitter.get_parser(nil, nil, { error = false }) then
       require("vim.treesitter._select").select_child(vim.v.count1)
     end

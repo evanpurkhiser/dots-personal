@@ -53,4 +53,7 @@ duration = 0
 
 [keyboard]
 
-bindings = [{ key = "T", mods = "Command", action = "ReceiveChar" }]
+bindings = [
+  { key = "T", mods = "Command", action = "ReceiveChar" },
+  { key = "Return", mods = "Shift", chars = "\u001b[13;2u" },
+]
