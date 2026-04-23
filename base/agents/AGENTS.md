@@ -20,3 +20,4 @@ When inferring commit style for a repo, also look at the history of the specific
 - Write commit bodies as a summary of the why, not the what, when the why is not obvious from the title and diff.
 - PR summaries should cover both why and what for the combined change.
 - Wrap commit body lines at 80 characters.
+- For commit shaping tasks (split commits, hunk/line-range staging, selective unstaging, fixups), use `git-surgeon` instead of raw interactive or reset-based git flows.
