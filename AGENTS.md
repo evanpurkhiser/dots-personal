@@ -1,5 +1,3 @@
-# Agent Guidelines
-
 ## Commit Style
 
 Commits use the format `<component>: <imperative description>`.
