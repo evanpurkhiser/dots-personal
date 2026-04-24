@@ -85,6 +85,59 @@ Assignable users are cached at `$XDG_CACHE_HOME/pt/`; pass `--refresh` to invali
    ```
 4. Print the returned PR URL back to Evan.
 
+### Examples
+
+**Title only, no body, no reviewers:**
+
+```bash
+pt pr-create abc1234 --title "Fix off-by-one in pagination cursor" < /dev/null
+```
+
+**Title and body via heredoc:**
+
+```bash
+pt pr-create abc1234 --title "Fix off-by-one in pagination cursor" <<'EOF'
+The cursor was advancing by `limit` instead of `limit + 1`, causing the
+last item of each page to be returned again as the first item of the
+next page.
+EOF
+```
+
+**Title, body, and the top-3 suggested reviewers:**
+
+```bash
+reviewers=$(pt suggest-assignees --commit abc1234 --limit 3)
+pt pr-create abc1234 --title "Fix off-by-one in pagination cursor" --reviewer "$reviewers" <<'EOF'
+The cursor was advancing by `limit` instead of `limit + 1`, causing the
+last item of each page to be returned again as the first item of the
+next page.
+EOF
+```
+
+**Amending an open PR via git-surgeon, then re-pushing with `pr-update`:**
+
+```bash
+# 1. List unstaged hunks, pick the one(s) that belong to the fix
+git-surgeon hunks
+
+# 2. Capture the subject before amending -- it's preserved across the rewrite
+#    and is what we'll use to find the new sha.
+subject=$(git log -1 --format=%s abc1234)
+
+# 3. Fold the staged hunks into the original commit (autosquash under the hood)
+git-surgeon amend abc1234
+
+# 4. Look the rewritten commit up by its (unchanged) subject. Don't use
+#    `git log -1 --format=%H` -- if the amended commit isn't HEAD, that
+#    gives you the tip of your stack rather than the rewritten commit.
+new_sha=$(git log origin/main..HEAD --format='%H %s' \
+  | grep -F "$subject" | head -1 | cut -d' ' -f1)
+
+# 5. Push the amended commit to the existing PR. The PR branch name is
+#    derived from the unchanged subject, so pr-update finds the existing PR.
+pt pr-update "$new_sha"
+```
+
 ### Amending or fixing up an existing commit
 
 To fold new changes into an earlier commit, use `git-surgeon` first:
