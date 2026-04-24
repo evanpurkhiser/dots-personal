@@ -46,6 +46,7 @@ pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--
 
   pt pr-create <sha> --title "..." < /dev/null
   ```
+  **Do not hard-wrap paragraphs in the body.** PR bodies render as GitHub Markdown -- a hard wrap mid-paragraph turns the prose into ragged lines on the rendered page. Write each paragraph as one long line and let GitHub wrap it. Hard line breaks are only appropriate inside fenced code blocks (where wrapping would change the code) and between separate paragraphs / list items. This differs from commit bodies, which *should* be wrapped at 80.
 - `--reviewer`: comma-separated GitHub logins / `org/team` slugs. **Unknown slug = hard fail** (exits before pushing). Get candidates with `pt suggest-assignees` rather than guessing.
 - prints the PR URL on stdout (progress goes to stderr)
 
@@ -97,9 +98,7 @@ pt pr-create abc1234 --title "Fix off-by-one in pagination cursor" < /dev/null
 
 ```bash
 pt pr-create abc1234 --title "Fix off-by-one in pagination cursor" <<'EOF'
-The cursor was advancing by `limit` instead of `limit + 1`, causing the
-last item of each page to be returned again as the first item of the
-next page.
+The cursor was advancing by `limit` instead of `limit + 1`, causing the last item of each page to be returned again as the first item of the next page.
 EOF
 ```
 
@@ -108,9 +107,7 @@ EOF
 ```bash
 reviewers=$(pt suggest-assignees --commit abc1234 --limit 3)
 pt pr-create abc1234 --title "Fix off-by-one in pagination cursor" --reviewer "$reviewers" <<'EOF'
-The cursor was advancing by `limit` instead of `limit + 1`, causing the
-last item of each page to be returned again as the first item of the
-next page.
+The cursor was advancing by `limit` instead of `limit + 1`, causing the last item of each page to be returned again as the first item of the next page.
 EOF
 ```
 
