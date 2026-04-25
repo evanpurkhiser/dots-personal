@@ -154,6 +154,18 @@ resyctl cancel "<resy_token>" --dry-run
 4. Choose earliest date/time match.
 5. `quote` and optionally `book` with guardrails.
 
+### Multi-venue workflows
+
+When a request involves several venues (e.g. "find a 7pm slot at any of
+Cosme, Atomix, or Don Angie next Saturday"):
+
+1. Run one `resyctl search` per venue name in parallel (single message,
+   multiple Bash tool calls). Pick the right venue_id from each result
+   independently — locality and ratings disambiguate.
+2. Run one `resyctl availability` per resolved venue_id in parallel, with
+   the same date/time-window filters across all.
+3. Merge the slot lists and present the earliest matches.
+
 ## Payment methods
 
 To inspect available payment method IDs:
