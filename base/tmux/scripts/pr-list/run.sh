@@ -5,7 +5,7 @@
 
 source "$XDG_CONFIG_HOME/bash/fzf" 2>/dev/null
 
-scripts="$HOME/.config/tmux/scripts/pr-list"
+scripts="$XDG_CONFIG_HOME/tmux/scripts/pr-list"
 pane_id=$(tmux display-message -p '#{pane_id}')
 json_cache="${XDG_STATE_HOME}/pr-statusline.json"
 tmp=$(mktemp -d)

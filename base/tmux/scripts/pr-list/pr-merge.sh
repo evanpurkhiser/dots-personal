@@ -8,4 +8,4 @@ for url in "$@"; do
 done
 
 # Refresh PR statusline
-~/.config/bash/bin/pr-statusline/pr-statusline &
+"$XDG_CONFIG_HOME/bash/bin/pr-statusline/pr-statusline" &
