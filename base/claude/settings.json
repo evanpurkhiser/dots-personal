@@ -9,18 +9,6 @@
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.config/claude/stop-hook.sh"
-          }
-        ]
-      }
-    ]
-  },
   "statusLine": {
     "type": "command",
     "command": "~/.config/claude/statusline-command.sh"
