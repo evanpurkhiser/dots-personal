@@ -9,15 +9,15 @@
 	echo "Dots install must be sourced from bash" &&
 	exit 1
 
-[[ $_ == $0 ]] &&
+[[ $_ == "$0" ]] &&
 	echo "Please source me!" &&
 	exit 1
 
 # I am using the latest main builds of dots. See the bootstrap config for
 # details on available version constraints.
-DOTS_RELEASE="main"
+export DOTS_RELEASE="main"
 
-DOTS_CLONE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export DOTS_CLONE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source /dev/stdin <<<"$(curl --silent --show-error --location \
 	https://github.com/evanpurkhiser/dots/releases/download/dev-build/bootstrap)"

@@ -10,6 +10,7 @@ This skill finds and displays uncommitted and unpushed changes across all git re
 ## When to Use
 
 **ONLY use this skill when:**
+
 - User explicitly says "use the git status skill"
 - User says something very explicit like "show me everything uncommitted in ~/workspace"
 - User explicitly invokes this skill by name
@@ -27,6 +28,7 @@ This skill finds and displays uncommitted and unpushed changes across all git re
 ## Commands
 
 ### Find all git repos
+
 ```bash
 find ~/workspace -maxdepth 2 -name .git -type d -exec dirname {} \;
 ```
@@ -34,26 +36,33 @@ find ~/workspace -maxdepth 2 -name .git -type d -exec dirname {} \;
 ### For each repository:
 
 **Check for uncommitted changes:**
+
 ```bash
 cd <repo> && git status --short
 ```
 
 **Get diff for uncommitted changes:**
+
 ```bash
 cd <repo> && git diff HEAD
 ```
+
 This shows both staged and unstaged changes.
 
 **Check for unpushed commits:**
+
 ```bash
 cd <repo> && git log --branches --not --remotes --oneline
 ```
 
 **Get diff for unpushed commits:**
+
 ```bash
 cd <repo> && git diff origin/$(git branch --show-current)..HEAD
 ```
+
 Or if there are multiple unpushed commits, show each:
+
 ```bash
 cd <repo> && git log --branches --not --remotes --patch
 ```
@@ -62,29 +71,33 @@ cd <repo> && git log --branches --not --remotes --patch
 
 For each repository with changes, display:
 
-```markdown
+````markdown
 ## **<repo-name>**
 
 ### Uncommitted Changes
+
 <list of files from git status --short>
 
 #### Diff
+
 \```diff
 <output from git diff HEAD>
 \```
 
 ### Unpushed Commits
+
 <list of commits from git log>
 
 #### Diff
+
 \```diff
 <output from git diff or git log --patch>
 \```
-```
+````
 
 ## Important Notes
 
 - **Never commit or push** - only show status and diffs
-- Show full diffs in ```diff``` code blocks
+- Show full diffs in `diff` code blocks
 - Skip repositories with no uncommitted or unpushed changes
 - Handle merge conflicts gracefully (UD, UU status codes)

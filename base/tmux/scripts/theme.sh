@@ -15,7 +15,7 @@ function apply_theme() {
 		source "$theme_path"
 	else
 		tmux display-message \
-			"Theme "${theme_name}" does not exist in theme folder"
+			"Theme \"${theme_name}\" does not exist in theme folder"
 	fi
 
 	# List of variables that will be replaced in style settings
@@ -43,7 +43,7 @@ function apply_theme() {
 		t_pane_title_transition
 	)
 
-	# List of settings to replcae theme variables in
+	# List of settings to replace theme variables in
 	local style_settings=(
 		status-style
 		pane-border-style

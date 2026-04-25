@@ -110,7 +110,7 @@ tracks/
   - Release folders: `[CATALOG#] Artist - Release Title/`
   - Track files: `##. [Vinyl Side] Artist - Track Title (Remix).extension`
   - Example: `01. [08A] Darwin - Push You Away (Freeform Mix).aif`
-- **File Formats:** 
+- **File Formats:**
   - `.aif` (uncompressed audio for professional DJ use)
   - `.mp3` (compressed)
 - **Genre Focus:** UK Hardcore, Freeform, Hard Trance, Happy Hardcore, Trance

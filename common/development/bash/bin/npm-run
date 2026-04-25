@@ -5,7 +5,7 @@
 
 prg="$(basename "$0")"
 root="$(
-	while [[ "$PWD" != "/" ]] && [ ! -f "$PWD/node_modules/.bin/$prg" ]; do cd ..; done
+	while [[ $PWD != "/" ]] && [ ! -f "$PWD/node_modules/.bin/$prg" ]; do cd ..; done
 	echo "$PWD"
 )"
 

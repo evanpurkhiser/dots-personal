@@ -15,8 +15,8 @@ option="\#{window_flags}"
 # Each format uses a different base flag style, so the bell replacement
 # restores to the appropriate one after its colored icon.
 declare -A restore=(
-	[window-status-format]="#{t_window_flags}"
-	[window-status-current-format]="#{t_window_active_flags}"
+	[window - status - format]="#{t_window_flags}"
+	[window - status - current - format]="#{t_window_active_flags}"
 )
 
 for setting in window-status-format window-status-current-format; do

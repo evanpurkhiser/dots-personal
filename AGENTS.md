@@ -6,6 +6,7 @@ Commits use the format `<component>: <imperative description>`.
 - The description is capitalized and imperative (e.g. "Add", "Fix", "Remove", "Update")
 
 Examples:
+
 ```
 opencode: Add server-admin skill
 vim: Add stage hunk action

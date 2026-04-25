@@ -8,15 +8,11 @@
   "mcp": {
     "home-assistant": {
       "type": "local",
-      "command": [
-        "mcp-sandbox-ha"
-      ]
+      "command": ["mcp-sandbox-ha"]
     },
     "lunchmoney": {
       "type": "local",
-      "command": [
-        "mcp-sandbox-lunchmoney"
-      ]
+      "command": ["mcp-sandbox-lunchmoney"]
     }
   }
 }

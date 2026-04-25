@@ -262,8 +262,12 @@ end
 function M.gitsigns_mappings(gitsigns, bufnr)
   local b = { buffer = bufnr }
 
-  map("n", "]h", function() gitsigns.nav_hunk("next") end, b)
-  map("n", "[h", function() gitsigns.nav_hunk("prev") end, b)
+  map("n", "]h", function()
+    gitsigns.nav_hunk("next")
+  end, b)
+  map("n", "[h", function()
+    gitsigns.nav_hunk("prev")
+  end, b)
 
   map("n", "<Leader>hr", gitsigns.reset_hunk, b)
   map("n", "<Leader>hs", gitsigns.stage_hunk, b)

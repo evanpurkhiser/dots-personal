@@ -21,6 +21,7 @@ The CLI tool is `things3` (installed via `uv tool`).
 ### Scheduling Logic
 
 When helping Evan organize or triage:
+
 - **No context / just needs to be remembered** -> Inbox (or `--when anytime` if adding directly to backlog)
 - **Has a specific date or pertinent time** -> `--when YYYY-MM-DD` or `today`
 - **Needs to be done by a date** -> `--deadline YYYY-MM-DD`

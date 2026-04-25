@@ -158,6 +158,7 @@ git-surgeon hunks --blame
 ```
 
 Output shows commit hashes for each line:
+
 ```
 a1b2c3d src/auth.rs (+2 -0)
   8922b52  fn login(user: &str) {

@@ -22,11 +22,13 @@ If `$OPENCODE_HOST` is not set, default to `http://localhost:9995`.
 ### 1. Parse user intent
 
 Extract from the user's request:
+
 - **What context to share**: specific topic/summary or "all of this"
 - **Where to send it**: project/workspace name OR "most recent" OR "new session"
 - **Optional title** for new sessions
 
 **Default behavior when ambiguous:**
+
 - "send to X" / "send this to X" → **CREATE NEW SESSION** (default)
 - "add to X" / "continue in X" → **FIND RECENT SESSION**
 - "most recent" / "latest" / "current" → **FIND RECENT SESSION**
@@ -35,6 +37,7 @@ Extract from the user's request:
 **Rationale:** Context-sharing typically means branching off to do new work with learned knowledge. Creating a new session is safer than potentially adding to the wrong existing session.
 
 Examples:
+
 - "send the tailscale DNS fix to my ansible-personal chat" → **NEW** session
 - "add this context to my ansible-personal chat" → **RECENT** session
 - "create a new session in dots-personal with this bug context" → **NEW** session (explicit)
@@ -50,14 +53,15 @@ Examples:
 - Frame it as "Context from another session:" so the receiving chat understands
 
 **Good summary example:**
+
 ```
 Context from debugging session:
 
-We identified that the tailscale magic-dns issue was caused by systemd-resolved 
+We identified that the tailscale magic-dns issue was caused by systemd-resolved
 not properly handling .ts.net domains. The fix requires:
 
 1. Configure /etc/systemd/resolved.conf with DNS=100.100.100.100
-2. Add Domains=~ts.net to route queries properly  
+2. Add Domains=~ts.net to route queries properly
 3. Restart systemd-resolved
 
 Now let's implement this fix in the ansible playbook.
@@ -77,10 +81,12 @@ curl -s -X POST "$OPENCODE_HOST/session?directory=/home/evan/workspace/$PROJECT"
 ```
 
 **Title generation:**
+
 - If user provided title, use it
 - Otherwise, generate from context: "Bug fix from debugging" or "Tailscale DNS fix"
 
 **Ambiguity handling:**
+
 - For example, if they said "my-app", try:
   1. Directory: `/home/evan/workspace/my-app`
   2. Workspace ID: `my-app`
@@ -96,12 +102,14 @@ curl -s "$OPENCODE_HOST/session?directory=/home/evan/workspace/$PROJECT&limit=10
 ```
 
 **Ambiguity handling:**
+
 - For example, if they said "my-app", try:
   1. Directory: `/home/evan/workspace/my-app`
   2. Workspace ID: `my-app`
 - If no sessions found, ask user: "No recent sessions found for my-app. Create a new one?"
 
 **Most recent across all projects:**
+
 ```bash
 curl -s "$OPENCODE_HOST/session?limit=10" | jq -r '.[0].id'
 ```
@@ -130,26 +138,30 @@ curl -s -X POST "$OPENCODE_HOST/session/$SESSION_ID/prompt_async" \
 ```
 
 **Why `prompt_async`?**
+
 - Returns immediately with 204 No Content (fire-and-forget)
 - Doesn't hold open a streaming connection waiting for AI response
 - The session will process the message in the background
 - Use `/message` endpoint only if you need to wait for and parse the AI's response
 
 **Response handling:**
+
 - 204 = success (message queued)
 - Report the session ID so user can reference it
 
 ### 5. Confirm to user
 
 **On success:**
+
 ```
 ✓ Context sent to session ses_xxxxx (ansible-personal)
-  
-  The assistant acknowledged: "Got it! I'll implement the systemd-resolved 
+
+  The assistant acknowledged: "Got it! I'll implement the systemd-resolved
   configuration in the ansible playbook..."
 ```
 
 **On failure:**
+
 ```
 ✗ Failed to send context: [error message]
 
@@ -207,14 +219,14 @@ curl -s "$OPENCODE_HOST/doc" | jq '.paths["/session"]' | toonify
 
 ### Key Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/session` | GET | List sessions (filter by `directory`, `workspace`, `search`, `limit`) |
-| `/session` | POST | Create new session (query: `directory`, `workspace`; body: `title`, `parentID`) |
-| `/session/{sessionID}` | GET | Get session details |
-| `/session/{sessionID}/message` | GET | Get all messages in session |
-| `/session/{sessionID}/message` | POST | Send message to session (body: `parts` array) |
-| `/experimental/session` | GET | List sessions across all projects with advanced filters |
+| Endpoint                       | Method | Description                                                                     |
+| ------------------------------ | ------ | ------------------------------------------------------------------------------- |
+| `/session`                     | GET    | List sessions (filter by `directory`, `workspace`, `search`, `limit`)           |
+| `/session`                     | POST   | Create new session (query: `directory`, `workspace`; body: `title`, `parentID`) |
+| `/session/{sessionID}`         | GET    | Get session details                                                             |
+| `/session/{sessionID}/message` | GET    | Get all messages in session                                                     |
+| `/session/{sessionID}/message` | POST   | Send message to session (body: `parts` array)                                   |
+| `/experimental/session`        | GET    | List sessions across all projects with advanced filters                         |
 
 ### Message Part Types
 
@@ -228,7 +240,7 @@ When sending messages, `parts` is an array of objects. Most common types:
       "text": "Your message here"
     },
     {
-      "type": "file", 
+      "type": "file",
       "path": "/absolute/path/to/file"
     }
   ]
@@ -237,14 +249,14 @@ When sending messages, `parts` is an array of objects. Most common types:
 
 ## Error Handling
 
-| Situation | Action |
-|-----------|--------|
-| No sessions found for project | Ask user if they want to create new session |
-| Multiple sessions match ambiguous name | List them and ask user to pick one |
-| OPENCODE_HOST not set | Use default `http://localhost:9995` |
-| Server not responding | Check `systemctl --user status opencode`, suggest restart |
-| API returns 404 for session | Session may have been deleted, list available sessions |
-| API returns 500 | Show error details, suggest checking server logs |
+| Situation                              | Action                                                    |
+| -------------------------------------- | --------------------------------------------------------- |
+| No sessions found for project          | Ask user if they want to create new session               |
+| Multiple sessions match ambiguous name | List them and ask user to pick one                        |
+| OPENCODE_HOST not set                  | Use default `http://localhost:9995`                       |
+| Server not responding                  | Check `systemctl --user status opencode`, suggest restart |
+| API returns 404 for session            | Session may have been deleted, list available sessions    |
+| API returns 500                        | Show error details, suggest checking server logs          |
 
 ## Examples
 
@@ -253,6 +265,7 @@ When sending messages, `parts` is an array of objects. Most common types:
 **User:** "send the DNS fix context to my ansible-personal chat"
 
 **You:**
+
 1. Recognize "send to" pattern → DEFAULT to creating NEW session
 2. Summarize the DNS findings from current conversation
 3. Generate title: "Tailscale DNS fix"
@@ -266,6 +279,7 @@ When sending messages, `parts` is an array of objects. Most common types:
 **User:** "add this context to my most recent ansible-personal chat"
 
 **You:**
+
 1. Recognize "add to" + "most recent" → FIND existing session
 2. Summarize the relevant context
 3. `curl -s "$OPENCODE_HOST/session?directory=/home/evan/workspace/ansible-personal&limit=1"`
@@ -278,6 +292,7 @@ When sending messages, `parts` is an array of objects. Most common types:
 **User:** "create a new session in dots-personal with this bug info"
 
 **You:**
+
 1. Recognize explicit "create new session"
 2. Summarize the bug details
 3. Generate title: "Bug fix from debugging"
@@ -291,6 +306,7 @@ When sending messages, `parts` is an array of objects. Most common types:
 **User:** "send this to my web-app chat"
 
 **You:**
+
 1. Recognize "send to" → DEFAULT to NEW session
 2. Try directory: `/home/evan/workspace/web-app`
 3. If directory doesn't exist, try workspace: `web-app`
@@ -327,6 +343,7 @@ curl -s "$OPENCODE_HOST/doc" | jq '.paths["/session"].get.parameters' | toonify
 ```
 
 **Potential enhancements:**
+
 - Session forking: `POST /session/{sessionID}/fork` to create child session with full history
 - Session summarization: `POST /session/{sessionID}/summarize` to AI-compact history before sharing
 - File attachments: Include file parts in message for code references

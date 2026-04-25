@@ -9,16 +9,16 @@ jobs:
       matrix:
         profile: [home, work]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install dotfiles
         env:
           TMP_DOTS: ${{ runner.temp }}/etc
         shell: bash
         run: |
-          mkdir -p $TMP_DOTS
-          cp -r . $TMP_DOTS
-          cd $TMP_DOTS
+          mkdir -p "$TMP_DOTS"
+          cp -r . "$TMP_DOTS"
+          cd "$TMP_DOTS"
 
           source ./init
           dots config use ${{ matrix.profile }}
@@ -30,4 +30,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      # The oxfmt prek hook calls the brew-installed binary directly
+      # (the npm wrapper is a Node script that pays ~600ms per invocation).
+      - run: brew install oxfmt
       - uses: j178/prek-action@v2

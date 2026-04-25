@@ -17,10 +17,10 @@ Play YouTube videos on Evan's Apple TV using the `script.play_youtube_on_apple_t
 
 ## Fields
 
-| Field | Required | Default | Description |
-|-------|----------|---------|-------------|
-| `youtube_url` | Yes | — | Full YouTube URL to play |
-| `volume` | No | 20 | Sonos speaker volume (1–100) |
+| Field         | Required | Default | Description                  |
+| ------------- | -------- | ------- | ---------------------------- |
+| `youtube_url` | Yes      | —       | Full YouTube URL to play     |
+| `volume`      | No       | 20      | Sonos speaker volume (1–100) |
 
 ## Usage
 

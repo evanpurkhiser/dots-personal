@@ -32,37 +32,44 @@ Dotfiles are managed in `/home/evan/.local/etc` (this repository) using the `dot
 ## Active Configuration
 
 Check current profile and groups:
+
 ```bash
 ~/.local/bin/dots config active
 ```
 
 Current setup:
+
 - Profile: `server`
 - Groups: `base` + `machines/server`
 
 ## Common Commands
 
 ### View what will be installed
+
 ```bash
 ~/.local/bin/dots files
 ```
 
 ### See differences before installing
+
 ```bash
 ~/.local/bin/dots diff
 ```
 
 ### Install/update dotfiles
+
 ```bash
 ~/.local/bin/dots install
 ```
 
 ### List available profiles
+
 ```bash
 ~/.local/bin/dots config profiles
 ```
 
 ### Switch profile (rare)
+
 ```bash
 ~/.local/bin/dots config use <profile>
 ```
@@ -87,6 +94,7 @@ Current setup:
 2. **Edit the config file** in the appropriate location
 
 3. **Install and test**:
+
    ```bash
    ~/.local/bin/dots install
    # Test the changes
@@ -115,18 +123,21 @@ Current setup:
 ## Examples
 
 ### Adding a bash alias
+
 1. Edit `base/bash/aliases` or `machines/server/bash/aliases`
 2. Run `~/.local/bin/dots install`
 3. Test: `source ~/.config/bash/aliases`
 4. Commit: `git commit -m "bash: Add new alias for X"`
 
 ### Updating vim config
+
 1. Edit `base/vim/vimrc`
 2. Run `~/.local/bin/dots install`
 3. Test: Open vim and verify
 4. Commit: `git commit -m "vim: Add/update X configuration"`
 
 ### Server-specific config
+
 1. Edit or create file in `machines/server/`
 2. Run `~/.local/bin/dots install`
 3. Test the changes

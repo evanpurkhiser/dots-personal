@@ -2,9 +2,9 @@
 # Squash-merge PRs given their GitHub URLs (one per argument)
 
 for url in "$@"; do
-    repo=$(echo "$url" | sed 's|https://github.com/||;s|/pull/.*||')
-    pr=$(echo "$url" | grep -o '[0-9]*$')
-    gh pr merge "$pr" --repo "$repo" --squash || true
+	repo=$(echo "$url" | sed 's|https://github.com/||;s|/pull/.*||')
+	pr=$(echo "$url" | grep -o '[0-9]*$')
+	gh pr merge "$pr" --repo "$repo" --squash || true
 done
 
 # Refresh PR statusline

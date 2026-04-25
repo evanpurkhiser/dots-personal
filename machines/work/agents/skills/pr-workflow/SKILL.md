@@ -20,7 +20,7 @@ Check `git remote get-url origin` first. Note Evan uses git URL aliases: `gh:<ow
 ### Core principles
 
 1. **No branches.** All commits are made directly on main. Branches are only created at push-time for PRs.
-2. **One commit = one PR.** Each commit is a self-contained, reviewable change. No WIP commits -- the commit *is* the PR.
+2. **One commit = one PR.** Each commit is a self-contained, reviewable change. No WIP commits -- the commit _is_ the PR.
 3. **Optimize for reviewability.** Small, focused changes with no unrelated work mixed in. The easier it is to review, the faster it lands.
 4. **Parallel review.** Multiple independent PRs can be open simultaneously. Dependent changes are simply committed later on main.
 
@@ -37,6 +37,7 @@ pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--
 - `<sha>`: commit SHA (full or prefix); must already exist on local `main` ahead of `origin/main`
 - `--title`: PR title, required (use the commit subject)
 - body is read from stdin. Use a heredoc; for an empty body pass `< /dev/null`:
+
   ```bash
   pt pr-create <sha> --title "..." --reviewer a,b <<'EOF'
   Motivation for this change.
@@ -46,7 +47,9 @@ pt pr-create <sha> --title "..." [--reviewer a,b,c] [--draft] [--auto-merge] [--
 
   pt pr-create <sha> --title "..." < /dev/null
   ```
-  **Do not hard-wrap paragraphs in the body.** PR bodies render as GitHub Markdown -- a hard wrap mid-paragraph turns the prose into ragged lines on the rendered page. Write each paragraph as one long line and let GitHub wrap it. Hard line breaks are only appropriate inside fenced code blocks (where wrapping would change the code) and between separate paragraphs / list items. This differs from commit bodies, which *should* be wrapped at 80.
+
+  **Do not hard-wrap paragraphs in the body.** PR bodies render as GitHub Markdown -- a hard wrap mid-paragraph turns the prose into ragged lines on the rendered page. Write each paragraph as one long line and let GitHub wrap it. Hard line breaks are only appropriate inside fenced code blocks (where wrapping would change the code) and between separate paragraphs / list items. This differs from commit bodies, which _should_ be wrapped at 80.
+
 - `--reviewer`: comma-separated GitHub logins / `org/team` slugs. **Unknown slug = hard fail** (exits before pushing). Get candidates with `pt suggest-assignees` rather than guessing.
 - prints the PR URL on stdout (progress goes to stderr)
 
@@ -156,7 +159,7 @@ git-surgeon fixup <target-sha> --from <sha>
 
 If the amended commit already has a PR open, run `pt pr-update <new-sha>` -- it finds the existing PR by the generated branch name and re-pushes.
 
-**Never change the commit subject once a PR is open** -- not via rebase-reword, not via `git commit --amend -m`, not any other way. The PR branch name is derived from the subject, so any change orphans the existing PR and the next `pt pr-create` opens a new one. The commit *body* is safe to edit (it doesn't affect the branch name); if only the PR title needs to change, edit it on GitHub directly.
+**Never change the commit subject once a PR is open** -- not via rebase-reword, not via `git commit --amend -m`, not any other way. The PR branch name is derived from the subject, so any change orphans the existing PR and the next `pt pr-create` opens a new one. The commit _body_ is safe to edit (it doesn't affect the branch name); if only the PR title needs to change, edit it on GitHub directly.
 
 ### Editing PR metadata without re-pushing
 
@@ -171,7 +174,7 @@ Use `gh` for:
 - **Marking ready-for-review / draft**: `gh pr ready <num>` / `gh pr ready <num> --undo`.
 - **Reading PR state**: `gh pr view <num>`, `gh pr checks <num>`, `gh api repos/OWNER/REPO/pulls/<num>/comments`.
 
-The only things you should *not* do with `gh` on a Sentry PR: create the PR (`gh pr create`) and push the branch (`gh pr sync`, `git push`). Those go through `pt pr-create` / `pt pr-update` so the branch-naming and cherry-pick plumbing stay consistent.
+The only things you should _not_ do with `gh` on a Sentry PR: create the PR (`gh pr create`) and push the branch (`gh pr sync`, `git push`). Those go through `pt pr-create` / `pt pr-update` so the branch-naming and cherry-pick plumbing stay consistent.
 
 ### Implications for agents
 

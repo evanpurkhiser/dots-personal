@@ -1,5 +1,5 @@
-# Run with `prek run --all-files`. Prek provisions every tool itself
-# (Python/Rust/Node envs from the listed `repo:` URLs and npm for oxfmt).
+# Run with `prek run --all-files`. Prek provisions hooks declared via
+# `repo:` URLs (Python/Rust/Go envs); the local hooks call brew binaries.
 
 default_install_hook_types: [pre-commit]
 default_stages: [pre-commit]
@@ -25,6 +25,7 @@ repos:
     rev: v0.11.0.1
     hooks:
       - id: shellcheck
+        args: [--severity=warning]
 
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v2.4.1
@@ -54,13 +55,15 @@ repos:
 
   - repo: local
     hooks:
-      # oxc has no upstream .pre-commit-hooks.yaml; install oxfmt from npm.
+      # oxc has no upstream .pre-commit-hooks.yaml; this is the canonical
+      # config from the oxfmt docs, extended with the non-JS file types
+      # we actually have here.
       - id: oxfmt
         name: oxfmt
-        entry: oxfmt
-        language: node
-        additional_dependencies: ["oxfmt@0.46.0"]
-        files: \.(md|json|jsonc|json5|ya?ml|toml|graphql)$
+        entry: oxfmt --write --no-error-on-unmatched-pattern
+        language: system
+        types_or: [javascript, jsx, ts, tsx, markdown, json, yaml, toml, graphql]
+        require_serial: true
 
       # `ssh -G` parses the file as a real ssh client would.
       - id: ssh-config

@@ -12,32 +12,32 @@
 set -euo pipefail
 
 exec bwrap \
-  --ro-bind /usr /usr \
-  --ro-bind /lib /lib \
-  --ro-bind /lib64 /lib64 \
-  --symlink usr/bin /bin \
-  --ro-bind /etc /etc \
-  --tmpfs /tmp \
-  --tmpfs /run \
-  --tmpfs /home \
-  --dir /home/evan/.local/bin \
-  --dir /home/evan/.local/share/uv \
-  --dir /home/evan/.cache/uv \
-  --ro-bind /home/evan/.local/bin/uv /home/evan/.local/bin/uv \
-  --ro-bind /home/evan/.local/bin/uvx /home/evan/.local/bin/uvx \
-  --bind /home/evan/.local/share/uv /home/evan/.local/share/uv \
-  --bind /home/evan/.cache/uv /home/evan/.cache/uv \
-  --proc /proc \
-  --dev-bind /dev/null /dev/null \
-  --dev-bind /dev/random /dev/random \
-  --dev-bind /dev/urandom /dev/urandom \
-  --unshare-pid \
-  --unshare-ipc \
-  --unshare-uts \
-  --unshare-net \
-  --share-net \
-  --die-with-parent \
-  --setenv PATH "/usr/bin:/bin:/home/evan/.local/bin" \
-  --setenv HOME "/home/evan" \
-  --setenv TMPDIR "/tmp" \
-  /home/evan/.local/bin/uvx ha-mcp@latest
+	--ro-bind /usr /usr \
+	--ro-bind /lib /lib \
+	--ro-bind /lib64 /lib64 \
+	--symlink usr/bin /bin \
+	--ro-bind /etc /etc \
+	--tmpfs /tmp \
+	--tmpfs /run \
+	--tmpfs /home \
+	--dir /home/evan/.local/bin \
+	--dir /home/evan/.local/share/uv \
+	--dir /home/evan/.cache/uv \
+	--ro-bind /home/evan/.local/bin/uv /home/evan/.local/bin/uv \
+	--ro-bind /home/evan/.local/bin/uvx /home/evan/.local/bin/uvx \
+	--bind /home/evan/.local/share/uv /home/evan/.local/share/uv \
+	--bind /home/evan/.cache/uv /home/evan/.cache/uv \
+	--proc /proc \
+	--dev-bind /dev/null /dev/null \
+	--dev-bind /dev/random /dev/random \
+	--dev-bind /dev/urandom /dev/urandom \
+	--unshare-pid \
+	--unshare-ipc \
+	--unshare-uts \
+	--unshare-net \
+	--share-net \
+	--die-with-parent \
+	--setenv PATH "/usr/bin:/bin:/home/evan/.local/bin" \
+	--setenv HOME "/home/evan" \
+	--setenv TMPDIR "/tmp" \
+	/home/evan/.local/bin/uvx ha-mcp@latest

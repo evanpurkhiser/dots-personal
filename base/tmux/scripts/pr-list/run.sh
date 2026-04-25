@@ -9,9 +9,9 @@ scripts="$XDG_CONFIG_HOME/tmux/scripts/pr-list"
 pane_id=$(tmux display-message -p '#{pane_id}')
 json_cache="${XDG_STATE_HOME}/pr-statusline.json"
 tmp=$(mktemp -d)
-trap "rm -rf $tmp" EXIT
+trap 'rm -rf "$tmp"' EXIT
 
-cat > "$tmp/parser.jq" <<'JQ'
+cat >"$tmp/parser.jq" <<'JQ'
 def icon($cp): [$cp] | implode;
 def rpad($n): tostring | ($n - length) as $p | . + (" " * (if $p > 0 then $p else 0 end));
 
@@ -50,15 +50,15 @@ def autoMergeIcon:
     | .[]
 JQ
 
-if [[ ! -f "$json_cache" ]]; then
-    echo "No PR data cached yet. Waiting for pr-statusline to run..."
-    sleep 2
-    exit 1
+if [[ ! -f $json_cache ]]; then
+	echo "No PR data cached yet. Waiting for pr-statusline to run..."
+	sleep 2
+	exit 1
 fi
 
-jq -rj -f "$tmp/parser.jq" "$json_cache" | tr '\036' '\0' > "$tmp/data"
+jq -rj -f "$tmp/parser.jq" "$json_cache" | tr '\036' '\0' >"$tmp/data"
 
-cat > "$tmp/run.sh" <<SHELL
+cat >"$tmp/run.sh" <<SHELL
 export PATH="$PATH"
 
 extract="$scripts/pr-extract-urls.sh"
@@ -84,8 +84,8 @@ tmux display-popup -E -w 100 -h 25 -x C -y C "bash $tmp/run.sh"
 
 selected=$(cat "$tmp/selected" 2>/dev/null)
 
-if [[ -n "$selected" ]]; then
-    echo "$selected" | "$scripts/pr-extract-urls.sh" | while read -r url; do
-        open "$url"
-    done
+if [[ -n $selected ]]; then
+	echo "$selected" | "$scripts/pr-extract-urls.sh" | while read -r url; do
+		open "$url"
+	done
 fi

@@ -9,6 +9,6 @@ JSON_CACHE="${XDG_STATE_HOME}/pr-statusline.json"
 json=$(gh api graphql -F query=@${ROOT}/gh.graphql)
 
 if [[ $? == 0 ]]; then
-  echo "$json" > "${JSON_CACHE}"
-  echo "$json" | jq -r -f ${ROOT}/parser.jq > "${OUTPUT}"
+	echo "$json" >"${JSON_CACHE}"
+	echo "$json" | jq -r -f ${ROOT}/parser.jq >"${OUTPUT}"
 fi
