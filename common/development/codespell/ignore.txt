@@ -1,4 +1,9 @@
+alacritty
 checkin
 crate
+hass
 mut
+pullrequests
+stringly
 waitFor
+wan

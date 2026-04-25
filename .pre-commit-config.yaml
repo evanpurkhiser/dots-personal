@@ -1,0 +1,70 @@
+# Run with `prek run --all-files`. Prek provisions every tool itself
+# (Python/Rust/Node envs from the listed `repo:` URLs and npm for oxfmt).
+
+default_install_hook_types: [pre-commit]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.13.1-1
+    hooks:
+      - id: shfmt
+        args: [-w, -s]
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v2.4.1
+    hooks:
+      - id: stylua
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.2
+    hooks:
+      - id: codespell
+        args:
+          - --config=common/development/codespell/config.cfg
+          - --ignore-words=common/development/codespell/ignore.txt
+        exclude: ^common/development/codespell/ignore\.txt$
+
+  - repo: local
+    hooks:
+      # oxc has no upstream .pre-commit-hooks.yaml; install oxfmt from npm.
+      - id: oxfmt
+        name: oxfmt
+        entry: oxfmt
+        language: node
+        additional_dependencies: ["oxfmt@0.46.0"]
+        files: \.(md|json|jsonc|json5|ya?ml|toml|graphql)$
+
+      # `ssh -G` parses the file as a real ssh client would.
+      - id: ssh-config
+        name: ssh config validation
+        entry: bash -c 'for f; do ssh -G -F "$f" -o ConnectTimeout=0 dummyhost >/dev/null; done' _
+        language: system
+        files: (^|/)ssh/config$

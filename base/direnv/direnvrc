@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 layout_poetry() {
   if [[ ! -f pyproject.toml ]]; then
     log_status 'No pyproject.toml found. Will initialize poetry in no-interactive mode'
