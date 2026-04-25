@@ -5,44 +5,60 @@ default_install_hook_types: [pre-commit]
 default_stages: [pre-commit]
 
 repos:
+  # Priority groups (prek-only): hooks at the same priority run in parallel
+  # and share a single inter-group `git diff` (~17ms each). Modifying hooks
+  # are kept apart only when they target the same files; read-only checks
+  # all share the last priority.
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: trailing-whitespace
+        priority: 0
       - id: end-of-file-fixer
+        priority: 1
       - id: mixed-line-ending
+        priority: 2
       - id: check-merge-conflict
+        priority: 100
       - id: check-added-large-files
+        priority: 100
       - id: check-executables-have-shebangs
+        priority: 100
 
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.13.1-1
     hooks:
       - id: shfmt
         args: [-w, -s]
+        priority: 10
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:
       - id: shellcheck
         args: [--severity=warning]
+        priority: 100
 
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v2.4.1
     hooks:
       - id: stylua
+        priority: 10
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.12
     hooks:
       - id: ruff
         args: [--fix]
+        priority: 10
       - id: ruff-format
+        priority: 11 # both touch .py, must run after ruff
 
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.12
     hooks:
       - id: actionlint
+        priority: 100
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.2
@@ -52,6 +68,7 @@ repos:
           - --config=common/development/codespell/config.cfg
           - --ignore-words=common/development/codespell/ignore.txt
         exclude: ^common/development/codespell/ignore\.txt$
+        priority: 100
 
   - repo: local
     hooks:
@@ -64,6 +81,7 @@ repos:
         language: system
         types_or: [javascript, jsx, ts, tsx, markdown, json, yaml, toml, graphql]
         require_serial: true
+        priority: 10
 
       # `ssh -G` parses the file as a real ssh client would.
       - id: ssh-config
@@ -71,3 +89,4 @@ repos:
         entry: bash -c 'for f; do ssh -G -F "$f" -o ConnectTimeout=0 dummyhost >/dev/null; done' _
         language: system
         files: (^|/)ssh/config$
+        priority: 100
