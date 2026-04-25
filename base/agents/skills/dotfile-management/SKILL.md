@@ -1,6 +1,6 @@
 ---
 name: dotfile-management
-description: Manage Evan's dotfiles using the dots utility. Use this skill when working with configuration files, editing configs, or using dots install/diff/files commands.
+description: Manage Evan's dotfiles using the dots utility. Use this skill when working with anything in ~/.local/etc or ~/.config.
 ---
 
 # Dotfile Management Skill
