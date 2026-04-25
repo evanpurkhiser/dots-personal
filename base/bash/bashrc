@@ -6,7 +6,7 @@ source "$HOME/.config/bash/environment"
 # Do nothing if not running interactively
 [ -z "$PS1" ] && return
 
-source "$HOME/.config/bash/ensure-setup"
+source "$XDG_CONFIG_HOME/bash/ensure-setup"
 
 # Don't try to load the bashrc file if we haven't actually setup everything
 if [ "$BASHRC_NOT_READY" == 1 ]; then
@@ -18,7 +18,7 @@ fi
 hash tmux 2>/dev/null &&
 	[ -z "$TMUX" ] &&
 	[ -z "$SSH_CLIENT" ] &&
-	exec tmux -f "$HOME/.config/tmux/tmux.conf" attach
+	exec tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" attach
 
 # Bash options
 shopt -s cdspell        # autocorrects cd misspellings
