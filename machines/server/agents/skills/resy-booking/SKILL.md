@@ -39,7 +39,17 @@ resyctl search "<restaurant name>" --limit 5 \
 
 Pick the most likely `venue_id`.
 
-### 3) Find availability
+### 3) Look up venue details (optional)
+
+Useful for confirming the right venue (address, neighborhood) or returning
+contact/links to the user:
+
+```bash
+resyctl venue <venue_id> \
+  | jq '.venue | {name, neighborhood, address, phone, website, resy_url, google_maps_url}'
+```
+
+### 4) Find availability
 
 For a specific date:
 
@@ -63,7 +73,7 @@ resyctl availability <venue_id> --date YYYY-MM-DD --party-size <n> \
   | jq -r '.slots[] | "\(.slot_id) | \(.start) | \(.type // "?")"'
 ```
 
-### 4) Quote a slot before booking
+### 5) Quote a slot before booking
 
 ```bash
 resyctl quote "<slot_id>" \
@@ -76,7 +86,7 @@ resyctl quote "<slot_id>" \
     }'
 ```
 
-### 5) Book with policy controls
+### 6) Book with policy controls
 
 Base booking:
 
@@ -107,7 +117,7 @@ Preview only:
 resyctl book "<slot_id>" --allow-fee --dry-run
 ```
 
-### 6) List reservations
+### 7) List reservations
 
 Upcoming:
 
@@ -122,7 +132,7 @@ All:
 resyctl reservations --all --limit 50 --offset 0
 ```
 
-### 7) Cancel a reservation
+### 8) Cancel a reservation
 
 By `resy_token` (required positional argument):
 
