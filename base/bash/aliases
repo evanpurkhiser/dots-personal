@@ -8,7 +8,6 @@ alias du="du -h"      # human-readable sizes
 alias free="free -m"  # human-readable sizes
 alias ll="lsd -l"     # detailed file list
 alias la="lsd -lA"    # detailed file list with hidden files
-alias wh="which -aS"  # Informative version of which
 
 # When interactively starting vim, execute the vim-singleton function to avoid
 # starting multiple vim instances.
@@ -21,9 +20,3 @@ alias vi='vim-singleton'
 #  - Classify files (such as executables with a *)
 #  - always show sizes in human readable formats
 alias ls="LC_COLLATE=C ls --group-directories-first --color=auto --classify -h"
-
-# Server the current directory over port 8000 using python
-alias serve="python3 -m http.server"
-
-# Better path echo
-alias epath='echo -e ${PATH//:/\\n}'
