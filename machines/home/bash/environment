@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-export EVANS_WORKSPACE="$HOME/Coding"

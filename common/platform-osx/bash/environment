@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export EVANS_WORKSPACE="$HOME/Coding"
+
 # Include gnu coreutils override bin
 export PATH="$HOME/.local/lib/gnu-override/bin:$PATH"
 
