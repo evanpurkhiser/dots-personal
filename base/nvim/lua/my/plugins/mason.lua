@@ -2,7 +2,7 @@
 
 ---@type LazySpec
 local P = {
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   build = ":MasonUpdate",
   cmd = {
     "Mason",
@@ -13,7 +13,7 @@ local P = {
     "MasonLog",
   },
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
   },
 }
 

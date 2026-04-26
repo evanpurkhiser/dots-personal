@@ -7,7 +7,7 @@ local P = {
 
 P.dependencies = {
   "hrsh7th/nvim-cmp",
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   -- Depends on fzf for some lsp keyboard mappings
   "ibhagwan/fzf-lua",
 }
