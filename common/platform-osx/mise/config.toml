@@ -3,5 +3,6 @@ node = "lts"
 python = "latest"
 go = "latest"
 deno = "latest"
+pnpm = "latest"
 
 "npm:@evanpurkhiser/tooling-personal" = "latest"
