@@ -1,0 +1,6 @@
+[tools]
+node = "lts"
+python = "latest"
+ruby = "latest"
+go = "latest"
+deno = "latest"
