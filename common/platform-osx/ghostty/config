@@ -10,6 +10,7 @@ font-style = Regular
 font-style-bold = SemiBold
 font-style-italic = Italic
 font-size = 12
+font-thicken = true
 
 # Window configuration
 window-decoration = true
