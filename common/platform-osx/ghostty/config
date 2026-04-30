@@ -11,6 +11,8 @@ font-style-bold = SemiBold
 font-style-italic = Italic
 font-size = 12
 font-thicken = true
+font-thicken-strength = 200
+adjust-cell-width = -1
 
 # Window configuration
 window-decoration = true
