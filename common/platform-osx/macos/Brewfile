@@ -75,11 +75,6 @@ brew "wget"
 
 # Languages, runtimes, compilers
 brew "cmake"
-brew "deno"
-brew "go"
-brew "node"
-brew "python"
-brew "ruby"
 brew "sqlite"
 
 # Dependency management
