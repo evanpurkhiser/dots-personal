@@ -60,7 +60,6 @@ fi
 # Node
 export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_repl_history
 export TS_NODE_HISTORY="$XDG_STATE_HOME"/ts_node_repl_history
-export YARN_RC_FILENAME="$XDG_CONFIG_HOME/yarn/yarnrc"
 
 # NPM tool configuration
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
@@ -86,15 +85,6 @@ export RUFF_CACHE_DIR="$XDG_CACHE_HOME/ruff"
 # Configure poetry
 export POETRY_HOME="$HOME/.local/lib/poetry"
 export PATH="$PATH:$POETRY_HOME/bin"
-
-# Python version management
-# Pyenv uses the shim pattern, so must be first
-if hash pyenv 2>/dev/null; then
-	export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-	export PATH="$PYENV_ROOT/bin:$PATH"
-	export PATH="$PYENV_ROOT/shims:$PATH"
-	eval "$(cache_cmd 'pyenv init --no-rehash -')"
-fi
 
 # AWS cli
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"

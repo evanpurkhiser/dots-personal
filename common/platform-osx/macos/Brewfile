@@ -85,9 +85,7 @@ brew "sqlite"
 # Dependency management
 brew "direnv"
 brew "mise"
-brew "pyenv"
 brew "uv"
-brew "yarn"
 
 # Containers & VMs
 brew "colima"
