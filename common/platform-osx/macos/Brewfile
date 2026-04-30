@@ -85,7 +85,6 @@ brew "sqlite"
 # Dependency management
 brew "direnv"
 brew "mise"
-brew "pdm"
 brew "pyenv"
 brew "uv"
 brew "yarn"
