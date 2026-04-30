@@ -60,9 +60,6 @@ if hash vivid 2>/dev/null; then
 	export LS_COLORS=$(vivid generate gruvbox-dark)
 fi
 
-# Setup direnv if available
-hash direnv 2>/dev/null && eval "$(direnv hook bash)"
-
 # Setup atuin for bash history.
 #
 # NOTE: It's important this comes after any other PROMPT_COMMAND updates
