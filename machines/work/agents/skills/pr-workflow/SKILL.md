@@ -1,6 +1,6 @@
 ---
 name: pr-workflow
-description: Source of truth for Evan's commit and pull request workflow. Use this skill for any commit, amend, push, or PR task.
+description: Source of truth for Evan's commit and pull request workflow. Use this skill for any commit, amend, push, PR task, or fast-tracking a change for quick review.
 ---
 
 # Git Commit Workflow
@@ -73,6 +73,22 @@ pt suggest-assignees [--commit <sha>] [--limit N] [--format slugs|json] [--hunkW
 Looks at the current diff (staged, unstaged, or `--commit <sha>`), blames each touched file at the pre-change revision, and ranks GitHub logins by a weighted combination of hunk-level and whole-file line ownership. Default format is `slugs` (comma-separated, pipeable directly into `pt pr-create --reviewer`).
 
 Assignable users are cached at `$XDG_CACHE_HOME/pt/`; pass `--refresh` to invalidate if someone new joined the org.
+
+### Resolving a full name to a GitHub login
+
+When you have a person's full name but need their GitHub login (for `--reviewer`, `--assignee`, etc.):
+
+```bash
+gh api graphql --paginate -f query='query($endCursor: String) {
+  organization(login: "getsentry") {
+    membersWithRole(first: 100, after: $endCursor) {
+      nodes { login name }
+      pageInfo { hasNextPage endCursor }
+    }
+  }
+}' --jq '.data.organization.membersWithRole.nodes[] | select(.name != null) | "\(.name) -> \(.login)"' \
+  | grep -i "<name>"
+```
 
 ### The typical agent flow
 
@@ -180,3 +196,54 @@ The only things you should *not* do with `gh` on a Sentry PR: create the PR (`gh
 - Commit messages matter -- they become the PR title/body.
 - Do not run `git push` or `gh pr create` directly -- use `pt pr-create` to open and `pt pr-update` to re-push. But `gh pr edit`, `gh pr merge --auto`, etc. are fine (and preferred) for metadata-only changes that shouldn't re-push the branch.
 - There's also an interactive `pt pr` that Evan runs himself (fzf + `$EDITOR`); don't invoke it from an agent.
+
+## Fast-Track Workflow
+
+Fast-tracking is for small, high-confidence changes that need quick eyes and a fast merge. It combines PR creation with auto-merge, an explicit assignee, and a Slack notification in one flow.
+
+### When to use
+
+Evan will say something like:
+- "fast track this to scott cooper, DM him"
+- "fast track this to design engineering, post in their channel"
+
+### Required inputs
+
+You must have both of these before starting:
+- **Assignee**: the specific person to assign and notify -- Evan will always name them explicitly. Only use `pt suggest-assignees` if Evan explicitly says to figure out who's most appropriate.
+- **Notification target**: either a DM to that person, or a named Slack channel
+
+If either is missing, ask before proceeding.
+
+### Steps
+
+1. **Commit** if one hasn't been made yet -- follow the standard commit flow from above.
+
+2. **Resolve the GitHub login** from the person's full name using the GraphQL query in "Resolving a full name to a GitHub login" above.
+
+3. **Create the PR** with the resolved login as reviewer, auto-merge enabled, and assignee set -- all in one pass:
+   ```bash
+   pt pr-create <sha> --title "..." --reviewer <login> -m < body.md
+   gh pr edit <num> --assignee <login>
+   ```
+
+4. **Post to Slack** using the Slack MCP tools:
+   - **DM**: use `slack_search_users` to find the user's ID, then `slack_send_message` with that ID as the channel.
+   - **Channel**: use `slack_search_channels` to find the channel ID, then `slack_send_message`.
+
+### Slack message format
+
+One line -- the PR link followed by a brief description. No @mentions, no preamble, no sign-off:
+
+```
+<PR URL> fixes <brief description — one clause, lowercase>
+```
+
+The description should come from the PR title or commit subject. If a Linear issue is linked, prefer its title as it tends to read more naturally.
+
+Example:
+```
+https://github.com/getsentry/sentry/pull/12345 fixes null pointer when loading empty dashboards
+```
+
+For a DM, a brief lead-in is fine ("hey, mind taking a look?") but keep it short.
