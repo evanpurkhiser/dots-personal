@@ -246,3 +246,28 @@ https://github.com/getsentry/sentry/pull/12345 fixes null pointer when loading e
 ```
 
 For a DM, a brief lead-in is fine ("hey, mind taking a look?") but keep it short.
+
+## After opening the PR: watch CI
+
+As soon as `pt pr-create` (or the fast-track flow) returns a PR URL, start a background watch on its CI checks. Don't block on it -- background it so you can keep working, and Evan doesn't have to chase failures himself.
+
+Use the Bash tool with `run_in_background: true`:
+
+```bash
+gh pr checks <num> --watch --fail-fast
+```
+
+`--watch` polls until all checks finish; `--fail-fast` exits non-zero the moment one fails. The completion notification arrives back as a tool result -- check the exit status and output then.
+
+### When the watch reports back
+
+- **All checks passed** -- nothing to do. If `--auto-merge` was set, GitHub will squash-merge on its own.
+- **One or more failed** -- diagnose first, then decide whether to fix unattended or wait:
+  1. Identify the failing job: `gh pr checks <num>` shows status; `gh run view <run-id> --log-failed` pulls just the failed step output.
+  2. Reproduce locally if practical, then form a fix.
+  3. **Gate on complexity.** Trivial fixes (typo, missing import, obvious lint, clearly-flaky retry) -- proceed. Anything non-trivial -- a logic change, a refactor to satisfy types, a fix that touches code beyond the failing area, or any case where you're not confident the fix is right -- stop and surface the diagnosis to Evan with a proposed fix, and wait for approval before pushing.
+  4. Fold the fix into the original commit with `git-surgeon amend <sha>` (see the amend example earlier in this skill -- subject must stay unchanged so the PR branch name matches).
+  5. Re-push with `pt pr-update <new-sha>`.
+  6. Re-arm the watch on the new run (same `gh pr checks <num> --watch --fail-fast`, backgrounded again).
+
+If a failure is clearly infrastructure flake (timeout, runner died, unrelated service 500), it's fine to retry the job via `gh run rerun <run-id> --failed` instead of pushing a fix -- but only when the failure is unambiguously not the PR's fault.
