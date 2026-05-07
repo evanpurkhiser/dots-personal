@@ -3,8 +3,6 @@ name: pr-workflow
 description: Source of truth for Evan's commit and pull request workflow. Use this skill for any commit, amend, push, PR task, or fast-tracking a change for quick review.
 ---
 
-# Git Commit Workflow
-
 ## Git & Pull Request Workflow
 
 Evan has a specific git workflow optimized for speed. Understand this before making commits or PRs.
@@ -61,6 +59,51 @@ pt pr-update <sha>
 ```
 
 Errors if no PR exists for the generated branch (use `pt pr-create` to open one). Otherwise cherry-picks, force-pushes to the branch, and prints the PR URL.
+
+#### Folding new changes into the commit
+
+To fold new changes into the commit before re-pushing, use `git-surgeon`:
+
+```bash
+# Stage only the hunks that belong to the fix (skip if changes are already separated)
+git-surgeon stage <hunk-id>...
+
+# Fold staged changes into the target commit (amend for HEAD, autosquash rebase for older commits)
+git-surgeon amend <sha>
+
+# Or fold one or more existing commits into a target commit
+git-surgeon fixup <target-sha> --from <sha>
+```
+
+- `git-surgeon amend <sha>` is preferred when the fix lives as staged hunks.
+- `git-surgeon fixup <target-sha> --from <sha>` is preferred when the fix already exists as a separate commit.
+- If using raw git, keep the same rule: `git commit --fixup=<sha>` immediately followed by `git rebase --autosquash <base>`.
+
+**Never change the commit subject once a PR is open** -- not via rebase-reword, not via `git commit --amend -m`, not any other way. The PR branch name is derived from the subject, so any change orphans the existing PR and the next `pt pr-create` opens a new one. The commit *body* is safe to edit (it doesn't affect the branch name); if only the PR title needs to change, edit it on GitHub directly.
+
+#### Worked example: amend then `pr-update`
+
+```bash
+# 1. List unstaged hunks, pick the one(s) that belong to the fix
+git-surgeon hunks
+
+# 2. Capture the subject before amending -- it's preserved across the rewrite
+#    and is what we'll use to find the new sha.
+subject=$(git log -1 --format=%s abc1234)
+
+# 3. Fold the staged hunks into the original commit (autosquash under the hood)
+git-surgeon amend abc1234
+
+# 4. Look the rewritten commit up by its (unchanged) subject. Don't use
+#    `git log -1 --format=%H` -- if the amended commit isn't HEAD, that
+#    gives you the tip of your stack rather than the rewritten commit.
+new_sha=$(git log origin/main..HEAD --format='%H %s' \
+  | grep -F "$subject" | head -1 | cut -d' ' -f1)
+
+# 5. Push the amended commit to the existing PR. The PR branch name is
+#    derived from the unchanged subject, so pr-update finds the existing PR.
+pt pr-update "$new_sha"
+```
 
 ### Picking reviewers: `pt suggest-assignees`
 
@@ -127,54 +170,7 @@ The cursor was advancing by `limit` instead of `limit + 1`, causing the last ite
 EOF
 ```
 
-**Amending an open PR via git-surgeon, then re-pushing with `pr-update`:**
-
-```bash
-# 1. List unstaged hunks, pick the one(s) that belong to the fix
-git-surgeon hunks
-
-# 2. Capture the subject before amending -- it's preserved across the rewrite
-#    and is what we'll use to find the new sha.
-subject=$(git log -1 --format=%s abc1234)
-
-# 3. Fold the staged hunks into the original commit (autosquash under the hood)
-git-surgeon amend abc1234
-
-# 4. Look the rewritten commit up by its (unchanged) subject. Don't use
-#    `git log -1 --format=%H` -- if the amended commit isn't HEAD, that
-#    gives you the tip of your stack rather than the rewritten commit.
-new_sha=$(git log origin/main..HEAD --format='%H %s' \
-  | grep -F "$subject" | head -1 | cut -d' ' -f1)
-
-# 5. Push the amended commit to the existing PR. The PR branch name is
-#    derived from the unchanged subject, so pr-update finds the existing PR.
-pt pr-update "$new_sha"
-```
-
-### Amending or fixing up an existing commit
-
-To fold new changes into an earlier commit, use `git-surgeon` first:
-
-```bash
-# If changes are still unstaged, stage only what belongs to the fix
-git-surgeon stage <hunk-id>...
-
-# Fold staged changes into target commit (uses amend for HEAD, autosquash rebase for older commits)
-git-surgeon amend <sha>
-
-# Or fold one or more commits into a target commit
-git-surgeon fixup <target-sha> --from <sha>
-```
-
-- `git-surgeon amend <sha>` is preferred when you've already staged the exact hunks for the fix and needed hunk-level staging.
-- `git-surgeon fixup <target-sha> --from <sha>` is preferred when the fix already exists as a separate commit.
-- If you use raw git instead, keep the same rule: run `git commit --fixup=<sha>` immediately followed by `git rebase --autosquash <base>`.
-
-If the amended commit already has a PR open, run `pt pr-update <new-sha>` -- it finds the existing PR by the generated branch name and re-pushes.
-
-**Never change the commit subject once a PR is open** -- not via rebase-reword, not via `git commit --amend -m`, not any other way. The PR branch name is derived from the subject, so any change orphans the existing PR and the next `pt pr-create` opens a new one. The commit *body* is safe to edit (it doesn't affect the branch name); if only the PR title needs to change, edit it on GitHub directly.
-
-### Editing PR metadata without re-pushing
+### Editing PR metadata: `gh pr edit`
 
 `pt pr-create` pushes the commit, which re-triggers CI. For changes that don't touch the code, prefer `gh` directly -- it hits the GitHub API without disturbing the branch.
 
@@ -196,6 +192,31 @@ The only things you should *not* do with `gh` on a Sentry PR: create the PR (`gh
 - Commit messages matter -- they become the PR title/body.
 - Do not run `git push` or `gh pr create` directly -- use `pt pr-create` to open and `pt pr-update` to re-push. But `gh pr edit`, `gh pr merge --auto`, etc. are fine (and preferred) for metadata-only changes that shouldn't re-push the branch.
 - There's also an interactive `pt pr` that Evan runs himself (fzf + `$EDITOR`); don't invoke it from an agent.
+
+## After opening the PR: watch CI
+
+As soon as `pt pr-create` (or the fast-track flow) returns a PR URL, start a background watch on its CI checks. Don't block on it -- background it so you can keep working, and Evan doesn't have to chase failures himself.
+
+Use the Bash tool with `run_in_background: true`:
+
+```bash
+gh pr checks <num> --watch --fail-fast
+```
+
+`--watch` polls until all checks finish; `--fail-fast` exits non-zero the moment one fails. The completion notification arrives back as a tool result -- check the exit status and output then.
+
+### When the watch reports back
+
+- **All checks passed** -- nothing to do. If `--auto-merge` was set, GitHub will squash-merge on its own.
+- **One or more failed** -- diagnose first, then decide whether to fix unattended or wait:
+  1. Identify the failing job: `gh pr checks <num>` shows status; `gh run view <run-id> --log-failed` pulls just the failed step output.
+  2. Reproduce locally if practical, then form a fix.
+  3. **Gate on complexity.** Trivial fixes (typo, missing import, obvious lint, clearly-flaky retry) -- proceed. Anything non-trivial -- a logic change, a refactor to satisfy types, a fix that touches code beyond the failing area, or any case where you're not confident the fix is right -- stop and surface the diagnosis to Evan with a proposed fix, and wait for approval before pushing.
+  4. Fold the fix into the original commit with `git-surgeon amend <sha>` (see the worked example under `pt pr-update` above -- subject must stay unchanged so the PR branch name matches).
+  5. Re-push with `pt pr-update <new-sha>`.
+  6. Re-arm the watch on the new run (same `gh pr checks <num> --watch --fail-fast`, backgrounded again).
+
+If a failure is clearly infrastructure flake (timeout, runner died, unrelated service 500), it's fine to retry the job via `gh run rerun <run-id> --failed` instead of pushing a fix -- but only when the failure is unambiguously not the PR's fault.
 
 ## Fast-Track Workflow
 
@@ -246,28 +267,3 @@ https://github.com/getsentry/sentry/pull/12345 fixes null pointer when loading e
 ```
 
 For a DM, a brief lead-in is fine ("hey, mind taking a look?") but keep it short.
-
-## After opening the PR: watch CI
-
-As soon as `pt pr-create` (or the fast-track flow) returns a PR URL, start a background watch on its CI checks. Don't block on it -- background it so you can keep working, and Evan doesn't have to chase failures himself.
-
-Use the Bash tool with `run_in_background: true`:
-
-```bash
-gh pr checks <num> --watch --fail-fast
-```
-
-`--watch` polls until all checks finish; `--fail-fast` exits non-zero the moment one fails. The completion notification arrives back as a tool result -- check the exit status and output then.
-
-### When the watch reports back
-
-- **All checks passed** -- nothing to do. If `--auto-merge` was set, GitHub will squash-merge on its own.
-- **One or more failed** -- diagnose first, then decide whether to fix unattended or wait:
-  1. Identify the failing job: `gh pr checks <num>` shows status; `gh run view <run-id> --log-failed` pulls just the failed step output.
-  2. Reproduce locally if practical, then form a fix.
-  3. **Gate on complexity.** Trivial fixes (typo, missing import, obvious lint, clearly-flaky retry) -- proceed. Anything non-trivial -- a logic change, a refactor to satisfy types, a fix that touches code beyond the failing area, or any case where you're not confident the fix is right -- stop and surface the diagnosis to Evan with a proposed fix, and wait for approval before pushing.
-  4. Fold the fix into the original commit with `git-surgeon amend <sha>` (see the amend example earlier in this skill -- subject must stay unchanged so the PR branch name matches).
-  5. Re-push with `pt pr-update <new-sha>`.
-  6. Re-arm the watch on the new run (same `gh pr checks <num> --watch --fail-fast`, backgrounded again).
-
-If a failure is clearly infrastructure flake (timeout, runner died, unrelated service 500), it's fine to retry the job via `gh run rerun <run-id> --failed` instead of pushing a fix -- but only when the failure is unambiguously not the PR's fault.
