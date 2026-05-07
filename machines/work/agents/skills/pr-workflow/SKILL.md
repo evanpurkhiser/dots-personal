@@ -219,12 +219,11 @@ If either is missing, ask before proceeding.
 
 1. **Commit** if one hasn't been made yet -- follow the standard commit flow from above.
 
-2. **Resolve the GitHub login** from the person's full name using the GraphQL query in "Resolving a full name to a GitHub login" above.
+2. **Resolve the GitHub login** from the person's full name using the GraphQL query in "Resolving a full name to a GitHub login" above. If you have the ability to run background tasks or sub-agents, kick this off before committing so the lookup runs while you prepare everything else.
 
-3. **Create the PR** with the resolved login as reviewer, auto-merge enabled, and assignee set -- all in one pass:
+3. **Create the PR** with the resolved login as reviewer and auto-merge enabled:
    ```bash
    pt pr-create <sha> --title "..." --reviewer <login> -m < body.md
-   gh pr edit <num> --assignee <login>
    ```
 
 4. **Post to Slack** using the Slack MCP tools:
