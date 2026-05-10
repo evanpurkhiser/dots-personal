@@ -5,6 +5,37 @@
   "server": {
     "port": 4096
   },
+  "agent": {
+    "build": {
+      "permission": {
+        "external_directory": {
+          "/mnt/documents/obsidian-vault/**": "allow",
+          "/home/evan/.local/etc/**": "allow",
+          "/home/evan/.config/**": "allow"
+        },
+        "read": {
+          "/mnt/documents/obsidian-vault/**": "allow",
+          "/home/evan/.local/etc/**": "allow",
+          "/home/evan/.config/**": "allow"
+        },
+        "edit": {
+          "/mnt/documents/obsidian-vault/**": "allow",
+          "/home/evan/.local/etc/**": "allow",
+          "/home/evan/.config/**": "allow"
+        },
+        "glob": {
+          "/mnt/documents/obsidian-vault/**": "allow",
+          "/home/evan/.local/etc/**": "allow",
+          "/home/evan/.config/**": "allow"
+        },
+        "grep": {
+          "/mnt/documents/obsidian-vault/**": "allow",
+          "/home/evan/.local/etc/**": "allow",
+          "/home/evan/.config/**": "allow"
+        }
+      }
+    }
+  },
   "mcp": {
     "home-assistant": {
       "type": "local",
