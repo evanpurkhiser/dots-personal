@@ -23,7 +23,7 @@ hs.hotkey.bind(super, "a", function()
   utils.snapWindow(hs.window.focusedWindow(), 10)
 end)
 
--- Align widnows to the center of the screen
+-- Align windows to the center of the screen
 hs.hotkey.bind(super, "m", function()
   local screen = hs.screen.mainScreen():frame()
   local window = hs.window.focusedWindow():frame()

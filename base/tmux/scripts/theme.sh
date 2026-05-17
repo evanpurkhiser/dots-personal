@@ -43,7 +43,7 @@ function apply_theme() {
 		t_pane_title_transition
 	)
 
-	# List of settings to replcae theme variables in
+	# List of settings to replace theme variables in
 	local style_settings=(
 		status-style
 		pane-border-style

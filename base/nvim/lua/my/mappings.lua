@@ -61,10 +61,10 @@ local function yank_diagnostic()
   end
 end
 
----Save the file. If the file is not writeable attempt to save using suda.
+---Save the file. If the file is not writable attempt to save using suda.
 local function save()
   local path = vim.fn.expand("%")
-  local writeable = vim.fn.filewritable(path) == 1
+  local writable = vim.fn.filewritable(path) == 1
   local exists = vim.fn.empty(vim.fn.glob(path)) == 0
 
   if path == "" then
@@ -72,7 +72,7 @@ local function save()
     return false
   end
 
-  if writeable or not exists then
+  if writable or not exists then
     vim.cmd("write")
   else
     vim.cmd("write suda://%")
@@ -144,7 +144,7 @@ function M.setup()
   map("v", "<Leader>y", '"cy', { remap = true })
 
   vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Trim leading whitesapce",
+    desc = "Trim leading whitespace",
     group = vim.api.nvim_create_augroup("YankClipboard", {}),
     pattern = "*",
     callback = yank_clipboard_trimmed,
@@ -262,8 +262,12 @@ end
 function M.gitsigns_mappings(gitsigns, bufnr)
   local b = { buffer = bufnr }
 
-  map("n", "]h", function() gitsigns.nav_hunk("next") end, b)
-  map("n", "[h", function() gitsigns.nav_hunk("prev") end, b)
+  map("n", "]h", function()
+    gitsigns.nav_hunk("next")
+  end, b)
+  map("n", "[h", function()
+    gitsigns.nav_hunk("prev")
+  end, b)
 
   map("n", "<Leader>hr", gitsigns.reset_hunk, b)
   map("n", "<Leader>hs", gitsigns.stage_hunk, b)
