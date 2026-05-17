@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+# Send a message to my telegram via purkhiser-bot
+curl -sf -X POST purkhiser-bot -H "Content-Type: text/plain" --data-binary @-

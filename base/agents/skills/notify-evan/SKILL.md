@@ -1,0 +1,53 @@
+---
+name: notify-evan
+description: Send Evan a Telegram notification via purkhiser-bot. Use proactively when Evan is AFK or has said he'll be away and something important needs his attention — SSH agent auth prompts, blocked tasks, errors requiring a decision, long-running tasks completing, or any situation where work cannot proceed without him.
+---
+
+## Checking if Evan is AFK
+
+On macOS, always check keyboard/mouse idle time before notifying. If Evan is
+actively at his machine, print a message to the terminal instead and wait — only
+send a push notification when he's actually away.
+
+```sh
+idle=$(ioreg -c IOHIDSystem | awk '/HIDIdleTime/ {print int($NF/1000000000); exit}')
+```
+
+**If idle > 120 seconds**: send the notification via purkhiser-bot.
+**If idle ≤ 120 seconds**: print to terminal and wait — Evan can see it.
+
+### Full pattern
+
+```sh
+idle=$(ioreg -c IOHIDSystem | awk '/HIDIdleTime/ {print int($NF/1000000000); exit}')
+
+if [ "$idle" -gt 120 ]; then
+  echo "Claude: <your message>" | ping-purkhiser-bot
+else
+  echo "Evan is likely at his computer — no notification sent"
+fi
+```
+
+## How to send a notification
+
+```sh
+echo "Your message here" | ping-purkhiser-bot
+```
+
+## Message guidelines
+
+- Identify yourself — different agents send notifications via purkhiser-bot
+- Include enough context that Evan can act without reading the full conversation
+- Be specific: say what happened and what's needed
+- Keep it short — this is a push notification, not a report
+- Telegram style markdown is supported, but be careful
+
+### Examples
+
+```sh
+echo "Claude: SSH agent auth needed to push — please approve the 1Password prompt" | ping-purkhiser-bot
+
+echo "Claude: Ansible playbook failed on 'Install purkhiser-bot service' — waiting for you to check" | ping-purkhiser-bot
+
+echo "Claude: Deploy finished successfully. All tests passed." | ping-purkhiser-bot
+```
