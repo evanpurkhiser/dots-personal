@@ -203,20 +203,45 @@ Use the Bash tool with `run_in_background: true`:
 gh pr checks <num> --watch --fail-fast
 ```
 
-`--watch` polls until all checks finish; `--fail-fast` exits non-zero the moment one fails. The completion notification arrives back as a tool result -- check the exit status and output then.
+`--watch` polls until all checks finish; `--fail-fast` exits non-zero the moment one fails. The completion notification arrives back as a tool result.
 
-### When the watch reports back
+### Verifying CI state -- don't trust the watch exit code alone
 
-- **All checks passed** -- nothing to do. If `--auto-merge` was set, GitHub will squash-merge on its own.
-- **One or more failed** -- diagnose first, then decide whether to fix unattended or wait:
-  1. Identify the failing job: `gh pr checks <num>` shows status; `gh run view <run-id> --log-failed` pulls just the failed step output.
-  2. Reproduce locally if practical, then form a fix.
-  3. **Gate on complexity.** Trivial fixes (typo, missing import, obvious lint, clearly-flaky retry) -- proceed. Anything non-trivial -- a logic change, a refactor to satisfy types, a fix that touches code beyond the failing area, or any case where you're not confident the fix is right -- stop and surface the diagnosis to Evan with a proposed fix, and wait for approval before pushing.
-  4. Fold the fix into the original commit with `git-surgeon amend <sha>` (see the worked example under `pt pr-update` above -- subject must stay unchanged so the PR branch name matches).
-  5. Re-push with `pt pr-update <new-sha>`.
-  6. Re-arm the watch on the new run (same `gh pr checks <num> --watch --fail-fast`, backgrounded again).
+**`gh pr checks --watch --fail-fast` exit-0 is NOT a green signal.** The watch can exit before all checks register: if it polls during a quiet window between batches, or if a new check enters the queue after the initial set completes, the watch will exit 0 while real failures are still landing. This has burned us repeatedly. Never tell Evan a PR is green based on the exit code alone.
 
-If a failure is clearly infrastructure flake (timeout, runner died, unrelated service 500), it's fine to retry the job via `gh run rerun <run-id> --failed` instead of pushing a fix -- but only when the failure is unambiguously not the PR's fault.
+The authoritative ground truth is the status check rollup:
+
+```bash
+# Quick one-line state: counts of each conclusion bucket
+gh pr view <num> --json statusCheckRollup \
+  -q '[.statusCheckRollup[] | .conclusion // "PENDING"] | group_by(.) | map({(.[0]): length}) | add'
+
+# Names of any failing checks
+gh pr view <num> --json statusCheckRollup \
+  -q '.statusCheckRollup[] | select(.conclusion == "FAILURE") | {name, detailsUrl}'
+```
+
+If `FAILURE` shows up in the rollup, CI is not green -- full stop. `PENDING` means still running; re-check later. `SUCCESS` / `NEUTRAL` / `SKIPPED` are the only acceptable terminal states.
+
+When the watch notification arrives, do *both* of these before reporting status to Evan:
+
+1. **Grep the watch output for `fail`** (the textual rows include a `fail` column for failed checks). If you see it, CI is red.
+2. **Re-query the rollup** with the command above. This catches the case where checks landed after the watch exited.
+
+Only say "green" when the rollup has zero `FAILURE` entries *and* no `PENDING` rows remain. If anything is still `PENDING`, say so explicitly ("X checks still running") rather than calling it done.
+
+### When CI is failing
+
+Diagnose first, then decide whether to fix unattended or wait:
+
+1. Identify the failing job: `gh pr checks <num>` shows status; `gh run view <run-id> --log-failed` pulls just the failed step output. For job ID inside a multi-job workflow, use the `detailsUrl` from the rollup query above.
+2. Reproduce locally if practical, then form a fix.
+3. **Gate on complexity.** Trivial fixes (typo, missing import, obvious lint, clearly-flaky retry) -- proceed. Anything non-trivial -- a logic change, a refactor to satisfy types, a fix that touches code beyond the failing area, or any case where you're not confident the fix is right -- stop and surface the diagnosis to Evan with a proposed fix, and wait for approval before pushing.
+4. Fold the fix into the original commit with `git-surgeon amend <sha>` (see the worked example under `pt pr-update` above -- subject must stay unchanged so the PR branch name matches).
+5. Re-push with `pt pr-update <new-sha>`.
+6. Re-arm the watch on the new run (same `gh pr checks <num> --watch --fail-fast`, backgrounded again).
+
+If a failure is clearly infrastructure flake (timeout, runner died, unrelated service 500), it's fine to retry the job via `gh run rerun <run-id> --failed` instead of pushing a fix -- but only when the failure is unambiguously not the PR's fault. Some checks (notably `Snapshot Testing`) are review-gated and may show `FAILURE` until a human approves them -- those are not real CI failures; call them out separately rather than counting them against the PR.
 
 ## Fast-Track Workflow
 
