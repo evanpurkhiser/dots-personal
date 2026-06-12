@@ -6,6 +6,7 @@ declare -A CONFIGS=(
 	[opencode]=AGENTS.md
 	[claude]=CLAUDE.md
 	[codex]=AGENTS.md
+	[grok]=AGENTS.md
 )
 
 for tool in "${!CONFIGS[@]}"; do
