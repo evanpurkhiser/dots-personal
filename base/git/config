@@ -60,8 +60,18 @@
 [push]
   default = upstream
 
+[credential]
+  # Reset the helper list so no credential helper is used. In particular this
+  # disables the osxkeychain helper that Homebrew's system gitconfig enables,
+  # which would otherwise prompt for and store GitHub tokens in the keychain.
+  helper =
+
 [url "git@github.com:"]
   insteadOf = gh:
+  # Always push to GitHub over SSH, even for remotes cloned over HTTPS. Keeps an
+  # accidentally http-cloned repo pushable without touching credential helpers.
+  pushInsteadOf = https://github.com/
+  pushInsteadOf = git://github.com/
 
 [url "git@github.com:evanpurkhiser/"]
   insteadOf = me:
