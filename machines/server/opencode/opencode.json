@@ -38,10 +38,8 @@
   },
   "mcp": {
     "home-assistant": {
-      "type": "local",
-      "command": [
-        "mcp-sandbox-ha"
-      ]
+      "type": "remote",
+      "url": "http://127.0.0.1:9584/private_zbONmPV3vWR6PgcbZCKUHA"
     },
     "lunchmoney": {
       "type": "local",
