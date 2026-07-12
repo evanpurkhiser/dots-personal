@@ -36,8 +36,8 @@ jq_query=$(
 .data.viewer.repositories.nodes[]
   | select(.isArchived == false)
   | select(.owner.login == "evanpurkhiser")
-  | select(.defaultBranchRef.target.statusCheckRollup != null) 
-  | {name: .nameWithOwner, status: .defaultBranchRef.target.statusCheckRollup.state} 
+  | select(.defaultBranchRef.target.statusCheckRollup != null)
+  | {name: .nameWithOwner, status: .defaultBranchRef.target.statusCheckRollup.state}
   | (.name + "\t" + (.status|ascii_downcase))
 END
 )

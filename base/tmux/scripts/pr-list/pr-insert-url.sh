@@ -5,5 +5,5 @@ pane_id="$1"
 shift
 
 for url in "$@"; do
-    tmux send-keys -t "$pane_id" -l -- "$url"
+	tmux send-keys -t "$pane_id" -l -- "$url"
 done

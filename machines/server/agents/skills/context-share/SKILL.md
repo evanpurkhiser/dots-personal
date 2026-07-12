@@ -53,11 +53,11 @@ Examples:
 ```
 Context from debugging session:
 
-We identified that the tailscale magic-dns issue was caused by systemd-resolved 
+We identified that the tailscale magic-dns issue was caused by systemd-resolved
 not properly handling .ts.net domains. The fix requires:
 
 1. Configure /etc/systemd/resolved.conf with DNS=100.100.100.100
-2. Add Domains=~ts.net to route queries properly  
+2. Add Domains=~ts.net to route queries properly
 3. Restart systemd-resolved
 
 Now let's implement this fix in the ansible playbook.
@@ -144,8 +144,8 @@ curl -s -X POST "$OPENCODE_HOST/session/$SESSION_ID/prompt_async" \
 **On success:**
 ```
 ✓ Context sent to session ses_xxxxx (ansible-personal)
-  
-  The assistant acknowledged: "Got it! I'll implement the systemd-resolved 
+
+  The assistant acknowledged: "Got it! I'll implement the systemd-resolved
   configuration in the ansible playbook..."
 ```
 
@@ -228,7 +228,7 @@ When sending messages, `parts` is an array of objects. Most common types:
       "text": "Your message here"
     },
     {
-      "type": "file", 
+      "type": "file",
       "path": "/absolute/path/to/file"
     }
   ]

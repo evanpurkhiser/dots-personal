@@ -9,7 +9,7 @@ mkdir -p $XDG_CONFIG_HOME/LaunchAgents
 cp $XDG_CONFIG_HOME/LaunchAgents/$PLIST_NAME $DEST_PLIST
 
 if launchctl list | grep -q "^local.pr-statusline"; then
-  launchctl unload $DEST_PLIST
+	launchctl unload $DEST_PLIST
 fi
 
 launchctl load $DEST_PLIST

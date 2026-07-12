@@ -12,25 +12,25 @@
 set -euo pipefail
 
 exec bwrap \
-  --ro-bind /usr /usr \
-  --ro-bind /lib /lib \
-  --ro-bind /lib64 /lib64 \
-  --symlink usr/bin /bin \
-  --ro-bind /etc /etc \
-  --tmpfs /tmp \
-  --tmpfs /home \
-  --dir /home/evan/.cache/npm \
-  --bind /home/evan/.cache/npm /home/evan/.cache/npm \
-  --proc /proc \
-  --dev-bind /dev/null /dev/null \
-  --dev-bind /dev/random /dev/random \
-  --dev-bind /dev/urandom /dev/urandom \
-  --unshare-pid \
-  --unshare-ipc \
-  --unshare-uts \
-  --unshare-net \
-  --share-net \
-  --die-with-parent \
-  --setenv PATH "/usr/bin:/bin" \
-  --setenv HOME "/home/evan" \
-  npx @akutishevsky/lunchmoney-mcp
+	--ro-bind /usr /usr \
+	--ro-bind /lib /lib \
+	--ro-bind /lib64 /lib64 \
+	--symlink usr/bin /bin \
+	--ro-bind /etc /etc \
+	--tmpfs /tmp \
+	--tmpfs /home \
+	--dir /home/evan/.cache/npm \
+	--bind /home/evan/.cache/npm /home/evan/.cache/npm \
+	--proc /proc \
+	--dev-bind /dev/null /dev/null \
+	--dev-bind /dev/random /dev/random \
+	--dev-bind /dev/urandom /dev/urandom \
+	--unshare-pid \
+	--unshare-ipc \
+	--unshare-uts \
+	--unshare-net \
+	--share-net \
+	--die-with-parent \
+	--setenv PATH "/usr/bin:/bin" \
+	--setenv HOME "/home/evan" \
+	npx @akutishevsky/lunchmoney-mcp
