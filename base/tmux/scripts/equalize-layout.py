@@ -49,11 +49,17 @@ def parse_node(s, i):
             break
         if i >= len(s) or s[i] != closer:
             raise ValueError(f"expected {closer!r} at {i}")
-        return ({"type": bracket, "x": x, "y": y, "w": w, "h": h, "children": children}, i + 1)
+        return (
+            {"type": bracket, "x": x, "y": y, "w": w, "h": h, "children": children},
+            i + 1,
+        )
 
     pm = PANE_RE.match(s, i)
     if pm:
-        return ({"type": "leaf", "x": x, "y": y, "w": w, "h": h, "id": int(pm.group(1))}, pm.end())
+        return (
+            {"type": "leaf", "x": x, "y": y, "w": w, "h": h, "id": int(pm.group(1))},
+            pm.end(),
+        )
 
     return ({"type": "leaf", "x": x, "y": y, "w": w, "h": h}, i)
 
@@ -78,7 +84,7 @@ def checksum(s):
 
 def resize_y(node, new_y, new_h):
     """Set node y/h, scaling all descendants proportionally along the y axis."""
-    old_y, old_h = node["y"], node["h"]
+    _, old_h = node["y"], node["h"]
     node["y"], node["h"] = new_y, new_h
     if node["type"] == "leaf":
         return
@@ -105,7 +111,7 @@ def resize_y(node, new_y, new_h):
 
 
 def resize_x(node, new_x, new_w):
-    old_x, old_w = node["x"], node["w"]
+    _, old_w = node["x"], node["w"]
     node["x"], node["w"] = new_x, new_w
     if node["type"] == "leaf":
         return

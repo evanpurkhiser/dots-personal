@@ -10,7 +10,9 @@ data = json.load(sys.stdin)
 workspace = data.get("workspace") or {}
 cwd = (workspace.get("project_dir") or data.get("cwd") or "").rstrip("/") or "/"
 home = os.path.expanduser("~")
-display_cwd = "~" + cwd[len(home):] if cwd == home or cwd.startswith(home + "/") else cwd
+display_cwd = (
+    "~" + cwd[len(home) :] if cwd == home or cwd.startswith(home + "/") else cwd
+)
 
 ctx = data.get("context_window") or {}
 pct = ctx.get("used_percentage")
