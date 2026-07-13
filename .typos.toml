@@ -1,0 +1,21 @@
+[files]
+extend-exclude = [
+    # Binary-ish plist payload — not real prose
+    "**/*.terminal",
+    # LESS termcap short codes (ue, so, se, ...) read as misspellings
+    "base/bash/functions.d/man",
+    # `\C-asudo` is the readline ctrl-a + literal `sudo`, not a word
+    "base/bash/inputrc",
+    # `loaded_netrwSettngs` — pre-existing identifier, not touching here
+    "base/nvim/lua/my/general.lua",
+]
+
+[default.extend-identifiers]
+# `hass` is the Home Assistant short name used throughout server configs
+hass = "hass"
+# `exportfs` is the NFS exports utility
+exportfs = "exportfs"
+
+[default.extend-words]
+# Mosquitto MQTT broker — proper noun
+Mosquitto = "Mosquitto"

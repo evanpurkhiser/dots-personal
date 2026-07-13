@@ -1,0 +1,52 @@
+# Configuration file for `prek`. See https://prek.j178.dev
+#:schema https://www.schemastore.org/prek.json
+
+[[repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v6.0.0"
+hooks = [
+  { id = "trailing-whitespace", priority = 0 },
+  { id = "end-of-file-fixer", priority = 1 },
+  { id = "mixed-line-ending", priority = 2 },
+  { id = "check-merge-conflict", priority = 100 },
+  { id = "check-added-large-files", priority = 100 },
+  { id = "check-executables-have-shebangs", priority = 100 },
+  # Sourced bash config (bashrc, aliases, functions.d/*) and tmux theme
+  # files carry a shebang for editor/shellcheck detection but are not
+  # executed, so they are intentionally not +x. Real scripts (bin/*,
+  # standalone .sh) are still checked.
+  { id = "check-shebang-scripts-are-executable", exclude = '(^|/)bash/[^/]+$|(^|/)bash/functions\.d/|\.tmux$', priority = 100 },
+  { id = "check-case-conflict", priority = 100 },
+  { id = "check-symlinks", priority = 100 },
+  { id = "detect-private-key", priority = 100 },
+  { id = "check-toml", priority = 100 },
+  { id = "check-yaml", priority = 100 },
+  { id = "check-json", priority = 100 },
+]
+
+# Check-only (drop the hook's default --write-changes) so typos never
+# rewrites code unattended. Ignores live in .typos.toml.
+[[repos]]
+repo = "https://github.com/crate-ci/typos"
+rev = "v1.48.0"
+hooks = [{ id = "typos", args = ["--force-exclude"], priority = 100 }]
+
+[[repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "v0.15.12"
+hooks = [
+  { id = "ruff", args = ["--fix"], priority = 10 },
+  { id = "ruff-format", priority = 11 },
+]
+
+# Lua / shell / workflow tooling via the mise-provisioned binaries
+# (see mise.toml). shellcheck config lives in .shellcheckrc; stylua in
+# stylua.toml.
+[[repos]]
+repo = "local"
+hooks = [
+  { id = "stylua", name = "stylua", entry = "stylua", language = "system", types = ["lua"], priority = 10 },
+  { id = "shfmt", name = "shfmt", entry = "shfmt --write", language = "system", types = ["shell"], priority = 10 },
+  { id = "shellcheck", name = "shellcheck", entry = "shellcheck", language = "system", types = ["shell"], priority = 11 },
+  { id = "actionlint", name = "actionlint", entry = "actionlint", language = "system", files = '^\.github/workflows/.*\.ya?ml$', priority = 11 },
+]
