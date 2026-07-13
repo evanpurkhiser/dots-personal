@@ -9,16 +9,16 @@ jobs:
       matrix:
         profile: [home, work]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install dotfiles
         env:
           TMP_DOTS: ${{ runner.temp }}/etc
         shell: bash
         run: |
-          mkdir -p $TMP_DOTS
-          cp -r . $TMP_DOTS
-          cd $TMP_DOTS
+          mkdir -p "$TMP_DOTS"
+          cp -r . "$TMP_DOTS"
+          cd "$TMP_DOTS"
 
           source ./init
           dots config use ${{ matrix.profile }}
