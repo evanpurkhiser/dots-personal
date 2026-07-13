@@ -1,0 +1,49 @@
+#!/bin/sh
+
+set -eu
+
+repo=${1:-.}
+cd "$repo"
+
+remote=$(git config --get remote.origin.url 2>/dev/null || true)
+
+case "$remote" in
+me:* | gh:evanpurkhiser/* | git@github.com:evanpurkhiser/* | ssh://git@github.com/evanpurkhiser/* | http://github.com/evanpurkhiser/* | https://github.com/evanpurkhiser/*) ;;
+*) exit 0 ;;
+esac
+
+uses_mise=false
+
+for config in mise.toml .mise.toml .tool-versions; do
+	if [ -f "$config" ]; then
+		uses_mise=true
+		break
+	fi
+done
+
+if [ "$uses_mise" = true ]; then
+	if ! command -v mise >/dev/null 2>&1; then
+		echo "setup-personal-repo: mise config found, but mise is unavailable" >&2
+		exit 1
+	fi
+
+	echo "Setting up mise tools in $(basename "$PWD")..."
+	mise install --yes
+fi
+
+if [ ! -f prek.toml ] && [ ! -f .pre-commit-config.yaml ] && [ ! -f .pre-commit-config.yml ]; then
+	exit 0
+fi
+
+echo "Installing prek hooks in $(basename "$PWD")..."
+
+if [ "$uses_mise" = true ] && mise which prek >/dev/null 2>&1; then
+	exec mise exec -- prek install
+fi
+
+if command -v prek >/dev/null 2>&1 && prek --version >/dev/null 2>&1; then
+	exec prek install
+fi
+
+echo "setup-personal-repo: prek config found, but prek is unavailable" >&2
+exit 1
