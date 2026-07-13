@@ -1,4 +1,4 @@
 # Dotfiles source many files that only exist at runtime (or are resolved
 # dynamically), so shellcheck can't follow them at lint time. That's
 # expected here, not a defect.
-disable=SC1091
+disable=SC1090,SC1091,SC2155
