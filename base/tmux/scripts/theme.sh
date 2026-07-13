@@ -15,7 +15,7 @@ function apply_theme() {
 		source "$theme_path"
 	else
 		tmux display-message \
-			"Theme "${theme_name}" does not exist in theme folder"
+			"Theme ${theme_name} does not exist in theme folder"
 	fi
 
 	# List of variables that will be replaced in style settings
@@ -57,7 +57,7 @@ function apply_theme() {
 	)
 
 	for setting in "${style_settings[@]}"; do
-		local setting_string="$(tmux show-option -gqv $setting)"
+		local setting_string="$(tmux show-option -gqv "$setting")"
 
 		for theme_var_key in "${theme_vars[@]}"; do
 			local theme_var="\#{$theme_var_key}"
@@ -69,7 +69,7 @@ function apply_theme() {
 		# with #{?condition,true,false} in format strings
 		setting_string="$(echo "$setting_string" | sed -E 's/#\[([^],]+),([^]]+)\]/#[\1]#[\2]/g')"
 
-		tmux set-option -gq $setting "${setting_string}"
+		tmux set-option -gq "$setting" "${setting_string}"
 	done
 }
 

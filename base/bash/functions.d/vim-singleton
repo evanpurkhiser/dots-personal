@@ -13,13 +13,13 @@ vim-singleton() {
 	# to communicate for future calls to this script.
 	if [[ ! "$vim_id" ]]; then
 		# Ensure we don't have an invalid socket address
-		rm -f $VIM_SINGLETON_SOCKET
-		nvim --listen $VIM_SINGLETON_SOCKET "$@"
+		rm -f "$VIM_SINGLETON_SOCKET"
+		nvim --listen "$VIM_SINGLETON_SOCKET" "$@"
 		return 0
 	fi
 
 	# Open passed files
-	if [[ "$@" != "" ]]; then
+	if [[ $# -gt 0 ]]; then
 		local files=()
 
 		# File list must be absolute path, since vims current directory may be
@@ -28,7 +28,7 @@ vim-singleton() {
 			files+=("$(realpath "$(dirname "$path")")/$(basename "$path")")
 		done
 
-		nvim --server $VIM_SINGLETON_SOCKET --remote "${files[@]}"
+		nvim --server "$VIM_SINGLETON_SOCKET" --remote "${files[@]}"
 	fi
 
 	fg "$vim_id"

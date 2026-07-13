@@ -12,7 +12,7 @@ fi
 # Just after homebrew installation we need to setup the shell environment.
 # Typically bash/environment would do this for us, but it's already loaded
 if [ -z "$HOMEBREW_REPOSITORY" ] && [ -f "$HOMEBREW_PREFIX/bin/brew" ]; then
-	eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+	eval "$("$HOMEBREW_PREFIX"/bin/brew shellenv)"
 
 	if confirm_prompt "Run brew bundle?"; then
 		brew bundle --file "$XDG_CONFIG_HOME/macos/Brewfile"

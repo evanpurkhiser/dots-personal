@@ -5,8 +5,6 @@ fzf-git-files-widget() {
 		return
 	fi
 
-	local root="$(git rev-parse --show-toplevel)"
-
 	local selected="$(
 		git status --no-renames --porcelain |
 			awk '{ print $2 }' |

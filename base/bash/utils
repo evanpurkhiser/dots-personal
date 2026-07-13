@@ -6,21 +6,21 @@ function progress_timer() {
 
 	# Just eval the command for non-interactive shells
 	if [[ $- != *i* ]]; then
-		eval $@
+		eval "$*"
 		return
 	fi
 
 	local start=${EPOCHREALTIME/./}
-	eval $@
+	eval "$*"
 	local end=${EPOCHREALTIME/./}
 
 	local evaltime=$(echo | awk "{printf \"%.2f\", ($end - $start) / 1000}")
 
-	echo -e "\e[0;32m ✓\033[0;90m "$name" \e[0;37m${evaltime}ms\e[0m"
+	echo -e "\e[0;32m ✓\033[0;90m ${name} \e[0;37m${evaltime}ms\e[0m"
 }
 
 function cache_cmd() {
-	local cmd_full="$@"
+	local cmd_full="$*"
 	local cmd_short="$(basename "${cmd_full%% *}")"
 	local checksum=$(echo "${cmd_full}" | (md5 || md5sum))
 
@@ -28,13 +28,13 @@ function cache_cmd() {
 	local cached_cmd="${cache_dir}/${cmd_short}.${checksum}"
 
 	[[ ! -d "${cache_dir}" ]] && mkdir -p "${cache_dir}"
-	[[ ! -f "${cached_cmd}" ]] && eval $cmd_full >"${cached_cmd}"
+	[[ ! -f "${cached_cmd}" ]] && eval "$cmd_full" >"${cached_cmd}"
 
 	cat "${cached_cmd}"
 }
 
 function confirm_prompt() {
-	read -n 1 -p "$1 [Y/n] " answer
+	read -r -n 1 -p "$1 [Y/n] " answer
 	echo
 
 	case ${answer:0:1} in

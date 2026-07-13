@@ -6,9 +6,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUTPUT="${XDG_STATE_HOME}/pr-statusline"
 JSON_CACHE="${XDG_STATE_HOME}/pr-statusline.json"
 
-json=$(gh api graphql -F query=@${ROOT}/gh.graphql)
-
-if [[ $? == 0 ]]; then
+if json=$(gh api graphql -F query=@"${ROOT}"/gh.graphql); then
 	echo "$json" >"${JSON_CACHE}"
-	echo "$json" | jq -r -f ${ROOT}/parser.jq >"${OUTPUT}"
+	echo "$json" | jq -r -f "${ROOT}"/parser.jq >"${OUTPUT}"
 fi

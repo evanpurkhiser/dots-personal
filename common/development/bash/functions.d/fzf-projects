@@ -12,5 +12,5 @@ fzf-projects() {
 	READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
 	READLINE_POINT=$((READLINE_POINT + ${#selected}))
 
-	cd "${projects}/${selected}"
+	cd "${projects}/${selected}" || return
 }

@@ -9,7 +9,7 @@ scripts="$XDG_CONFIG_HOME/tmux/scripts/pr-list"
 pane_id=$(tmux display-message -p '#{pane_id}')
 json_cache="${XDG_STATE_HOME}/pr-statusline.json"
 tmp=$(mktemp -d)
-trap "rm -rf $tmp" EXIT
+trap 'rm -rf "$tmp"' EXIT
 
 cat >"$tmp/parser.jq" <<'JQ'
 def icon($cp): [$cp] | implode;
