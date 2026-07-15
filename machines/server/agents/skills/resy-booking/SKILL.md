@@ -123,8 +123,12 @@ Upcoming:
 
 ```bash
 resyctl reservations --upcoming \
-  | jq -r '.reservations[] | "\(.reservation_id) | \(.day) \(.time_slot) | \(.venue.name // "?")"'
+  | jq -r '.reservations[] | "\(.reservation_id) | \(.day) \(.time_slot) | \(.venue.name // "?") | \(.resy_token)"'
 ```
+
+`resy_token` is the reservation operation token used to act on a reservation
+(for example canceling with `resyctl cancel <resy_token>`). It is not the same
+as `reservation_id`.
 
 All:
 
