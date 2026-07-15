@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export GOG_KEYRING_PASSWORD="$(<"$HOME/.config/gogcli/keyring-password")"
+exec /usr/bin/gog "$@"

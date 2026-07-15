@@ -9,17 +9,9 @@ Evan's Gmail and Google Calendar are accessible via `gog` (gogcli), installed at
 
 ## Environment
 
-Always set this before running any `gog` command:
-
-```bash
-export GOG_KEYRING_PASSWORD="$(cat ~/.config/gogcli/keyring-password)"
-```
-
-Or prefix commands inline:
-
-```bash
-GOG_KEYRING_PASSWORD="$(cat ~/.config/gogcli/keyring-password)" gog ...
-```
+The server's `gog` wrapper automatically loads the file-keyring password from
+`~/.config/gogcli/keyring-password`. Run `gog` commands normally; do not load or
+specify `GOG_KEYRING_PASSWORD` in commands.
 
 Use `--json` for machine-readable output. Use `--plain` for TSV.
 
