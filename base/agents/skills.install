@@ -2,9 +2,11 @@
 
 source "$DOTS_SOURCE/base/bash/environment"
 
-mkdir -p "$XDG_CONFIG_HOME/claude" "$XDG_CONFIG_HOME/opencode"
+for tool in opencode claude codex; do
+	config_home="$XDG_CONFIG_HOME/$tool"
+	target="$config_home/skills"
 
-rm -rf "$XDG_CONFIG_HOME/claude/skills" "$XDG_CONFIG_HOME/opencode/skills"
-
-ln -sfn "$XDG_CONFIG_HOME/agents/skills" "$XDG_CONFIG_HOME/claude/skills"
-ln -sfn "$XDG_CONFIG_HOME/agents/skills" "$XDG_CONFIG_HOME/opencode/skills"
+	mkdir -p "$config_home"
+	rm -rf "$target"
+	ln -sfn "$XDG_CONFIG_HOME/agents/skills" "$target"
+done

@@ -2,9 +2,17 @@
 
 source "$DOTS_SOURCE/base/bash/environment"
 
-mkdir -p "$XDG_CONFIG_HOME/claude" "$XDG_CONFIG_HOME/opencode"
+declare -A CONFIGS=(
+	[opencode]=AGENTS.md
+	[claude]=CLAUDE.md
+	[codex]=AGENTS.md
+)
 
-rm -f "$XDG_CONFIG_HOME/claude/CLAUDE.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
+for tool in "${!CONFIGS[@]}"; do
+	config_home="$XDG_CONFIG_HOME/$tool"
+	target="$config_home/${CONFIGS[$tool]}"
 
-ln -sf "$XDG_CONFIG_HOME/agents/AGENTS.md" "$XDG_CONFIG_HOME/claude/CLAUDE.md"
-ln -sf "$XDG_CONFIG_HOME/agents/AGENTS.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
+	mkdir -p "$config_home"
+	rm -f "$target"
+	ln -sf "$XDG_CONFIG_HOME/agents/AGENTS.md" "$target"
+done
