@@ -11,6 +11,24 @@
 
 set -euo pipefail
 
+env_file="${XDG_CONFIG_HOME:-$HOME/.config}/agents/mcp.env"
+
+if [[ -f "$env_file" ]]; then
+	set -a
+	source "$env_file"
+	set +a
+fi
+
+package_entries=(
+	/home/evan/.cache/npm/_npx/*/node_modules/@akutishevsky/lunchmoney-mcp/build/index.js
+)
+
+if [[ -f "${package_entries[0]}" ]]; then
+	server_command=(node "${package_entries[0]}")
+else
+	server_command=(npx @akutishevsky/lunchmoney-mcp)
+fi
+
 exec bwrap \
 	--ro-bind /usr /usr \
 	--ro-bind /lib /lib \
@@ -33,4 +51,4 @@ exec bwrap \
 	--die-with-parent \
 	--setenv PATH "/usr/bin:/bin" \
 	--setenv HOME "/home/evan" \
-	npx @akutishevsky/lunchmoney-mcp
+	"${server_command[@]}"

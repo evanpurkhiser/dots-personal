@@ -44,8 +44,23 @@
     "lunchmoney": {
       "type": "local",
       "command": [
-        "mcp-sandbox-lunchmoney"
+        "/home/evan/.config/bash/bin/mcp-sandbox-lunchmoney"
       ]
+    },
+    "fli": {
+      "type": "local",
+      "command": [
+        "/home/evan/.config/bash/bin/mcp-sandbox-fli"
+      ]
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "oauth": {}
+    },
+    "cloudflare": {
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp"
     }
   }
 }
