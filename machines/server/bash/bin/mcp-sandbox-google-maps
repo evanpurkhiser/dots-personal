@@ -1,0 +1,40 @@
+#!/bin/bash
+# Sandboxed wrapper for Google Maps MCP server using bubblewrap
+
+set -euo pipefail
+
+env_file="$XDG_CONFIG_HOME/agents/mcp.env"
+google_maps_api_key="${GOOGLE_MAPS_API_KEY:-}"
+
+if [[ -f "$env_file" ]]; then
+	google_maps_api_key="$(
+		source "$env_file"
+		printf %s "${GOOGLE_MAPS_API_KEY:-}"
+	)"
+fi
+
+exec bwrap \
+	--ro-bind /usr /usr \
+	--ro-bind /lib /lib \
+	--ro-bind /lib64 /lib64 \
+	--symlink usr/bin /bin \
+	--ro-bind /etc /etc \
+	--tmpfs /tmp \
+	--tmpfs /home \
+	--dir /home/evan/.cache/npm \
+	--bind /home/evan/.cache/npm /home/evan/.cache/npm \
+	--proc /proc \
+	--dev-bind /dev/null /dev/null \
+	--dev-bind /dev/random /dev/random \
+	--dev-bind /dev/urandom /dev/urandom \
+	--unshare-pid \
+	--unshare-ipc \
+	--unshare-uts \
+	--unshare-net \
+	--share-net \
+	--die-with-parent \
+	--clearenv \
+	--setenv PATH "/usr/bin:/bin" \
+	--setenv HOME "/home/evan" \
+	--setenv GOOGLE_MAPS_API_KEY "$google_maps_api_key" \
+	npx -y @cablate/mcp-google-map --stdio

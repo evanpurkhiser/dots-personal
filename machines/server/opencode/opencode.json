@@ -53,6 +53,12 @@
         "/home/evan/.config/bash/bin/mcp-sandbox-fli"
       ]
     },
+    "google-maps": {
+      "type": "local",
+      "command": [
+        "/home/evan/.config/bash/bin/mcp-sandbox-google-maps"
+      ]
+    },
     "sentry": {
       "type": "remote",
       "url": "https://mcp.sentry.dev/mcp",
