@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+for tool in oxfmt oxlint; do
+	ln -sfn npm-run "$tool"
+done
