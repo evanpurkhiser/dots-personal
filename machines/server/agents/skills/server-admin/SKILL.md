@@ -152,10 +152,11 @@ All timers are monitored via **Sentry Cron Monitors**.
 ## SSH / Access
 
 - **SSH**: password auth disabled, empty password disabled — key-only
-- **PAM sudo auth**: `pam-ssh-agent` — sudo authenticated via SSH agent key (key stored at `/etc/security/authorized_keys`)
 - **Tailscale**: for remote access outside LAN
-- **Sudo**: authenticated via PAM SSH agent auth — biometric prompt will appear on the user's controlling device (MacBook) when sudo is invoked. Avoid using sudo unless strictly necessary.
-- **Note**: If sudo fails, it is likely because Evan cannot biometrically authenticate (e.g., he is accessing the server from an iPhone, which cannot handle the biometric prompt). In this case, sudo commands will not be possible until he is back at a MacBook.
+- **SSH agent proxy**: `/run/ssh-agent-proxy.sock` serves agent sessions and prefers the 1Password SSH agent on an online MacBook reachable over Tailscale
+- **Agent-witness fallback**: when no MacBook is online, the proxy routes SSH authorization requests through `/run/agent-witness/agent.sock`, which wakes Evan's paired iPhone for passkey authorization
+- **Sudo**: authenticated through `pam-ssh-agent` using the same proxy; the `agent-sudo` shim reports whether the request is routed through a MacBook or agent-witness and sends Evan the command and working directory via Telegram
+- **Authorization failures**: Evan may need to approve either the 1Password prompt on a MacBook or the agent-witness request on his iPhone. Avoid parallel sudo requests because prompts can race or cancel each other.
 
 ## Package Management
 

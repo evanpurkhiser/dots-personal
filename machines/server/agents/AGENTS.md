@@ -2,9 +2,9 @@ You're running on my personal home server. We're primarily working on personal i
 
 All Evan repositories on this machine are checked out in `~/workspace`.
 
-## Sudo
+## SSH and Sudo Authentication
 
-Sudo on this server authenticates through `pam_ssh_agent` using the SSH agent proxy at `/run/ssh-agent-proxy.sock`. It is not passwordless sudo.
+SSH and sudo authentication use Evan's SSH agent. Requests go to 1Password on an available MacBook, or through agent-witness to Evan's iPhone when no MacBook is available.
 
 When a command needs sudo from an agent session, run the normal sudo command directly:
 
@@ -12,9 +12,7 @@ When a command needs sudo from an agent session, run the normal sudo command dir
 sudo <command>
 ```
 
-The opencode service puts `/usr/local/libexec/agents/bin` at the front of `PATH`, where `sudo` is an `agent-sudo` shim. The shim preflights Tailscale/MacBook availability, triggers sudo SSH-agent authentication, sends Evan a Telegram notification with the full sudo argv and cwd, then runs the real `/usr/bin/sudo -n`.
-
-Do not manually run `sudo -v` / `sudo -n <command>` unless bypassing the shim intentionally. If sudo auth fails, Evan may need to approve the 1Password biometric prompt on a MacBook, or no MacBook may be online for the proxy to reach. Avoid running multiple sudo commands in parallel because concurrent prompts can race or cancel each other.
+Sudo is not passwordless. The `sudo` shim notifies Evan of the command and triggers authentication. Do not manually run `sudo -v` or `sudo -n <command>` unless bypassing the shim intentionally. Avoid parallel sudo commands because their prompts can conflict.
 
 ## Token-Efficient Output
 
