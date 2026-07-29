@@ -22,7 +22,14 @@ function progress_timer() {
 function cache_cmd() {
 	local cmd_full="$*"
 	local cmd_short="$(basename "${cmd_full%% *}")"
-	local checksum=$(echo "${cmd_full}" | (md5 || md5sum))
+
+	# macOS ships `md5`, coreutils ships `md5sum`. The latter also appends the
+	# input name to its output, which cut discards to keep hashes identical
+	# across platforms.
+	local hasher=md5sum
+	hash md5 2>/dev/null && hasher=md5
+
+	local checksum=$(echo "${cmd_full}" | "${hasher}" | cut -d' ' -f1)
 
 	local cache_dir="${XDG_CACHE_HOME}/cmd-cache"
 	local cached_cmd="${cache_dir}/${cmd_short}.${checksum}"
