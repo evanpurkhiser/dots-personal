@@ -35,7 +35,18 @@ function cache_cmd() {
 	local cached_cmd="${cache_dir}/${cmd_short}.${checksum}"
 
 	[[ ! -d "${cache_dir}" ]] && mkdir -p "${cache_dir}"
-	[[ ! -f "${cached_cmd}" ]] && eval "$cmd_full" >"${cached_cmd}"
+
+	# Only cache successful, non-empty output. Redirecting straight into the
+	# cache file would persist a failure forever, since the file existing is
+	# what marks the command as cached.
+	if [[ ! -f "${cached_cmd}" ]]; then
+		local output
+		output=$(eval "$cmd_full") || return 1
+
+		[[ -z "${output}" ]] && return 1
+
+		printf '%s\n' "${output}" >"${cached_cmd}"
+	fi
 
 	cat "${cached_cmd}"
 }
