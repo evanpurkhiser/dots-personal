@@ -10,3 +10,11 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Do not do cleanup after installs, we'll manually run this
 export HOMEBREW_NO_INSTALL_CLEANUP=1
+
+# Keep Terminal.app from creating ~/.bash_sessions. Marking init as already
+# done is the only opt-out that isn't itself a file in $HOME (the documented
+# alternative is touching ~/.bash_sessions_disable).
+export SHELL_SESSION_DID_INIT=1
+
+# Photoshop MCP server keeps its config, sqlite db, and image exports here
+export PHOTOSHOP_MCP_HOME="$XDG_DATA_HOME/photoshop-mcp"
