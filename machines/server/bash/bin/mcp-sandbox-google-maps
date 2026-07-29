@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-env_file="${XDG_CONFIG_HOME:-"$HOME/.config"}/agents/mcp.env"
+env_file="$XDG_CONFIG_HOME/agents/mcp.env"
 google_maps_api_key="${GOOGLE_MAPS_API_KEY:-}"
 
 if [[ -f "$env_file" ]]; then
@@ -11,16 +11,6 @@ if [[ -f "$env_file" ]]; then
 		source "$env_file"
 		printf %s "${GOOGLE_MAPS_API_KEY:-}"
 	)"
-fi
-
-package_entries=(
-	/home/evan/.cache/npm/_npx/*/node_modules/@cablate/mcp-google-map/dist/cli.js
-)
-
-if [[ -f "${package_entries[0]}" ]]; then
-	server_command=(node "${package_entries[0]}" --stdio)
-else
-	server_command=(npx -y @cablate/mcp-google-map --stdio)
 fi
 
 exec bwrap \
@@ -47,4 +37,4 @@ exec bwrap \
 	--setenv PATH "/usr/bin:/bin" \
 	--setenv HOME "/home/evan" \
 	--setenv GOOGLE_MAPS_API_KEY "$google_maps_api_key" \
-	"${server_command[@]}"
+	npx -y @cablate/mcp-google-map --stdio
