@@ -1,11 +1,11 @@
 ---
 name: skill-writer
-description: Create or update opencode skills. Use this skill when asked to write, add, or update a skill for opencode.
+description: Create or update agent skills. Use this skill when asked to write, add, or update a skill.
 ---
 
 # Writing Agent Skills
 
-Skills are markdown files that give Claude and OpenCode context and instructions for specific tasks.
+Skills are markdown files that give agents context and instructions for specific tasks.
 
 ## Location
 
@@ -15,7 +15,7 @@ Skills live in the dotfiles source tree (not directly in `~/.config`):
 ~/.local/etc/<group>/agents/skills/<skill-name>/SKILL.md
 ```
 
-After editing, run `dots install` to install them to `~/.config/agents/skills/` (which is shared by Claude and OpenCode).
+After editing, run `dots install` to install them to `~/.config/agents/skills/` (which is shared by all the agents).
 
 ## Choosing the right group
 
@@ -41,7 +41,7 @@ description: One sentence describing when to use this skill.
 ```
 
 - `name`: must match the directory name
-- `description`: used by opencode to decide when to load the skill — make it specific about the trigger condition
+- `description`: used by the agent to decide when to load the skill — make it specific about the trigger condition
 
 ## When to create a new skill vs update an existing one
 

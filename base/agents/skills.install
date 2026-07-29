@@ -2,7 +2,7 @@
 
 source "$DOTS_SOURCE/base/bash/environment"
 
-for tool in opencode claude codex grok; do
+for tool in claude codex grok; do
 	config_home="$XDG_CONFIG_HOME/$tool"
 	target="$config_home/skills"
 

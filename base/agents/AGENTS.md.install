@@ -3,7 +3,6 @@
 source "$DOTS_SOURCE/base/bash/environment"
 
 declare -A CONFIGS=(
-	[opencode]=AGENTS.md
 	[claude]=CLAUDE.md
 	[codex]=AGENTS.md
 	[grok]=AGENTS.md

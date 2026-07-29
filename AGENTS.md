@@ -7,7 +7,7 @@ Commits use the format `<component>: <imperative description>`.
 
 Examples:
 ```
-opencode: Add server-admin skill
+agents: Add server-admin skill
 vim: Add stage hunk action
 bash: Add ft alias for running pnpm test
 brew: Remove rustup from brew
@@ -18,5 +18,5 @@ brew: Remove rustup from brew
 `ack`, `agents`, `alacritty`, `ansible`, `atuin`, `bash`, `bspwm`, `brew`,
 `build`, `claude`, `compton`, `direnv`, `docs`, `dots`, `download`,
 `fontconfig`, `fzf`, `git`, `github`, `gnupg`, `gtk`, `hammerspoon`, `init`,
-`karabiner`, `lsd`, `lua`, `mpv`, `npm`, `nvim`, `opencode`, `prek`, `pulse`,
-`rg`, `server-admin`, `ssh`, `sxhkd`, `systemd`, `tmux`, `transmission`, `vim`
+`karabiner`, `lsd`, `lua`, `mpv`, `npm`, `nvim`, `prek`, `pulse`, `rg`,
+`server-admin`, `ssh`, `sxhkd`, `systemd`, `tmux`, `transmission`, `vim`
