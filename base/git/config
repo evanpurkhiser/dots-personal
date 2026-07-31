@@ -66,6 +66,12 @@
   # which would otherwise prompt for and store GitHub tokens in the keychain.
   helper =
 
+[gpg]
+  format = ssh
+
+[commit]
+  gpgSign = true
+
 [url "git@github.com:"]
   insteadOf = gh:
   # Always push to GitHub over SSH, even for remotes cloned over HTTPS. Keeps an

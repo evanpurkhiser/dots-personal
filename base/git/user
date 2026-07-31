@@ -3,6 +3,7 @@
 [user]
   name = Evan Purkhiser
   email = evanpurkhiser@gmail.com
+  signingKey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILBw6fKi5PEZfZqtel74uxVLOvDGalv3VXcaRNCKwVSo
 
 [github]
   user = evanpurkhiser
