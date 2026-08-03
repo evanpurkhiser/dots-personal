@@ -1,0 +1,72 @@
+#!/usr/bin/python3
+"""Relay stdin/stdout to the 1Password SSH agent socket.
+
+This is the forced command for the ssh-agent-proxy key in authorized_keys. The
+home server connects with that key and speaks the ssh agent protocol over the
+SSH channel, without being able to run anything else on this machine. Whatever
+command the client asked for (SSH_ORIGINAL_COMMAND) is deliberately ignored.
+"""
+
+import os
+import select
+import socket
+import sys
+
+AGENT_SOCKET = os.path.expanduser(
+    "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+)
+
+# The server opens a fresh connection per agent request, so a channel that has
+# gone quiet is finished rather than waiting around for more requests.
+IDLE_TIMEOUT = 30
+
+BUFFER_SIZE = 4096
+
+STDIN = 0
+STDOUT = 1
+
+
+def write_all(fd, data):
+    """Write every byte of data.
+
+    os.write may write short, and agent messages are length prefixed, so a
+    truncated write would desync the stream rather than just lose bytes.
+    """
+    while data:
+        written = os.write(fd, data)
+        data = data[written:]
+
+
+def relay(agent_fd):
+    while True:
+        ready, _, _ = select.select([STDIN, agent_fd], [], [], IDLE_TIMEOUT)
+
+        if not ready:
+            return
+
+        for fd in ready:
+            data = os.read(fd, BUFFER_SIZE)
+
+            if not data:
+                return
+
+            write_all(STDOUT if fd == agent_fd else agent_fd, data)
+
+
+def main():
+    agent = socket.socket(socket.AF_UNIX)
+
+    try:
+        agent.connect(AGENT_SOCKET)
+    except OSError as err:
+        print(f"cannot reach 1Password agent at {AGENT_SOCKET}: {err}", file=sys.stderr)
+        return 1
+
+    with agent:
+        relay(agent.fileno())
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

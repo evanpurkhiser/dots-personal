@@ -1,2 +1,7 @@
-# Used by the server to proxy the 1Password SSH agent socket
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAZeQ0s78tOrDQ2be3khUhN1JlKH7swChf0fl7aGMyK ssh-agent-proxy
+# Used by the server to proxy the 1Password SSH agent socket.
+#
+# The forced command is the only thing this key can do -- sshd runs it no matter
+# what the client asks for. `restrict` denies pty, port/agent/X11 forwarding and
+# user-rc (plus anything future OpenSSH versions add), and `from` limits the key
+# to the server's Tailscale addresses.
+restrict,from="100.124.157.144,fd7a:115c:a1e0:ab12:4843:cd96:627c:9d90",command="/Users/evan/.ssh/ssh-agent-proxy-serve" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAZeQ0s78tOrDQ2be3khUhN1JlKH7swChf0fl7aGMyK ssh-agent-proxy

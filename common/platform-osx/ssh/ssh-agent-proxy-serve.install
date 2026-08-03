@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+source "$DOTS_SOURCE/base/bash/environment"
+
+# authorized_keys cannot expand ~, so the forced command points at a stable
+# absolute path under ~/.ssh rather than at $XDG_CONFIG_HOME directly.
+mkdir -p "$HOME/.ssh"
+ln -sf "$XDG_CONFIG_HOME/ssh/ssh-agent-proxy-serve" "$HOME/.ssh/"
