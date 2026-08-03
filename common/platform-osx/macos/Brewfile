@@ -1,5 +1,4 @@
 tap "evanpurkhiser/personal"
-tap "homebrew/autoupdate"
 
 cask "1password"
 cask "1password-cli"

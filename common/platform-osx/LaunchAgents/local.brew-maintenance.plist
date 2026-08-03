@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>KeepAlive</key>
+    <false/>
+
+    <key>Label</key>
+    <string>local.brew-maintenance</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>-c</string>
+      <string>$HOME/.config/bash/bin/brew-maintenance</string>
+    </array>
+
+    <key>StartInterval</key>
+    <integer>3600</integer>
+
+    <!-- Cleanup uninstalls things. Waiting out the first interval keeps a
+         `dots install` from immediately pruning packages. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>LowPriorityIO</key>
+    <true/>
+
+    <key>LowPriorityBackgroundIO</key>
+    <true/>
+
+    <!-- The script manages its own rotated log in $XDG_STATE_HOME -->
+    <key>StandardErrorPath</key>
+    <string>/dev/null</string>
+
+    <key>StandardOutPath</key>
+    <string>/dev/null</string>
+  </dict>
+</plist>

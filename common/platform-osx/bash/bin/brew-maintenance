@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+#
+# Periodic homebrew maintenance, driven by the local.brew-maintenance launch
+# agent.
+#
+# `brew update` runs on every invocation since refreshing formula metadata is
+# cheap. The cleanup steps are rate limited to once a fortnight -- they delete
+# things, and there is nothing to gain from that much disk churn hourly.
+
+# Launch agents run with a near-empty environment, so pull in the real one for
+# the XDG paths and for brew itself. Sourced before `set -u` as the environment
+# is not written to tolerate it.
+source "$HOME/.config/bash/environment"
+
+set -uo pipefail
+
+# Launch agents fire regardless of whether the machine is set up yet
+if ! hash brew 2>/dev/null; then
+	exit 0
+fi
+
+CLEANUP_STAMP="$XDG_STATE_HOME/brew-maintenance-cleanup"
+LOG="$XDG_STATE_HOME/brew-maintenance.log"
+
+CLEANUP_INTERVAL=$((60 * 60 * 24 * 14))
+LOG_MAX_BYTES=$((1024 * 1024))
+
+# Rotate rather than append forever. One generation of history is plenty to
+# debug a bad run.
+if [ -f "$LOG" ] && [ "$(stat -f %z "$LOG")" -gt "$LOG_MAX_BYTES" ]; then
+	mv "$LOG" "$LOG.old"
+fi
+
+exec >>"$LOG" 2>&1
+
+# Keep the log to actual work rather than advice about tuning homebrew
+export HOMEBREW_NO_ENV_HINTS=1
+
+echo "==> $(date)"
+
+brew update
+
+if [ -f "$CLEANUP_STAMP" ] &&
+	[ $(($(date +%s) - $(stat -f %m "$CLEANUP_STAMP"))) -lt "$CLEANUP_INTERVAL" ]; then
+	exit 0
+fi
+
+echo "==> Cleaning up"
+
+# Ordered so each step feeds the next: drop orphaned dependencies, then the
+# cache and old versions that removing them freed up.
+#
+# Deliberately not `brew bundle cleanup` -- that uninstalls anything absent
+# from the Brewfile, which is a reconciliation rather than a cleanup and is
+# only safe to run while watching it.
+brew autoremove
+brew cleanup
+
+touch "$CLEANUP_STAMP"
