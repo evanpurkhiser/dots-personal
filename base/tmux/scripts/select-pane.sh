@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source "$XDG_CONFIG_HOME/bash/fzf" 2>/dev/null
+
 pane_id=$(tmux display -p '#{pane_id}')
 
 # Build list of all panes with ID and title
