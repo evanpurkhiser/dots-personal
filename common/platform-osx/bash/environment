@@ -18,3 +18,8 @@ export SHELL_SESSION_DID_INIT=1
 
 # Photoshop MCP server keeps its config, sqlite db, and image exports here
 export PHOTOSHOP_MCP_HOME="$XDG_DATA_HOME/photoshop-mcp"
+
+# Use 1Password's SSH agent. ssh/config already points IdentityAgent here, but
+# that is an ssh_config directive -- `ssh-keygen -Y sign`, which git uses to
+# sign commits, does not read ssh_config and only consults $SSH_AUTH_SOCK.
+export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
