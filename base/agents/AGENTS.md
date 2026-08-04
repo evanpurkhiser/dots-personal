@@ -38,3 +38,10 @@ When inferring commit style for a repo, also look at the history of the specific
 - Distinguish expected absence from true failure (`null`/`Option`/empty results vs thrown/returned errors).
 - Prefer structured, composable error types over stringly errors when the language supports it.
 - Document non-obvious behavior, invariants, and API constraints.
+
+## Prose Style (comments, markdown, etc)
+
+- Write the corrected state, not the correction. Prose describes how things are now; it has no memory of earlier drafts, so a reader cannot see what you changed and should never have to infer it.
+- State what is true. Don't state what is absent, wrong, or renamed just because a previous version said it.
+- Negative and contrastive framing ("there is no X", "not just Y", "X is actually Z") earns its place only when the reader will encounter X from a live source — a tool's own description, real command output, an error message. Then it's a warning, not a changelog.
+- Before saving an edit, reread only the new sentences, as someone who never saw the old ones. Anything that makes you ask "why is this mentioned?" is an edit artifact — cut it.
