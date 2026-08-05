@@ -1,5 +1,6 @@
 cask "chromedriver"
 cask "tableplus"
-cask "linear"
 
 brew "mkcert"
+brew "direnv"
+brew "awscli"
