@@ -37,7 +37,7 @@ brew "pam-reattach"
 
 # Terminal window management
 brew "tmux"
-brew "tmux-ai-titles"
+brew "evanpurkhiser/personal/tmux-ai-titles"
 
 # Tooling
 brew "codespell"
@@ -67,7 +67,7 @@ brew "sqlfmt"
 brew "stylua"
 brew "taplo"
 brew "teamookla/speedtest/speedtest"
-brew "things3-cloud"
+brew "evanpurkhiser/personal/things3-cloud"
 brew "tree"
 brew "tree-sitter-cli"
 brew "typos-cli"
