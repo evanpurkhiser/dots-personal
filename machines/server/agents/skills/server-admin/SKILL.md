@@ -224,7 +224,7 @@ sudo systemctl status nginx
 ### Transmission
 ```bash
 sudo systemctl status transmission
-# Web UI accessible at http://server:9091/transmission/web/ on LAN or Tailscale
+# Web UI accessible at https://tx.prk.network on Tailscale
 ```
 
 ### Logs
