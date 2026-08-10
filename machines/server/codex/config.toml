@@ -24,5 +24,11 @@ command = "mcp-sandbox-google-maps"
 startup_timeout_sec = 20
 tool_timeout_sec = 60
 
+[mcp_servers.sentry]
+enabled = true
+url = "https://mcp.sentry.dev/mcp"
+startup_timeout_sec = 20
+tool_timeout_sec = 60
+
 [projects."/home/evan"]
 trust_level = "trusted"
