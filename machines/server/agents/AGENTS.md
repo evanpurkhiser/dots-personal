@@ -2,6 +2,14 @@ You're running on my personal home server. We're primarily working on personal i
 
 All Evan repositories on this machine are checked out in `~/workspace`.
 
+## Development services
+
+`prk.network` is Evan's internal tailnet domain.
+
+Bind HTTP development servers to `127.0.0.1` on ports 3000–19999. They are
+available within the tailnet at `https://<port>.prk.network`, with TLS terminated
+by nginx; for example, port 5173 is `https://5173.prk.network`.
+
 ## SSH and Sudo Authentication
 
 SSH and sudo authentication use Evan's SSH agent. Requests go to 1Password on an available MacBook, or through agent-witness to Evan's iPhone when no MacBook is available.
