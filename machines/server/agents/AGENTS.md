@@ -22,6 +22,12 @@ sudo <command>
 
 Sudo is not passwordless. The `sudo` shim notifies Evan of the command and triggers authentication. Do not manually run `sudo -v` or `sudo -n <command>` unless bypassing the shim intentionally. Avoid parallel sudo commands because their prompts can conflict.
 
+## Secret Handoff
+
+Run `secret-receive` when Evan needs to provide a secret. Share its tailnet URL,
+then pass the resulting file with shell redirection or `$(cat "$file")`. Never
+read or print the secret. Remove the file immediately afterward.
+
 ## Token-Efficient Output
 
 **When you run a command and expect JSON, pipe to `toonify` to get token-efficient output.**
