@@ -1,12 +1,14 @@
 #!/usr/bin/python3
-"""Relay stdin/stdout to the 1Password SSH agent socket.
+"""Serve status probes or relay stdin/stdout to the 1Password SSH agent.
 
 This is the forced command for the ssh-agent-proxy key in authorized_keys. The
 home server connects with that key and speaks the ssh agent protocol over the
-SSH channel, without being able to run anything else on this machine. Whatever
-command the client asked for (SSH_ORIGINAL_COMMAND) is deliberately ignored.
+SSH channel, without being able to run anything else on this machine. A
+versioned status request on stdin reports whether this Mac is ready to handle
+an authorization request.
 """
 
+import ctypes
 import os
 import select
 import socket
@@ -15,6 +17,14 @@ import sys
 AGENT_SOCKET = os.path.expanduser(
     "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 )
+CORE_GRAPHICS_PATH = (
+    "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics"
+)
+STATUS_REQUEST = b"AGENT-PROXY-STATUS/1\n"
+# SSH agent messages start with a four-byte big-endian length. "AGEN" cannot
+# be a valid length, so it distinguishes status requests without consuming
+# agent payload bytes or waiting for an entire agent request.
+STATUS_PREFIX = STATUS_REQUEST[:4]
 
 # The server opens a fresh connection per agent request, so a channel that has
 # gone quiet is finished rather than waiting around for more requests.
@@ -24,6 +34,20 @@ BUFFER_SIZE = 4096
 
 STDIN = 0
 STDOUT = 1
+
+
+def read_exact(fd, size):
+    data = b""
+
+    while len(data) < size:
+        chunk = os.read(fd, size - len(data))
+
+        if not chunk:
+            break
+
+        data += chunk
+
+    return data
 
 
 def write_all(fd, data):
@@ -53,16 +77,74 @@ def relay(agent_fd):
             write_all(STDOUT if fd == agent_fd else agent_fd, data)
 
 
-def main():
+def connect_agent():
     agent = socket.socket(socket.AF_UNIX)
 
     try:
         agent.connect(AGENT_SOCKET)
     except OSError as err:
-        print(f"cannot reach 1Password agent at {AGENT_SOCKET}: {err}", file=sys.stderr)
+        agent.close()
+        print(
+            f"cannot reach 1Password agent at {AGENT_SOCKET}: {err}",
+            file=sys.stderr,
+        )
+        return None
+
+    return agent
+
+
+def display_is_awake():
+    try:
+        core_graphics = ctypes.CDLL(CORE_GRAPHICS_PATH)
+        core_graphics.CGMainDisplayID.restype = ctypes.c_uint32
+        core_graphics.CGDisplayIsAsleep.argtypes = [ctypes.c_uint32]
+        core_graphics.CGDisplayIsAsleep.restype = ctypes.c_uint32
+
+        display_id = core_graphics.CGMainDisplayID()
+    except (AttributeError, OSError):
+        return False
+
+    return display_id != 0 and not bool(core_graphics.CGDisplayIsAsleep(display_id))
+
+
+def report_status():
+    if not display_is_awake():
+        print("display is asleep", file=sys.stderr)
+        return 1
+
+    agent = connect_agent()
+
+    if agent is None:
         return 1
 
     with agent:
+        write_all(STDOUT, b"ready\n")
+
+    return 0
+
+
+def main():
+    prefix = read_exact(STDIN, len(STATUS_PREFIX))
+
+    if not prefix:
+        return 0
+
+    if prefix == STATUS_PREFIX:
+        suffix = read_exact(STDIN, len(STATUS_REQUEST) - len(STATUS_PREFIX))
+
+        if prefix + suffix != STATUS_REQUEST:
+            print("invalid agent proxy status request", file=sys.stderr)
+            return 2
+
+        return report_status()
+
+    agent = connect_agent()
+
+    if agent is None:
+        return 1
+
+    with agent:
+        write_all(agent.fileno(), prefix)
         relay(agent.fileno())
 
     return 0
