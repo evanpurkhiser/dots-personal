@@ -17,9 +17,7 @@ import sys
 AGENT_SOCKET = os.path.expanduser(
     "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 )
-CORE_GRAPHICS_PATH = (
-    "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics"
-)
+CORE_GRAPHICS_PATH = "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics"
 STATUS_REQUEST = b"AGENT-PROXY-STATUS/1\n"
 # SSH agent messages start with a four-byte big-endian length. "AGEN" cannot
 # be a valid length, so it distinguishes status requests without consuming
