@@ -42,5 +42,20 @@ url = "https://api.fastmail.com/mcp"
 startup_timeout_sec = 20
 tool_timeout_sec = 60
 
+[mcp_servers.jellyfin]
+enabled = true
+command = "podman"
+args = [
+  "run",
+  "--rm",
+  "-i",
+  "--network=host",
+  "--env-file=/home/evan/.config/jellyfin-mcp/config.env",
+  "ghcr.io/jaredtrent/jellyfin-mcp:latest",
+  "--",
+]
+startup_timeout_sec = 20
+tool_timeout_sec = 60
+
 [projects."/home/evan"]
 trust_level = "trusted"
