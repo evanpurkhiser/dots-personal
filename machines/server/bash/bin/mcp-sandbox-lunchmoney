@@ -12,21 +12,19 @@
 set -euo pipefail
 
 env_file="${XDG_CONFIG_HOME:-$HOME/.config}/agents/mcp.env"
+token_var="${1:-LUNCHMONEY_API_TOKEN}"
+lunchmoney_api_token="${!token_var:-}"
 
 if [[ -f "$env_file" ]]; then
-	set -a
-	source "$env_file"
-	set +a
+	lunchmoney_api_token="$(
+		source "$env_file"
+		printf %s "${!token_var:-}"
+	)"
 fi
 
-package_entries=(
-	/home/evan/.cache/npm/_npx/*/node_modules/@akutishevsky/lunchmoney-mcp/build/index.js
-)
-
-if [[ -f "${package_entries[0]}" ]]; then
-	server_command=(node "${package_entries[0]}")
-else
-	server_command=(npx @akutishevsky/lunchmoney-mcp)
+if [[ -z "$lunchmoney_api_token" ]]; then
+	printf 'Missing Lunch Money token: %s\n' "$token_var" >&2
+	exit 1
 fi
 
 exec bwrap \
@@ -49,6 +47,8 @@ exec bwrap \
 	--unshare-net \
 	--share-net \
 	--die-with-parent \
+	--clearenv \
 	--setenv PATH "/usr/bin:/bin" \
 	--setenv HOME "/home/evan" \
-	"${server_command[@]}"
+	--setenv LUNCHMONEY_API_TOKEN "$lunchmoney_api_token" \
+	npx -y @akutishevsky/lunchmoney-mcp

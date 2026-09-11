@@ -29,6 +29,7 @@ exec bwrap \
 	--unshare-net \
 	--share-net \
 	--die-with-parent \
+	--clearenv \
 	--setenv PATH "/usr/bin:/bin:/home/evan/.local/bin" \
 	--setenv HOME "/home/evan" \
 	--setenv TMPDIR "/tmp" \
