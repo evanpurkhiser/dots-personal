@@ -155,10 +155,14 @@ All timers are monitored via **Sentry Cron Monitors**.
 
 - **SSH**: password auth disabled, empty password disabled — key-only
 - **Tailscale**: for remote access outside LAN
-- **SSH agent proxy**: `/run/ssh-agent-proxy.sock` serves agent sessions and prefers the 1Password SSH agent on an online MacBook reachable over Tailscale
-- **Agent-witness fallback**: when no MacBook is online, the proxy routes SSH authorization requests through `/run/agent-witness/agent.sock`, which wakes Evan's paired iPhone for passkey authorization
-- **Sudo**: authenticated through `pam-ssh-agent` using the same proxy; the `agent-sudo` shim reports whether the request is routed through a MacBook or agent-witness and sends Evan the command and working directory via Telegram
-- **Authorization failures**: Evan may need to approve either the 1Password prompt on a MacBook or the agent-witness request on his iPhone. Avoid parallel sudo requests because prompts can race or cancel each other.
+- **SSH agent proxy**: `/run/ssh-agent-proxy.sock` requires commands using the
+  agent to run through `ssh-agent-ctx "reason" -- <command>`. Unwrapped access
+  fails signing, and `agent-auth` writes guidance to the command's controlling
+  TTY when available. Signing uses 1Password on Evan's current MacBook or the
+  web-based `agent-witness` on his phone and may require Evan's approval. Only
+  select `--route=[macbook-air, macbook-work, agent-witness]` when specifically
+  asked.
+- **Sudo**: authenticated through `pam-ssh-agent` and must also run through `ssh-agent-ctx`
 
 ## Package Management
 

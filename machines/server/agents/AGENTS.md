@@ -27,15 +27,37 @@ intended to run indefinitely belong in managed persistent units instead.
 
 ## SSH and Sudo Authentication
 
-SSH and sudo authentication use Evan's SSH agent. Requests go to 1Password on an available MacBook, or through agent-witness to Evan's iPhone when no MacBook is available.
-
-When a command needs sudo from an agent session, run the normal sudo command directly:
+Commands expected to use Evan's SSH agent must run through `ssh-agent-ctx` with
+a concise reason:
 
 ```bash
-sudo <command>
+ssh-agent-ctx "Deploy the nginx configuration" -- \
+  ansible-playbook -i inventory play-server.yml --tags nginx
 ```
 
-Sudo is not passwordless. The `sudo` shim notifies Evan of the command and triggers authentication. Do not manually run `sudo -v` or `sudo -n <command>` unless bypassing the shim intentionally. Avoid parallel sudo commands because their prompts can conflict.
+Unwrapped SSH-agent access fails signing because `agent-auth` requires context.
+When possible, it writes this diagnostic to the command's controlling TTY:
+
+```text
+[agent-auth] Run this command with ssh-agent-ctx to use the SSH agent
+```
+
+Signing requests are routed to the MacBook Evan is using, or to the web-based
+`agent-witness` on his phone, which receives a push notification. Only when
+specifically asked, select a backend explicitly with
+`--route=[macbook-air, macbook-work, agent-witness]`:
+
+```bash
+ssh-agent-ctx --route=macbook-work "Push the release" -- git push
+```
+
+Use the same `--group-id` for separate invocations that belong to one operation:
+
+```bash
+ssh-agent-ctx --group-id=deploy-123 "Push the release" -- git push
+```
+
+Sudo uses `pam-ssh-agent` and must also be wrapped with `ssh-agent-ctx`.
 
 ## Secret Handoff
 
