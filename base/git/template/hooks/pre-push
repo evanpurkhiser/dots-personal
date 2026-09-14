@@ -1,0 +1,10 @@
+#!/bin/sh
+
+hook="${XDG_CONFIG_HOME:-$HOME/.config}/git/hooks/verify-push-commits"
+
+if [ ! -x "$hook" ]; then
+	echo "pre-push: signature verifier is not installed at $hook" >&2
+	exit 1
+fi
+
+exec "$hook" "$@"

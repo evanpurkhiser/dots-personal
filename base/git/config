@@ -69,8 +69,15 @@
 [gpg]
   format = ssh
 
+[gpg "ssh"]
+  allowedSignersFile = ~/.config/git/allowed_signers
+
 [commit]
   gpgSign = true
+
+[hooks "verify-signatures"]
+  authorEmail = git@evanpurkhiser.com
+  authorEmail = evanpurkhiser@gmail.com
 
 [url "git@github.com:"]
   insteadOf = gh:
