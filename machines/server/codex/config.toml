@@ -1,4 +1,5 @@
 sandbox_mode = "danger-full-access"
+model = "gpt-6-astra"
 
 [shell_environment_policy.filters]
 FASTMAIL_API_TOKEN = "exclude"
