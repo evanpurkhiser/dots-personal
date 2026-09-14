@@ -1,13 +1,10 @@
 #!/bin/sh
 
-# Git has no post-clone hook. A clone's initial checkout is the one time the
-# previous HEAD consists entirely of zeroes.
-case "${1-}" in
-'' | *[!0]*) exit 0 ;;
-esac
+hook="${XDG_CONFIG_HOME:-$HOME/.config}/git/hooks/setup-cloned-repo"
 
-setup="${XDG_CONFIG_HOME:-$HOME/.config}/git/setup-personal-repo"
-
-if [ -x "$setup" ]; then
-	exec "$setup" "$(git rev-parse --show-toplevel)"
+if [ ! -x "$hook" ]; then
+	echo "post-checkout: clone setup is not installed at $hook" >&2
+	exit 1
 fi
+
+exec "$hook" "$@"
