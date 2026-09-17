@@ -46,6 +46,17 @@ You have deep knowledge of Evan's personal home server. The server configuration
 | 10.0.0.40 | `bambulab-p1s` | Bambu Lab P1S 3D printer |
 | 10.0.0.50 | `kindle` | Kindle |
 
+### Wi-Fi Access Point
+
+Standalone Ubiquiti **UAP-AC-Pro-Gen2** (board `U7PG2`) at `10.0.0.2`, with a
+wired uplink. SSH as `admin` using Evan's Personal key:
+
+```bash
+ssh-agent-ctx "Debug Wi-Fi" -- ssh admin@10.0.0.2
+```
+
+Start with `logread`, `uptime`, and `cat /etc/version`.
+
 ## Storage
 
 - **Primary storage**: ZFS pool mounted at `/mnt/documents`
