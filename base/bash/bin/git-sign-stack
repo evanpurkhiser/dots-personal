@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+die() {
+	printf 'git sign-stack: %s\n' "$*" >&2
+	exit 1
+}
+
+if [[ ${1-} == --help ]]; then
+	cat <<'EOF'
+Usage: git sign-stack [base]
+
+Sign your commits in base..HEAD; base defaults to origin/HEAD.
+Author emails come from hooks.verify-signatures.authorEmail.
+Preserves the branch point, empty commits, and merge structure. Rewrites commit
+IDs and removes existing signatures on rewritten commits by other authors.
+Run on unpublished work with a clean working tree, inside ssh-agent-ctx.
+EOF
+	exit 0
+fi
+
+author_emails=$(git config --get-all hooks.verify-signatures.authorEmail) ||
+	die 'configure hooks.verify-signatures.authorEmail first'
+
+is_personal_commit() {
+	local author_email
+	author_email=$(git show -s --format=%ae "$1")
+	grep -Fxq -- "$author_email" <<<"$author_emails"
+}
+
+# Rebase runs this after each recreated commit, including merges.
+if [[ ${1-} == --sign-current ]]; then
+	if is_personal_commit HEAD; then
+		git commit --amend --no-edit --allow-empty -S
+	fi
+
+	exit 0
+fi
+
+[[ $# -le 1 ]] || die 'usage: git sign-stack [base]'
+base=${1:-origin/HEAD}
+git rev-parse --verify --quiet "$base^{commit}" >/dev/null ||
+	die "cannot resolve $base; pass a base explicitly (e.g. origin/main)"
+git symbolic-ref -q HEAD >/dev/null || die 'check out a branch first'
+[[ -z $(git status --porcelain) ]] || die 'working tree must be clean'
+git merge-base "$base" HEAD >/dev/null || die "HEAD and $base have no common ancestor"
+
+commits=$(git rev-list "$base..HEAD")
+needs_signing=false
+
+while read -r commit; do
+	[[ -n $commit ]] || continue
+
+	if is_personal_commit "$commit" && ! git verify-commit "$commit" >/dev/null 2>&1; then
+		needs_signing=true
+		break
+	fi
+done <<<"$commits"
+
+if [[ $needs_signing == false ]]; then
+	printf 'git sign-stack: all your commits in %s..HEAD are already signed\n' "$base"
+	exit 0
+fi
+
+# Keep signing independent of rebasing onto upstream or autosquashing fixups.
+exec git -c commit.gpgSign=false rebase \
+	--force-rebase --keep-base --no-fork-point --rebase-merges \
+	--reapply-cherry-picks --empty=keep --keep-empty \
+	--no-autosquash --no-autostash --no-update-refs --no-gpg-sign \
+	--reschedule-failed-exec --exec 'git sign-stack --sign-current' "$base"

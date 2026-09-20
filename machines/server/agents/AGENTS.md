@@ -25,6 +25,20 @@ systemd-run --user --collect --unit="codex-<purpose>-<unique-id>" \
 Use a finite runtime when practical and stop the unit when finished. Processes
 intended to run indefinitely belong in managed persistent units instead.
 
+## Committing and Pushing
+
+Create local commits with `git -c commit.gpgSign=false commit` (including amendments
+and fixups). When ready to push, run `git sign-stack [base]` (defaults to
+`origin/HEAD`) to sign your outgoing unpublished commits, then push
+over SSH using the same `ssh-agent-ctx --group-id` to consolidate authorization.
+The pre-push hook verifies signatures before allowing the push.
+
+```bash
+release_group_id=$(uuidgen)
+ssh-agent-ctx --group-id="$release_group_id" "Sign the release" -- git sign-stack
+ssh-agent-ctx --group-id="$release_group_id" "Push the release" -- git push
+```
+
 ## SSH and Sudo Authentication
 
 Commands expected to use Evan's SSH agent must run through `ssh-agent-ctx` with
