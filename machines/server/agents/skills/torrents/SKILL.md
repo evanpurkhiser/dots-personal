@@ -1,13 +1,81 @@
 ---
-name: iptorrents
-description: Download a movie, TV show, or any media from IPTorrents. Use this skill when Evan says something like "download this movie", "get me this show", "download on IPTorrents", or "find and download <title>".
+name: torrents
+description: Search and download torrents using Nyaa for anime and IPTorrents for movies and TV series, with Transmission handling downloads. Use for torrent searches or requests to get movies, shows, or anime.
 ---
 
-# Skill: IPTorrents Download
+# Torrent Search and Download
 
-Use the `ipt` CLI to search IPTorrents and add the best result to Transmission.
+Choose the source by content type, honoring an explicitly requested tracker:
 
-## Workflow
+- **Anime, including anime movies:** Nyaa.si via `toru`.
+- **Movies and other TV series:** IPTorrents via `ipt`.
+
+The system packages are `iptorrents-cli` from Evan's pacman repository and
+`toru-bin` from the AUR.
+
+Search-only requests stop at reporting results. Use the Nyaa workflow below for
+anime; the IPTorrents workflow follows. Add selected downloads to Transmission
+so the existing completion and organization workflow applies.
+
+## Nyaa anime workflow
+
+Search with plain text or structured output:
+
+```bash
+toru search --print "<title>"
+toru search --json "<title>" | toonify
+```
+
+For example, search JoJo releases by seed count:
+
+```bash
+toru search --print --sort-by seeders --sort-order desc "JoJo"
+```
+
+Narrow by arc or batch when looking for a complete season:
+
+```bash
+toru search --print "JoJo Stone Ocean"
+toru search --print "JoJo batch"
+toru search --print "JoJo no Kimyou na Bouken"
+```
+
+Inspect a compact list of candidates with their magnets:
+
+```bash
+toru search --json --sort-by seeders --sort-order desc "JoJo" |
+  jq '.[0:10] | map({Name, Seeders, Size, Magnet})' | toonify
+```
+
+JSON fields are case-sensitive; `Size` is in bytes. Use `--page 2` for the
+next results page and `toru search --list` to discover category values.
+
+Use `--print` or `--json` for noninteractive searches. Reserve Toru's
+`--stream` and `--download` options for explicitly requested Toru transfers;
+normal downloads go through Transmission.
+
+- Try English and romanized Japanese titles when results are sparse.
+- Verify the requested part, season, episode range, and batch contents. Anime
+  releases may use arc names or absolute episode numbers instead of `SxxExx`.
+- Check subtitle languages and audio tracks; distinguish raw Japanese releases,
+  English-subtitled releases, and dual-audio releases. Honor requested languages.
+- Compare source, encode, subtitles, seeders, and size. Prefer complete batches
+  for whole-season requests and encodes over large remuxes. Tracker choice alone
+  does not establish release quality.
+- Show the chosen release, size, seeders, and relevant audio/subtitle details.
+  Confirm before downloading unless Evan already authorized downloading it.
+
+Pass the selected result's `Magnet` value to Transmission, quoted as one argument:
+
+```bash
+transmission-remote localhost --add '<selected magnet URI>'
+```
+
+Verify Transmission reports success. If Nyaa is unavailable, report the failure;
+IPTorrents is a fallback source to search. If Transmission is unavailable, retain
+the selected magnet for a later retry.
+
+## IPTorrents workflow
 
 ### 1. Extract intent from the user's message
 
