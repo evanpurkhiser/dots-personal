@@ -27,7 +27,12 @@ if [[ -z "$lunchmoney_api_token" ]]; then
 	exit 1
 fi
 
-exec bwrap \
+# Bubblewrap's parent-death signal follows the launching thread. Keep this shell
+# alive as its parent when the MCP client uses short-lived worker threads.
+trap 'exit 143' TERM
+trap 'exit 130' INT
+
+bwrap \
 	--ro-bind /usr /usr \
 	--ro-bind /lib /lib \
 	--ro-bind /lib64 /lib64 \
