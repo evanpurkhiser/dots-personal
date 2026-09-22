@@ -9,6 +9,8 @@ description: Search and manage Evan's saved places with the Places CLI, includin
 
 Adjacent filters mean AND. Use `OR`, `!`, and parentheses to combine them. Exact tag names must exist; `*` matches tag name patterns. Name, address, and notes match substrings. Quote values containing spaces or query punctuation.
 
+When presenting places, link each name to its `googleMapsUrl` when available, rather than the place's website.
+
 ```sh
 # List every saved place.
 places list
