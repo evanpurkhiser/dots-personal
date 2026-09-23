@@ -15,7 +15,8 @@ Sign your commits in base..HEAD; base defaults to origin/HEAD.
 Author emails come from hooks.verify-signatures.authorEmail.
 Preserves the branch point, empty commits, and merge structure. Rewrites commit
 IDs and removes existing signatures on rewritten commits by other authors.
-Run on unpublished work with a clean working tree, inside ssh-agent-ctx.
+Autostashes uncommitted changes for the rebase and restores them afterward.
+Run on unpublished work inside ssh-agent-ctx.
 EOF
 	exit 0
 fi
@@ -43,7 +44,6 @@ base=${1:-origin/HEAD}
 git rev-parse --verify --quiet "$base^{commit}" >/dev/null ||
 	die "cannot resolve $base; pass a base explicitly (e.g. origin/main)"
 git symbolic-ref -q HEAD >/dev/null || die 'check out a branch first'
-[[ -z $(git status --porcelain) ]] || die 'working tree must be clean'
 git merge-base "$base" HEAD >/dev/null || die "HEAD and $base have no common ancestor"
 
 commits=$(git rev-list "$base..HEAD")
@@ -67,5 +67,5 @@ fi
 exec git -c commit.gpgSign=false rebase \
 	--force-rebase --keep-base --no-fork-point --rebase-merges \
 	--reapply-cherry-picks --empty=keep --keep-empty \
-	--no-autosquash --no-autostash --no-update-refs --no-gpg-sign \
+	--no-autosquash --autostash --no-update-refs --no-gpg-sign \
 	--reschedule-failed-exec --exec 'git sign-stack --sign-current' "$base"
