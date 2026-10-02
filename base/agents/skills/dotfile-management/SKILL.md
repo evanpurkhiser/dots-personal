@@ -9,7 +9,7 @@ Manage Evan's dotfiles using the `dots` utility for organizing and installing co
 
 ## Overview
 
-Dotfiles are managed in `/home/evan/.local/etc` (this repository) using the `dots` utility. The workflow is:
+Dotfiles are managed in `~/.local/etc` (this repository) using the `dots` utility. The workflow is:
 
 1. Edit configuration files in the appropriate group
 2. Run `dots install` to install/update configs
@@ -20,13 +20,13 @@ Dotfiles are managed in `/home/evan/.local/etc` (this repository) using the `dot
 ## Repository Structure
 
 ```
-/home/evan/.local/etc/
+~/.local/etc/
 ├── base/              # Core configs for all environments
 ├── common/            # Platform-specific (osx/linux) and development configs
 └── machines/          # Machine-specific configurations
     ├── home/          # Home machine configs
     ├── work/          # Work machine configs
-    └── server/        # Server machine configs (current machine)
+    └── server/        # Server machine configs
 ```
 
 ## Active Configuration
@@ -36,9 +36,9 @@ Check current profile and groups:
 ~/.local/bin/dots config active
 ```
 
-Current setup:
-- Profile: `server`
-- Groups: `base` + `machines/server`
+`config.yml` defines the profiles and their groups. The `base` group is included
+in every profile. Use `dots config active` to determine this machine's profile
+and groups before choosing where a configuration belongs.
 
 ## Common Commands
 
@@ -82,7 +82,7 @@ Current setup:
    - `base/` - Used across ALL machines (bash, vim, etc.)
    - `common/development/` - Development tools
    - `common/platform-osx/` - macOS-specific
-   - `machines/server/` - This server only
+   - `machines/server/` - Server-only tools, services, and data
 
 2. **Edit the config file** in the appropriate location
 

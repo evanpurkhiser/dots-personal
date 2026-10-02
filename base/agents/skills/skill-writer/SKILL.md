@@ -21,11 +21,16 @@ After editing, run `dots install` to install them to `~/.config/agents/skills/` 
 
 Place skills based on scope:
 
-- `base/agents/skills/` -- default for broadly useful skills you want available across machines/contexts
-- `machines/server/agents/skills/` -- server-only skills (home infra, media automation, server operations)
+- `base/agents/skills/` -- skills usable across machines (for example `git-surgeon` and `dotfile-management`)
+- `common/platform-osx/agents/skills/` -- skills requiring local macOS apps or tools
+- `common/development/agents/skills/` -- skills shared by development environments
+- `machines/server/agents/skills/` -- skills requiring server-local tools, data, or service connectors (for example `places`, `second-brain`, and `personal-finance`)
+- `machines/home/agents/skills/` -- home-profile skills, also included by the work profile
 - `machines/work/agents/skills/` -- work-laptop-specific skills (for example `pr-workflow`)
 
-Rule of thumb: start in `base` unless the skill is clearly tied to one machine/profile.
+Choose the group where the required tools, credentials, connectors, and data are
+available. Check `config.yml` for profile membership and `dots config active` for
+the current machine's groups.
 
 **Note:** See the `dotfile-management` skill for detailed information about working with the dotfiles repository and the `dots` utility.
 
@@ -50,7 +55,7 @@ description: One sentence describing when to use this skill.
 
 ## Workflow
 
-1. Choose group scope (`base`, `machines/server`, or `machines/work`)
+1. Choose the group based on the skill's dependencies and profile membership
 2. Create the directory and `SKILL.md` in `~/.local/etc/<group>/agents/skills/<name>/`
 3. Write the skill content
 4. Run `dots install` to install it
