@@ -1,5 +1,8 @@
 # Shell configuration
+command = /opt/homebrew/bin/bash
+env = SHELL=/opt/homebrew/bin/bash
 shell-integration = bash
+shell-integration-features = no-cursor
 
 # Cursor configuration
 cursor-style = block
@@ -23,6 +26,7 @@ window-padding-y = 0
 # Gruvbox Dark color theme
 background = 282828
 foreground = ebdbb2
+bold-color = bright
 
 # Normal colors
 palette = 0=504945
@@ -45,5 +49,6 @@ palette = 14=8ec07c
 palette = 15=ebdbb2
 
 # Keybindings
-# Allow Cmd+T to pass through (like Alacritty's ReceiveChar)
+# Pass Cmd+T through to terminal applications
 keybind = cmd+t=unbind
+keybind = shift+enter=text:\x1b[13;2u

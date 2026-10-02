@@ -11,6 +11,11 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Do not do cleanup after installs, we'll manually run this
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
+# Find Ghostty's bundled terminfo alongside the XDG terminal definitions.
+if [ -n "$GHOSTTY_RESOURCES_DIR" ]; then
+	export TERMINFO_DIRS="$GHOSTTY_RESOURCES_DIR/../terminfo:$TERMINFO_DIRS"
+fi
+
 # Keep Terminal.app from creating ~/.bash_sessions. Marking init as already
 # done is the only opt-out that isn't itself a file in $HOME (the documented
 # alternative is touching ~/.bash_sessions_disable).

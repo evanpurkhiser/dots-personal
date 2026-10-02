@@ -65,7 +65,7 @@ hs.hotkey.bind(
 hs.hotkey.bind(
   super,
   "\\",
-  utils.cycleWindowFocus(hs.window.filter.new({ "Alacritty", "Terminal" }))
+  utils.cycleWindowFocus(hs.window.filter.new({ "Ghostty", "Terminal" }))
 )
 
 -- Copy the name and position of the focused window to
