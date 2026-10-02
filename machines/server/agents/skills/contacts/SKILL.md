@@ -1,6 +1,6 @@
 ---
 name: contacts
-description: Look up contacts from Evan's address book. Use this skill when asked about a person's phone number, email, address, or other contact info, or when another skill (e.g. email-and-calendar) needs to resolve a person's name to contact details.
+description: Look up contacts from Evan's address book. Use this skill when asked about a person's phone number, email, address, or other contact info, or when another workflow needs to resolve a person's name to contact details.
 ---
 
 # Contacts Skill

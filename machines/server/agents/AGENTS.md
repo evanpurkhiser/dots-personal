@@ -85,10 +85,10 @@ read or print the secret. Remove the file immediately afterward.
 
 ```bash
 # Instead of:
-gog gmail search 'is:unread' --json
+gh issue list --json number,title
 
 # Use:
-gog gmail search 'is:unread' --json | toonify
+gh issue list --json number,title | toonify
 ```
 
 `toonify` converts JSON to TOON format, which uses significantly fewer tokens while preserving all data.
