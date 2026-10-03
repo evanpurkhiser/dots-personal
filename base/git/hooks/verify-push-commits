@@ -126,7 +126,12 @@ while read -r local_ref local_oid remote_ref remote_oid; do
 		continue
 	fi
 
-	verify_range "$local_ref -> $remote_ref" "$remote_commit..$local_commit"
+	if [ -n "$remote_name" ] && git remote get-url "$remote_name" >/dev/null 2>&1; then
+		verify_range "$local_ref -> $remote_ref" \
+			"$remote_commit..$local_commit" --not "--remotes=$remote_name"
+	else
+		verify_range "$local_ref -> $remote_ref" "$remote_commit..$local_commit"
+	fi
 done
 
 if [ "$invalid_commits" -gt 0 ] || [ "$range_errors" -gt 0 ]; then
