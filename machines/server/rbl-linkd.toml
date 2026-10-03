@@ -1,0 +1,16 @@
+[library]
+options = "/mnt/documents/multimedia/djing/rekordbox/options.json"
+database = "/mnt/documents/multimedia/djing/rekordbox/master.db"
+share_root = "/mnt/documents/multimedia/djing/rekordbox/share"
+
+[[library.path_maps]]
+from = "/Users/evan/Music/Tracks"
+to = "/mnt/documents/multimedia/djing/tracks"
+
+[network]
+interface = "rbxlink"
+
+[player]
+key_notation = "alphanumeric"
+key_order = "musical"
+waveform_color = "3band"
