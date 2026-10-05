@@ -17,7 +17,11 @@ When inferring commit style for a repo, also look at the history of the specific
 - Use imperative style.
 - If a type is already present (`fix`, `feat`, `ref`, etc.), the title usually does not need to start with a verb (for example: `fix: array parsing`, `ref: optimize config loading`).
 - Write commit bodies as a summary of the why, not the what, when the why is not obvious from the title and diff.
-- PR summaries should cover both why and what for the combined change.
+- PR bodies should lead with why the change is needed and include only the
+  implementation context that helps reviewers understand it. Keep the structure
+  proportional to the change. Omit testing and verification sections unless a
+  repository template requires them or the change has a specific verification
+  concern reviewers need to understand.
 - Wrap commit body lines at 80 characters.
 - For commit shaping tasks (split commits, hunk/line-range staging, selective unstaging, fixups), use `git-surgeon` instead of raw interactive or reset-based git flows.
 - Before committing, review the complete staged diff as a unit for scope,
