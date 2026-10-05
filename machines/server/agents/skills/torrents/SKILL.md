@@ -23,7 +23,6 @@ Search with plain text or structured output:
 
 ```bash
 toru search --print "<title>"
-toru search --json "<title>" | toonify
 ```
 
 For example, search JoJo releases by seed count:
@@ -44,7 +43,7 @@ Inspect a compact list of candidates with their magnets:
 
 ```bash
 toru search --json --sort-by seeders --sort-order desc "JoJo" |
-  jq '.[0:10] | map({Name, Seeders, Size, Magnet})' | toonify
+  jq '.[0:10] | map({Name, Seeders, Size, Magnet})'
 ```
 
 JSON fields are case-sensitive; `Size` is in bytes. Use `--page 2` for the

@@ -78,24 +78,3 @@ Sudo uses `pam-ssh-agent` and must also be wrapped with `ssh-agent-ctx`.
 Run `secret-receive` when Evan needs to provide a secret. Share its tailnet URL,
 then pass the resulting file with shell redirection or `$(cat "$file")`. Never
 read or print the secret. Remove the file immediately afterward.
-
-## Token-Efficient Output
-
-**When you run a command and expect JSON, pipe to `toonify` to get token-efficient output.**
-
-```bash
-# Instead of:
-gh issue list --json number,title
-
-# Use:
-gh issue list --json number,title | toonify
-```
-
-`toonify` converts JSON to TOON format, which uses significantly fewer tokens while preserving all data.
-
-**Note:** If `jq` outputs JSON, pipe to `toonify`. If using `jq -r` for raw values, keep as is:
-
-```bash
-curl -s "$API/data" | jq -r '.id'
-curl -s "$API/data" | jq '.items' | toonify
-```
