@@ -48,6 +48,7 @@ function apply_theme() {
 		status-style
 		pane-border-style
 		pane-active-border-style
+		popup-border-style
 		message-style
 		window-status-format
 		window-status-current-format
