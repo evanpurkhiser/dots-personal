@@ -7,9 +7,20 @@ description: Search and manage Evan's saved places with the Places CLI, includin
 
 ## Search saved places
 
-Adjacent filters mean AND. Use `OR`, `!`, and parentheses to combine them. Exact tag names must exist; `*` matches tag name patterns. Name, address, and notes match substrings. Quote values containing spaces or query punctuation.
+Adjacent filters mean AND. Use `OR`, `!`, and parentheses to combine them. Exact tag names must exist; `*` matches tag name patterns. Name, address, and notes match substrings. Within a query expression, quote literal values containing spaces or query punctuation.
 
-When presenting places, link each name to its `googleMapsUrl` when available, rather than the place's website.
+When presenting places, link each name to its `googleMapsUrl` when available,
+then add a parenthetical `Places` link using its saved-place UUID:
+`https://places.prk.network/?q=id%5B%22<place-id>%22%5D&zoom=true`. For example:
+`[Place name](<googleMapsUrl>) ([Places](<places-url>))`.
+
+For location-sensitive requests, use Evan's current Home Assistant location as
+the reference point when he does not specify one. Read the latitude and
+longitude from `person.evan_purkhiser` with the Home Assistant MCP server, then
+pass them to the CLI as `--reference-location 'point(<longitude>, <latitude>)'`.
+An explicit location always takes precedence. If Home Assistant does not return
+both coordinates or the reading is clearly stale, ask for a reference location
+instead. Do not fetch a location for queries where proximity is irrelevant.
 
 ```sh
 # List every saved place.
@@ -18,6 +29,10 @@ places list
 # Find places within one mile of a named point or explicit coordinates.
 places list --query 'location[radius("East Village, NYC", 1mi)]'
 places list --query 'location[radius(point(-73.985, 40.726), 800m)]'
+
+# Reuse one reference location in a filter or sort by distance from it.
+places list --reference-location 'Union Square, NYC' --query 'location[radius(@ref, 5mi)]'
+places list --reference-location 'Union Square, NYC' --sort distance
 
 # Find a place by name; use = for a complete name match.
 places list --query 'name[coffee]'
@@ -45,7 +60,9 @@ places list --query 'open[@now, for:2h]'
 places list --query 'tag[type.restaurant] location[radius("Union Square, NYC", 2mi)] open["fri 7pm"]'
 ```
 
-Named locations resolve to the first Google result; include a city or region. Radius is straight-line distance. `open` uses saved weekly hours; missing hours match neither `open[@now]` nor `!open[@now]`. Run `places docs filter` for more syntax.
+Named locations resolve to the first Google result; include a city or region. `--reference-location` accepts the same place names, addresses, Maps links, `gmaps:` IDs, and explicit coordinates as geographic filters. Use `@ref` wherever a geographic point is accepted. Distance sorting requires a reference location; `distance` sorts nearest first and `distance-desc` sorts farthest first. Radius and sorting use straight-line distance.
+
+The shell quotes in these examples group spaces and punctuation into one argument; they are not part of the location value. `open` uses saved weekly hours; missing hours match neither `open[@now]` nor `!open[@now]`. Run `places docs filter` for more syntax.
 
 ## Discover and manage tags
 
