@@ -58,7 +58,7 @@
   autostash = true
 
 [push]
-  default = upstream
+  default = simple
 
 [credential]
   # Reset the helper list so no credential helper is used. In particular this
