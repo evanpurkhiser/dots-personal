@@ -2,8 +2,5 @@ sandbox_mode = "danger-full-access"
 model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 
-[shell_environment_policy.filters]
-FASTMAIL_API_TOKEN = "exclude"
-
 [projects."/home/evan"]
 trust_level = "trusted"
