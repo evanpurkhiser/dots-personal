@@ -5,30 +5,6 @@ model_reasoning_effort = "medium"
 [shell_environment_policy.filters]
 FASTMAIL_API_TOKEN = "exclude"
 
-[mcp_servers.home-assistant]
-enabled = true
-url = "http://127.0.0.1:9584/private_zbONmPV3vWR6PgcbZCKUHA"
-startup_timeout_sec = 20
-tool_timeout_sec = 60
-
-[mcp_servers.lunchmoney]
-enabled = true
-command = "mcp-sandbox-lunchmoney"
-startup_timeout_sec = 20
-tool_timeout_sec = 60
-
-[mcp_servers.fli]
-enabled = true
-command = "mcp-sandbox-fli"
-startup_timeout_sec = 20
-tool_timeout_sec = 60
-
-[mcp_servers.google-maps]
-enabled = true
-command = "mcp-sandbox-google-maps"
-startup_timeout_sec = 20
-tool_timeout_sec = 60
-
 [mcp_servers.sentry]
 enabled = true
 url = "https://mcp.sentry.dev/mcp"
@@ -38,21 +14,6 @@ tool_timeout_sec = 60
 [mcp_servers.cloudflare]
 enabled = true
 url = "https://mcp.cloudflare.com/mcp"
-startup_timeout_sec = 20
-tool_timeout_sec = 60
-
-[mcp_servers.jellyfin]
-enabled = true
-command = "podman"
-args = [
-  "run",
-  "--rm",
-  "-i",
-  "--network=host",
-  "--env-file=/home/evan/.config/jellyfin-mcp/config.env",
-  "ghcr.io/jaredtrent/jellyfin-mcp:latest",
-  "--",
-]
 startup_timeout_sec = 20
 tool_timeout_sec = 60
 
