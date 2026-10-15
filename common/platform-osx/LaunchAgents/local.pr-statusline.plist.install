@@ -4,12 +4,14 @@ source "$DOTS_SOURCE"/base/bash/environment
 
 PLIST_NAME="local.pr-statusline.plist"
 DEST_PLIST="$HOME/Library/LaunchAgents/$PLIST_NAME"
+DOMAIN="gui/$(id -u)"
+SERVICE="$DOMAIN/${PLIST_NAME%.plist}"
 
-mkdir -p "$XDG_CONFIG_HOME"/LaunchAgents
-cp "$XDG_CONFIG_HOME"/LaunchAgents/"$PLIST_NAME" "$DEST_PLIST"
+mkdir -p "$(dirname "$DEST_PLIST")" || exit
+cp "$XDG_CONFIG_HOME"/LaunchAgents/"$PLIST_NAME" "$DEST_PLIST" || exit
 
-if launchctl list | grep -q "^local.pr-statusline"; then
-	launchctl unload "$DEST_PLIST"
+if launchctl print "$SERVICE" >/dev/null 2>&1; then
+	launchctl bootout "$SERVICE" || exit
 fi
 
-launchctl load "$DEST_PLIST"
+launchctl bootstrap "$DOMAIN" "$DEST_PLIST"
