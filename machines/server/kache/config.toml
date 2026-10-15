@@ -1,0 +1,3 @@
+[cache]
+auto_share_target_files = false
+local_max_size = "30GiB"

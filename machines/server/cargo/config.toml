@@ -1,0 +1,7 @@
+[build]
+rustc-wrapper = "kache"
+
+[env]
+CC_KNOWN_WRAPPER_CUSTOM = "kache"
+HOST_CC = "kache cc"
+HOST_CXX = "kache c++"
