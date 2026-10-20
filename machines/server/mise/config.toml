@@ -1,2 +1,3 @@
 [tools]
 "github:kunobi-ninja/kache" = "latest"
+uv = "0.13.5"
