@@ -3,6 +3,7 @@
 set -eu
 
 remote_name=${1-}
+
 verified_commits=$(mktemp "${TMPDIR:-/tmp}/verify-push-signatures.XXXXXX")
 trap 'rm -f "$verified_commits"' EXIT HUP INT TERM
 
@@ -99,6 +100,10 @@ verify_range() {
 }
 
 while read -r local_ref local_oid remote_ref remote_oid; do
+	if [ "$remote_ref" != refs/heads/main ]; then
+		continue
+	fi
+
 	if [ -z "${local_ref:-}" ] || is_zero_oid "$local_oid"; then
 		continue
 	fi
