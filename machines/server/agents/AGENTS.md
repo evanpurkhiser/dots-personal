@@ -28,10 +28,13 @@ intended to run indefinitely belong in managed persistent units instead.
 ## Committing and Pushing
 
 Create local commits with `git -c commit.gpgSign=false commit` (including amendments
-and fixups). When ready to push, run `git sign-stack [base]` (defaults to
-`origin/HEAD`) to sign your outgoing unpublished commits, then push
-over SSH using the same `ssh-agent-ctx --group-id` to consolidate authorization.
-The pre-push hook verifies signatures before allowing the push.
+and fixups). Only pushes to a branch named `main` require signed commits. Other
+pushes, including branches intended for PRs, leave commits unsigned.
+
+Before pushing to `main`, run `git sign-stack [base]` (defaults to `origin/HEAD`)
+to sign your outgoing unpublished commits, then push over SSH using the same
+`ssh-agent-ctx --group-id` to consolidate authorization. The pre-push hook
+verifies signatures for updates to `main`.
 
 ```bash
 release_group_id=$(uuidgen)
