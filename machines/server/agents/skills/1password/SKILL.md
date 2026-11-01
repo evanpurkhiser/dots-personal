@@ -40,6 +40,13 @@ directly to its consumer:
 psst get "$session" -- <selector> | <consumer>
 ```
 
+For a field with `type` `file`, use `download` to pipe the original bytes to
+their consumer:
+
+```console
+psst download "$session" -- <selector> | <consumer>
+```
+
 Close the session as soon as the consumer finishes:
 
 ```console
@@ -49,9 +56,10 @@ trap - EXIT
 
 ## Safety
 
-- Never print, inspect, log, or summarize values returned by `get`.
-- Never write a value to a terminal. `psst` refuses terminal output; keep the
-  direct pipe intact.
+- Never print, inspect, log, or summarize values returned by `get` or
+  `download`.
+- Never write a value to a terminal. Both commands refuse terminal output; keep
+  the direct pipe intact.
 - Retrieve only fields required for the task.
 - Treat item titles and vault names as private metadata.
 - `open` consumes a view-once share. `close` destroys only the local session;
