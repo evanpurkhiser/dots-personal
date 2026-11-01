@@ -1,0 +1,275 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.14"
+# ///
+
+"""Sync and search a metadata-only 1Password item catalog."""
+
+import argparse
+import json
+import os
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+from typing import TypedDict, cast
+from urllib.parse import urlencode, urlparse
+
+
+class Error(Exception):
+    pass
+
+
+class OpAccount(TypedDict):
+    url: str
+    account_uuid: str
+    shorthand: str
+
+
+class Account(TypedDict):
+    id: str
+    host: str
+    shorthand: str
+
+
+class Vault(TypedDict):
+    id: str
+    name: str
+
+
+class Item(TypedDict):
+    id: str
+    title: str
+    category: str
+    vault: Vault
+
+
+class Catalog(TypedDict):
+    account: Account
+    items: list[Item]
+
+
+def default_path() -> Path:
+    root = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
+    return root / "op-catalog/catalog.json"
+
+
+def op(*args: str) -> object:
+    try:
+        result = subprocess.run(
+            ("op", *args), capture_output=True, text=True, check=False
+        )
+    except FileNotFoundError as error:
+        raise Error("1Password CLI executable 'op' was not found") from error
+    if result.returncode:
+        raise Error(result.stderr.strip() or f"op exited with {result.returncode}")
+    try:
+        return cast(object, json.loads(result.stdout))
+    except json.JSONDecodeError as error:
+        raise Error(f"op returned invalid JSON: {error}") from error
+
+
+def metadata(item: Item) -> Item:
+    return {
+        "id": item["id"],
+        "title": item["title"],
+        "category": item["category"],
+        "vault": {"id": item["vault"]["id"], "name": item["vault"]["name"]},
+    }
+
+
+def sync(path: Path, shorthand: str | None) -> Catalog:
+    accounts = cast(list[OpAccount], op("account", "list", "--format=json"))
+    matches = [
+        account for account in accounts if shorthand in (None, account["shorthand"])
+    ]
+    if len(matches) != 1:
+        reason = (
+            "no matching account" if not matches else "multiple configured accounts"
+        )
+        raise Error(f"{reason}; pass --account SHORTHAND")
+    selected = matches[0]
+    host = urlparse(selected["url"]).hostname
+    if host is None:
+        raise Error(f"invalid account URL: {selected['url']!r}")
+    account: Account = {
+        "id": selected["account_uuid"],
+        "host": host,
+        "shorthand": selected["shorthand"],
+    }
+    raw_items = cast(
+        list[Item],
+        op(
+            "item",
+            "list",
+            f"--account={account['shorthand']}",
+            "--format=json",
+        ),
+    )
+    items = [metadata(item) for item in raw_items]
+    catalog: Catalog = {
+        "account": account,
+        "items": sorted(items, key=lambda item: item["title"].casefold()),
+    }
+    write(path, catalog)
+    return catalog
+
+
+def write(path: Path, catalog: Catalog) -> None:
+    path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+    path.parent.chmod(0o700)
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile("w", dir=path.parent, delete=False) as output:
+            temporary = Path(output.name)
+            json.dump(catalog, output, indent=2, ensure_ascii=False)
+            output.write("\n")
+            output.flush()
+            os.fsync(output.fileno())
+        temporary.chmod(0o600)
+        temporary.replace(path)
+    finally:
+        if temporary:
+            temporary.unlink(missing_ok=True)
+
+
+def read(path: Path) -> Catalog:
+    try:
+        catalog = cast(Catalog, json.loads(path.read_text()))
+    except FileNotFoundError as error:
+        raise Error(f"catalog not found at {path}; run 'op-catalog sync'") from error
+    except json.JSONDecodeError as error:
+        raise Error(f"catalog contains invalid JSON: {error}") from error
+    return catalog
+
+
+def link(account: Account, item: Item) -> str:
+    query = urlencode(
+        {
+            "a": account["id"],
+            "v": item["vault"]["id"],
+            "i": item["id"],
+            "h": account["host"],
+        }
+    )
+    return f"https://start.1password.com/open/i?{query}"
+
+
+def markdown(value: str) -> str:
+    return "".join(f"\\{char}" if char in r"\\[]|" else char for char in value).replace(
+        "\n", " "
+    )
+
+
+def output(catalog: Catalog, items: list[Item], *, json_: bool) -> None:
+    if json_:
+        values = [item | {"link": link(catalog["account"], item)} for item in items]
+        print(json.dumps(values, indent=2, ensure_ascii=False))
+        return
+    for item in items:
+        print(
+            f"- [{markdown(item['title'])}]({link(catalog['account'], item)})"
+            f" | {markdown(item['category'].replace('_', ' ').title())}"
+            f" | {markdown(item['vault']['name'])}"
+        )
+
+
+def test() -> None:
+    account: Account = {"id": "account", "host": "example.com", "shorthand": "my"}
+    raw = cast(
+        Item,
+        {
+            "id": "item",
+            "title": "Token [prod]",
+            "category": "API_CREDENTIAL",
+            "vault": {"id": "vault", "name": "Private"},
+            "secret": "must not survive",
+        },
+    )
+    item = metadata(raw)
+    assert set(item) == {"id", "title", "category", "vault"}
+    assert link(account, item) == (
+        "https://start.1password.com/open/i?a=account&v=vault&i=item&h=example.com"
+    )
+    assert markdown(item["title"]) == r"Token \[prod\]"
+
+    catalog: Catalog = {"account": account, "items": [item]}
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "catalog" / "catalog.json"
+        write(path, catalog)
+        assert read(path) == catalog
+        assert path.stat().st_mode & 0o777 == 0o600
+        assert path.parent.stat().st_mode & 0o777 == 0o700
+
+    print("ok")
+
+
+def parser() -> argparse.ArgumentParser:
+    root = argparse.ArgumentParser(
+        description="Sync and search 1Password item metadata without caching fields."
+    )
+    root.add_argument("--catalog", type=Path, default=default_path())
+    commands = root.add_subparsers(dest="command", required=True)
+    sync_ = commands.add_parser("sync")
+    sync_.add_argument("--account", metavar="SHORTHAND")
+    list_ = commands.add_parser("list")
+    list_.add_argument("--vault")
+    list_.add_argument("--category")
+    list_.add_argument("--json", action="store_true")
+    search = commands.add_parser("search")
+    search.add_argument("query", nargs="+")
+    search.add_argument("--limit", type=int, default=20)
+    search.add_argument("--json", action="store_true")
+    commands.add_parser("test")
+    return root
+
+
+def main() -> int:
+    args = parser().parse_args()
+    path = cast(Path, args.catalog).expanduser()
+    try:
+        if args.command == "test":
+            test()
+            return 0
+        if args.command == "sync":
+            catalog = sync(path, cast(str | None, args.account))
+            print(f"synced {len(catalog['items'])} items to {path}")
+            return 0
+        catalog = read(path)
+        if args.command == "list":
+            vault, category = (
+                cast(str | None, args.vault),
+                cast(str | None, args.category),
+            )
+            items = [
+                item
+                for item in catalog["items"]
+                if vault is None
+                or vault.casefold()
+                in (item["vault"]["id"].casefold(), item["vault"]["name"].casefold())
+                if category is None
+                or category.casefold() == item["category"].casefold()
+            ]
+        else:
+            limit = cast(int, args.limit)
+            if limit <= 0:
+                raise Error("--limit must be greater than zero")
+            terms = [term.casefold() for term in cast(list[str], args.query)]
+            items = [
+                item
+                for item in catalog["items"]
+                if all(
+                    term
+                    in f"{item['title']} {item['category']} {item['vault']['name']}".casefold()
+                    for term in terms
+                )
+            ][:limit]
+        output(catalog, items, json_=cast(bool, args.json))
+        return 0
+    except (Error, KeyError, TypeError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
