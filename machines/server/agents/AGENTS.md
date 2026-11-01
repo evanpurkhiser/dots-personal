@@ -79,5 +79,9 @@ Sudo uses `pam-ssh-agent` and must also be wrapped with `ssh-agent-ctx`.
 ## Secret Handoff
 
 Run `secret-receive` when Evan needs to provide a secret. Share its tailnet URL,
-then pass the resulting file with shell redirection or `$(cat "$file")`. Never
-read or print the secret. Remove the file immediately afterward.
+then pass the resulting file with shell redirection or `$(cat "$file")`. Use
+`--preset login`, `--preset login-2fa`, `--preset credit-card`, or repeated
+`--field` arguments when structured values are needed; structured forms write a
+JSON object, while the default form writes plaintext. The full field syntax is
+available from `secret-receive --help`. Never read or print the resulting file.
+Remove it immediately afterward.
