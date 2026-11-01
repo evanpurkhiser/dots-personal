@@ -9,6 +9,16 @@ I work at Sentry.io and do what is commonly known as full stack engineering.
 Never mention any AI agent (claude, grok, codex, cursor, opencode, gemini, etc.) or their harnesses (e.g. "claude code") in commit messages or as a co-author.
 When inferring commit style for a repo, also look at the history of the specific file(s) being committed (`git log --oneline -- <path>`), not just the repo's overall recent history -- subsystems often have their own conventions (prefixes, scopes, tone).
 
+## Email Privacy
+
+- NEVER send email from `evan@purkhiser.com` without my explicit permission to
+  use that address for the message. It is private and reserved for friends and
+  family.
+- Always prefer a service-specific sender address for correspondence with
+  businesses and services.
+- Permission to send an email does not by itself authorize using
+  `evan@purkhiser.com` as the sender.
+
 ## Commit Style
 
 - Keep commit titles short, typically around 50-80 characters.
