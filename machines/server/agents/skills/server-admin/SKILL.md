@@ -156,9 +156,25 @@ All timers are monitored via **Sentry Cron Monitors**.
 - **On torrent complete**: triggers `transmission-helper-trigger.sh` → socket-activated `transmission-helper@.service`
 - **Transmission Helper**: OpenAI + Telegram integration for torrent completion notifications; config at `/etc/transmission-helper.conf`; socket: `transmission-helper.socket`
 
-## Purkhiser Bot (Telegram)
+## Telegram
 
-- **Script**: `/usr/local/bin/purkhiser-bot.sh`
+### Telegram MCP
+
+- Use the Telegram MCP to interact with Evan's personal Telegram account,
+  including contacts, conversations, and media.
+- Host-side files shared with the MCP live in
+  `/home/evan/.cache/telegram-mcp`. The container sees the same directory as
+  `/exchange`; pass MCP tools paths beneath `/exchange`.
+- Downloads default to `/exchange/downloads` in MCP results and are available
+  on the host at `/home/evan/.cache/telegram-mcp/downloads`.
+- Files in the exchange directory are disposable cache entries. Move files
+  elsewhere when they need to persist.
+
+### Purkhiser Bot
+
+- Use `https://bot.prk.network` or `/usr/local/bin/purkhiser-bot.sh` for
+  scripts and quick notifications to named notification channels. This service
+  does not interact with Evan's personal contacts or conversations.
 - **Config**: `/etc/purkhiser-bot.conf` — Telegram token + channel ID
 - **Used by**: `weekly-report`, `venmo-lunchmoney-ai`, `transmission-helper`
 
