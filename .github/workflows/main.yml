@@ -9,7 +9,7 @@ jobs:
       matrix:
         profile: [home, work]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
 
       - name: Install dotfiles
         env:
