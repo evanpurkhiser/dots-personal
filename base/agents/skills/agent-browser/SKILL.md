@@ -26,6 +26,9 @@ The CLI serves skill content that always matches the installed version,
 so instructions never go stale. The content in this stub cannot change
 between releases, which is why it just points at `skills get core`.
 
+Never pass `--allowed-domains` when the active configuration uses `cdp` or
+`autoConnect`; domain containment is incompatible with attached browsers.
+
 ## Specialized skills
 
 Load a specialized skill when the task falls outside browser web pages:
