@@ -31,15 +31,18 @@ Create local commits with `git -c commit.gpgSign=false commit` (including amendm
 and fixups). Only pushes to a branch named `main` require signed commits. Other
 pushes, including branches intended for PRs, leave commits unsigned.
 
-Before pushing to `main`, run `git sign-stack [base]` (defaults to `origin/HEAD`)
-to sign your outgoing unpublished commits, then push over SSH using the same
-`ssh-agent-ctx --group-id` to consolidate authorization. The pre-push hook
-verifies signatures for updates to `main`.
+Git automatically rewrites GitHub remotes to HTTPS and authenticates with
+`gh auth git-credential`. Run fetches and pushes directly; do not wrap them
+with `ssh-agent-ctx`.
+
+Before pushing directly to `main`, run `git sign-stack [base]` (defaults to
+`origin/HEAD`) through `ssh-agent-ctx` to sign your outgoing unpublished commits.
+The pre-push hook verifies signatures for updates to `main`, matching the GitHub
+ruleset.
 
 ```bash
-release_group_id=$(uuidgen)
-ssh-agent-ctx --group-id="$release_group_id" "Sign the release" -- git sign-stack
-ssh-agent-ctx --group-id="$release_group_id" "Push the release" -- git push
+ssh-agent-ctx "Sign the main update" -- git sign-stack
+git push
 ```
 
 ## SSH and Sudo Authentication
@@ -65,13 +68,7 @@ specifically asked, select a backend explicitly with
 `--route=[macbook-air, macbook-work, agent-witness]`:
 
 ```bash
-ssh-agent-ctx --route=macbook-work "Push the release" -- git push
-```
-
-Use the same `--group-id` for separate invocations that belong to one operation:
-
-```bash
-ssh-agent-ctx --group-id=deploy-123 "Push the release" -- git push
+ssh-agent-ctx --route=macbook-work "Sign the main update" -- git sign-stack
 ```
 
 Sudo uses `pam-ssh-agent` and must also be wrapped with `ssh-agent-ctx`.
