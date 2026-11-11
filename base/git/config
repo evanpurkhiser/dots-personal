@@ -81,10 +81,6 @@
 
 [url "git@github.com:"]
   insteadOf = gh:
-  # Always push to GitHub over SSH, even for remotes cloned over HTTPS. Keeps an
-  # accidentally http-cloned repo pushable without touching credential helpers.
-  pushInsteadOf = https://github.com/
-  pushInsteadOf = git://github.com/
 
 [url "git@github.com:evanpurkhiser/"]
   insteadOf = me:
