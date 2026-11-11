@@ -28,3 +28,7 @@ filter_mode = "host"
 
 # Select query when exiting
 exit_mode = "return-query"
+
+[threads]
+capture = true
+capture_tools = true
