@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
 export EVANS_WORKSPACE="$HOME/workspace"
+export AGENT_BROWSER_CONFIG="$XDG_CONFIG_HOME/agent-browser/config.json"
