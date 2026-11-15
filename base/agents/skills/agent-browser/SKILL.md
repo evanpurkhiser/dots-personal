@@ -26,6 +26,27 @@ The CLI serves skill content that always matches the installed version,
 so instructions never go stale. The content in this stub cannot change
 between releases, which is why it just points at `skills get core`.
 
+When the active configuration attaches sessions to one Chrome over `cdp`,
+allocate a task-specific session before the first browser command:
+
+```bash
+agent-browser session id --scope worktree --prefix <task-name>
+```
+
+Start it with human input and pass the returned name with `--session` on every
+command:
+
+```bash
+agent-browser --session <name> --input-mode human open <url>
+```
+
+Never use the configured fallback session for task work. `pinTab` gives each
+session exclusive ownership of its bound tab while cookies and storage remain
+shared through the Chrome profile. Only close the current session's bound tab;
+never switch to or close a tab by a foreign ref or target ID. Do not log out,
+clear shared site data, or switch accounts unless the task explicitly authorizes
+changing the shared identity.
+
 Never pass `--allowed-domains` when the active configuration uses `cdp` or
 `autoConnect`; domain containment is incompatible with attached browsers.
 

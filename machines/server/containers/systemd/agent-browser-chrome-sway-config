@@ -1,0 +1,10 @@
+output * mode 1920x1080
+
+default_border none
+default_floating_border none
+
+seat seat0 hide_cursor 3000
+
+bar {
+	position bottom
+}

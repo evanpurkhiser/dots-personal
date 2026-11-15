@@ -1,4 +1,5 @@
 [tools]
 "github:kunobi-ninja/kache" = "latest"
+"npm:agent-browser" = "0.41.2"
 ruby = "3.4.10"
 uv = "0.13.5"

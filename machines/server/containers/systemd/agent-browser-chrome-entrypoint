@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Chrome and its accessibility services expect a session bus.
+if [[ -z ${DBUS_SESSION_BUS_ADDRESS:-} ]]; then
+	exec dbus-run-session -- "$0" "$@"
+fi
+
+# Give wlroots a virtual output while rendering through the Intel GPU.
+export XDG_RUNTIME_DIR=/tmp/runtime-browser
+export WLR_BACKENDS=headless
+export WLR_HEADLESS_OUTPUTS=1
+export WLR_LIBINPUT_NO_DEVICES=1
+export WLR_RENDERER=gles2
+export WLR_RENDER_DRM_DEVICE=/dev/dri/renderD128
+
+# Keep the desktop services under one shutdown path.
+declare -a child_pids=()
+
+stop_children() {
+	if ((${#child_pids[@]} == 0)); then
+		return
+	fi
+
+	kill "${child_pids[@]}" 2>/dev/null || true
+	wait "${child_pids[@]}" 2>/dev/null || true
+}
+
+trap stop_children EXIT INT TERM
+
+install --directory --mode 0700 "$XDG_RUNTIME_DIR"
+
+sway --config /etc/sway/browser-config &
+child_pids+=("$!")
+
+# Sway chooses the socket name, so discover it before starting clients.
+wayland_socket=
+
+for _ in {1..100}; do
+	wayland_socket=$(find "$XDG_RUNTIME_DIR" -maxdepth 1 -type s -name 'wayland-*' -print -quit)
+
+	if [[ -n $wayland_socket ]]; then
+		break
+	fi
+
+	sleep 0.1
+done
+
+if [[ -z $wayland_socket ]]; then
+	echo "Sway failed to create a Wayland socket" >&2
+	exit 1
+fi
+
+export WAYLAND_DISPLAY=${wayland_socket##*/}
+
+# wayvnc provides persistent pointer and keyboard devices plus native control.
+wayvnc --output HEADLESS-1 0.0.0.0 5900 &
+child_pids+=("$!")
+
+# Present stable speaker and microphone devices to browser media APIs.
+pulseaudio --daemonize=yes --exit-idle-time=-1
+pactl load-module \
+	module-null-sink \
+	sink_name=desktop_audio \
+	sink_properties=device.description=Desktop_Audio >/dev/null
+pactl load-module \
+	module-remap-source \
+	master=desktop_audio.monitor \
+	source_name=desktop_microphone \
+	source_properties=device.description=Desktop_Microphone >/dev/null
+
+# Keep Chrome's CDP socket local while making it reachable through Podman.
+socat \
+	TCP-LISTEN:9223,bind=0.0.0.0,fork,reuseaddr \
+	TCP:127.0.0.1:9222 &
+child_pids+=("$!")
+
+# Run stock Chrome with a persistent profile and hardware WebGPU enabled.
+google-chrome-stable \
+	--ozone-platform=wayland \
+	--remote-debugging-address=127.0.0.1 \
+	--remote-debugging-port=9222 \
+	--user-data-dir=/home/browser/profile \
+	--no-first-run \
+	--no-default-browser-check \
+	--start-maximized \
+	--enable-unsafe-webgpu \
+	--enable-features=Vulkan \
+	--use-vulkan=native \
+	--use-webgpu-adapter=default \
+	about:blank &
+child_pids+=("$!")
+
+wait -n "${child_pids[@]}"

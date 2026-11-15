@@ -1,0 +1,4 @@
+[Volume]
+VolumeName=agent-browser-chrome-profile
+UID=1000
+GID=1000
