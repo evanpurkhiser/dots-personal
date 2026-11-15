@@ -1,3 +1,4 @@
 [tools]
 "github:kunobi-ninja/kache" = "latest"
+ruby = "3.4.10"
 uv = "0.13.5"
