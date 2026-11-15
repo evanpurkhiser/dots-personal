@@ -1,0 +1,4 @@
+[Build]
+ImageTag=localhost/agent-browser-chrome:latest
+File=agent-browser-chrome.Containerfile
+SetWorkingDirectory=unit

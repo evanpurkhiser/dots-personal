@@ -1,0 +1,29 @@
+[Unit]
+Description=Persistent headed Chrome for agent-browser
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=agent-browser-chrome.build
+ContainerName=agent-browser-chrome
+HostName=agent-browser-chrome
+PublishPort=127.0.0.1:9223:9223
+PublishPort=127.0.0.1:5900:5900
+ShmSize=2g
+Environment=TZ=America/New_York
+AddDevice=/dev/dri/renderD128
+Volume=agent-browser-chrome-profile.volume:/home/browser/profile
+HealthCmd=curl -fsS http://127.0.0.1:9223/json/version
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=6
+Notify=healthy
+
+[Service]
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target
