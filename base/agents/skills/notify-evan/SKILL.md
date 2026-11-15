@@ -3,24 +3,28 @@ name: notify-evan
 description: Send Evan a Telegram notification via purkhiser-bot. Use proactively when Evan is AFK or has said he'll be away and something important needs his attention — SSH agent auth prompts, blocked tasks, errors requiring a decision, long-running tasks completing, or any situation where work cannot proceed without him.
 ---
 
-## One-way channel — Evan cannot reply
+# One-way channel — Evan cannot reply
 
 This is a **one-way** notification channel. purkhiser-bot delivers messages to
 Evan's phone, but there is **no back-channel** for him to reply through it.
 
 - Notifications must be **statements**, not questions.
-- **Never pause** waiting for an answer to a notification — no reply is ever coming.
+- **Never pause** waiting for an answer to a notification —
+  no reply is ever coming.
 - If a decision is needed:
-  - Prefer making the call yourself with whatever judgment you have, and proceed.
-  - If you genuinely cannot proceed, stop and surface the question in your
-    terminal output where Evan will see it next time he checks — but do not
-    block waiting for a Telegram reply.
+  - Prefer making the call yourself with whatever judgment you have,
+    and proceed.
+  - If you genuinely cannot proceed,
+    stop and surface the question in your terminal output
+    where Evan will see it next time he checks —
+    but do not block waiting for a Telegram reply.
 
 ## Checking if Evan is AFK
 
-On macOS, always check keyboard/mouse idle time before notifying. If Evan is
-actively at his machine, print a message to the terminal instead and wait — only
-send a push notification when he's actually away.
+On macOS, always check keyboard/mouse idle time before notifying.
+If Evan is actively at his machine,
+print a message to the terminal instead and wait —
+only send a push notification when he's actually away.
 
 ```sh
 idle=$(ioreg -c IOHIDSystem | awk '/HIDIdleTime/ {print int($NF/1000000000); exit}')
@@ -56,7 +60,8 @@ echo "Your message here" | ping-purkhiser-bot
 - Telegram style markdown is supported, but be careful
 - **Never end with "?"** expecting a response — this channel is one-way
 - **Never** phrase things as "let me know", "what do you want me to do",
-  "should I…", or any other prompt for a reply. Evan cannot reply here.
+  "should I…", or any other prompt for a reply.
+  Evan cannot reply here.
 
 ### Examples
 

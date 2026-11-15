@@ -1,15 +1,17 @@
-## Evan Purkhiser's Configuration files
+# Evan Purkhiser's Configuration files
 
 [![Build Status](https://github.com/evanpurkhiser/dots-personal/workflows/check/badge.svg)](https://github.com/evanpurkhiser/dots-personal/actions?query=workflow%3Acheck)
 
 These are my personal configuration files for my various machines.
-Configuration files are grouped into different 'groups' that allow for specific
-installations based on the type of machine the dotfiles are being installed on.
-For example, the dotfiles installed for a server would be different than the
-dotfiles installed on my home desktop or work laptop.
+Configuration files are grouped into different 'groups' that allow
+for specific installations based on the type of machine the dotfiles are being
+installed on.
+For example, the dotfiles installed
+for a server would be different than the dotfiles installed on my home desktop
+or work laptop.
 
-These dotfiles are managed using the `dots` [dotfile management
-utility](https://github.com/evanpurkhiser/dots).
+These dotfiles are managed using the `dots`
+[dotfile management utility](https://github.com/evanpurkhiser/dots).
 
 ## Dotfile groups
 

@@ -5,7 +5,8 @@ description: Play a YouTube video or URL on Evan's Apple TV via Home Assistant. 
 
 # Play YouTube on TV Skill
 
-Play YouTube videos on Evan's Apple TV using the `script.play_youtube_on_apple_tv` Home Assistant script.
+Play YouTube videos on Evan's Apple TV using the
+`script.play_youtube_on_apple_tv` Home Assistant script.
 
 ## Script Details
 
@@ -26,7 +27,7 @@ Play YouTube videos on Evan's Apple TV using the `script.play_youtube_on_apple_t
 
 Call the script via the `script` domain:
 
-```
+```text
 ha_call_service(
     domain="script",
     service="play_youtube_on_apple_tv",
@@ -40,5 +41,7 @@ ha_call_service(
 ## Notes
 
 - If the user doesn't specify a volume, use the default of **20**.
-- The `youtube_url` should be passed exactly as given by the user — full URL including any playlist or start_radio params is fine.
-- No need to ask which media player — this always targets the Apple TV + Living Room Sonos.
+- The `youtube_url` should be passed exactly as given by the user —
+  full URL including any playlist or start_radio params is fine.
+- No need to ask which media player —
+  this always targets the Apple TV + Living Room Sonos.

@@ -9,7 +9,7 @@ This skill provides context about Evan's multimedia library organization.
 
 ## Top-Level Directory Structure
 
-```
+```text
 ~/documents/multimedia/
 ├── artwork/         # Digital artwork and illustrations
 ├── djing/          # Professional DJ track library and mixes
@@ -31,7 +31,8 @@ This skill provides context about Evan's multimedia library organization.
 - 159 movie files total
 - **Naming Convention:** `Movie Title.mkv` or `Movie Title (Year).mkv`
   - Year added when needed for disambiguation
-  - Examples: `2001 A Space Odyssey.mkv`, `Beetlejuice (1988).mkv`, `Ghost in the Shell 2.0.mkv`
+  - Examples: `2001 A Space Odyssey.mkv`, `Beetlejuice (1988).mkv`,
+    `Ghost in the Shell 2.0.mkv`
 - **File Formats:** Primarily `.mkv`, some `.mp4` and `.avi`
 - Franchises stored together alphabetically
 - Mix of live-action and anime films
@@ -40,7 +41,7 @@ This skill provides context about Evan's multimedia library organization.
 
 **Organization:** Hierarchical by show > season > episode
 
-```
+```text
 series/
 ├── Show Name/
 │   ├── Season 1/
@@ -58,13 +59,14 @@ series/
   - Episode files: `S##E##.mkv` (standard TV episode format)
 - **File Format:** Exclusively `.mkv`
 - Mix of genres: drama, comedy, animated, reality/documentary
-- Examples: Better Call Saul, Succession, Arrested Development, Rick and Morty, The Expanse
+- Examples: Better Call Saul, Succession, Arrested Development, Rick and Morty,
+  The Expanse
 
 ### Anime (`videos/anime/`)
 
 **Organization:** Hierarchical by series > season > episode (same as TV series)
 
-```
+```text
 anime/
 ├── Series Name/
 │   ├── Season 1/
@@ -94,7 +96,7 @@ Professional DJ library organized for professional DJ software use.
 
 **Organization:** By record label (industry standard)
 
-```
+```text
 tracks/
 ├── Label Name/
 │   ├── [+singles]/  (optional - loose tracks)
@@ -114,15 +116,18 @@ tracks/
   - `.aif` (uncompressed audio for professional DJ use)
   - `.mp3` (compressed)
 - **Genre Focus:** UK Hardcore, Freeform, Hard Trance, Happy Hardcore, Trance
-- Labels include: 24-7 Hardcore, Brutal Kuts, HTID, Masif, Nu Energy Records, Armada, Anjunabeats, FINRG Recordings, EXIT TUNES, Hardcore TanoC
+- Labels include: 24-7 Hardcore, Brutal Kuts, HTID, Masif, Nu Energy Records,
+  Armada, Anjunabeats, FINRG Recordings, EXIT TUNES, Hardcore TanoC
 
 ---
 
 ## Usage Notes
 
 - **Movies:** Simple flat structure for easy browsing
-- **TV/Anime:** Standard hierarchical structure optimized for media servers (Plex/Jellyfin)
-- **DJing:** Professional industry-standard organization by record label and catalog number
+- **TV/Anime:** Standard hierarchical structure optimized
+  for media servers (Plex/Jellyfin)
+- **DJing:** Professional industry-standard organization by record label
+  and catalog number
 - All collections maintain consistent naming conventions within each category
 - Use standard Linux tools (find, mv, cp, etc.) for file operations
 - Be mindful of file sizes when performing bulk operations

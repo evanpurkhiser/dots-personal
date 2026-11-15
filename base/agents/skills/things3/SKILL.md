@@ -5,23 +5,33 @@ description: Manage Evan's Things 3 todo list. Use this skill when Evan asks to 
 
 # Skill: Things 3 Todo Management
 
-Evan uses Things 3 as his primary task management system, synced via Things Cloud.
+Evan uses Things 3 as his primary task management system,
+synced via Things Cloud.
 The CLI tool is `things3` (installed via `uv tool`).
 
 ## Evan's Workflow
 
-- **Inbox**: Quick capture - anything that needs to get out of his head goes here first. No detail required.
-- **Today**: What he's actively working on or committed to today. Includes an "Evening" section.
-- **Anytime**: The general backlog - tasks he intends to do but hasn't scheduled.
+- **Inbox**: Quick capture - anything
+  that needs to get out of his head goes here first.
+  No detail required.
+- **Today**: What he's actively working on or committed to today.
+  Includes an "Evening" section.
+- **Anytime**: The general backlog - tasks he intends to do
+  but hasn't scheduled.
 - **Upcoming**: Tasks scheduled for a specific future date.
-- **Someday**: Templates and aspirational/low-priority items (e.g. "Cleaning" project template to duplicate later).
-- **Projects**: Discrete sets of tasks with a clear "done" state (travel packing, cleaning runs, etc.)
-- **Areas**: Ongoing areas of responsibility (Vivian, Memory Lists, travel recs).
+- **Someday**: Templates and aspirational/low-priority items
+  (e.g. "Cleaning" project template to duplicate later).
+- **Projects**: Discrete sets of tasks with a clear "done" state
+  (travel packing, cleaning runs, etc.)
+- **Areas**: Ongoing areas of responsibility
+  (Vivian, Memory Lists, travel recs).
 
 ### Scheduling Logic
 
 When helping Evan organize or triage:
-- **No context / just needs to be remembered** -> Inbox (or `--when anytime` if adding directly to backlog)
+
+- **No context / just needs to be remembered** -> Inbox
+  (or `--when anytime` if adding directly to backlog)
 - **Has a specific date or pertinent time** -> `--when YYYY-MM-DD` or `today`
 - **Needs to be done by a date** -> `--deadline YYYY-MM-DD`
 - **Vague future backlog** -> `--when anytime`
@@ -49,7 +59,9 @@ things3 tags
 
 ### IDs
 
-Tasks and projects are identified by short UUID prefixes (e.g. `PV6`, `EzC`). These are shown in the left column of list output. You only need enough characters to be unique.
+Tasks and projects are identified by short UUID prefixes (e.g. `PV6`, `EzC`).
+These are shown in the left column of list output.
+You only need enough characters to be unique.
 
 ### Creating Tasks
 
@@ -133,7 +145,8 @@ things3 --no-color <command>   # plain text output
 
 ## Tips
 
-- Always run a view command first (e.g. `things3 inbox`) to get current IDs before editing.
+- Always run a view command first
+  (e.g. `things3 inbox`) to get current IDs before editing.
 - Use `--no-sync` for read-only lookups when speed matters.
 - When triaging the inbox, read it first, then batch schedule/move/edit tasks.
 - Use `--detailed` to see notes before editing them.

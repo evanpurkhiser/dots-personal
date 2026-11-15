@@ -2,11 +2,14 @@
 
 Commits use the format `<component>: <imperative description>`.
 
-- The component is the tool, config area, or group being changed (see list below)
-- The description is capitalized and imperative (e.g. "Add", "Fix", "Remove", "Update")
+- The component is the tool, config area, or group being changed
+  (see list below)
+- The description is capitalized and imperative
+  (e.g. "Add", "Fix", "Remove", "Update")
 
 Examples:
-```
+
+```text
 agents: Add server-admin skill
 vim: Add stage hunk action
 bash: Add ft alias for running pnpm test
