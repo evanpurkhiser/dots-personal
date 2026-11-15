@@ -12,7 +12,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import TypedDict, cast
+from typing import NotRequired, TypedDict, cast
 from urllib.parse import urlencode, urlparse
 
 
@@ -37,11 +37,21 @@ class Vault(TypedDict):
     name: str
 
 
-class Item(TypedDict):
+class ItemUrl(TypedDict):
+    href: str
+    primary: NotRequired[bool]
+
+
+class OpItem(TypedDict):
     id: str
     title: str
     category: str
     vault: Vault
+    urls: NotRequired[list[ItemUrl]]
+
+
+class Item(OpItem):
+    website: str | None
 
 
 class Catalog(TypedDict):
@@ -69,12 +79,18 @@ def op(*args: str) -> object:
         raise Error(f"op returned invalid JSON: {error}") from error
 
 
-def metadata(item: Item) -> Item:
+def metadata(item: OpItem) -> Item:
+    urls = item.get("urls", [])
+    website = next(
+        (url["href"] for url in urls if url.get("primary")),
+        urls[0]["href"] if urls else None,
+    )
     return {
         "id": item["id"],
         "title": item["title"],
         "category": item["category"],
         "vault": {"id": item["vault"]["id"], "name": item["vault"]["name"]},
+        "website": website,
     }
 
 
@@ -98,10 +114,11 @@ def sync(path: Path, shorthand: str | None) -> Catalog:
         "shorthand": selected["shorthand"],
     }
     raw_items = cast(
-        list[Item],
+        list[OpItem],
         op(
             "item",
             "list",
+            "--long",
             f"--account={account['shorthand']}",
             "--format=json",
         ),
@@ -167,27 +184,35 @@ def output(catalog: Catalog, items: list[Item], *, json_: bool) -> None:
         print(json.dumps(values, indent=2, ensure_ascii=False))
         return
     for item in items:
+        url = item.get("website")
+        website = f" | {markdown(url)}" if url is not None else ""
         print(
             f"- [{markdown(item['title'])}]({link(catalog['account'], item)})"
             f" | {markdown(item['category'].replace('_', ' ').title())}"
             f" | {markdown(item['vault']['name'])}"
+            f"{website}"
         )
 
 
 def test() -> None:
     account: Account = {"id": "account", "host": "example.com", "shorthand": "my"}
     raw = cast(
-        Item,
+        OpItem,
         {
             "id": "item",
             "title": "Token [prod]",
             "category": "API_CREDENTIAL",
             "vault": {"id": "vault", "name": "Private"},
+            "urls": [
+                {"href": "https://alternate.example.com"},
+                {"href": "https://example.com", "primary": True},
+            ],
             "secret": "must not survive",
         },
     )
     item = metadata(raw)
-    assert set(item) == {"id", "title", "category", "vault"}
+    assert set(item) == {"id", "title", "category", "vault", "website"}
+    assert item["website"] == "https://example.com"
     assert link(account, item) == (
         "https://start.1password.com/open/i?a=account&v=vault&i=item&h=example.com"
     )
@@ -260,7 +285,14 @@ def main() -> int:
                 for item in catalog["items"]
                 if all(
                     term
-                    in f"{item['title']} {item['category']} {item['vault']['name']}".casefold()
+                    in " ".join(
+                        (
+                            item["title"],
+                            item["category"],
+                            item["vault"]["name"],
+                            item.get("website") or "",
+                        )
+                    ).casefold()
                     for term in terms
                 )
             ][:limit]

@@ -7,7 +7,8 @@ description: Search Evan's 1Password catalog and perform explicit secret handoff
 
 ## Find the item
 
-Search the metadata-only catalog before asking Evan for a secret:
+Search the metadata-only catalog by item name or website/domain before asking
+Evan for a secret:
 
 ```console
 op-catalog search <terms>
@@ -18,9 +19,8 @@ more useful. Results are private 1Password item links containing no secret
 values. Send Evan the best matching link. Send a short list of candidates when
 the intended item is ambiguous.
 
-Ask Evan to open the item, share it using a view-once link, and send the
-resulting `https://share.1password.com/s#...` URL. A private item link opens the
-original item; it is not itself a secret handoff.
+Ask Evan to open the item and share it once: “Share it with me.” A private item
+link opens the original item; it is not itself a secret handoff.
 
 ## Receive the share
 
@@ -28,7 +28,7 @@ Pass the share URL to `psst open` on standard input. Inspect field metadata
 before retrieving any value:
 
 ```console
-session="$(printf '%s' '<share-url>' | psst open)"
+session="$(printf '%s' "$share_url" | psst open)"
 trap 'psst close "$session" 2>/dev/null || true' EXIT
 psst fields "$session"
 ```
