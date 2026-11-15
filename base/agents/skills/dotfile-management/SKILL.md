@@ -5,11 +5,14 @@ description: Manage Evan's dotfiles using the dots utility. Use this skill when 
 
 # Dotfile Management Skill
 
-Manage Evan's dotfiles using the `dots` utility for organizing and installing configuration files.
+Manage Evan's dotfiles using the `dots` utility for organizing
+and installing configuration files.
 
 ## Overview
 
-Dotfiles are managed in `~/.local/etc` (this repository) using the `dots` utility. The workflow is:
+Dotfiles are managed in `~/.local/etc`
+(this repository) using the `dots` utility.
+The workflow is:
 
 1. Edit configuration files in the appropriate group
 2. Run `dots install` to install/update configs
@@ -19,7 +22,7 @@ Dotfiles are managed in `~/.local/etc` (this repository) using the `dots` utilit
 
 ## Repository Structure
 
-```
+```text
 ~/.local/etc/
 ├── base/              # Core configs for all environments
 ├── common/            # Platform-specific (osx/linux) and development configs
@@ -32,37 +35,44 @@ Dotfiles are managed in `~/.local/etc` (this repository) using the `dots` utilit
 ## Active Configuration
 
 Check current profile and groups:
+
 ```bash
 ~/.local/bin/dots config active
 ```
 
-`config.yml` defines the profiles and their groups. The `base` group is included
-in every profile. Use `dots config active` to determine this machine's profile
-and groups before choosing where a configuration belongs.
+`config.yml` defines the profiles and their groups.
+The `base` group is included in every profile.
+Use `dots config active` to determine this machine's profile and groups
+before choosing where a configuration belongs.
 
 ## Common Commands
 
 ### View what will be installed
+
 ```bash
 ~/.local/bin/dots files
 ```
 
 ### See differences before installing
+
 ```bash
 ~/.local/bin/dots diff
 ```
 
 ### Install/update dotfiles
+
 ```bash
 ~/.local/bin/dots install
 ```
 
 ### List available profiles
+
 ```bash
 ~/.local/bin/dots config profiles
 ```
 
 ### Switch profile (rare)
+
 ```bash
 ~/.local/bin/dots config use <profile>
 ```
@@ -76,7 +86,7 @@ and groups before choosing where a configuration belongs.
 
 ## Workflow Guidelines
 
-### When editing configs:
+### When editing configs
 
 1. **Identify the right group**:
    - `base/` - Used across ALL machines (bash, vim, etc.)
@@ -87,6 +97,7 @@ and groups before choosing where a configuration belongs.
 2. **Edit the config file** in the appropriate location
 
 3. **Install and test**:
+
    ```bash
    ~/.local/bin/dots install
    # Test the changes
@@ -95,6 +106,7 @@ and groups before choosing where a configuration belongs.
 4. **Repeat** until satisfied
 
 5. **Commit** with clear message:
+
    ```bash
    git add <files>
    git commit -m "<component>: <what changed>"
@@ -104,7 +116,7 @@ and groups before choosing where a configuration belongs.
    # "atuin: Use direct server:7070 endpoint"
    ```
 
-### When asked to modify dotfiles:
+### When asked to modify dotfiles
 
 - **DO**: Iterate with `dots install` between changes to test
 - **DO**: Use simple, descriptive commit messages
@@ -115,18 +127,21 @@ and groups before choosing where a configuration belongs.
 ## Examples
 
 ### Adding a bash alias
+
 1. Edit `base/bash/aliases` or `machines/server/bash/aliases`
 2. Run `~/.local/bin/dots install`
 3. Test: `source ~/.config/bash/aliases`
 4. Commit: `git commit -m "bash: Add new alias for X"`
 
 ### Updating vim config
+
 1. Edit `base/vim/vimrc`
 2. Run `~/.local/bin/dots install`
 3. Test: Open vim and verify
 4. Commit: `git commit -m "vim: Add/update X configuration"`
 
 ### Server-specific config
+
 1. Edit or create file in `machines/server/`
 2. Run `~/.local/bin/dots install`
 3. Test the changes

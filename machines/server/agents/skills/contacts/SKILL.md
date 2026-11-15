@@ -5,7 +5,9 @@ description: Look up contacts from Evan's address book. Use this skill when aske
 
 # Contacts Skill
 
-Evan's contacts are exported from iCloud as vCards and stored at `/mnt/documents/contacts/icloud/`. They are managed read-only via `khard`.
+Evan's contacts are exported from iCloud as vCards
+and stored at `/mnt/documents/contacts/icloud/`.
+They are managed read-only via `khard`.
 
 khard config: `~/.config/khard/khard.conf`
 
@@ -57,7 +59,8 @@ khard list -F name,phone John
 khard list -F help
 ```
 
-Use `--format=yaml` with `show` to get full structured contact data (only works when search matches exactly one contact):
+Use `--format=yaml` with `show` to get full structured contact data
+(only works when search matches exactly one contact):
 
 ```bash
 khard show --format=yaml "John Doe"
@@ -74,9 +77,13 @@ khard list name:john
 
 ## Notes
 
-- Contacts are **read-only** — do not use any khard write/edit/new/remove/merge/copy/move commands.
-- The address book is at `/mnt/documents/contacts/icloud/` — individual `.vcf` files (one per contact).
+- Contacts are **read-only** —
+  do not use any khard write/edit/new/remove/merge/copy/move commands.
+- The address book is at `/mnt/documents/contacts/icloud/` —
+  individual `.vcf` files (one per contact).
 
 ## Sync note
 
-Contacts are manually synced from iCloud. If a contact can't be found, they may have been recently added in iCloud and not yet synced to the server.
+Contacts are manually synced from iCloud.
+If a contact can't be found,
+they may have been recently added in iCloud and not yet synced to the server.

@@ -5,13 +5,16 @@ description: Show uncommitted and unpushed changes in ~/workspace repositories w
 
 # Git Status Skill
 
-This skill finds and displays uncommitted and unpushed changes across all git repositories in ~/workspace.
+This skill finds and displays uncommitted
+and unpushed changes across all git repositories in ~/workspace.
 
 ## When to Use
 
 **ONLY use this skill when:**
+
 - User explicitly says "use the git status skill"
-- User says something very explicit like "show me everything uncommitted in ~/workspace"
+- User says something very explicit like "show me everything uncommitted in
+  ~/workspace"
 - User explicitly invokes this skill by name
 
 **DO NOT use for general git questions or requests.**
@@ -27,33 +30,41 @@ This skill finds and displays uncommitted and unpushed changes across all git re
 ## Commands
 
 ### Find all git repos
+
 ```bash
 find ~/workspace -maxdepth 2 -name .git -type d -exec dirname {} \;
 ```
 
-### For each repository:
+### For each repository
 
 **Check for uncommitted changes:**
+
 ```bash
 cd <repo> && git status --short
 ```
 
 **Get diff for uncommitted changes:**
+
 ```bash
 cd <repo> && git diff HEAD
 ```
+
 This shows both staged and unstaged changes.
 
 **Check for unpushed commits:**
+
 ```bash
 cd <repo> && git log --branches --not --remotes --oneline
 ```
 
 **Get diff for unpushed commits:**
+
 ```bash
 cd <repo> && git diff origin/$(git branch --show-current)..HEAD
 ```
+
 Or if there are multiple unpushed commits, show each:
+
 ```bash
 cd <repo> && git log --branches --not --remotes --patch
 ```

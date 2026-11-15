@@ -41,8 +41,8 @@ Pick the most likely `venue_id`.
 
 ### 3) Look up venue details (optional)
 
-Useful for confirming the right venue (address, neighborhood) or returning
-contact/links to the user:
+Useful for confirming the right venue
+(address, neighborhood) or returning contact/links to the user:
 
 ```bash
 resyctl venue <venue_id> \
@@ -106,10 +106,12 @@ resyctl book "<slot_id>" \
 
 `--max-cutoff-hours` means require at least N hours until the fee cutoff.
 If the cutoff is closer than N hours (or missing), booking is blocked.
-Example: `--max-cutoff-hours 12` blocks booking when the fee cutoff is within 12 hours.
+Example: `--max-cutoff-hours 12` blocks booking
+when the fee cutoff is within 12 hours.
 
 "Fee cutoff" is the timestamp after which cancellation can incur a fee.
-Before fee cutoff: canceling is free. After fee cutoff: fee may apply.
+Before fee cutoff: canceling is free.
+After fee cutoff: fee may apply.
 
 Preview only:
 
@@ -127,8 +129,8 @@ resyctl reservations --upcoming \
 ```
 
 `resy_token` is the reservation operation token used to act on a reservation
-(for example canceling with `resyctl cancel <resy_token>`). It is not the same
-as `reservation_id`.
+(for example canceling with `resyctl cancel <resy_token>`).
+It is not the same as `reservation_id`.
 
 All:
 
@@ -170,14 +172,15 @@ resyctl cancel "<resy_token>" --dry-run
 
 ### Multi-venue workflows
 
-When a request involves several venues (e.g. "find a 7pm slot at any of
-Cosme, Atomix, or Don Angie next Saturday"):
+When a request involves several venues
+(e.g. "find a 7pm slot at any of Cosme, Atomix, or Don Angie next Saturday"):
 
-1. Run one `resyctl search` per venue name in parallel (single message,
-   multiple Bash tool calls). Pick the right venue_id from each result
-   independently — locality and ratings disambiguate.
-2. Run one `resyctl availability` per resolved venue_id in parallel, with
-   the same date/time-window filters across all.
+1. Run one `resyctl search` per venue name in parallel
+   (single message, multiple Bash tool calls).
+   Pick the right venue_id from each result independently —
+   locality and ratings disambiguate.
+2. Run one `resyctl availability` per resolved venue_id in parallel,
+   with the same date/time-window filters across all.
 3. Merge the slot lists and present the earliest matches.
 
 ## Payment methods

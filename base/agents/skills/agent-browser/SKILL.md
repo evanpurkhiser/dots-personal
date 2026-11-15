@@ -7,15 +7,17 @@ hidden: true
 
 # agent-browser
 
-Fast browser automation CLI for AI agents. Chrome/Chromium via CDP with
-accessibility-tree snapshots and compact `@eN` element refs.
+Fast browser automation CLI for AI agents.
+Chrome/Chromium via CDP with accessibility-tree snapshots
+and compact `@eN` element refs.
 
 Install: `npm i -g agent-browser && agent-browser install`
 
 ## Start here
 
-This file is a discovery stub, not the usage guide. Before running any
-`agent-browser` command, load the actual workflow content from the CLI:
+This file is a discovery stub, not the usage guide.
+Before running any `agent-browser` command,
+load the actual workflow content from the CLI:
 
 ```bash
 agent-browser skills get core             # start here — workflows, common patterns, troubleshooting
@@ -23,8 +25,9 @@ agent-browser skills get core --full      # include full command reference and t
 ```
 
 The CLI serves skill content that always matches the installed version,
-so instructions never go stale. The content in this stub cannot change
-between releases, which is why it just points at `skills get core`.
+so instructions never go stale.
+The content in this stub cannot change between releases,
+which is why it just points at `skills get core`.
 
 When the active configuration attaches sessions to one Chrome over `cdp`,
 allocate a task-specific session before the first browser command:
@@ -33,22 +36,24 @@ allocate a task-specific session before the first browser command:
 agent-browser session id --scope worktree --prefix <task-name>
 ```
 
-Start it with human input and pass the returned name with `--session` on every
-command:
+Start it with human input
+and pass the returned name with `--session` on every command:
 
 ```bash
 agent-browser --session <name> --input-mode human open <url>
 ```
 
-Never use the configured fallback session for task work. `pinTab` gives each
-session exclusive ownership of its bound tab while cookies and storage remain
-shared through the Chrome profile. Only close the current session's bound tab;
-never switch to or close a tab by a foreign ref or target ID. Do not log out,
-clear shared site data, or switch accounts unless the task explicitly authorizes
-changing the shared identity.
+Never use the configured fallback session for task work.
+`pinTab` gives each session exclusive ownership of its bound tab while cookies
+and storage remain shared through the Chrome profile.
+Only close the current session's bound tab;
+never switch to or close a tab by a foreign ref or target ID.
+Do not log out, clear shared site data,
+or switch accounts unless the task explicitly authorizes changing the shared
+identity.
 
-Never pass `--allowed-domains` when the active configuration uses `cdp` or
-`autoConnect`; domain containment is incompatible with attached browsers.
+Never pass `--allowed-domains` when the active configuration uses `cdp`
+or `autoConnect`; domain containment is incompatible with attached browsers.
 
 ## Specialized skills
 
@@ -62,8 +67,8 @@ agent-browser skills get vercel-sandbox    # agent-browser inside Vercel Sandbox
 agent-browser skills get agentcore         # AWS Bedrock AgentCore cloud browsers
 ```
 
-Run `agent-browser skills list` to see everything available on the
-installed version.
+Run `agent-browser skills list` to see everything available on the installed
+version.
 
 ## Why agent-browser
 
@@ -72,8 +77,14 @@ installed version.
 - Chrome/Chromium via CDP with no Playwright or Puppeteer dependency
 - Accessibility-tree snapshots with element refs for reliable interaction
 - Sessions, authentication vault, state persistence, video recording
-- Specialized skills for Electron apps, Slack, exploratory testing, cloud providers
+- Specialized skills for Electron apps, Slack, exploratory testing,
+  cloud providers
 
 ## Observability Dashboard
 
-The dashboard runs independently of browser sessions on port 4848 and can also be opened through a proxied or forwarded URL such as `https://dashboard.agent-browser.localhost`. Agents should stay on the dashboard origin: session tabs, status, and stream traffic are proxied internally, so session ports do not need to be exposed.
+The dashboard runs independently of browser sessions on port 4848
+and can also be opened through a proxied or forwarded URL such
+as `https://dashboard.agent-browser.localhost`.
+Agents should stay on the dashboard origin: session tabs, status,
+and stream traffic are proxied internally,
+so session ports do not need to be exposed.
