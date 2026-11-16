@@ -13,6 +13,10 @@ ShmSize=2g
 Environment=TZ=America/New_York
 AddDevice=/dev/dri/renderD128
 Volume=agent-browser-chrome-profile.volume:/home/browser/profile
+Volume=/home/evan/.local/share/psst:/opt/psst:ro
+Volume=/home/evan/.local/share/psst/container-native-host:/etc/opt/chrome/native-messaging-hosts:ro
+Volume=/home/evan/.local/share/psst/container-external-extension:/opt/google/chrome/extensions:ro
+Volume=%t/psst-browser:/run/psst:ro
 HealthCmd=curl -fsS http://127.0.0.1:9223/json/version
 HealthInterval=10s
 HealthTimeout=5s
@@ -20,6 +24,8 @@ HealthRetries=6
 Notify=healthy
 
 [Service]
+ExecStartPre=/usr/bin/install --directory --mode=0711 %t/psst-browser
+ExecStartPre=/usr/bin/psst browser install --peer-uid 100999
 Restart=on-failure
 RestartSec=5
 TimeoutStartSec=300
