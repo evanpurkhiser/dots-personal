@@ -1,0 +1,1040 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["pydantic>=2.12,<3"]
+# ///
+
+from __future__ import annotations
+
+import argparse
+import getpass
+import json
+import os
+import stat
+import sys
+import tempfile
+from datetime import UTC, date, datetime, timedelta
+from pathlib import Path
+from typing import Any, ClassVar, TypeVar
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
+
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, ValidationError
+
+API_URL = "https://prod-ecs.api.bluespringhq.com"
+WEB_URL = "https://solidcore.co"
+DEFAULT_SITE_ID = 847299
+DEFAULT_LOCATION_ID = 8
+DEFAULT_CLASS_TYPE_ID = 164
+NEW_YORK = ZoneInfo("America/New_York")
+Response = TypeVar("Response")
+
+
+class ApiModel(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="ignore")
+
+
+class AuthState(ApiModel):
+    email: str = Field(min_length=1)
+    auth_token: str = Field(min_length=1)
+    refresh_token: str = Field(min_length=1)
+
+
+class AuthIdentity(ApiModel):
+    email: str = Field(min_length=1)
+
+
+class OtpResponse(ApiModel):
+    hash_code: str = Field(alias="hashCode")
+    expires_in_min: int = Field(alias="expiresInMin")
+
+
+class VerifyResponse(ApiModel):
+    auth_token: str
+    refresh_token: str
+
+
+class RefreshResponse(ApiModel):
+    access_token: str = Field(alias="AccessToken")
+
+
+class Person(ApiModel):
+    display_name: str | None = Field(None, alias="displayName")
+    first_name: str | None = Field(None, alias="firstName")
+
+    @property
+    def name(self) -> str | None:
+        return self.display_name or self.first_name
+
+
+class ProfileClient(ApiModel):
+    id: int = Field(alias="Id")
+    email: str = Field(alias="Email")
+
+
+class Profile(ApiModel):
+    client: ProfileClient
+    site_id: int = Field(alias="siteId")
+    location_id: int = Field(alias="locationId")
+
+
+class Location(ApiModel):
+    id: int = Field(alias="Id")
+    site_id: int = Field(alias="SiteID")
+    name: str = Field(alias="Name")
+    city: str | None = Field(None, alias="City")
+    state: str | None = Field(None, alias="StateProvCode")
+    address: str | None = Field(None, alias="Address")
+    postal_code: str | None = Field(None, alias="PostalCode")
+    is_active: bool = Field(alias="IsActive")
+    has_classes: bool = Field(alias="HasClasses")
+
+
+class LocationsResponse(ApiModel):
+    locations: list[Location] = Field(alias="Locations")
+
+
+class ClassLocation(ApiModel):
+    id: int = Field(alias="Id")
+    site_id: int = Field(alias="SiteID")
+    name: str = Field(alias="Name")
+
+
+class ClassItem(ApiModel):
+    id: int
+    start_time: datetime = Field(alias="startTime")
+    end_time: datetime = Field(alias="endTime")
+    timezone: str | None = None
+    class_type_id: int = Field(alias="classTypeId")
+    class_type: str = Field(alias="classType")
+    class_description_id: int | None = Field(None, alias="classDescriptionId")
+    display_class_name: str | None = Field(None, alias="displayClassName")
+    staff: Person | None = None
+    location: ClassLocation
+    class_openings: int = Field(alias="classOpenings")
+    max_capacity: int = Field(alias="maxCapacity")
+    is_available: bool = Field(alias="isAvailable")
+    is_waitlist_available: bool = Field(alias="isWaitListAvailable")
+    waitlist_size: int = Field(alias="waitListSize")
+    program_id: int = Field(alias="programId")
+    is_canceled: bool = Field(False, alias="isCanceled")
+    active: bool = True
+
+
+class Pagination(ApiModel):
+    total_results: int = Field(alias="TotalResults")
+    requested_limit: int = Field(alias="RequestedLimit")
+
+
+class ClassesResponse(ApiModel):
+    classes: list[ClassItem]
+    pagination: Pagination = Field(alias="paginationResponse")
+
+
+class WaitlistInfo(ApiModel):
+    waitlist_id: int | None = Field(None, alias="WaitlistId")
+    position: int | None = Field(None, alias="WaitlistOrderNumber")
+
+
+class VisitLocation(ApiModel):
+    id: int = Field(alias="Id")
+    name: str = Field(alias="Name")
+
+
+class Visit(ApiModel):
+    class_id: int = Field(alias="ClassId")
+    start: datetime = Field(alias="StartDateTime")
+    end: datetime = Field(alias="EndDateTime")
+    end_utc: datetime = Field(alias="EndDateTimeUtc")
+    class_name: str = Field(alias="ClassName")
+    staff: Person | None = Field(None, alias="Staff")
+    site_id: int = Field(alias="SiteId")
+    location: VisitLocation = Field(alias="Location")
+    status: str = Field(alias="AppointmentStatus")
+    on_waitlist: bool = Field(alias="IsOnWaitlist")
+    waitlist: WaitlistInfo | None = Field(None, alias="WaitlistInfo")
+    late_cancellation: bool = Field(False, alias="IsLateCancellation")
+    missed: bool = Field(False, alias="IsMissed")
+
+
+class SchedulePagination(ApiModel):
+    total_results: int = Field(alias="TotalResults")
+
+
+class ScheduleResponse(ApiModel):
+    visits: list[Visit] = Field(alias="Visits")
+    pagination: SchedulePagination = Field(alias="PaginationResponse")
+
+
+class Credit(ApiModel):
+    id: int = Field(alias="Id")
+    name: str = Field(alias="Name")
+    is_eligible: bool = Field(alias="IsEligible")
+    current: bool = Field(alias="Current")
+    remaining: int = Field(alias="Remaining")
+    expiration_date: datetime = Field(alias="ExpirationDate")
+    is_membership: bool = Field(alias="IsMembership")
+    site_id: int = Field(alias="SiteId")
+
+
+class SolidcoreError(Exception):
+    pass
+
+
+class ApiError(SolidcoreError):
+    def __init__(self, status: int, payload: Any):
+        self.status = status
+        super().__init__(api_error_message(payload, f"request failed ({status})"))
+
+
+def api_error_message(payload: Any, fallback: str) -> str:
+    if isinstance(payload, str) and payload:
+        return payload
+
+    if not isinstance(payload, dict):
+        return fallback
+
+    for value in (
+        payload.get("message"),
+        payload.get("Message"),
+        payload.get("error"),
+        payload.get("Error"),
+    ):
+        if isinstance(value, str) and value:
+            return value
+        if isinstance(value, dict):
+            for key in ("message", "Message"):
+                message = value.get(key)
+                if isinstance(message, str) and message:
+                    return message
+
+    return fallback
+
+
+def auth_file() -> Path:
+    root = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
+    return root / "solidcore/auth.json"
+
+
+def read_json_bytes(data: bytes) -> Any:
+    if not data:
+        return None
+
+    text = data.decode()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return text
+
+
+def request_json(
+    method: str,
+    url: str,
+    *,
+    body: dict[str, Any] | None = None,
+    token: str | None = None,
+) -> Any:
+    headers = {
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (compatible; solidcore-cli/1.0)",
+    }
+    data = None
+
+    if body is not None:
+        headers["Content-Type"] = "application/json"
+        data = json.dumps(body, separators=(",", ":")).encode()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    request = Request(url, data=data, headers=headers, method=method)
+    try:
+        with urlopen(request, timeout=30) as response:
+            return read_json_bytes(response.read())
+    except HTTPError as error:
+        raise ApiError(error.code, read_json_bytes(error.read())) from error
+    except URLError as error:
+        raise SolidcoreError(f"network request failed: {error.reason}") from error
+
+
+def validate_response(
+    adapter: TypeAdapter[Response], value: Any, context: str
+) -> Response:
+    try:
+        return adapter.validate_python(value)
+    except ValidationError:
+        raise SolidcoreError(f"invalid {context}") from None
+
+
+def load_auth() -> AuthState:
+    try:
+        value = json.loads(auth_file().read_text())
+    except FileNotFoundError as error:
+        raise SolidcoreError(
+            "not authenticated; run 'solidcore auth request [EMAIL]'"
+        ) from error
+    except (json.JSONDecodeError, OSError) as error:
+        raise SolidcoreError("could not read auth state") from error
+
+    return validate_response(TypeAdapter(AuthState), value, "auth state")
+
+
+def write_auth(email: str, auth_token: str, refresh_token: str) -> None:
+    auth = AuthState(
+        email=email,
+        auth_token=auth_token,
+        refresh_token=refresh_token,
+    )
+    directory = auth_file().parent
+    directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+    directory.chmod(0o700)
+
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=".auth.json.", dir=directory, text=True
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w") as output:
+            output.write(auth.model_dump_json())
+            output.write("\n")
+        temporary.chmod(stat.S_IRUSR | stat.S_IWUSR)
+        temporary.replace(auth_file())
+    except Exception:
+        temporary.unlink(missing_ok=True)
+        raise
+
+
+def stored_email() -> str | None:
+    try:
+        value = AuthIdentity.model_validate_json(auth_file().read_text()).email
+    except (FileNotFoundError, ValidationError, OSError):
+        return None
+    return value
+
+
+def resolve_email(explicit: str | None) -> str:
+    email = explicit or stored_email()
+    if not email:
+        raise SolidcoreError("email is required when auth state has no email")
+    return email
+
+
+class Client:
+    def __init__(self) -> None:
+        self._token: str | None = None
+        self._profile: Profile | None = None
+
+    def refresh(self) -> None:
+        auth = load_auth()
+        response = validate_response(
+            TypeAdapter(RefreshResponse),
+            request_json(
+                "POST",
+                f"{API_URL}/auth/refresh",
+                body={"email": auth.email, "refresh_token": auth.refresh_token},
+            ),
+            "token refresh response",
+        )
+        self._token = response.access_token
+        write_auth(auth.email, self._token, auth.refresh_token)
+
+    def ensure_auth(self) -> str:
+        if self._token:
+            return self._token
+
+        auth = load_auth()
+        self._token = auth.auth_token
+        try:
+            self._profile = validate_response(
+                TypeAdapter(Profile),
+                request_json("GET", f"{API_URL}/profile", token=self._token),
+                "profile response",
+            )
+        except ApiError as error:
+            if error.status != 401:
+                raise
+            self.refresh()
+            self._profile = validate_response(
+                TypeAdapter(Profile),
+                request_json("GET", f"{API_URL}/profile", token=self._token),
+                "profile response",
+            )
+
+        return self._token
+
+    def request(
+        self,
+        method: str,
+        path: str,
+        *,
+        query: list[tuple[str, str | int | bool]] | None = None,
+        body: dict[str, Any] | None = None,
+    ) -> Any:
+        token = self.ensure_auth()
+        url = f"{API_URL}/{path.lstrip('/')}"
+        if query:
+            url = f"{url}?{urlencode(query)}"
+        return request_json(method, url, body=body, token=token)
+
+    def request_model(
+        self,
+        adapter: TypeAdapter[Response],
+        method: str,
+        path: str,
+        context: str,
+        *,
+        query: list[tuple[str, str | int | bool]] | None = None,
+        body: dict[str, Any] | None = None,
+    ) -> Response:
+        return validate_response(
+            adapter,
+            self.request(method, path, query=query, body=body),
+            context,
+        )
+
+    def profile(self) -> Profile:
+        self.ensure_auth()
+        assert self._profile is not None
+        return self._profile
+
+
+def print_json(value: Any) -> None:
+    print(json.dumps(value, indent=2))
+
+
+def iso_date(value: str) -> date:
+    try:
+        return date.fromisoformat(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError("expected YYYY-MM-DD") from error
+
+
+def local_time(value: str) -> str:
+    try:
+        return datetime.strptime(value, "%H:%M").strftime("%H:%M")
+    except ValueError as error:
+        raise argparse.ArgumentTypeError("expected HH:MM") from error
+
+
+def local_today() -> date:
+    return datetime.now(NEW_YORK).date()
+
+
+def auth_request_command(args: argparse.Namespace) -> Any:
+    email = resolve_email(args.email)
+    response = validate_response(
+        TypeAdapter(OtpResponse),
+        request_json(
+            "POST",
+            f"{API_URL}/auth/v2/otp",
+            body={"email": email, "channel": "email"},
+        ),
+        "OTP request response",
+    )
+    return {
+        "email": email,
+        "hashCode": response.hash_code,
+        "expiresInMin": response.expires_in_min,
+    }
+
+
+def auth_verify_command(args: argparse.Namespace) -> Any:
+    if args.hash_code is None:
+        email = resolve_email(None)
+        hash_code = args.email_or_hash
+    else:
+        email = resolve_email(args.email_or_hash)
+        hash_code = args.hash_code
+
+    otp = (
+        getpass.getpass("OTP: ") if sys.stdin.isatty() else sys.stdin.readline().strip()
+    )
+    if len(otp) != 6 or not otp.isdigit():
+        raise SolidcoreError("OTP must contain six digits")
+
+    response = validate_response(
+        TypeAdapter(VerifyResponse),
+        request_json(
+            "POST",
+            f"{API_URL}/auth/v2/validate",
+            body={"email": email, "otpCode": otp, "hashCode": hash_code},
+        ),
+        "OTP validation response",
+    )
+    write_auth(email, response.auth_token, response.refresh_token)
+    return auth_status_command(args)
+
+
+def auth_status_command(_args: argparse.Namespace) -> Any:
+    profile = Client().profile()
+    return {
+        "authenticated": True,
+        "email": profile.client.email,
+        "clientId": profile.client.id,
+        "siteId": profile.site_id,
+        "locationId": profile.location_id,
+    }
+
+
+def auth_refresh_command(args: argparse.Namespace) -> Any:
+    client = Client()
+    client.refresh()
+    return auth_status_command(args)
+
+
+def locations_command(args: argparse.Namespace) -> Any:
+    response = validate_response(
+        TypeAdapter(LocationsResponse),
+        request_json("GET", f"{WEB_URL}/api/locations"),
+        "locations response",
+    )
+
+    query = args.query.casefold() if args.query else None
+    city = args.city.casefold() if args.city else None
+    state = args.state.upper() if args.state else None
+    result = []
+    for location in response.locations:
+        if not location.is_active or not location.has_classes:
+            continue
+
+        searchable = " ".join(
+            value or ""
+            for value in (
+                location.name,
+                location.address,
+                location.city,
+                location.state,
+            )
+        ).casefold()
+        if query and query not in searchable:
+            continue
+        if city and (location.city or "").casefold() != city:
+            continue
+        if state and location.state != state:
+            continue
+
+        result.append(
+            {
+                "siteId": location.site_id,
+                "locationId": location.id,
+                "name": location.name,
+                "city": location.city,
+                "state": location.state,
+                "address": location.address,
+                "postalCode": location.postal_code,
+            }
+        )
+
+    return sorted(
+        result,
+        key=lambda item: (
+            item["state"] or "",
+            item["city"] or "",
+            item["name"] or "",
+        ),
+    )
+
+
+def fetch_classes(
+    site_id: int,
+    location_ids: list[int],
+    start: date,
+    end: date,
+    class_id: int | None = None,
+) -> list[ClassItem]:
+    offset = 0
+    classes: list[ClassItem] = []
+    while True:
+        query: list[tuple[str, str | int | bool]] = [
+            ("siteId", site_id),
+            ("startDateTime", start.isoformat()),
+            ("endDateTime", end.isoformat()),
+            ("version", 2),
+            ("offset", offset),
+        ]
+        query.extend(("locationIds", location_id) for location_id in location_ids)
+        if class_id is not None:
+            query.append(("classIds", class_id))
+
+        response = validate_response(
+            TypeAdapter(ClassesResponse),
+            request_json("GET", f"{API_URL}/class?{urlencode(query)}"),
+            "classes response",
+        )
+        classes.extend(response.classes)
+
+        total = response.pagination.total_results
+        limit = response.pagination.requested_limit
+        if limit <= 0 or offset + limit >= total:
+            return classes
+        offset += limit
+
+
+def filter_classes(
+    classes: list[ClassItem], args: argparse.Namespace
+) -> list[ClassItem]:
+    class_type_id = args.class_type_id
+    if (
+        args.command == "classes"
+        and class_type_id is None
+        and args.class_type is None
+        and not args.all_types
+    ):
+        class_type_id = DEFAULT_CLASS_TYPE_ID
+
+    result = []
+    for item in classes:
+        if item.is_canceled and not args.include_canceled:
+            continue
+        if class_type_id is not None and item.class_type_id != class_type_id:
+            continue
+        if (
+            args.class_type
+            and args.class_type.casefold() not in item.class_type.casefold()
+        ):
+            continue
+        coach = item.staff.name if item.staff else None
+        if args.coach and args.coach.casefold() not in (coach or "").casefold():
+            continue
+        start_time = item.start_time.strftime("%H:%M")
+        if args.after and start_time < args.after:
+            continue
+        if args.before and start_time > args.before:
+            continue
+        if args.available and not (item.is_available and item.class_openings > 0):
+            continue
+        result.append(item)
+    return result
+
+
+def normalize_class(item: ClassItem) -> dict[str, Any]:
+    return {
+        "classId": item.id,
+        "date": item.start_time.date().isoformat(),
+        "start": item.start_time.strftime("%H:%M"),
+        "end": item.end_time.strftime("%H:%M"),
+        "timezone": item.timezone,
+        "classTypeId": item.class_type_id,
+        "classType": item.class_type,
+        "name": item.display_class_name,
+        "coach": item.staff.name if item.staff else None,
+        "siteId": item.location.site_id,
+        "locationId": item.location.id,
+        "studio": item.location.name,
+        "openings": item.class_openings,
+        "capacity": item.max_capacity,
+        "waitlistAvailable": item.is_waitlist_available,
+        "waitlistSize": item.waitlist_size,
+        "programId": item.program_id,
+        "canceled": item.is_canceled,
+    }
+
+
+def classes_command(args: argparse.Namespace) -> Any:
+    locations = args.location_id or [DEFAULT_LOCATION_ID]
+    classes = fetch_classes(
+        args.site_id, locations, args.start, args.end, args.class_id
+    )
+    classes = filter_classes(classes, args)
+    normalized = [normalize_class(item) for item in classes]
+    return sorted(
+        normalized,
+        key=lambda item: (
+            item["date"] or "",
+            item["start"] or "",
+            item["studio"] or "",
+        ),
+    )
+
+
+def class_types_command(args: argparse.Namespace) -> Any:
+    locations = args.location_id or [DEFAULT_LOCATION_ID]
+    classes = filter_classes(
+        fetch_classes(args.site_id, locations, args.start, args.end, args.class_id),
+        args,
+    )
+    by_id = {
+        item.class_type_id: {
+            "classTypeId": item.class_type_id,
+            "classType": item.class_type,
+            "classDescriptionId": item.class_description_id,
+            "programId": item.program_id,
+        }
+        for item in classes
+    }
+    return sorted(by_id.values(), key=lambda item: item["classType"] or "")
+
+
+def fetch_schedule(client: Client, start: date, end: date | None) -> ScheduleResponse:
+    profile = client.profile()
+    query: list[tuple[str, str | int | bool]] = [
+        ("locationId", profile.location_id),
+        ("siteId", profile.site_id),
+        ("crossRegionalLookup", "true"),
+        ("startDate", start.isoformat()),
+        ("limit", 1000),
+    ]
+    if end:
+        query.append(("endDate", end.isoformat()))
+    response = client.request_model(
+        TypeAdapter(ScheduleResponse),
+        "GET",
+        "client/clientSchedule",
+        "bookings response",
+        query=query,
+    )
+    if len(response.visits) != response.pagination.total_results:
+        raise SolidcoreError(
+            "bookings response was incomplete; narrow the requested date range"
+        )
+    return response
+
+
+def normalize_bookings(
+    response: ScheduleResponse, *, history: bool
+) -> list[dict[str, Any]]:
+    now = datetime.now(UTC)
+    result = []
+    for visit in response.visits:
+        end_utc = visit.end_utc
+        if end_utc.tzinfo is None:
+            end_utc = end_utc.replace(tzinfo=UTC)
+        if history:
+            if end_utc >= now:
+                continue
+        elif end_utc <= now or visit.status == "Cancelled":
+            continue
+
+        result.append(
+            {
+                "classId": visit.class_id,
+                "date": visit.start.date().isoformat(),
+                "start": visit.start.strftime("%H:%M"),
+                "end": visit.end.strftime("%H:%M"),
+                "className": visit.class_name,
+                "coach": visit.staff.name if visit.staff else None,
+                "siteId": visit.site_id,
+                "locationId": visit.location.id,
+                "studio": visit.location.name,
+                "status": visit.status,
+                "onWaitlist": visit.on_waitlist,
+                "waitlistId": visit.waitlist.waitlist_id if visit.waitlist else None,
+                "waitlistPosition": visit.waitlist.position if visit.waitlist else None,
+                "lateCancellation": visit.late_cancellation,
+                "missed": visit.missed,
+            }
+        )
+    return sorted(
+        result,
+        key=lambda item: (
+            item["date"] or "",
+            item["start"] or "",
+            item["studio"] or "",
+        ),
+    )
+
+
+def bookings_for_range(
+    client: Client, start: date, end: date | None, *, history: bool
+) -> list[dict[str, Any]]:
+    return normalize_bookings(fetch_schedule(client, start, end), history=history)
+
+
+def bookings_command(args: argparse.Namespace) -> Any:
+    today = local_today()
+    start = args.start or (today - timedelta(days=90) if args.history else today)
+    end = args.end or (today if args.history else today + timedelta(days=40))
+    return bookings_for_range(Client(), start, end, history=args.history)
+
+
+def class_for_booking(args: argparse.Namespace) -> ClassItem:
+    start = args.date or local_today()
+    end = args.date or (local_today() + timedelta(days=40))
+    classes = fetch_classes(args.site_id, [args.location_id], start, end, args.class_id)
+    for item in classes:
+        if item.id == args.class_id:
+            return item
+    raise SolidcoreError(f"class {args.class_id} was not found")
+
+
+def eligible_credits(client: Client, class_item: ClassItem) -> list[Credit]:
+    class_date = class_item.start_time.date()
+    credits = client.request_model(
+        TypeAdapter(list[Credit]),
+        "GET",
+        "client/booking-services",
+        "eligible credits response",
+        query=[
+            ("siteId", class_item.location.site_id),
+            ("locationId", class_item.location.id),
+            ("classId", class_item.id),
+            ("bookingDate", class_date.isoformat()),
+            ("programId", class_item.program_id),
+        ],
+    )
+    return [
+        credit
+        for credit in credits
+        if credit.is_eligible
+        and credit.current
+        and credit.remaining > 0
+        and credit.expiration_date.date() >= class_date
+    ]
+
+
+def select_credit(credits: list[Credit], service_id: int | None) -> Credit:
+    if service_id is not None:
+        for credit in credits:
+            if credit.id == service_id:
+                return credit
+        raise SolidcoreError(f"service {service_id} is not eligible")
+    if not credits:
+        raise SolidcoreError("no eligible existing credit is available")
+    if len(credits) > 1:
+        print_json(
+            {
+                "selectionRequired": True,
+                "eligibleCredits": [
+                    {
+                        "serviceId": credit.id,
+                        "name": credit.name,
+                        "remaining": credit.remaining,
+                        "expires": credit.expiration_date.isoformat(),
+                        "isMembership": credit.is_membership,
+                    }
+                    for credit in credits
+                ],
+            }
+        )
+        raise SystemExit(2)
+    return credits[0]
+
+
+def booking_preview(
+    class_item: ClassItem, credit: Credit, waitlist: bool
+) -> dict[str, Any]:
+    normalized = normalize_class(class_item)
+    return {
+        "confirmationRequired": True,
+        "action": "join waitlist" if waitlist else "book",
+        "class": {
+            key: normalized[key]
+            for key in ("classId", "date", "start", "end", "name", "studio", "coach")
+        },
+        "credit": {
+            "serviceId": credit.id,
+            "name": credit.name,
+            "remaining": credit.remaining,
+            "expires": credit.expiration_date.isoformat(),
+        },
+    }
+
+
+def booking_body(
+    class_item: ClassItem, credit: Credit, waitlist: bool
+) -> dict[str, Any]:
+    body: dict[str, Any] = {
+        "ClassId": class_item.id,
+        "ClassDate": class_item.start_time.date().isoformat(),
+        "SiteId": class_item.location.site_id,
+        "LocationId": class_item.location.id,
+    }
+    if credit.is_membership:
+        body.update(
+            ClientServiceId=None,
+            MembershipId=credit.id,
+            RequirePayment=False,
+        )
+    else:
+        body.update(ClientServiceId=credit.id, RequirePayment=True)
+    if waitlist:
+        body["Waitlist"] = True
+    if credit.site_id != class_item.location.site_id:
+        body.update(
+            CrossRegionalBooking=True,
+            CrossRegionalBookingClientServiceSiteId=credit.site_id,
+        )
+    return body
+
+
+def book_command(args: argparse.Namespace) -> Any:
+    class_item = class_for_booking(args)
+    if class_item.is_canceled or not class_item.active:
+        raise SolidcoreError("class is inactive or canceled")
+    if args.waitlist:
+        if not class_item.is_waitlist_available:
+            raise SolidcoreError("class does not have an available waitlist")
+    elif not class_item.is_available or class_item.class_openings <= 0:
+        raise SolidcoreError("class has no opening; choose --waitlist if available")
+
+    client = Client()
+    credit = select_credit(eligible_credits(client, class_item), args.service_id)
+    if not args.confirm:
+        return booking_preview(class_item, credit, args.waitlist)
+
+    response = client.request(
+        "POST",
+        "class/addclienttoclass",
+        body=booking_body(class_item, credit, args.waitlist),
+    )
+    today = local_today()
+    bookings = bookings_for_range(
+        client, today, today + timedelta(days=40), history=False
+    )
+    verified = next(
+        (item for item in bookings if item["classId"] == args.class_id), None
+    )
+    return {"response": response, "verifiedBooking": verified}
+
+
+def cancel_command(args: argparse.Namespace) -> Any:
+    client = Client()
+    today = local_today()
+    bookings = bookings_for_range(
+        client, today - timedelta(days=1), today + timedelta(days=40), history=False
+    )
+    booking = next(
+        (item for item in bookings if item["classId"] == args.class_id), None
+    )
+    if booking is None:
+        raise SolidcoreError(f"upcoming booking {args.class_id} was not found")
+    if booking["onWaitlist"] and booking["waitlistId"] is None:
+        raise SolidcoreError("waitlisted booking is missing a waitlist ID")
+
+    if not args.confirm:
+        return {
+            "confirmationRequired": True,
+            "action": "leave waitlist" if booking["onWaitlist"] else "cancel booking",
+            "warning": "Canceling less than 10 hours before class may consume the credit and/or incur a fee.",
+            "booking": booking,
+        }
+
+    if booking["onWaitlist"]:
+        response = client.request(
+            "DELETE",
+            f"class/waitlist/{booking['waitlistId']}",
+            query=[("siteId", booking["siteId"])],
+        )
+    else:
+        profile = client.profile()
+        response = client.request(
+            "POST",
+            "class/removeclientfromclass",
+            body={
+                "siteId": booking["siteId"],
+                "clientId": profile.client.id,
+                "classId": args.class_id,
+                "test": False,
+            },
+        )
+
+    remaining = next(
+        (
+            item
+            for item in bookings_for_range(
+                client,
+                today - timedelta(days=1),
+                today + timedelta(days=40),
+                history=False,
+            )
+            if item["classId"] == args.class_id
+        ),
+        None,
+    )
+    return {
+        "response": response,
+        "verifiedRemoved": remaining is None,
+        "remainingBooking": remaining,
+    }
+
+
+def add_search_arguments(parser: argparse.ArgumentParser) -> None:
+    today = local_today()
+    parser.add_argument("--start", type=iso_date, default=today)
+    parser.add_argument("--end", type=iso_date, default=today + timedelta(days=7))
+    parser.add_argument("--site-id", type=int, default=DEFAULT_SITE_ID)
+    parser.add_argument("--location-id", type=int, action="append")
+    parser.add_argument("--class-id", type=int)
+    parser.add_argument("--class-type-id", type=int)
+    parser.add_argument("--class-type")
+    parser.add_argument("--all-types", action="store_true")
+    parser.add_argument("--coach")
+    parser.add_argument("--after", type=local_time)
+    parser.add_argument("--before", type=local_time)
+    parser.add_argument("--available", action="store_true")
+    parser.add_argument("--include-canceled", action="store_true")
+
+
+def parser() -> argparse.ArgumentParser:
+    root = argparse.ArgumentParser(
+        description="Search and manage Solidcore classes through the API"
+    )
+    commands = root.add_subparsers(dest="command", required=True)
+
+    auth = commands.add_parser("auth")
+    auth_commands = auth.add_subparsers(dest="auth_command", required=True)
+    auth_request = auth_commands.add_parser("request")
+    auth_request.add_argument("email", nargs="?")
+    auth_request.set_defaults(handler=auth_request_command)
+    auth_verify = auth_commands.add_parser("verify")
+    auth_verify.add_argument("email_or_hash")
+    auth_verify.add_argument("hash_code", nargs="?")
+    auth_verify.set_defaults(handler=auth_verify_command)
+    auth_status = auth_commands.add_parser("status")
+    auth_status.set_defaults(handler=auth_status_command)
+    auth_refresh = auth_commands.add_parser("refresh")
+    auth_refresh.set_defaults(handler=auth_refresh_command)
+
+    locations = commands.add_parser("locations")
+    locations.add_argument("--query")
+    locations.add_argument("--city")
+    locations.add_argument("--state")
+    locations.set_defaults(handler=locations_command)
+
+    classes = commands.add_parser("classes")
+    add_search_arguments(classes)
+    classes.set_defaults(handler=classes_command)
+
+    class_types = commands.add_parser("class-types")
+    add_search_arguments(class_types)
+    class_types.set_defaults(handler=class_types_command)
+
+    bookings = commands.add_parser("bookings")
+    bookings.add_argument("--history", action="store_true")
+    bookings.add_argument("--start", type=iso_date)
+    bookings.add_argument("--end", type=iso_date)
+    bookings.set_defaults(handler=bookings_command)
+
+    book = commands.add_parser("book")
+    book.add_argument("--class-id", type=int, required=True)
+    book.add_argument("--site-id", type=int, default=DEFAULT_SITE_ID)
+    book.add_argument("--location-id", type=int, default=DEFAULT_LOCATION_ID)
+    book.add_argument("--date", type=iso_date)
+    book.add_argument("--service-id", type=int)
+    book.add_argument("--waitlist", action="store_true")
+    book.add_argument("--confirm", action="store_true")
+    book.set_defaults(handler=book_command)
+
+    cancel = commands.add_parser("cancel")
+    cancel.add_argument("--class-id", type=int, required=True)
+    cancel.add_argument("--confirm", action="store_true")
+    cancel.set_defaults(handler=cancel_command)
+    return root
+
+
+def main() -> int:
+    args = parser().parse_args()
+    try:
+        print_json(args.handler(args))
+        return 0
+    except ApiError as error:
+        print_json({"error": str(error), "status": error.status})
+        return 1
+    except SolidcoreError as error:
+        print_json({"error": str(error)})
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
