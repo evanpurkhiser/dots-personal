@@ -55,6 +55,13 @@ identity.
 Never pass `--allowed-domains` when the active configuration uses `cdp`
 or `autoConnect`; domain containment is incompatible with attached browsers.
 
+When a browser flow needs a secret or passkey from a shared 1Password item,
+load the matching psst workflow before starting the handoff:
+
+```bash
+psst skill
+```
+
 ## Specialized skills
 
 Load a specialized skill when the task falls outside browser web pages:
