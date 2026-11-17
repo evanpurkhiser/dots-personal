@@ -7,12 +7,13 @@ After=network-online.target
 Image=agent-browser-chrome.build
 ContainerName=agent-browser-chrome
 HostName=agent-browser-chrome
+UserNS=keep-id
 PublishPort=127.0.0.1:9223:9223
 PublishPort=127.0.0.1:5900:5900
 ShmSize=2g
 Environment=TZ=America/New_York
 AddDevice=/dev/dri/renderD128
-Volume=agent-browser-chrome-profile.volume:/home/browser/profile
+Volume=agent-browser-chrome-profile.volume:/home/browser/profile:U
 Volume=/home/evan/.local/share/psst:/opt/psst:ro
 Volume=/home/evan/.local/share/psst/container-native-host:/etc/opt/chrome/native-messaging-hosts:ro
 Volume=/home/evan/.local/share/psst/container-external-extension:/opt/google/chrome/extensions:ro
@@ -24,8 +25,8 @@ HealthRetries=6
 Notify=healthy
 
 [Service]
-ExecStartPre=/usr/bin/install --directory --mode=0711 %t/psst-browser
-ExecStartPre=/usr/bin/psst browser install --peer-uid 100999
+ExecStartPre=/usr/bin/install --directory --mode=0700 %t/psst-browser
+ExecStartPre=/usr/bin/psst browser install
 Restart=on-failure
 RestartSec=5
 TimeoutStartSec=300
