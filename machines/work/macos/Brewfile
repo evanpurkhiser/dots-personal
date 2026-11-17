@@ -1,4 +1,5 @@
 cask "chromedriver"
+cask "linear"
 cask "tableplus"
 
 brew "mkcert"
