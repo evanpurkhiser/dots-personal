@@ -30,7 +30,6 @@ function P.config()
 
   local pylint = available_linters({
     "ruff",
-    "mypy",
   })
 
   local bashlint = available_linters({
