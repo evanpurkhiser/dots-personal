@@ -1,5 +1,13 @@
 {
   "cdp": "9223",
   "pinTab": true,
+  "plugins": [
+    {
+      "name": "psst",
+      "command": "psst",
+      "args": ["agent-browser-plugin"],
+      "capabilities": ["credential.read"]
+    }
+  ],
   "session": "chrome"
 }
