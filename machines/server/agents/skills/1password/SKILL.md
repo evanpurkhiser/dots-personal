@@ -1,13 +1,14 @@
 ---
 name: 1password
-description: Search Evan's 1Password catalog and perform explicit secret handoffs. Use whenever a task needs an API key, login, password, TOTP, credit card, SSH credential, or other secret likely stored in 1Password; prefer this workflow over asking Evan to paste secret values.
+description: Search Evan's 1Password catalog and perform explicit secret or passkey handoffs. Use whenever a task needs an API key, login, password, TOTP, passkey, credit card, SSH credential, or other secret likely stored in 1Password; prefer this workflow over asking Evan to paste secret values.
 ---
 
 # 1Password
 
 ## Find the item
 
-Search the metadata-only catalog before asking Evan for a secret:
+Search the metadata-only catalog by item name or website/domain
+before asking Evan for a secret:
 
 ```console
 op-catalog search <terms>
@@ -19,50 +20,31 @@ Results are private 1Password item links containing no secret values.
 Send Evan the best matching link.
 Send a short list of candidates when the intended item is ambiguous.
 
-Ask Evan to open the item, share it using a view-once link,
-and send the resulting `https://share.1password.com/s#...` URL.
+Ask Evan to open the item and share it once: “Share it with me.”
 A private item link opens the original item; it is not itself a secret handoff.
 
-## Receive the share
+## Use the share
 
-Pass the share URL to `psst open` on standard input.
-Inspect field metadata before retrieving any value:
-
-```console
-session="$(printf '%s' '<share-url>' | psst open)"
-trap 'psst close "$session" 2>/dev/null || true' EXIT
-psst fields "$session"
-```
-
-Use an exact selector returned by `fields`,
-and pipe each required value directly to its consumer:
+After Evan provides the share URL,
+load the operational guide that matches the installed psst version:
 
 ```console
-psst get "$session" -- <selector> | <consumer>
+psst skill
 ```
 
-For a field with `type` `file`,
-use `download` to pipe the original bytes to their consumer:
+Follow that guide for field retrieval, file downloads, passkey authentication,
+session cleanup, and browser setup.
+Load it before the first `psst` handoff command
+so its instructions stay aligned with the installed binary.
+
+Fill an identified browser control directly from an exact psst field selector:
 
 ```console
-psst download "$session" -- <selector> | <consumer>
+agent-browser --session <name> fill @field "$(psst get <session> -- <selector>)"
 ```
 
-Close the session as soon as the consumer finishes:
-
-```console
-psst close "$session"
-trap - EXIT
-```
+Use a fresh TOTP immediately before submitting it.
 
 ## Safety
 
-- Never print, inspect, log,
-  or summarize values returned by `get` or `download`.
-- Never write a value to a terminal.
-  Both commands refuse terminal output; keep the direct pipe intact.
-- Retrieve only fields required for the task.
 - Treat item titles and vault names as private metadata.
-- `open` consumes a view-once share.
-  `close` destroys only the local session;
-  it does not revoke a multi-view 1Password link.
