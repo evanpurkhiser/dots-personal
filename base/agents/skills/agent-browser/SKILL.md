@@ -15,19 +15,14 @@ Install: `npm i -g agent-browser && agent-browser install`
 
 ## Start here
 
-This file is a discovery stub, not the usage guide.
-Before running any `agent-browser` command,
-load the actual workflow content from the CLI:
+Before running any `agent-browser` command, load the usage guide from the CLI:
 
 ```bash
 agent-browser skills get core             # start here — workflows, common patterns, troubleshooting
 agent-browser skills get core --full      # include full command reference and templates
 ```
 
-The CLI serves skill content that always matches the installed version,
-so instructions never go stale.
-The content in this stub cannot change between releases,
-which is why it just points at `skills get core`.
+The CLI guide matches the installed version.
 
 When the active configuration attaches sessions to one Chrome over `cdp`,
 allocate a task-specific session before the first browser command:
@@ -61,6 +56,39 @@ load the matching psst workflow before starting the handoff:
 ```bash
 psst skill
 ```
+
+## Wayland desktop via VNC
+
+Use VNC at `127.0.0.1:5900` on the server for Chrome's toolbar,
+extension popups, and native dialogs.
+Connect a viewer for mouse and keyboard control
+(use an SSH tunnel remotely), or use `vncdo` with `move`, `click`, or `key`.
+Check focus before sending input to the shared desktop.
+
+Capture a screenshot on the server:
+
+```bash
+uvx --from vncdotool vncdo -s 127.0.0.1::5900 -t 5 capture screen.png
+```
+
+From a dedicated capture directory,
+record 10 seconds of VNC video headlessly to `screen.mp4`:
+
+```bash
+unit="codex-vnc-record-$(date +%s%N)"
+systemd-run --user --collect --unit="$unit" \
+  --description="Codex: Record the Wayland desktop over VNC" \
+  --working-directory="$PWD" \
+  --property=LogExtraFields=CODEX_ORIGIN=codex --property=RuntimeMaxSec=45s \
+  podman run --rm --network=pasta:--map-host-loopback=169.254.1.2 \
+    --volume "$PWD:/video" --entrypoint /bin/sh \
+    docker.io/widerin/vnc-recorder@sha256:6c48d9bf084bbfa93c9bcaba4fe28bd35a82b6eae8d9aaa52b6a2fde1a254c0a \
+    -c 'timeout -s INT 10 /vnc-recorder --host 169.254.1.2 --password "" --framerate 15 --crf 23 --outfile /video/screen.mp4'
+```
+
+Add `--wait` to block until the recording finishes.
+When changing the duration,
+leave time in `RuntimeMaxSec` for startup and MP4 finalization.
 
 ## Specialized skills
 
