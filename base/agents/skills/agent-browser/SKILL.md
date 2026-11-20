@@ -61,8 +61,8 @@ psst skill
 
 Use VNC at `127.0.0.1:5900` on the server for Chrome's toolbar,
 extension popups, and native dialogs.
-Connect a viewer for mouse and keyboard control
-(use an SSH tunnel remotely), or use `vncdo` with `move`, `click`, or `key`.
+Use a VNC viewer for mouse and keyboard control, or use `vncdo` with `move`,
+`click`, or `key`.
 Check focus before sending input to the shared desktop.
 
 Capture a screenshot on the server:
@@ -71,7 +71,7 @@ Capture a screenshot on the server:
 uvx --from vncdotool vncdo -s 127.0.0.1::5900 -t 5 capture screen.png
 ```
 
-Start recording before driving the browser:
+If you need to make a recording, you can use the headless VNC recorder:
 
 ```bash
 systemctl --user start agent-browser-vnc-record.service
