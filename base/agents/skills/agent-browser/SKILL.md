@@ -15,19 +15,14 @@ Install: `npm i -g agent-browser && agent-browser install`
 
 ## Start here
 
-This file is a discovery stub, not the usage guide.
-Before running any `agent-browser` command,
-load the actual workflow content from the CLI:
+Before running any `agent-browser` command, load the usage guide from the CLI:
 
 ```bash
 agent-browser skills get core             # start here — workflows, common patterns, troubleshooting
 agent-browser skills get core --full      # include full command reference and templates
 ```
 
-The CLI serves skill content that always matches the installed version,
-so instructions never go stale.
-The content in this stub cannot change between releases,
-which is why it just points at `skills get core`.
+The CLI guide matches the installed version.
 
 When the active configuration attaches sessions to one Chrome over `cdp`,
 allocate a task-specific session before the first browser command:
@@ -61,6 +56,35 @@ load the matching psst workflow before starting the handoff:
 ```bash
 psst skill
 ```
+
+## Wayland desktop via VNC
+
+Use VNC at `127.0.0.1:5900` on the server for Chrome's toolbar,
+extension popups, and native dialogs.
+Use a VNC viewer for mouse and keyboard control, or use `vncdo` with `move`,
+`click`, or `key`.
+Check focus before sending input to the shared desktop.
+
+Capture a screenshot on the server:
+
+```bash
+uvx --from vncdotool vncdo -s 127.0.0.1::5900 -t 5 capture screen.png
+```
+
+If you need to make a recording, you can use the headless VNC recorder:
+
+```bash
+systemctl --user start agent-browser-vnc-record.service
+```
+
+Stop the recorder to finalize the MP4:
+
+```bash
+systemctl --user stop agent-browser-vnc-record.service
+```
+
+Recordings go to `~/.local/state/agent-browser/recordings/`.
+The service stops automatically after five minutes as a safeguard.
 
 ## Specialized skills
 
