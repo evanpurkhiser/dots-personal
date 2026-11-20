@@ -24,6 +24,12 @@ agent-browser skills get core --full      # include full command reference and t
 
 The CLI guide matches the installed version.
 
+## Server setup
+
+On Evan's server, `agent-browser-chrome.service` runs headed Chrome on Sway in a
+Podman container with a persistent Chrome profile.
+`agent-browser` attaches over CDP at `127.0.0.1:9223`.
+
 When the active configuration attaches sessions to one Chrome over `cdp`,
 allocate a task-specific session before the first browser command:
 
@@ -57,10 +63,24 @@ load the matching psst workflow before starting the handoff:
 psst skill
 ```
 
+## Record the page
+
+If you need to make a recording of a page,
+use the built-in recorder in your task session.
+`--cursor` shows the pointer and clicks,
+and `--contact-sheet` saves a timestamped PNG summary.
+
+```bash
+agent-browser --session "$session" record start demo.mp4 --cursor --contact-sheet
+# Drive the page, then save the recording.
+agent-browser --session "$session" record stop
+```
+
 ## Wayland desktop via VNC
 
-Use VNC at `127.0.0.1:5900` on the server for Chrome's toolbar,
-extension popups, and native dialogs.
+Use VNC at `127.0.0.1:5900` on the server when you need to capture
+or interact with Chrome's toolbar, extension popups, native dialogs,
+or the full desktop.
 Use a VNC viewer for mouse and keyboard control, or use `vncdo` with `move`,
 `click`, or `key`.
 Check focus before sending input to the shared desktop.
@@ -71,7 +91,7 @@ Capture a screenshot on the server:
 uvx --from vncdotool vncdo -s 127.0.0.1::5900 -t 5 capture screen.png
 ```
 
-If you need to make a recording, you can use the headless VNC recorder:
+To record the full desktop, start the headless VNC recorder:
 
 ```bash
 systemctl --user start agent-browser-vnc-record.service
