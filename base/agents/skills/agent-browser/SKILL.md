@@ -24,6 +24,12 @@ agent-browser skills get core --full      # include full command reference and t
 
 The CLI guide matches the installed version.
 
+## Server setup
+
+On Evan's server, `agent-browser-chrome.service` runs headed Chrome on Sway in a
+Podman container with a persistent Chrome profile.
+`agent-browser` attaches over CDP at `127.0.0.1:9223`.
+
 When the active configuration attaches sessions to one Chrome over `cdp`,
 allocate a task-specific session before the first browser command:
 
