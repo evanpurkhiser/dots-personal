@@ -71,15 +71,20 @@ Capture a screenshot on the server:
 uvx --from vncdotool vncdo -s 127.0.0.1::5900 -t 5 capture screen.png
 ```
 
-From a dedicated capture directory,
-record 10 seconds of VNC video headlessly to `screen.mp4`:
+Start recording before driving the browser:
 
 ```bash
-podman run --rm --network=pasta:--map-host-loopback=169.254.1.2 \
-  --volume "$PWD:/video" --entrypoint /bin/sh \
-  docker.io/widerin/vnc-recorder@sha256:6c48d9bf084bbfa93c9bcaba4fe28bd35a82b6eae8d9aaa52b6a2fde1a254c0a \
-  -c 'timeout -s INT 10 /vnc-recorder --host 169.254.1.2 --password "" --framerate 15 --crf 23 --outfile /video/screen.mp4'
+systemctl --user start agent-browser-vnc-record.service
 ```
+
+Stop the recorder to finalize the MP4:
+
+```bash
+systemctl --user stop agent-browser-vnc-record.service
+```
+
+Recordings go to `~/.local/state/agent-browser/recordings/`.
+The service stops automatically after five minutes as a safeguard.
 
 ## Specialized skills
 

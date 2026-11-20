@@ -1,0 +1,19 @@
+[Unit]
+Description=Record the agent-browser Wayland desktop over VNC
+Requisite=agent-browser-chrome.service
+After=agent-browser-chrome.service
+
+[Service]
+Type=notify
+NotifyAccess=all
+RuntimeMaxSec=5min
+TimeoutStopSec=15s
+StateDirectory=agent-browser/recordings
+StateDirectoryMode=0700
+ExecStart=/usr/bin/podman run --rm --name=%N --sdnotify=conmon --stop-signal=SIGINT \
+  --network=pasta:--map-host-loopback=169.254.1.2 \
+  --volume=${STATE_DIRECTORY}:/recordings \
+  docker.io/widerin/vnc-recorder@sha256:6c48d9bf084bbfa93c9bcaba4fe28bd35a82b6eae8d9aaa52b6a2fde1a254c0a \
+  --host 169.254.1.2 --password "" --framerate 15 --crf 23 \
+  --outfile /recordings/screen-${INVOCATION_ID}.mp4
+ExecStop=/usr/bin/podman stop --ignore %N
