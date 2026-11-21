@@ -2,3 +2,4 @@
 
 export EVANS_WORKSPACE="$HOME/workspace"
 export AGENT_BROWSER_CONFIG="$XDG_CONFIG_HOME/agent-browser/config.json"
+export AGENT_BROWSER_CDP=9223
