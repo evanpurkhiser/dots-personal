@@ -38,6 +38,9 @@ conventions (prefixes, scopes, tone).
   unless a repository template requires them
   or the change has a specific verification concern reviewers need to
   understand.
+- When sharing a GitHub pull request for review, prefer its Linear review URL.
+  Replace `github.com` with `linear.review` in the PR URL,
+  for example `https://linear.review/owner/repo/pull/123`.
 - Wrap commit body lines at 80 characters.
 - For commit shaping tasks
   (split commits, hunk/line-range staging, selective unstaging, fixups),
