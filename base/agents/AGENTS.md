@@ -63,6 +63,12 @@ conventions (prefixes, scopes, tone).
   or scope decision than the request implied,
   pause and review the design before proceeding.
 
+## Commit hooks
+
+- If you need a separate checkout,
+  prefer a Git worktree over a temporary clone
+  so the existing pre-commit hooks apply.
+
 ## Code Style
 
 - Prefer high cohesion and low coupling.
