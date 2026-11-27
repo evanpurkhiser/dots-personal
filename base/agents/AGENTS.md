@@ -68,7 +68,6 @@ conventions (prefixes, scopes, tone).
 - If you need a separate checkout,
   prefer a Git worktree over a temporary clone
   so the existing pre-commit hooks apply.
-  If you use a clone, install the repository's hooks before committing.
 
 ## Code Style
 
