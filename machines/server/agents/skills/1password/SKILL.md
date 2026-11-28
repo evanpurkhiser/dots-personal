@@ -37,6 +37,28 @@ session cleanup, and browser setup.
 Load it before the first `psst` handoff command
 so its instructions stay aligned with the installed binary.
 
+### Share links sent in chat
+
+Evan can send a short-lived 1Password share link directly in chat.
+When he sends one for the current task,
+use it as the handoff without asking him to share it again.
+This is an exception to the `psst skill` guidance about including a literal link
+in a tool call.
+Use the link only as input to `psst open`.
+
+For example, if Evan sends a `https://share.1password.com/s#…` link
+and asks you to use it to sign in to Fastmail,
+run the following with the URL he sent in place of `<share-url>`:
+
+```bash
+printf '%s' '<share-url>' | psst open
+```
+
+Use the session ID returned by `psst open` to continue the task.
+Omit the URL from replies.
+
+### Fill a browser control
+
 Fill an identified browser control directly from an exact psst field selector:
 
 ```console
