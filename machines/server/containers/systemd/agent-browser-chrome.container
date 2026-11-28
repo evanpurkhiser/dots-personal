@@ -17,10 +17,11 @@ AddDevice=/dev/dri/renderD128
 Volume=agent-browser-chrome-profile.volume:/home/browser/profile:U
 Volume=/home/evan/.local/share/psst:/opt/psst:ro
 Volume=/home/evan/.local/share/psst/container-external-extension:/opt/google/chrome/extensions:ro
-HealthCmd=curl -fsS http://127.0.0.1:9223/json/version
+HealthCmd=curl -fsS --max-time 2 http://127.0.0.1:9223/json/version
 HealthInterval=10s
 HealthTimeout=5s
 HealthRetries=6
+HealthOnFailure=kill
 Notify=healthy
 
 [Service]
